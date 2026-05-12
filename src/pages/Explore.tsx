@@ -1,0 +1,375 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import { motion, useAnimation, PanInfo } from 'motion/react';
+import { ChevronLeft, MapPin, Search, Navigation } from 'lucide-react';
+import { FaHeart, FaStar } from 'react-icons/fa';
+import { useAppContext } from '../context/AppContext';
+import { HOSTELS } from '../data';
+import { PropertyCard } from '../components/PropertyCard';
+
+// Dummy icon for exact location
+const getCustomIcon = (price: string) => new L.DivIcon({
+  className: 'custom-marker',
+  html: `
+    <div style="background:white;padding:5px 10px;border-radius:9px;font-size:0.78rem;font-weight:800;color:#0f0e2e;box-shadow:0 4px 12px rgba(55,48,163,.2);position:relative;white-space:nowrap;display:flex;align-items:center;gap:4px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      ${price}
+      <div style="content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border-width:5px 5px 0;border-style:solid;border-color:white transparent transparent;"></div>
+    </div>
+  `,
+  iconSize: [80, 30],
+  iconAnchor: [40, 30],
+});
+
+interface Offsets {
+  [id: number]: { lat: number; lng: number };
+}
+
+const MapUpdater = ({ center }: { center: [number, number] | null }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (center) {
+      map.setView(center, map.getZoom(), { animate: true, duration: 0.4 });
+    }
+  }, [center, map]);
+  return null;
+};
+
+export const Explore: React.FC = () => {
+  const { setCurrentView, deductCredits, savedHostels, toggleSave, setSelectedHostelId } = useAppContext();
+  
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isBlurred, setIsBlurred] = useState(false);
+  
+  // Drawer states
+  const drawerControls = useAnimation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Calculate offsets once
+  const [offsets] = useState<Offsets>(() => {
+    const o: Offsets = {};
+    HOSTELS.forEach(h => {
+      // Random offset ~0.002
+      const latOffset = (Math.random() - 0.5) * 0.004;
+      const lngOffset = (Math.random() - 0.5) * 0.004;
+      o[h.id] = { lat: h.lat + latOffset, lng: h.lng + lngOffset };
+    });
+    return o;
+  });
+
+  const [peekHostelId, setPeekHostelId] = useState<number | null>(null);
+
+  const peekHostel = peekHostelId ? HOSTELS.find(h => h.id === peekHostelId) : null;
+
+  const handleMapOverlayClick = () => {
+    if (!isUnlocked) {
+      setIsBlurred(true);
+    }
+  };
+
+  const unlockLocation = () => {
+    if (deductCredits(100)) {
+      setIsUnlocked(true);
+      setIsBlurred(false);
+    }
+  };
+
+  const snapTo = (state: 'peek' | 'half' | 'full') => {
+    if (!containerRef.current) return;
+    const height = containerRef.current.offsetHeight;
+    
+    let y = 0;
+    if (state === 'full') y = 0; // Top of container
+    if (state === 'half') y = height * 0.5;
+    if (state === 'peek') y = height - 110; // 110px from bottom
+
+    drawerControls.start({ y, transition: { type: 'spring', bounce: 0, duration: 0.4 } });
+  };
+
+  // Initial snap to half
+  useEffect(() => {
+    snapTo('half');
+  }, []);
+
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (!containerRef.current) return;
+    const height = containerRef.current.offsetHeight;
+    const currentY = info.point.y;
+    const velocity = info.velocity.y;
+
+    // Determine target based on position and velocity
+    const targets = [
+      { state: 'full', y: 0 },
+      { state: 'half', y: height * 0.5 },
+      { state: 'peek', y: height - 110 }
+    ];
+
+    // Predict endpoint using velocity
+    const predictedY = currentY + velocity * 0.2;
+    
+    let closestTarget = targets[0];
+    let minDiff = Math.abs(predictedY - targets[0].y);
+
+    targets.forEach(t => {
+      const diff = Math.abs(predictedY - t.y);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestTarget = t;
+      }
+    });
+
+    snapTo(closestTarget.state as 'peek' | 'half' | 'full');
+  };
+
+  // Center on Legon area roughly
+  const centerLat = 5.6450;
+  const centerLng = -0.1900;
+
+  return (
+    <div className="relative w-full h-[100dvh] overflow-hidden" ref={containerRef}>
+      {/* Top Bar over map */}
+      <div className="absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
+        <div className="flex items-start justify-between w-full mb-4">
+          <button 
+            onClick={() => setCurrentView('home')}
+            className="w-10 h-10 rounded-[14px] bg-white/90 backdrop-blur shadow-sm flex items-center justify-center text-indigo pointer-events-auto active:scale-95 transition-transform"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          
+          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-10">
+            <div className="bg-white backdrop-blur shadow-sm rounded-[14px] px-3 sm:px-4 flex items-center gap-2 border border-indigo-light h-full">
+              <Search size={16} className="text-indigo shrink-0" />
+              <input 
+                type="text" 
+                placeholder="Search hostels, areas..." 
+                className="bg-transparent border-none outline-none w-full text-[0.85rem] font-medium text-text-primary placeholder:text-slate-400"
+              />
+            </div>
+          </div>
+
+          <button className="w-10 h-10 rounded-[14px] bg-indigo flex items-center justify-center text-white shadow-sm pointer-events-auto relative">
+            <Navigation size={18} />
+            <span className="absolute -top-[2px] -right-[2px] w-2.5 h-2.5 rounded-full bg-amber-glow border-2 border-white"></span>
+          </button>
+        </div>
+
+        {/* Filter Chips */}
+        <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pointer-events-auto pb-2">
+          {['All', 'Private', 'Shared', 'Near Campus', 'Budget', 'Wi-Fi'].map((filter, i) => (
+            <button 
+              key={filter}
+              className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
+                ${i === 0 
+                  ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                  : 'bg-white/90 backdrop-blur text-text-muted border-white hover:bg-white'}`}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
+        {/* Result Badge */}
+        <div className="inline-flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
+          <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
+          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{HOSTELS.length} hostels nearby</span>
+        </div>
+      </div>
+
+      {/* Map Container */}
+      <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out ${isBlurred ? 'blur-md grayscale-[50%]' : ''}`}>
+        <MapContainer center={[centerLat, centerLng]} zoom={14} className="w-full h-full z-0" zoomControl={false}>
+          <TileLayer
+            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+            attribution="Google Maps"
+            maxZoom={20}
+          />
+          <MapUpdater center={peekHostel ? [isUnlocked ? peekHostel.lat : offsets[peekHostel.id].lat, isUnlocked ? peekHostel.lng : offsets[peekHostel.id].lng] : null} />
+          
+          {HOSTELS.map(h => {
+             const offset = offsets[h.id];
+             const displayLat = isUnlocked ? h.lat : offset.lat;
+             const displayLng = isUnlocked ? h.lng : offset.lng;
+             return (
+               <React.Fragment key={h.id}>
+                 <Circle 
+                   center={[displayLat, displayLng]}
+                   radius={200}
+                   pathOptions={{ fillColor: '#3730a3', color: 'transparent', fillOpacity: 0.08 }}
+                 />
+                 <Marker 
+                   position={[displayLat, displayLng]} 
+                   icon={getCustomIcon(h.price)} 
+                   eventHandlers={{ click: () => { 
+                     setPeekHostelId(h.id); 
+                     snapTo('peek'); // hide drawer to bottom
+                   } }}
+                 />
+               </React.Fragment>
+             );
+          })}
+        </MapContainer>
+      </div>
+
+      {/* Invisible Overlay for Obfuscation Trigger */}
+      {!isUnlocked && !isBlurred && (
+        <div 
+          className="absolute inset-0 z-[5]" 
+          onClick={handleMapOverlayClick}
+        />
+      )}
+
+      {/* Unlock UI */}
+      {isBlurred && !isUnlocked && (
+        <div className="absolute inset-0 z-[1000] flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm px-6">
+          <div className="bg-white rounded-3xl p-6 shadow-float max-w-[320px] w-full text-center mb-24">
+            <div className="w-16 h-16 bg-amber-light text-amber-glow rounded-full flex items-center justify-center mx-auto mb-4 border border-amber/20">
+              <MapPin size={32} />
+            </div>
+            <h3 className="font-fraunces text-xl font-bold text-indigo-dark mb-2">Unlock Exact Locations</h3>
+            <p className="text-sm text-text-muted mb-6 leading-relaxed">
+              For security, exact hostel buildings are hidden. Spend 100 credits to reveal accurate map markers for all locations.
+            </p>
+            
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={unlockLocation}
+                className="w-full bg-indigo text-white font-bold py-3.5 rounded-xl shadow-md active:scale-[0.98] transition-transform"
+              >
+                Unlock (100 Credits)
+              </button>
+              <button 
+                onClick={() => setIsBlurred(false)}
+                className="w-full bg-transparent text-text-muted font-bold py-3.5 rounded-xl active:scale-[0.98] transition-transform hover:bg-app-bg"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Peek Card (shows above drawer) */}
+      <div className={`absolute left-4 right-4 z-[1050] bg-white rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border border-indigo-light flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+        {peekHostel && (
+          <>
+            <button 
+              className="absolute top-2.5 right-2.5 text-text-muted hover:text-text-primary p-1"
+              onClick={() => setPeekHostelId(null)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
+              <img src={peekHostel.img} alt={peekHostel.name} className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-1 min-w-0 pr-6">
+              <div className="font-fraunces text-[0.98rem] font-bold text-text-primary mb-1 truncate">
+                {peekHostel.name}
+              </div>
+              <div className="text-[0.73rem] text-text-muted mb-[6px] flex items-center gap-1">
+                <MapPin size={10} className="text-amber-glow" /> Area: {peekHostel.loc}
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="font-fraunces text-base font-bold text-text-primary">
+                  {peekHostel.price} <span className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
+                </div>
+                <button 
+                  onClick={() => { setSelectedHostelId(peekHostel.id); setCurrentView('details'); }}
+                  className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem] font-bold cursor-pointer transition-colors hover:bg-indigo-dark"
+                >
+                  View →
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Bottom Drawer */}
+      <motion.div
+        animate={drawerControls}
+        drag="y"
+        dragConstraints={{ top: 0, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
+        dragElastic={0.1}
+        onDragEnd={handleDragEnd}
+        className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
+      >
+        {/* Drawer Handle */}
+        <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0">
+          <div className="w-12 h-1.5 bg-indigo-light rounded-full"></div>
+        </div>
+        
+        {/* Scrollable Content inside Drawer */}
+        <div className="flex-1 overflow-y-auto px-5 pb-10 hide-scrollbar"
+             onPointerDown={(e) => {
+               // Prevent dragging the drawer when scrolling inside it unless at the very top
+               const target = e.currentTarget;
+               if (target.scrollTop > 0) {
+                 e.stopPropagation();
+               }
+             }}
+        >
+          <div className="flex justify-between items-center px-1 mb-4">
+            <h2 className="font-fraunces text-[1.15rem] font-bold text-text-primary">Nearby Hostels</h2>
+            <button className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
+              <Navigation size={12} className="rotate-180" />
+              <span>Price ↑</span>
+            </button>
+          </div>
+          
+          <div className="flex flex-col gap-3">
+            {HOSTELS.map(hostel => (
+              <div 
+                key={hostel.id} 
+                className="w-full bg-white rounded-[18px] border border-indigo-light/50 p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
+                onClick={() => { setSelectedHostelId(hostel.id); setCurrentView('details'); }}
+              >
+                <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
+                  <img src={hostel.img} alt={hostel.name} className="w-full h-full object-cover transition-transform duration-400 hover:scale-105" />
+                  <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-[#0f0e2e]/80 backdrop-blur-[4px] text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-md whitespace-nowrap">
+                    {hostel.price}
+                  </div>
+                </div>
+
+                <div className="flex flex-col flex-1 min-w-0 py-0.5">
+                  <div className="flex items-start justify-between mb-1 gap-2">
+                    <h3 className="font-fraunces text-[0.95rem] font-bold text-text-primary truncate">
+                      {hostel.name}
+                    </h3>
+                    <div className="flex items-center gap-[3px] text-[0.75rem] font-semibold text-text-primary shrink-0">
+                      <FaStar className="text-amber-400" size={10} /> {hostel.rating}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1 text-[0.75rem] text-text-muted mb-2 truncate">
+                    <MapPin size={10} className="text-amber-glow shrink-0" />
+                    <span className="truncate">Area: {hostel.loc}</span>
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap gap-1.5">
+                    {hostel.tags.map((tag, i) => (
+                      <span key={i} className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap
+                        ${tag === 'wifi' ? 'bg-indigo-light text-indigo' : 
+                          tag === 'sec' ? 'bg-teal-light text-teal' : 
+                          tag === 'gen' ? 'bg-amber-light text-amber-600' : 'bg-slate-100 text-slate-500'}`}
+                      >
+                        {tag === 'wifi' && 'Wi-Fi'}
+                        {tag === 'sec' && 'Secure'}
+                        {tag === 'gen' && '24h Power'}
+                        {!['wifi', 'sec', 'gen'].includes(tag) && tag}
+                      </span>
+                    ))}
+                    <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap bg-green-light text-green-600">
+                      {hostel.avail}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};

@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&display=swap');
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
+  
+  --color-indigo: #3730a3;
+  --color-indigo-dark: #1e1b4b;
+  --color-indigo-light: #e0e7ff;
+  --color-indigo-mid: #4f46e5;
+  --color-amber: #d97706;
+  --color-amber-light: #fef3c7;
+  --color-amber-glow: #f97316;
+  --color-coral: #e11d48;
+  --color-coral-light: #ffe4e6;
+  --color-teal: #0d9488;
+  --color-teal-light: #ccfbf1;
+  --color-green: #16a34a;
+  --color-green-light: #dcfce7;
+  --color-app-bg: #f8f7ff;
+  --color-card-bg: #ffffff;
+  
+  --color-text-primary: #1e1b4b;
+  --color-text-muted: #6b7280;
+  
+  --shadow-card: 0 2px 16px rgba(55,48,163,0.09);
+  --shadow-float: 0 8px 32px rgba(55,48,163,0.15);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-app-bg);
+  color: var(--color-text-primary);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
