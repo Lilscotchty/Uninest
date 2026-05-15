@@ -48,7 +48,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
      }
   };
 
-  let borderClass = "border-black/5 focus:border-indigo";
+  let borderClass = "border-border-subtle focus:border-indigo";
   if (status === 'SUCCESS') borderClass = "border-green-500";
   if (status === 'ERROR') borderClass = "border-coral";
 
@@ -85,7 +85,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
             Location Verified in {locationData.district || locationData.region}
           </div>
           
-          <div className="h-[150px] w-full rounded-2xl overflow-hidden border border-black/10 shadow-sm relative z-0">
+          <div className="h-[150px] w-full rounded-2xl overflow-hidden border border-border-subtle shadow-sm relative z-0">
             <MapContainer 
               center={[locationData.lat, locationData.lng]} 
               zoom={16} 
@@ -103,6 +103,15 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
               <Marker position={[locationData.lat, locationData.lng]} icon={customMarkerIcon} />
             </MapContainer>
           </div>
+          <a
+            href={`https://www.google.com/maps?q=${locationData.lat},${locationData.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-indigo text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-[0.98] mt-1 hover:bg-indigo-dark"
+          >
+            <MapPin size={16} />
+            Open in Google Maps
+          </a>
         </div>
       )}
 

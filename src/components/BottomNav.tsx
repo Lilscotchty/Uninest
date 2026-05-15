@@ -6,7 +6,7 @@ export const BottomNav: React.FC = () => {
   const { currentView, setCurrentView, showToast } = useAppContext();
 
   return (
-    <div className="absolute bottom-0 w-full bg-white flex justify-around py-3 pb-6 border-t border-indigo-light/50 shadow-[0_-4px_20px_rgba(55,48,163,0.06)] z-50">
+    <div className="absolute bottom-0 w-full bg-card-bg flex justify-around py-3 pb-6 border-t border-border-subtle shadow-[0_-4px_20px_rgba(55,48,163,0.06)] z-50">
       <button 
         onClick={() => setCurrentView('home')}
         className={`flex flex-col items-center gap-1 transition-colors ${currentView === 'home' ? 'text-indigo' : 'text-gray-400'}`}

@@ -70,7 +70,7 @@ export const Home: React.FC = () => {
       <div className="px-5 -mt-10 relative z-20 mb-4">
         <div 
           onClick={() => showToast('Search coming soon')}
-          className="bg-white rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-indigo-light cursor-pointer transition-transform hover:-translate-y-[1px]"
+          className="bg-card-bg rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-border-subtle cursor-pointer transition-transform hover:-translate-y-[1px]"
         >
           <div className="w-9 h-9 rounded-[10px] flex items-center justify-center">
             <MapPin size={16} className="text-amber-glow" />
@@ -90,7 +90,7 @@ export const Home: React.FC = () => {
             className={`flex flex-row items-center gap-1.5 shrink-0 px-4 py-2 rounded-full text-[0.82rem] font-medium transition-all shadow-[0_1px_4px_rgba(55,48,163,0.06)] border ${
               activeFilter === f.id 
                 ? 'bg-indigo text-white border-indigo shadow-[0_4px_12px_rgba(55,48,163,0.25)]' 
-                : 'bg-white text-text-muted border-indigo-light/50 hover:bg-app-bg'
+                : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'
             }`}
           >
             {f.icon}
@@ -102,7 +102,7 @@ export const Home: React.FC = () => {
       {/* NEARBY HOSTELS */}
       <div className="mt-4 mb-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-sans text-[1.15rem] sm:text-[1.25rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
+          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
           <span className="text-[0.82rem] font-semibold text-indigo cursor-pointer tracking-tight">See all →</span>
         </div>
         
@@ -130,7 +130,7 @@ export const Home: React.FC = () => {
         <div className="absolute -top-[30px] -right-[30px] w-[100px] h-[100px] rounded-full bg-white/10" />
         <div className="relative z-10">
           <p className="text-white/65 text-[0.75rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 First semester deal</p>
-          <h3 className="font-fraunces text-white text-[1.1rem] font-bold leading-tight">15% off your<br/>first booking</h3>
+          <h3 className="text-white text-[1.1rem] font-bold leading-tight">15% off your<br/>first booking</h3>
         </div>
         <button 
           onClick={() => showToast('Promo code: DWELL15')}
@@ -143,11 +143,11 @@ export const Home: React.FC = () => {
       {/* QUICK ACTIONS */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-sans text-[1.15rem] sm:text-[1.25rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
+          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
         <div className="grid grid-cols-2 gap-3.5 px-4 sm:px-5 pb-4">
-          <div className="bg-white rounded-[18px] p-4 border border-indigo-light shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => showToast('Virtual tours coming soon')}>
+          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+               onClick={() => setCurrentView('virtual-tour')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
                 <Video size={18} />
@@ -160,8 +160,8 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-[18px] p-4 border border-indigo-light shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => showToast('Price alerts activated!')}>
+          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+               onClick={() => setCurrentView('price-alerts')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
                 <Bell size={18} />
@@ -174,8 +174,8 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-[18px] p-4 border border-indigo-light shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => showToast('Comparing nearby options...')}>
+          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+               onClick={() => setCurrentView('compare')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-indigo-light text-indigo">
                 <Scale size={18} />
@@ -188,8 +188,8 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-[18px] p-4 border border-indigo-light shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => showToast('Roommate matcher opening...')}>
+          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+               onClick={() => setCurrentView('roommate')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-coral-light text-coral">
                 <UserPlus size={18} />
@@ -207,17 +207,17 @@ export const Home: React.FC = () => {
       {/* FEATURED CAROUSEL */}
       <div className="mt-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-sans text-[1.15rem] sm:text-[1.25rem] font-black tracking-tight text-text-primary">Featured Picks</h2>
+          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Featured Picks</h2>
         </div>
         <div className="px-4 sm:px-5">
-          <div className="flex gap-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar rounded-[20px] border border-indigo-light shadow-float scroll-smooth" ref={trackRef} onScroll={(e) => {
+          <div className="flex gap-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar rounded-[20px] border border-border-subtle shadow-float scroll-smooth" ref={trackRef} onScroll={(e) => {
             const track = e.currentTarget;
             if (track.clientWidth === 0) return;
             const idx = Math.round(track.scrollLeft / track.clientWidth);
             setCurrentFeatured(idx);
           }}>
             {featuredHostels.map((feat, i) => (
-              <div key={i} className="min-w-full snap-start bg-white rounded-[20px] overflow-hidden">
+              <div key={i} className="min-w-full snap-start bg-card-bg rounded-[20px] overflow-hidden">
                 <img src={feat.img} alt={feat.name} className="w-full h-[170px] object-cover" />
                 <div className="p-[18px]">
                   <span className={`inline-block text-[0.7rem] font-bold px-[8px] py-[3px] rounded-[6px] mb-2 uppercase tracking-[0.4px] ${
@@ -253,9 +253,9 @@ export const Home: React.FC = () => {
       {/* TESTIMONIAL */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-sans text-[1.15rem] sm:text-[1.25rem] font-black tracking-tight text-text-primary">What Students Say</h2>
+          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">What Students Say</h2>
         </div>
-        <div className="mx-4 sm:mx-5 mb-[4px] bg-white rounded-[18px] p-[18px] border border-indigo-light shadow-card group">
+        <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border border-border-subtle shadow-card group">
           <div className="flex items-center gap-[12px] mb-[12px]">
             <div className="w-[40px] h-[40px] rounded-full bg-indigo-light flex items-center justify-center font-bold text-[0.85rem] text-indigo shrink-0">
               {testimonials[tIdx].init}
@@ -280,10 +280,10 @@ export const Home: React.FC = () => {
       {/* MAP VIEW */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-sans text-[1.15rem] sm:text-[1.25rem] font-black tracking-tight text-text-primary">Map View</h2>
+          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
-          <div className="h-[200px] rounded-[18px] overflow-hidden border border-indigo-light shadow-card relative cursor-pointer" onClick={() => { setCurrentView('explore'); showToast('Explore map opening...'); }}>
+          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer" onClick={() => { setCurrentView('explore'); showToast('Explore map opening...'); }}>
              <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full" zoomControl={false} dragging={false}>
                <TileLayer
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"

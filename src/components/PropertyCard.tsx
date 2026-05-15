@@ -13,7 +13,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
   return (
     <div 
       onClick={onClick}
-      className="w-[180px] sm:w-[200px] min-w-[180px] sm:min-w-[200px] bg-card-bg rounded-[20px] border border-indigo-light shadow-card overflow-hidden flex flex-col cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] shrink-0"
+      className="w-[180px] sm:w-[200px] min-w-[180px] sm:min-w-[200px] bg-card-bg rounded-[20px] border border-border-subtle shadow-card overflow-hidden flex flex-col cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] shrink-0"
     >
       {/* Image Container */}
       <div className="relative h-[130px] overflow-hidden group">
@@ -27,7 +27,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
         </div>
         <button 
           onClick={(e) => { e.stopPropagation(); onToggleSave(hostel.id); }}
-          className="absolute top-2.5 right-2.5 bg-white/90 border-none rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer shadow-md transition-transform duration-200 hover:scale-115 active:scale-95"
+          className="absolute top-2.5 right-2.5 bg-card-bg/90 border-none rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer shadow-md transition-transform duration-200 hover:scale-115 active:scale-95"
         >
           <FaHeart className={`text-[0.85rem] transition-colors duration-200 ${isSaved ? 'text-coral' : 'text-gray-300'}`} />
         </button>
@@ -44,7 +44,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
           </div>
         </div>
         
-        <h3 className="font-fraunces text-[0.85rem] sm:text-[0.98rem] font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+        <h3 className="text-[0.85rem] sm:text-[0.98rem] font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
           {hostel.name}
         </h3>
         

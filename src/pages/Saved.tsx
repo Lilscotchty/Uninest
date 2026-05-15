@@ -21,20 +21,30 @@ export const Saved: React.FC = () => {
   });
 
   return (
-    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
-      {/* Top Header */}
-      <div className="bg-white px-5 pt-12 pb-4 flex justify-between items-center border-b border-black/5 relative z-10 w-full shrink-0">
-        <div className="flex flex-col">
-          <h1 className="font-fraunces text-2xl font-bold text-text-primary leading-tight tracking-tight">Saved</h1>
-          <span className="text-xs text-text-muted font-medium mt-1">{allSavedItems.length} properties saved</span>
-        </div>
-        <button 
-          onClick={() => showToast('Compare mode activated')}
-          className="bg-indigo-light text-indigo border-none rounded-xl py-2 px-3.5 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all hover:bg-indigo-light/80"
-        >
-          <ArrowRightLeft size={14} /> Compare
-        </button>
-      </div>
+   <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
+  {/* Top Header - Updated to Panorra360 Style */}
+  <div className="bg-card-bg h-[60px] flex items-center justify-center border-b border-border-subtle relative z-10 w-full shrink-0">
+    
+    {/* Left Action (Optional: if you need a back button later) */}
+    <div className="absolute left-4">
+      {/* Back icon would go here */}
+    </div>
+
+    {/* Centered Title */}
+    <h1 className="text-[17px] font-semibold text-text-primary tracking-wide">
+      Saved
+    </h1>
+
+    {/* Right Action (Compare Button) */}
+    <div className="absolute right-4">
+      <button 
+        onClick={() => showToast('Compare mode activated')}
+        className="text-indigo text-xs font-bold cursor-pointer flex items-center gap-1 hover:opacity-80"
+      >
+        <ArrowRightLeft size={16} />
+      </button>
+    </div>
+  </div>
 
       {/* Filter Chips */}
       <div className="px-5 pt-4 pb-2 flex gap-2 overflow-x-auto hide-scrollbar bg-app-bg w-full shrink-0">
@@ -46,7 +56,7 @@ export const Saved: React.FC = () => {
               key={filterItem}
               onClick={() => setActiveSavedFilter(filterKey)}
               className={`px-4 py-2 rounded-full border-[1.5px] text-xs font-semibold whitespace-nowrap cursor-pointer transition-all shadow-[0_2px_6px_rgba(0,0,0,0.03)]
-                ${isActive ? 'bg-indigo text-white border-indigo shadow-float' : 'bg-white text-text-muted border-black/5 hover:bg-gray-50'}`}
+                ${isActive ? 'bg-indigo text-white border-indigo shadow-float' : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
             >
               {filterItem}
             </button>
@@ -75,7 +85,7 @@ export const Saved: React.FC = () => {
             <div key={h.id} className="flex flex-col relative origin-center transition-all animate-in fade-in slide-in-from-bottom-4 duration-500 group">
               <div className="w-full h-[220px] rounded-[20px] overflow-hidden relative shadow-card bg-slate-200">
                 {isAvail(h.avail) && (
-                  <span className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md text-teal text-[0.65rem] font-bold px-2.5 py-1.5 rounded-lg uppercase tracking-wide z-10 shadow-sm">
+                  <span className="absolute top-3.5 left-3.5 bg-card-bg/95 backdrop-blur-md text-teal text-[0.65rem] font-bold px-2.5 py-1.5 rounded-lg uppercase tracking-wide z-10 shadow-sm">
                     Available
                   </span>
                 )}
@@ -87,7 +97,7 @@ export const Saved: React.FC = () => {
                     toggleSave(h.id);
                     showToast('Bookmark removed');
                   }}
-                  className="absolute top-3.5 right-3.5 bg-white/85 backdrop-blur-md text-indigo w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-indigo hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
+                  className="absolute top-3.5 right-3.5 bg-card-bg/85 backdrop-blur-md text-indigo w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-indigo hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
                 >
                   <Bookmark size={18} fill="currentColor" />
                 </button>
@@ -100,7 +110,7 @@ export const Saved: React.FC = () => {
 
               <div className="pt-3.5 px-1.5">
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-fraunces text-[1.25rem] font-bold text-text-primary mr-2.5 leading-tight">{h.name}</h3>
+                  <h3 className="font-fraunces text-[1.1rem] font-bold text-text-primary mr-2.5 leading-tight">{h.name}</h3>
                   <div className="text-[0.85rem] font-bold text-text-primary flex items-center gap-1 pt-0.5 shrink-0">
                     <Star size={13} fill="#fbbf24" stroke="none" /> {h.rating}
                   </div>

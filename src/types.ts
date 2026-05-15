@@ -15,12 +15,11 @@ export interface Hostel {
 }
 
 export interface AppState {
-  credits: number; // Defaults to 500
   savedHostels: number[]; // Array of saved hostel IDs
   activeFilter: string; // Defaults to 'all'
 }
 
 export interface ViewState {
-  currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup';
+  currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate';
   selectedHostelId: number | null;
 }

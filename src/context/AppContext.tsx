@@ -2,10 +2,11 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { AppState, ViewState } from '../types';
 
 interface AppContextType extends AppState, ViewState {
-  deductCredits: (amount: number) => boolean;
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
   toggleSave: (id: number) => void;
   setActiveFilter: (filter: string) => void;
-  setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup') => void;
+  setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate') => void;
   setSelectedHostelId: (id: number | null) => void;
   toastMessage: string | null;
   clearToast: () => void;
@@ -15,21 +16,14 @@ interface AppContextType extends AppState, ViewState {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [credits, setCredits] = useState(500);
   const [savedHostels, setSavedHostels] = useState<number[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate'>('home');
   const [selectedHostelId, setSelectedHostelId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  const deductCredits = (amount: number) => {
-    if (credits - amount < 0) {
-      setToastMessage('Insufficient credits!');
-      return false;
-    }
-    setCredits((prev) => prev - amount);
-    return true;
-  };
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   const toggleSave = (id: number) => {
     setSavedHostels((prev) =>
@@ -43,12 +37,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   return (
     <AppContext.Provider
       value={{
-        credits,
         savedHostels,
         activeFilter,
         currentView,
         selectedHostelId,
-        deductCredits,
         toggleSave,
         setActiveFilter,
         setCurrentView,
@@ -56,6 +48,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         toastMessage,
         clearToast,
         showToast,
+        theme,
+        toggleTheme,
       }}
     >
       {children}

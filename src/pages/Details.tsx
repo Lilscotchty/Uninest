@@ -51,8 +51,6 @@ export const Details: React.FC = () => {
     currentView,
     setCurrentView,
     selectedHostelId,
-    credits,
-    deductCredits,
     showToast,
     savedHostels,
     toggleSave,
@@ -65,10 +63,6 @@ export const Details: React.FC = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const [is360Unlocked, setIs360Unlocked] = useState(false);
-  const [isContactUnlocked, setIsContactUnlocked] = useState(false);
-  const [isMapUnlocked, setIsMapUnlocked] = useState(false);
-
   const [descExpanded, setDescExpanded] = useState(false);
   const fullDesc = `Located perfectly for students looking to minimize their commute. ${hostel.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living. The rooms are fully tiled, spacious, and recently renovated with fresh interiors.\n\nEach room comes with an in-built wardrobe, study desk, and fan. The compound is gated and guarded around the clock. Utility bills (water) are included in the semester fee, making budgeting simple and stress-free.`;
 
@@ -77,11 +71,6 @@ export const Details: React.FC = () => {
   >("single");
 
   // Modals
-  const [unlockContext, setUnlockContext] = useState<{
-    type: string;
-    target: string;
-    cost: number;
-  } | null>(null);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
   const rooms = {
@@ -119,19 +108,6 @@ export const Details: React.FC = () => {
 
   const selectedRoom = rooms[activeRoomMode];
 
-  const handleUnlockConfirm = () => {
-    if (!unlockContext) return;
-
-    if (deductCredits(unlockContext.cost)) {
-      if (unlockContext.type === "Contact") setIsContactUnlocked(true);
-      if (unlockContext.type === "Location") setIsMapUnlocked(true);
-      if (unlockContext.type === "360 Tour") setIs360Unlocked(true);
-
-      showToast(`✅ ${unlockContext.type} unlocked!`);
-      setUnlockContext(null);
-    }
-  };
-
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar bg-slate-200 relative pb-[100px]">
       {/* GALLERY */}
@@ -139,19 +115,15 @@ export const Details: React.FC = () => {
         <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
           <button
             onClick={() => setCurrentView("home")}
-            className="w-11 h-11 rounded-full bg-white/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
           >
             <ChevronLeft size={20} />
           </button>
 
           <div className="flex gap-2.5 items-center">
-            <div className="h-9 px-3 rounded-xl bg-black/50 backdrop-blur-md flex items-center gap-1.5 text-white font-bold text-[0.85rem] border border-white/20">
-              <Coins size={14} className="text-amber-400" />
-              <span>{credits}</span>
-            </div>
             <button
               onClick={() => toggleSave(hostel.id)}
-              className="w-11 h-11 rounded-full bg-white/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
             >
               {isSaved ? (
                 <FaHeart className="text-coral" size={18} />
@@ -161,7 +133,7 @@ export const Details: React.FC = () => {
             </button>
             <button
               onClick={() => showToast("Link copied!")}
-              className="w-11 h-11 rounded-full bg-white/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
             >
               <ArrowUpFromLine size={18} />
             </button>
@@ -189,28 +161,6 @@ export const Details: React.FC = () => {
           ))}
           {/* 360 Slide */}
           <div className="min-w-full h-full snap-start relative bg-slate-900">
-            {!is360Unlocked ? (
-              <>
-                <img
-                  src={hostel.img}
-                  className="w-full h-full object-cover blur-sm pointer-events-none"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-white/30">
-                  <button
-                    onClick={() =>
-                      setUnlockContext({
-                        type: "360 Tour",
-                        target: "Room",
-                        cost: 50,
-                      })
-                    }
-                    className="bg-indigo text-white font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-float active:scale-95 transition-transform"
-                  >
-                    <Lock size={16} /> Reveal 360 Tour
-                  </button>
-                </div>
-              </>
-            ) : (
               <Pannellum
                 width="100%"
                 height="100%"
@@ -220,7 +170,6 @@ export const Details: React.FC = () => {
                 hfov={110}
                 autoLoad
               />
-            )}
           </div>
         </div>
 
@@ -288,10 +237,10 @@ export const Details: React.FC = () => {
         </div>
 
         <div className="flex justify-between items-start mb-2 gap-2">
-          <h1 className="font-fraunces text-[1.60rem] sm:text-[1.85rem] font-bold text-text-primary leading-[1.1] tracking-[-0.5px] break-words">
+          <h1 className="font-fraunces text-[1.4rem] sm:text-[1.85rem] font-bold text-text-primary leading-[1.1] tracking-[-0.5px] break-words">
             {hostel.name}
           </h1>
-          <div className="bg-white border border-slate-100 shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
+          <div className="bg-card-bg border border-border-subtle shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
             <Star size={14} className="fill-amber-400 text-amber-400" />
             <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
               {hostel.rating}
@@ -308,9 +257,9 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 bg-slate-50/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-slate-100">
+        <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
           <div className="text-center py-2 sm:py-2.5">
-            <strong className="block font-fraunces text-[1rem] sm:text-[1.15rem] font-bold text-text-primary mb-0.5">
+            <strong className="block font-fraunces text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
               {hostel.price.split(",")[0]}K
             </strong>
             <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -318,7 +267,7 @@ export const Details: React.FC = () => {
             </span>
           </div>
           <div className="text-center py-2 sm:py-2.5">
-            <strong className="block font-fraunces text-[1rem] sm:text-[1.15rem] font-bold text-text-primary mb-0.5">
+            <strong className="block font-fraunces text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
               {hostel.reviews}
             </strong>
             <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -326,7 +275,7 @@ export const Details: React.FC = () => {
             </span>
           </div>
           <div className="text-center py-2 sm:py-2.5">
-            <strong className="block font-fraunces text-[1rem] sm:text-[1.15rem] font-bold text-text-primary mb-0.5">
+            <strong className="block font-fraunces text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
               3 min
             </strong>
             <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -336,10 +285,10 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Host */}
-        <h2 className="font-fraunces text-[1.25rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Listed by
         </h2>
-        <div className="bg-white rounded-[20px] p-3 sm:p-4 border border-slate-100 shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
+        <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border border-border-subtle shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
           <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-indigo-light to-indigo flex items-center justify-center text-white font-fraunces font-bold text-[1.2rem]">
             C
           </div>
@@ -355,74 +304,57 @@ export const Details: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
-            {!isContactUnlocked ? (
-              <button
-                onClick={() =>
-                  setUnlockContext({
-                    type: "Contact",
-                    target: "Mr. Carter",
-                    cost: 100,
-                  })
-                }
-                className="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center transition-transform hover:-translate-y-0.5"
-              >
-                <Lock size={16} />
-              </button>
-            ) : (
-              <>
                 <a
                   href="tel:+233"
-                  className="w-10 h-10 rounded-full bg-slate-100 text-indigo flex items-center justify-center transition-transform hover:bg-indigo hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-indigo-light/20 text-indigo flex items-center justify-center transition-transform hover:bg-indigo hover:text-white hover:-translate-y-0.5"
                 >
                   <Phone size={16} />
                 </a>
                 <a
                   href="https://wa.me/233"
-                  className="w-10 h-10 rounded-full bg-slate-100 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-indigo-light/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
                 >
                   <FaWhatsapp size={16} />
                 </a>
-              </>
-            )}
           </div>
         </div>
 
         {/* Amenities */}
-        <h2 className="font-fraunces text-[1.25rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           What's Included
         </h2>
         <div className="grid grid-cols-2 gap-3 mb-8">
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
             <FaWifi className="text-indigo text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               Fast Wi-Fi
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
             <FaSnowflake className="text-indigo text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               Air/con
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
             <FaShieldAlt className="text-indigo text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               24/7 Security
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
             <FaPlug className="text-indigo text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               Backup Gen
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
             <FaTint className="text-indigo text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               Water 24/7
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-slate-50/80 rounded-[16px] p-3.5 border border-slate-100/50 opacity-50">
+          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle opacity-50">
             <FaUtensils className="text-slate-400 text-base" />{" "}
             <span className="text-[0.85rem] font-bold text-text-primary">
               Cafeteria
@@ -430,7 +362,7 @@ export const Details: React.FC = () => {
           </div>
         </div>
 
-        <h2 className="font-fraunces text-[1.25rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           About this Hostel
         </h2>
         <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
@@ -444,31 +376,31 @@ export const Details: React.FC = () => {
         </button>
 
         {/* Room Options */}
-        <h2 className="font-fraunces text-[1.25rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Room Options
         </h2>
         <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
           <button
             onClick={() => setActiveRoomMode("single")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-indigo-dark text-white shadow-sm" : "bg-slate-100 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
           >
             Single
           </button>
           <button
             onClick={() => setActiveRoomMode("double")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-indigo-dark text-white shadow-sm" : "bg-slate-100 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
           >
             Double
           </button>
           <button
             onClick={() => setActiveRoomMode("quad")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-indigo-dark text-white shadow-sm" : "bg-slate-100 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
           >
             Quad
           </button>
         </div>
 
-        <div className="bg-white rounded-[20px] border border-slate-100 shadow-sm overflow-hidden mb-8">
+        <div className="bg-card-bg rounded-[20px] border border-border-subtle shadow-sm overflow-hidden mb-8">
           <div className="h-[160px]">
             <img
               src={selectedRoom.img}
@@ -490,9 +422,9 @@ export const Details: React.FC = () => {
                 <Bed size={14} className="text-indigo" /> {selectedRoom.bed}
               </div>
             </div>
-            <div className="flex justify-between items-end pt-3.5 border-t border-slate-100">
+            <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
               <div>
-                <strong className="block font-fraunces text-[1.35rem] text-text-primary leading-none">
+                <strong className="block font-fraunces text-[1.1rem] text-text-primary leading-none">
                   {selectedRoom.price}
                 </strong>
                 <span className="block text-[0.75rem] text-text-muted font-medium mt-1">
@@ -509,12 +441,12 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Location  */}
-        <h2 className="font-fraunces text-[1.25rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Location
         </h2>
-        <div className="relative h-[220px] rounded-[20px] overflow-hidden border border-slate-100 shadow-sm mb-3 cursor-pointer">
+        <div className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 cursor-pointer">
           <div
-            className={`w-full h-full transition-all ${!isMapUnlocked ? "blur-[4px] pointer-events-none" : ""}`}
+            className={`w-full h-full transition-all`}
           >
             <MapContainer
               center={[hostel.lat, hostel.lng]}
@@ -531,35 +463,17 @@ export const Details: React.FC = () => {
               <Marker position={[hostel.lat, hostel.lng]} icon={mapIcon} />
             </MapContainer>
           </div>
-          {!isMapUnlocked && (
-            <div
-              className="absolute inset-0 z-10 flex items-center justify-center bg-white/40 backdrop-blur-sm"
-              onClick={() =>
-                setUnlockContext({
-                  type: "Location",
-                  target: hostel.name,
-                  cost: 100,
-                })
-              }
-            >
-              <button className="bg-indigo text-white font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-float active:scale-95 transition-transform">
-                <Lock size={16} /> Reveal Exact Location
-              </button>
-            </div>
-          )}
         </div>
         <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
           <Info size={14} className="text-indigo" />{" "}
-          {!isMapUnlocked
-            ? "Tap the map to unlock exact location."
-            : "Location unlocked. Tap map to open."}
+          "Location unlocked. Tap map to open."
         </p>
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="fixed bottom-0 w-full max-w-[400px] bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3 border-t border-slate-100 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-[100] flex justify-between items-center gap-3 pb-8">
+      <div className="fixed bottom-0 w-full max-w-[400px] bg-card-bg/95 backdrop-blur-md px-4 sm:px-6 py-3 border-t border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-[100] flex justify-between items-center gap-3 pb-8">
         <div className="flex-1 min-w-0">
-          <div className="font-fraunces text-[1.3rem] sm:text-[1.5rem] font-bold text-text-primary leading-[1.1]">
+          <div className="font-fraunces text-[1.1rem] sm:text-[1.2rem] font-bold text-text-primary leading-[1.1]">
             {selectedRoom.price}
           </div>
           <div className="text-[0.65rem] sm:text-[0.75rem] text-text-muted font-medium mt-0.5 mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
@@ -577,7 +491,7 @@ export const Details: React.FC = () => {
         <div className="flex gap-2 shrink-0">
           <button
             onClick={() => showToast("Link copied!")}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] sm:rounded-[14px] bg-slate-50 border border-slate-200 flex items-center justify-center text-text-primary hover:bg-slate-100 transition-colors"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-indigo-light/20 transition-colors"
           >
             <ArrowUpFromLine size={16} />
           </button>
@@ -590,52 +504,16 @@ export const Details: React.FC = () => {
         </div>
       </div>
 
-      {/* UNLOCK MODAL */}
-      {unlockContext && (
-        <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end">
-          <div className="w-full max-w-[400px] mx-auto bg-white rounded-t-[32px] pt-6 px-6 pb-10 animate-in slide-in-from-bottom h-max flex flex-col items-center">
-            <div className="w-10 h-[5px] bg-slate-300 rounded-full mb-8 shadow-sm" />
-            <div className="text-amber-glow mb-2.5">
-              <Lock size={40} />
-            </div>
-            <h2 className="font-fraunces text-[1.2rem] sm:text-[1.3rem] font-bold text-text-primary mb-1">
-              Unlock {unlockContext.type}
-            </h2>
-            <p className="text-[0.85rem] sm:text-[0.9rem] text-text-muted mb-5 text-center">
-              Reveal the {unlockContext.type.toLowerCase()} for{" "}
-              {unlockContext.target}.
-            </p>
-            <div className="flex items-center gap-2 text-[1.35rem] sm:text-[1.5rem] font-bold text-text-primary mb-5">
-              <Coins className="text-amber-400" size={24} /> -
-              {unlockContext.cost} Credits
-            </div>
-
-            <button
-              onClick={handleUnlockConfirm}
-              className="w-full bg-amber-glow text-white font-bold py-3.5 sm:py-4 rounded-[14px] sm:rounded-[16px] mb-2.5 active:scale-95 transition-transform"
-            >
-              Pay & Reveal
-            </button>
-            <button
-              onClick={() => setUnlockContext(null)}
-              className="w-full bg-slate-50 border border-slate-200 text-text-primary font-bold py-3.5 sm:py-4 rounded-[14px] sm:rounded-[16px] active:scale-95 transition-transform"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* BOOKING MODAL */}
       {bookingModalOpen && (
         <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end">
-          <div className="w-full max-w-[400px] max-h-[85vh] overflow-y-auto hide-scrollbar mx-auto bg-white rounded-t-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom">
+          <div className="w-full max-w-[400px] max-h-[85vh] overflow-y-auto hide-scrollbar mx-auto bg-card-bg rounded-t-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom">
             <div
               className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-6 shadow-sm cursor-pointer hover:bg-slate-400"
               onClick={() => setBookingModalOpen(false)}
             />
 
-            <h2 className="font-fraunces text-[1.3rem] font-bold text-text-primary mb-1">
+            <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-1">
               Request to Book
             </h2>
             <p className="text-[0.85rem] font-medium text-text-muted mb-6">
@@ -650,7 +528,7 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Kwame"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
               <div>
@@ -660,7 +538,7 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Owusu"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
             </div>
@@ -671,7 +549,7 @@ export const Details: React.FC = () => {
               <input
                 type="tel"
                 placeholder="+233 5X XXX XXXX"
-                className="w-full bg-slate-50 border border-slate-200 rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
               />
             </div>
             <div className="mb-4">
@@ -681,7 +559,7 @@ export const Details: React.FC = () => {
               <select
                 value={activeRoomMode}
                 onChange={(e) => setActiveRoomMode(e.target.value as any)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
               >
                 <option value="single">
                   Single Room – {rooms.single.price}/sem
@@ -693,7 +571,7 @@ export const Details: React.FC = () => {
               </select>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-[16px] p-[18px] flex justify-between items-center mb-6">
+            <div className="bg-app-bg border border-border-subtle rounded-[16px] p-[18px] flex justify-between items-center mb-6">
               <span className="text-[0.85rem] font-semibold text-text-muted">
                 Estimated Total
               </span>

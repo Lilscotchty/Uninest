@@ -55,7 +55,7 @@ export const useLocationVerification = () => {
       
       if (!data) throw new Error('Network Error');
       
-      const target = data?.Table?.[0] || data;
+      const target = data?.data?.Table?.[0] || data?.Table?.[0] || data;
       const lat = target?.CenterLatitude || target?.centerLatitude;
       const lng = target?.CenterLongitude || target?.centerLongitude;
       const region = target?.Region || target?.region || 'Unknown Region';

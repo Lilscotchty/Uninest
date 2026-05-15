@@ -1,10 +1,9 @@
 import React from 'react';
 import { Bell, User } from 'lucide-react';
-import { FaCoins } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext';
 
 export const Header: React.FC = () => {
-  const { credits, showToast } = useAppContext();
+  const { showToast } = useAppContext();
 
   return (
     <div className="relative overflow-hidden pt-12 px-5 pb-20"
@@ -20,7 +19,7 @@ export const Header: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-5">
             <div className="w-2 h-2 rounded-full bg-amber-glow" />
-            <span className="font-fraunces text-white/60 text-[0.78rem] font-light tracking-[3px] uppercase">
+            <span className="text-white/60 text-[0.78rem] font-light tracking-[3px] uppercase">
               Student Dwell
             </span>
           </div>
@@ -32,14 +31,7 @@ export const Header: React.FC = () => {
         </div>
         
         <div className="flex gap-2.5">
-          <div 
-            onClick={() => showToast('Buy more credits coming soon!')}
-            className="h-10 px-3 rounded-xl bg-white/15 border border-white/20 flex items-center gap-1.5 text-white font-bold text-[0.9rem] cursor-pointer transition-colors hover:bg-white/25"
-          >
-            <FaCoins className="text-amber-400" />
-            <span>{credits}</span>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-white/20 transition-colors"
+          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
                onClick={() => showToast('No new notifications')}
           >
             <Bell size={18} />

@@ -37,43 +37,15 @@ const MapUpdater = ({ center }: { center: [number, number] | null }) => {
 };
 
 export const Explore: React.FC = () => {
-  const { setCurrentView, deductCredits, savedHostels, toggleSave, setSelectedHostelId } = useAppContext();
-  
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [isBlurred, setIsBlurred] = useState(false);
+  const { setCurrentView, savedHostels, toggleSave, setSelectedHostelId } = useAppContext();
   
   // Drawer states
   const drawerControls = useAnimation();
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Calculate offsets once
-  const [offsets] = useState<Offsets>(() => {
-    const o: Offsets = {};
-    HOSTELS.forEach(h => {
-      // Random offset ~0.002
-      const latOffset = (Math.random() - 0.5) * 0.004;
-      const lngOffset = (Math.random() - 0.5) * 0.004;
-      o[h.id] = { lat: h.lat + latOffset, lng: h.lng + lngOffset };
-    });
-    return o;
-  });
 
   const [peekHostelId, setPeekHostelId] = useState<number | null>(null);
 
   const peekHostel = peekHostelId ? HOSTELS.find(h => h.id === peekHostelId) : null;
-
-  const handleMapOverlayClick = () => {
-    if (!isUnlocked) {
-      setIsBlurred(true);
-    }
-  };
-
-  const unlockLocation = () => {
-    if (deductCredits(100)) {
-      setIsUnlocked(true);
-      setIsBlurred(false);
-    }
-  };
 
   const snapTo = (state: 'peek' | 'half' | 'full') => {
     if (!containerRef.current) return;
@@ -133,13 +105,13 @@ export const Explore: React.FC = () => {
         <div className="flex items-start justify-between w-full mb-4">
           <button 
             onClick={() => setCurrentView('home')}
-            className="w-10 h-10 rounded-[14px] bg-white/90 backdrop-blur shadow-sm flex items-center justify-center text-indigo pointer-events-auto active:scale-95 transition-transform"
+            className="w-10 h-10 rounded-[14px] bg-card-bg/90 backdrop-blur shadow-sm flex items-center justify-center text-indigo pointer-events-auto active:scale-95 transition-transform"
           >
             <ChevronLeft size={24} />
           </button>
           
           <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-10">
-            <div className="bg-white backdrop-blur shadow-sm rounded-[14px] px-3 sm:px-4 flex items-center gap-2 border border-indigo-light h-full">
+            <div className="bg-card-bg backdrop-blur shadow-sm rounded-[14px] px-3 sm:px-4 flex items-center gap-2 border border-border-subtle h-full">
               <Search size={16} className="text-indigo shrink-0" />
               <input 
                 type="text" 
@@ -151,7 +123,7 @@ export const Explore: React.FC = () => {
 
           <button className="w-10 h-10 rounded-[14px] bg-indigo flex items-center justify-center text-white shadow-sm pointer-events-auto relative">
             <Navigation size={18} />
-            <span className="absolute -top-[2px] -right-[2px] w-2.5 h-2.5 rounded-full bg-amber-glow border-2 border-white"></span>
+            <span className="absolute -top-[2px] -right-[2px] w-2.5 h-2.5 rounded-full bg-amber-glow border-2 border-app-bg"></span>
           </button>
         </div>
 
@@ -163,7 +135,7 @@ export const Explore: React.FC = () => {
               className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
                   ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
-                  : 'bg-white/90 backdrop-blur text-text-muted border-white hover:bg-white'}`}
+                  : 'bg-card-bg/90 backdrop-blur text-text-muted border-border-subtle hover:bg-card-bg'}`}
             >
               {filter}
             </button>
@@ -171,35 +143,32 @@ export const Explore: React.FC = () => {
         </div>
 
         {/* Result Badge */}
-        <div className="inline-flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
+        <div className="inline-flex items-center gap-1.5 bg-card-bg rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
           <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
           <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{HOSTELS.length} hostels nearby</span>
         </div>
       </div>
 
       {/* Map Container */}
-      <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out ${isBlurred ? 'blur-md grayscale-[50%]' : ''}`}>
+      <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out`}>
         <MapContainer center={[centerLat, centerLng]} zoom={14} className="w-full h-full z-0" zoomControl={false}>
           <TileLayer
             url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
             attribution="Google Maps"
             maxZoom={20}
           />
-          <MapUpdater center={peekHostel ? [isUnlocked ? peekHostel.lat : offsets[peekHostel.id].lat, isUnlocked ? peekHostel.lng : offsets[peekHostel.id].lng] : null} />
+          <MapUpdater center={peekHostel ? [peekHostel.lat, peekHostel.lng] : null} />
           
           {HOSTELS.map(h => {
-             const offset = offsets[h.id];
-             const displayLat = isUnlocked ? h.lat : offset.lat;
-             const displayLng = isUnlocked ? h.lng : offset.lng;
              return (
                <React.Fragment key={h.id}>
                  <Circle 
-                   center={[displayLat, displayLng]}
+                   center={[h.lat, h.lng]}
                    radius={200}
                    pathOptions={{ fillColor: '#3730a3', color: 'transparent', fillOpacity: 0.08 }}
                  />
                  <Marker 
-                   position={[displayLat, displayLng]} 
+                   position={[h.lat, h.lng]} 
                    icon={getCustomIcon(h.price)} 
                    eventHandlers={{ click: () => { 
                      setPeekHostelId(h.id); 
@@ -212,46 +181,8 @@ export const Explore: React.FC = () => {
         </MapContainer>
       </div>
 
-      {/* Invisible Overlay for Obfuscation Trigger */}
-      {!isUnlocked && !isBlurred && (
-        <div 
-          className="absolute inset-0 z-[5]" 
-          onClick={handleMapOverlayClick}
-        />
-      )}
-
-      {/* Unlock UI */}
-      {isBlurred && !isUnlocked && (
-        <div className="absolute inset-0 z-[1000] flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm px-6">
-          <div className="bg-white rounded-3xl p-6 shadow-float max-w-[320px] w-full text-center mb-24">
-            <div className="w-16 h-16 bg-amber-light text-amber-glow rounded-full flex items-center justify-center mx-auto mb-4 border border-amber/20">
-              <MapPin size={32} />
-            </div>
-            <h3 className="font-fraunces text-xl font-bold text-indigo-dark mb-2">Unlock Exact Locations</h3>
-            <p className="text-sm text-text-muted mb-6 leading-relaxed">
-              For security, exact hostel buildings are hidden. Spend 100 credits to reveal accurate map markers for all locations.
-            </p>
-            
-            <div className="flex flex-col gap-3">
-              <button 
-                onClick={unlockLocation}
-                className="w-full bg-indigo text-white font-bold py-3.5 rounded-xl shadow-md active:scale-[0.98] transition-transform"
-              >
-                Unlock (100 Credits)
-              </button>
-              <button 
-                onClick={() => setIsBlurred(false)}
-                className="w-full bg-transparent text-text-muted font-bold py-3.5 rounded-xl active:scale-[0.98] transition-transform hover:bg-app-bg"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Peek Card (shows above drawer) */}
-      <div className={`absolute left-4 right-4 z-[1050] bg-white rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border border-indigo-light flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+      <div className={`absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border border-border-subtle flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
         {peekHostel && (
           <>
             <button 
@@ -311,7 +242,7 @@ export const Explore: React.FC = () => {
              }}
         >
           <div className="flex justify-between items-center px-1 mb-4">
-            <h2 className="font-fraunces text-[1.15rem] font-bold text-text-primary">Nearby Hostels</h2>
+            <h2 className="font-fraunces text-[1.4rem] font-bold text-text-primary">Nearby Hostels</h2>
             <button className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
@@ -322,7 +253,7 @@ export const Explore: React.FC = () => {
             {HOSTELS.map(hostel => (
               <div 
                 key={hostel.id} 
-                className="w-full bg-white rounded-[18px] border border-indigo-light/50 p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
+                className="w-full bg-card-bg rounded-[18px] border border-border-subtle p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
                 onClick={() => { setSelectedHostelId(hostel.id); setCurrentView('details'); }}
               >
                 <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
@@ -352,7 +283,7 @@ export const Explore: React.FC = () => {
                       <span key={i} className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap
                         ${tag === 'wifi' ? 'bg-indigo-light text-indigo' : 
                           tag === 'sec' ? 'bg-teal-light text-teal' : 
-                          tag === 'gen' ? 'bg-amber-light text-amber-600' : 'bg-slate-100 text-slate-500'}`}
+                          tag === 'gen' ? 'bg-amber-light text-amber-600' : 'bg-indigo-light/20 text-text-muted'}`}
                       >
                         {tag === 'wifi' && 'Wi-Fi'}
                         {tag === 'sec' && 'Secure'}

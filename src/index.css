@@ -1,32 +1,66 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400..700&display=swap');
 
 @theme {
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
   
   --color-indigo: #3730a3;
   --color-indigo-dark: #1e1b4b;
-  --color-indigo-light: #e0e7ff;
+  --color-indigo-light: var(--indigo-light, #e0e7ff);
   --color-indigo-mid: #4f46e5;
   --color-amber: #d97706;
-  --color-amber-light: #fef3c7;
+  --color-amber-light: var(--amber-light, #fef3c7);
   --color-amber-glow: #f97316;
   --color-coral: #e11d48;
-  --color-coral-light: #ffe4e6;
+  --color-coral-light: var(--coral-light, #ffe4e6);
   --color-teal: #0d9488;
-  --color-teal-light: #ccfbf1;
+  --color-teal-light: var(--teal-light, #ccfbf1);
   --color-green: #16a34a;
-  --color-green-light: #dcfce7;
-  --color-app-bg: #f8f7ff;
-  --color-card-bg: #ffffff;
+  --color-green-light: var(--green-light, #dcfce7);
+  --color-app-bg: var(--app-bg, #f8f7ff);
+  --color-card-bg: var(--card-bg, #ffffff);
   
-  --color-text-primary: #1e1b4b;
-  --color-text-muted: #6b7280;
+  --color-text-primary: var(--text-primary, #1e1b4b);
+  --color-text-muted: var(--text-muted, #6b7280);
+  --color-text-white: var(--text-white, #ffffff);
+  --color-border-subtle: var(--border-subtle, rgba(0,0,0,0.05));
   
-  --shadow-card: 0 2px 16px rgba(55,48,163,0.09);
-  --shadow-float: 0 8px 32px rgba(55,48,163,0.15);
+  --shadow-card: var(--shadow-card-val, 0 2px 16px rgba(55,48,163,0.09));
+  --shadow-float: var(--shadow-float-val, 0 8px 32px rgba(55,48,163,0.15));
+}
+
+:root {
+  --app-bg: #f8f7ff;
+  --card-bg: #ffffff;
+  --text-primary: #1e1b4b;
+  --text-muted: #6b7280;
+  --text-white: #ffffff;
+  --border-subtle: rgba(0,0,0,0.05);
+  --indigo-light: #e0e7ff;
+  --amber-light: #fef3c7;
+  --coral-light: #ffe4e6;
+  --teal-light: #ccfbf1;
+  --green-light: #dcfce7;
+  --shadow-card-val: 0 2px 16px rgba(55,48,163,0.09);
+  --shadow-float-val: 0 8px 32px rgba(55,48,163,0.15);
+}
+
+.dark {
+  --app-bg: #0f172a;       /* slate-900 */
+  --card-bg: #1e293b;      /* slate-800 */
+  --text-primary: #f8fafc; /* slate-50 */
+  --text-muted: #94a3b8;   /* slate-400 */
+  --text-white: #f8fafc;
+  --border-subtle: rgba(255,255,255,0.1);
+  --indigo-light: rgba(55, 48, 163, 0.4);
+  --amber-light: rgba(217, 119, 6, 0.15);
+  --coral-light: rgba(225, 29, 72, 0.15);
+  --teal-light: rgba(13, 148, 136, 0.15);
+  --green-light: rgba(22, 163, 74, 0.15);
+  --shadow-card-val: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-float-val: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 body {
