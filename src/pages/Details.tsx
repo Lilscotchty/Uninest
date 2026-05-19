@@ -54,9 +54,10 @@ export const Details: React.FC = () => {
     showToast,
     savedHostels,
     toggleSave,
+    hostels,
   } = useAppContext();
 
-  const hostel = HOSTELS.find((h) => h.id === selectedHostelId) || HOSTELS[0];
+  const hostel = hostels.find((h) => h.id === selectedHostelId) || hostels[0];
   const isSaved = savedHostels.includes(hostel.id);
 
   // Gallery State
@@ -109,7 +110,7 @@ export const Details: React.FC = () => {
   const selectedRoom = rooms[activeRoomMode];
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar bg-slate-200 relative pb-[100px]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar bg-slate-200 relative pb-[70px]">
       {/* GALLERY */}
       <div className="relative h-[380px] bg-black">
         <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
@@ -132,7 +133,10 @@ export const Details: React.FC = () => {
               )}
             </button>
             <button
-              onClick={() => showToast("Link copied!")}
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                showToast("Link copied!");
+              }}
               className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
             >
               <ArrowUpFromLine size={18} />
@@ -490,7 +494,10 @@ export const Details: React.FC = () => {
         </div>
         <div className="flex gap-2 shrink-0">
           <button
-            onClick={() => showToast("Link copied!")}
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              showToast("Link copied!");
+            }}
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-indigo-light/20 transition-colors"
           >
             <ArrowUpFromLine size={16} />
@@ -584,6 +591,7 @@ export const Details: React.FC = () => {
               onClick={() => {
                 setBookingModalOpen(false);
                 showToast("Booking request sent! 🎉");
+                setTimeout(() => setCurrentView('home'), 1500);
               }}
               className="w-full bg-indigo text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"
             >

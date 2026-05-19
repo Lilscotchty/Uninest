@@ -2,26 +2,27 @@ import React, { useState } from 'react';
 import { ChevronLeft, Video, Play, MapPin } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { HOSTELS } from '../data';
+import { PageHeader } from '../components/PageHeader';
 
 export const VirtualTour: React.FC = () => {
-  const { setCurrentView, showToast } = useAppContext();
+  const { setCurrentView, showToast, hostels } = useAppContext();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  const featuredTours = HOSTELS.slice(0, 3);
+  const featuredTours = hostels.slice(0, 3);
 
   return (
     <div className="w-full h-full bg-app-bg flex flex-col font-sans relative">
-      <div className="bg-card-bg h-[60px] flex items-center px-4 border-b border-border-subtle shrink-0">
-        <button 
-          onClick={() => setCurrentView('home')}
-          className="w-10 h-10 flex items-center justify-center text-text-primary rounded-full hover:bg-app-bg transition-colors"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h1 className="flex-1 text-center pr-10 text-[17px] font-semibold text-text-primary">
-          Virtual Tours
-        </h1>
-      </div>
+      <PageHeader 
+        title="Virtual Tours"
+        rightAction={
+          <button 
+            onClick={() => setCurrentView('home')}
+            className="text-white hover:text-indigo-200 transition-colors"
+          >
+            <ChevronLeft size={24} /> Back
+          </button>
+        }
+      />
 
       <div className="flex-1 overflow-y-auto px-5 py-6">
         <div className="text-center mb-8">
@@ -76,7 +77,7 @@ export const VirtualTour: React.FC = () => {
           </div>
           <div className="p-6 text-center">
             <button 
-              onClick={() => { setSelectedVideo(null); setCurrentView('details'); showToast('Booking view opened') }}
+              onClick={() => { setSelectedVideo(null); setCurrentView('details'); }}
               className="bg-amber-glow text-white font-bold py-4 px-8 rounded-xl w-full max-w-[300px] active:scale-95 transition-transform"
             >
               Book this room

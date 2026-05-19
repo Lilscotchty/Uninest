@@ -12,8 +12,7 @@ import { Toast } from './components/Toast';
 import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
 import { PriceAlerts } from './pages/PriceAlerts';
-import { Compare } from './pages/Compare';
-import { Roommate } from './pages/Roommate';
+import { ManagerDashboard } from './pages/ManagerDashboard';
 
 const AppContent: React.FC = () => {
   const { currentView, theme } = useAppContext();
@@ -36,12 +35,13 @@ const AppContent: React.FC = () => {
           <BottomNav />
         </>
       )}
-      {currentView === 'explore' && <Explore />}
+      <div className={currentView === 'explore' ? 'block w-full h-full' : 'hidden'}>
+        <Explore />
+      </div>
       {currentView === 'details' && <Details />}
       {currentView === 'virtual-tour' && <VirtualTour />}
       {currentView === 'price-alerts' && <PriceAlerts />}
-      {currentView === 'compare' && <Compare />}
-      {currentView === 'roommate' && <Roommate />}
+      {currentView === 'manager-dashboard' && <ManagerDashboard />}
       {currentView === 'saved' && (
         <>
           <Saved />

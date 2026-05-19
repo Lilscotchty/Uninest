@@ -20,6 +20,6 @@ export interface AppState {
 }
 
 export interface ViewState {
-  currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate';
+  currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard';
   selectedHostelId: number | null;
 }

@@ -252,7 +252,7 @@ export const SignUp: React.FC = () => {
               <div className="flex flex-col gap-2">
                 {(isStudent ? [
                   { icon: <MapPin size={14}/>, text: 'Browse verified student hostels' },
-                  { icon: <Check size={14}/>, text: 'Save & compare listings' },
+                  { icon: <Check size={14}/>, text: 'Save interesting listings' },
                   { icon: <MessageCircle size={14}/>, text: 'Chat directly with landlords' }
                 ] : [
                   { icon: <Building size={14}/>, text: 'List unlimited properties with photos' },

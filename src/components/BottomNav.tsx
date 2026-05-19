@@ -3,45 +3,49 @@ import { Home, Search, Bookmark, User } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const BottomNav: React.FC = () => {
-  const { currentView, setCurrentView, showToast } = useAppContext();
+  const { currentView, setCurrentView } = useAppContext();
+
+  const navItems = [
+    { id: 'home', icon: Home, label: 'Home' },
+    { id: 'explore', icon: Search, label: 'Explore' },
+    { id: 'saved', icon: Bookmark, label: 'Saved' },
+    { id: 'profile', icon: User, label: 'Profile' }
+  ];
 
   return (
-    <div className="absolute bottom-0 w-full bg-card-bg flex justify-around py-3 pb-6 border-t border-border-subtle shadow-[0_-4px_20px_rgba(55,48,163,0.06)] z-50">
-      <button 
-        onClick={() => setCurrentView('home')}
-        className={`flex flex-col items-center gap-1 transition-colors ${currentView === 'home' ? 'text-indigo' : 'text-gray-400'}`}
-      >
-        <Home size={22} className={currentView === 'home' ? 'text-indigo' : ''} />
-        <span className="text-[0.7rem] font-semibold">Home</span>
-        <div className={`w-1 h-1 rounded-full bg-indigo mt-0.5 transition-opacity ${currentView === 'home' ? 'opacity-100' : 'opacity-0'}`}></div>
-      </button>
-      
-      <button 
-        onClick={() => { setCurrentView('explore'); showToast('Explore map opening...'); }}
-        className={`flex flex-col items-center gap-1 transition-colors ${currentView === 'explore' ? 'text-indigo' : 'text-gray-400'}`}
-      >
-        <Search size={22} className={currentView === 'explore' ? 'text-indigo' : ''} />
-        <span className="text-[0.7rem] font-semibold">Explore</span>
-        <div className={`w-1 h-1 rounded-full bg-indigo mt-0.5 transition-opacity ${currentView === 'explore' ? 'opacity-100' : 'opacity-0'}`}></div>
-      </button>
-      
-      <button 
-        onClick={() => setCurrentView('saved')}
-        className={`flex flex-col items-center gap-1 transition-colors ${currentView === 'saved' ? 'text-indigo' : 'text-gray-400'}`}
-      >
-        <Bookmark size={22} className={currentView === 'saved' ? 'text-indigo' : ''} />
-        <span className="text-[0.7rem] font-semibold">Saved</span>
-        <div className={`w-1 h-1 rounded-full bg-indigo mt-0.5 transition-opacity ${currentView === 'saved' ? 'opacity-100' : 'opacity-0'}`}></div>
-      </button>
-      
-      <button 
-        onClick={() => setCurrentView('profile')}
-        className={`flex flex-col items-center gap-1 transition-colors ${currentView === 'profile' ? 'text-indigo' : 'text-gray-400'}`}
-      >
-        <User size={22} className={currentView === 'profile' ? 'text-indigo' : ''} />
-        <span className="text-[0.7rem] font-semibold">Profile</span>
-        <div className={`w-1 h-1 rounded-full bg-indigo mt-0.5 transition-opacity ${currentView === 'profile' ? 'opacity-100' : 'opacity-0'}`}></div>
-      </button>
+    <div className="absolute bottom-0 w-full bg-card-bg flex justify-around items-center border-t border-border-subtle z-50 h-[52px] px-2 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] pb-[env(safe-area-inset-bottom)]">
+      {navItems.map((item) => {
+        const IconComponent = item.icon;
+        const isActive = currentView === item.id;
+        
+        return (
+          <button 
+            key={item.id}
+            onClick={() => setCurrentView(item.id as any)}
+            className="relative flex flex-col items-center justify-center w-[72px] h-full outline-none group"
+          >
+            {/* Active Top Bar Indicator */}
+            {isActive && (
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[2.5px] bg-text-primary rounded-b-[2px]" />
+            )}
+            
+            <div className={`flex flex-col items-center justify-center pt-[2px] transition-colors ${
+              isActive 
+                ? 'text-text-primary' 
+                : 'text-text-muted hover:text-text-primary/70'
+            }`}>
+              <IconComponent 
+                size={20} 
+                strokeWidth={isActive ? 2.5 : 2} 
+                className={isActive ? "fill-text-primary" : "fill-text-muted"} 
+              />
+              <span className={`text-[10px] mt-0.5 ${isActive ? 'font-semibold text-text-primary' : 'font-medium text-text-muted'}`}>
+                {item.label}
+              </span>
+            </div>
+          </button>
+        );
+      })}
     </div>
   );
 };

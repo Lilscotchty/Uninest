@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
+import { PageHeader } from '../components/PageHeader';
 import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun } from 'lucide-react';
 
 export const Profile: React.FC = () => {
@@ -15,35 +16,88 @@ export const Profile: React.FC = () => {
 
   return (
     <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
-      {/* Top Header */}
-     <div className="bg-card-bg h-[60px] flex items-center justify-center border-b border-border-subtle relative z-10 w-full shrink-0">
-  <h1 className="text-[17px] font-semibold text-text-primary tracking-tight">
-    Profile
-  </h1>
-</div>
-      <div className="flex-1 overflow-y-auto px-5 pb-[100px] flex flex-col gap-5 hide-scrollbar w-full mt-4">
+      <PageHeader title="Profile" />
+      <div className="flex-1 overflow-y-auto px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar w-full mt-4">
         
-        {/* User Identity Card */}
-        <div className="bg-card-bg rounded-[20px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle flex items-center gap-4 relative animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="w-16 h-16 rounded-full bg-indigo/10 flex items-center justify-center text-indigo font-fraunces font-bold text-2xl shrink-0 overflow-hidden border-2 border-border-subtle">
-            {/* Avatar or Initials */}
-            KO
+        {/* User Identity Card Redesign */}
+        <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Cover Banner */}
+          <div className="h-28 w-full relative shrink-0 bg-slate-200">
+            <img 
+              src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop" 
+              alt="University Campus" 
+              className="w-full h-full object-cover" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
+            <button 
+              onClick={() => handleAction('Edit Cover Photo')}
+              className="absolute top-3 right-3 w-8 h-8 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+            >
+              <PenLine size={14} className="stroke-[2.5]" />
+            </button>
           </div>
-          <div className="flex flex-col flex-1 min-w-0 pr-6">
-            <h2 className="font-fraunces text-lg font-bold text-text-primary truncate">Kwame Owusu</h2>
-            <p className="text-[0.8rem] text-text-muted font-medium truncate mt-0.5">Level 300, University of Ghana</p>
+
+          <div className="px-5 pb-5 relative z-10">
+            {/* Header section with Avatar and Edit action */}
+            <div className="flex justify-between items-start mb-2">
+              <div className="relative -mt-[48px]">
+                {/* Avatar */}
+                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-indigo/10">
+                  <img 
+                    src="https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?q=80&w=200&auto=format&fit=crop" 
+                    alt="Kwame Owusu" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Distinctive Status Badge to avoid copyright while keeping the vibe */}
+                <div className="absolute -bottom-1 -left-2 rotate-[-8deg] z-20 drop-shadow-sm">
+                  <div className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-[8px] rounded-tl-[2px] rounded-br-[2px] uppercase tracking-wider border-[2px] border-card-bg">
+                    #RoommateSeach
+                  </div>
+                </div>
+              </div>
+
+              {/* Edit Profile Button */}
+              <button 
+                onClick={() => handleAction('Edit Profile')}
+                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-indigo hover:bg-indigo/5 flex items-center justify-center transition-colors"
+              >
+                <PenLine size={18} />
+              </button>
+            </div>
+
+            {/* User Info */}
+            <div className="flex flex-col mt-1">
+              <h2 className="text-[22px] font-bold text-text-primary leading-tight tracking-tight mb-1">Kwame Owusu</h2>
+              <p className="text-[15px] text-text-primary font-medium leading-snug">Level 300 Computer Science Student</p>
+              <p className="text-[14px] text-text-primary/80 mt-0.5">University of Ghana, Legon</p>
+              <div className="flex flex-col mt-2 gap-1 text-[13px] text-text-muted leading-relaxed">
+                <span>Accra, Greater Accra Region, Ghana</span>
+                <span className="text-indigo font-medium hover:underline cursor-pointer transition-colors">54 connections</span>
+              </div>
+            </div>
           </div>
-          <button 
-            onClick={() => handleAction('Edit Profile')}
-            className="absolute top-4 right-4 text-text-muted hover:text-indigo transition-colors p-2"
-          >
-            <PenLine size={16} />
-          </button>
         </div>
 
         {/* Settings & Preferences */}
         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-[100ms]">
           
+          {/* Management Group */}
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
+            <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
+              <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
+            </div>
+            <div className="flex flex-col">
+              <button onClick={() => setCurrentView('manager-dashboard')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                  <FileText size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Hostel Manager Dashboard</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-emerald-600 transition-colors" />
+              </button>
+            </div>
+          </div>
+
           {/* Account Group */}
           <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
             <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">

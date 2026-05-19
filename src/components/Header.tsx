@@ -4,6 +4,7 @@ import { useAppContext } from '../context/AppContext';
 
 export const Header: React.FC = () => {
   const { showToast } = useAppContext();
+  const [notifications, setNotifications] = React.useState(3);
 
   return (
     <div className="relative overflow-hidden pt-12 px-5 pb-20"
@@ -32,12 +33,21 @@ export const Header: React.FC = () => {
         
         <div className="flex gap-2.5">
           <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
-               onClick={() => showToast('No new notifications')}
+               onClick={() => {
+                 if (notifications > 0) {
+                   showToast(`You have ${notifications} new notifications`);
+                   setNotifications(0);
+                 } else {
+                   showToast('No new notifications');
+                 }
+               }}
           >
             <Bell size={18} />
-            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-glow rounded-full border-2 border-indigo-dark text-[8px] flex items-center justify-center font-bold">
-              3
-            </span>
+            {notifications > 0 && (
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-glow rounded-full border-2 border-indigo-dark text-[8px] flex items-center justify-center font-bold">
+                {notifications}
+              </span>
+            )}
           </div>
         </div>
       </div>

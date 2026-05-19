@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { HOSTELS } from '../data';
+import { PageHeader } from '../components/PageHeader';
 import { Bookmark, Star, ArrowRightLeft, TrendingDown } from 'lucide-react';
 
 export const Saved: React.FC = () => {
-  const { savedHostels, toggleSave, showToast, setCurrentView } = useAppContext();
+  const { savedHostels, toggleSave, showToast, setCurrentView, hostels } = useAppContext();
   const [activeSavedFilter, setActiveSavedFilter] = useState<string>('all');
 
-  const allSavedItems = HOSTELS.filter(h => savedHostels.includes(h.id));
+  const allSavedItems = hostels.filter(h => savedHostels.includes(h.id));
 
   // Simulating "Price Dropped" for specific categories or conditions,
   // Here we arbitrarily say premium or campus hostels have price drops for demo
@@ -22,29 +23,20 @@ export const Saved: React.FC = () => {
 
   return (
    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
-  {/* Top Header - Updated to Panorra360 Style */}
-  <div className="bg-card-bg h-[60px] flex items-center justify-center border-b border-border-subtle relative z-10 w-full shrink-0">
-    
-    {/* Left Action (Optional: if you need a back button later) */}
-    <div className="absolute left-4">
-      {/* Back icon would go here */}
-    </div>
-
-    {/* Centered Title */}
-    <h1 className="text-[17px] font-semibold text-text-primary tracking-wide">
-      Saved
-    </h1>
-
-    {/* Right Action (Compare Button) */}
-    <div className="absolute right-4">
-      <button 
-        onClick={() => showToast('Compare mode activated')}
-        className="text-indigo text-xs font-bold cursor-pointer flex items-center gap-1 hover:opacity-80"
-      >
-        <ArrowRightLeft size={16} />
-      </button>
-    </div>
-  </div>
+      <PageHeader 
+        title="Saved" 
+        rightAction={
+          <button 
+            onClick={() => showToast('Compare mode activated')}
+            className="w-[100px] h-[35px] rounded-[15px] flex items-center justify-center text-white font-semibold text-xs cursor-pointer border border-white/25 shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.2)] backdrop-blur-md transition-transform hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, rgba(120, 130, 200, 0.6) 0%, rgba(135, 100, 170, 0.5) 40%, rgba(130, 140, 90, 0.4) 100%)'
+            }}
+          >
+            <ArrowRightLeft size={14} className="mr-1.5" /> Compare
+          </button>
+        }
+      />
 
       {/* Filter Chips */}
       <div className="px-5 pt-4 pb-2 flex gap-2 overflow-x-auto hide-scrollbar bg-app-bg w-full shrink-0">
@@ -65,14 +57,14 @@ export const Saved: React.FC = () => {
       </div>
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto px-5 pb-[100px] flex flex-col gap-7 hide-scrollbar w-full mt-2">
+      <div className="flex-1 overflow-y-auto px-5 pb-[70px] flex flex-col gap-7 hide-scrollbar w-full mt-2">
         {filteredItems.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="w-20 h-20 rounded-full bg-indigo-light text-indigo flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
             <h2 className="font-fraunces text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved hostels yet</h2>
-            <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily compare and book them later.</p>
+            <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => setCurrentView('explore')}
               className="bg-indigo text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-indigo-dark"

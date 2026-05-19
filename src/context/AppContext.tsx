@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { AppState, ViewState } from '../types';
+import { AppState, ViewState, Hostel } from '../types';
+import { HOSTELS as INITIAL_HOSTELS } from '../data';
 
 interface AppContextType extends AppState, ViewState {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
+  hostels: Hostel[];
+  addCustomHostel: (hostel: Hostel) => void;
+  updateCustomHostel: (id: number, updates: Partial<Hostel>) => void;
   toggleSave: (id: number) => void;
   setActiveFilter: (filter: string) => void;
-  setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate') => void;
+  exploreSearchQuery: string;
+  setExploreSearchQuery: (query: string) => void;
+  setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard') => void;
   setSelectedHostelId: (id: number | null) => void;
   toastMessage: string | null;
   clearToast: () => void;
@@ -16,13 +22,20 @@ interface AppContextType extends AppState, ViewState {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [hostels, setHostels] = useState<Hostel[]>(INITIAL_HOSTELS);
   const [savedHostels, setSavedHostels] = useState<number[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'compare' | 'roommate'>('home');
+  const [exploreSearchQuery, setExploreSearchQuery] = useState('');
+  const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard'>('home');
   const [selectedHostelId, setSelectedHostelId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
+  const addCustomHostel = (hostel: Hostel) => setHostels(prev => [...prev, hostel]);
+  const updateCustomHostel = (id: number, updates: Partial<Hostel>) => {
+    setHostels(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
+  };
+  
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   const toggleSave = (id: number) => {
@@ -37,8 +50,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   return (
     <AppContext.Provider
       value={{
+        hostels,
+        addCustomHostel,
+        updateCustomHostel,
         savedHostels,
         activeFilter,
+        exploreSearchQuery,
+        setExploreSearchQuery,
         currentView,
         selectedHostelId,
         toggleSave,

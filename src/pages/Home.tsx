@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppContext } from '../context/AppContext';
-import { HOSTELS } from '../data';
 import { PropertyCard } from '../components/PropertyCard';
-import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star } from 'lucide-react';
+import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search } from 'lucide-react';
 import { Header } from '../components/Header';
 
 const FILTERS = [
@@ -16,33 +15,36 @@ const FILTERS = [
 ];
 
 export const Home: React.FC = () => {
-  const { activeFilter, setActiveFilter, setCurrentView, savedHostels, toggleSave, showToast, setSelectedHostelId } = useAppContext();
+  const { activeFilter, setActiveFilter, setCurrentView, savedHostels, toggleSave, showToast, setSelectedHostelId, setExploreSearchQuery, hostels } = useAppContext();
   
   // Featured Picks auto-sliding carousel (like index.html)
   const trackRef = useRef<HTMLDivElement>(null);
   const [currentFeatured, setCurrentFeatured] = useState(0);
   const featuredHostels = [
     {
+      id: 1,
       img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80',
       tag: '🔥 Trending',
       tagColor: 'amber',
-      name: 'The Hive Student Community',
+      name: 'Evandy Hostel',
       desc: 'Shared study spaces, rooftop lounge, and weekly social events. Built for students who want more than just a room.',
       action: 'Explore Hostel →'
     },
     {
+      id: 3,
       img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80',
       tag: '⭐ Premium',
       tagColor: 'indigo',
-      name: 'Legacy Court Annex',
+      name: 'Pentagon Annex',
       desc: 'Executive single rooms with en-suite bathrooms. For students who won\'t compromise on comfort and privacy.',
       action: 'Explore Luxury →'
     },
     {
+      id: 2,
       img: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=80',
       tag: '📍 Best Location',
       tagColor: 'teal',
-      name: 'University Annex',
+      name: 'Bani Hostel',
       desc: 'Exactly 2 minutes from the main gate, with 24/7 security, steady electricity, and free Wi-Fi included.',
       action: 'See Location →'
     }
@@ -51,8 +53,8 @@ export const Home: React.FC = () => {
   // Testimonials
   const testimonials = [
     { init: 'AK', name: 'Abena Korantema', sub: 'Level 200, UG · Legon Annex', body: '"Student Dwell literally saved me hours of stress. I found my room, viewed photos, and booked online before even arriving in Accra."' },
-    { init: 'KO', name: 'Kwame Owusu', sub: 'Level 300, Ashesi · The Hive', body: '"The roommate matching feature connected me with my best friend. I\'d never have met him without this app. 10/10!"' },
-    { init: 'EA', name: 'Efua Asante', sub: 'Fresher, KNUST · Scholar\'s Lodge', body: '"So easy to use. I compared 6 hostels in under 10 minutes and found one within my budget near the main gate."' },
+    { init: 'KO', name: 'Kwame Owusu', sub: 'Level 300, Ashesi', body: '"The seamless booking process connected me to my ideal hostel in minutes. I\'d never have found it without this app. 10/10!"' },
+    { init: 'EA', name: 'Efua Asante', sub: 'Fresher, KNUST', body: '"So easy to use. I viewed 6 hostels in under 10 minutes and found one within my budget near the main gate."' },
   ];
   const [tIdx, setTIdx] = useState(0);
 
@@ -64,20 +66,45 @@ export const Home: React.FC = () => {
   }, [testimonials.length]);
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar pb-[100px] relative scroll-smooth">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar pb-[70px] relative scroll-smooth">
       <Header />
       {/* SEARCH LIFT OVERLAPPING HEADER */}
       <div className="px-5 -mt-10 relative z-20 mb-4">
-        <div 
-          onClick={() => showToast('Search coming soon')}
-          className="bg-card-bg rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-border-subtle cursor-pointer transition-transform hover:-translate-y-[1px]"
-        >
-          <div className="w-9 h-9 rounded-[10px] flex items-center justify-center">
+        <div className="bg-card-bg rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-border-subtle transition-transform focus-within:-translate-y-[1px]">
+          <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0">
             <MapPin size={16} className="text-amber-glow" />
           </div>
-          <div className="flex-1 text-sm">
-            <strong className="block text-text-primary font-semibold text-base mb-0.5">Where do you want to live?</strong>
+          <div className="flex-1 min-w-0">
+            <input 
+              type="text" 
+              placeholder="Where do you want to live?" 
+              className="w-full bg-transparent border-none outline-none text-base font-semibold text-text-primary placeholder:text-text-muted"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const val = e.currentTarget.value;
+                  if (val.trim()) {
+                    setExploreSearchQuery(val.trim());
+                    setCurrentView('explore');
+                  }
+                }
+              }}
+            />
           </div>
+          <button 
+            className="w-10 h-10 rounded-[12px] bg-indigo text-white flex items-center justify-center shrink-0 hover:bg-indigo-dark transition-colors"
+            onClick={(e) => {
+              const input = e.currentTarget.previousElementSibling?.querySelector('input');
+              const val = input?.value || '';
+              if (val.trim()) {
+                setExploreSearchQuery(val.trim());
+                setCurrentView('explore');
+              } else {
+                setCurrentView('explore');
+              }
+            }}
+          >
+            <Search size={18} />
+          </button>
         </div>
       </div>
 
@@ -107,7 +134,7 @@ export const Home: React.FC = () => {
         </div>
         
         <div className="flex gap-3.5 overflow-x-auto hide-scrollbar pl-5 pr-5 pb-4 items-stretch">
-          {HOSTELS.map((hostel) => (
+          {hostels.map((hostel) => (
             <PropertyCard 
               key={hostel.id} 
               hostel={hostel} 
@@ -133,7 +160,10 @@ export const Home: React.FC = () => {
           <h3 className="text-white text-[1.1rem] font-bold leading-tight">15% off your<br/>first booking</h3>
         </div>
         <button 
-          onClick={() => showToast('Promo code: DWELL15')}
+          onClick={() => {
+            navigator.clipboard.writeText('DWELL15');
+            showToast('Promo code DWELL15 copied!');
+          }}
           className="relative z-10 bg-amber-glow text-white border-none rounded-[10px] px-4 py-2 text-[0.82rem] font-bold shadow-sm whitespace-nowrap active:scale-95 transition-transform"
         >
           Claim now
@@ -173,34 +203,6 @@ export const Home: React.FC = () => {
               <span className="block text-[0.75rem] text-text-muted leading-tight">Get notified</span>
             </div>
           </div>
-
-          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => setCurrentView('compare')}>
-            <div className="flex justify-between items-start w-full">
-              <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-indigo-light text-indigo">
-                <Scale size={18} />
-              </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-indigo" />
-            </div>
-            <div>
-              <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Compare</strong>
-              <span className="block text-[0.75rem] text-text-muted leading-tight">Side-by-side</span>
-            </div>
-          </div>
-
-          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => setCurrentView('roommate')}>
-            <div className="flex justify-between items-start w-full">
-              <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-coral-light text-coral">
-                <UserPlus size={18} />
-              </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-indigo" />
-            </div>
-            <div>
-              <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Roommate</strong>
-              <span className="block text-[0.75rem] text-text-muted leading-tight">Find a match</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -232,7 +234,10 @@ export const Home: React.FC = () => {
                     {feat.desc}
                   </p>
                   <button 
-                    onClick={() => showToast(`Opening ${feat.name} details...`)}
+                    onClick={() => {
+                      setSelectedHostelId(feat.id);
+                      setCurrentView('details');
+                    }}
                     className="bg-amber-glow text-white border-none rounded-[12px] px-[20px] py-[10px] text-[0.88rem] font-bold cursor-pointer transition-colors shadow-[0_4px_14px_rgba(245,158,11,0.3)] hover:bg-[#d97706] active:scale-95"
                   >
                     {feat.action}
@@ -283,14 +288,14 @@ export const Home: React.FC = () => {
           <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
-          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer" onClick={() => { setCurrentView('explore'); showToast('Explore map opening...'); }}>
-             <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full" zoomControl={false} dragging={false}>
-               <TileLayer
-                  url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                  attribution='&copy; CARTO'
-               />
-               <div className="absolute inset-0 bg-transparent z-[1000]" /> {/* Click interceptor */}
-             </MapContainer>
+          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer" onClick={() => setCurrentView('explore')}>
+              <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full" zoomControl={false} dragging={false}>
+                <TileLayer
+                   url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+                   attribution="Google"
+                />
+                <div className="absolute inset-0 bg-transparent z-[1000]" /> {/* Click interceptor */}
+              </MapContainer>
           </div>
         </div>
       </div>

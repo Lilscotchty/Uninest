@@ -5,47 +5,59 @@ import { motion, useAnimation, PanInfo } from 'motion/react';
 import { ChevronLeft, MapPin, Search, Navigation } from 'lucide-react';
 import { FaHeart, FaStar } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext';
-import { HOSTELS } from '../data';
 import { PropertyCard } from '../components/PropertyCard';
 
-// Dummy icon for exact location
-const getCustomIcon = (price: string) => new L.DivIcon({
+// Dummy icon for exact location using round image
+const getCustomIcon = (img: string) => new L.DivIcon({
   className: 'custom-marker',
   html: `
-    <div style="background:white;padding:5px 10px;border-radius:9px;font-size:0.78rem;font-weight:800;color:#0f0e2e;box-shadow:0 4px 12px rgba(55,48,163,.2);position:relative;white-space:nowrap;display:flex;align-items:center;gap:4px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      ${price}
-      <div style="content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border-width:5px 5px 0;border-style:solid;border-color:white transparent transparent;"></div>
+    <div style="position:relative;width:44px;height:44px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
+      <img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+      <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-width:8px 6px 0;border-style:solid;border-color:white transparent transparent;"></div>
     </div>
   `,
-  iconSize: [80, 30],
-  iconAnchor: [40, 30],
+  iconSize: [44, 52],
+  iconAnchor: [22, 52],
 });
 
 interface Offsets {
   [id: number]: { lat: number; lng: number };
 }
 
-const MapUpdater = ({ center }: { center: [number, number] | null }) => {
+const MapUpdater = ({ center, isVisible }: { center: [number, number] | null, isVisible: boolean }) => {
   const map = useMap();
   useEffect(() => {
     if (center) {
       map.setView(center, map.getZoom(), { animate: true, duration: 0.4 });
     }
   }, [center, map]);
+
+  useEffect(() => {
+    if (isVisible) {
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 50);
+    }
+  }, [isVisible, map]);
   return null;
 };
 
 export const Explore: React.FC = () => {
-  const { setCurrentView, savedHostels, toggleSave, setSelectedHostelId } = useAppContext();
+  const { currentView, setCurrentView, savedHostels, toggleSave, setSelectedHostelId, exploreSearchQuery, setExploreSearchQuery, hostels } = useAppContext();
   
   // Drawer states
   const drawerControls = useAnimation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [peekHostelId, setPeekHostelId] = useState<number | null>(null);
+  const [localSearch, setLocalSearch] = useState(exploreSearchQuery || '');
 
-  const peekHostel = peekHostelId ? HOSTELS.find(h => h.id === peekHostelId) : null;
+  const peekHostel = peekHostelId ? hostels.find(h => h.id === peekHostelId) : null;
+
+  const filteredHostels = hostels.filter(h => {
+    const searchLower = localSearch.toLowerCase();
+    return h.name.toLowerCase().includes(searchLower) || h.loc.toLowerCase().includes(searchLower) || h.tags.some(t => t.toLowerCase().includes(searchLower));
+  });
 
   const snapTo = (state: 'peek' | 'half' | 'full') => {
     if (!containerRef.current) return;
@@ -59,10 +71,16 @@ export const Explore: React.FC = () => {
     drawerControls.start({ y, transition: { type: 'spring', bounce: 0, duration: 0.4 } });
   };
 
-  // Initial snap to half
+  // Initial snap to half, and re-snap if measuring was 0 when opened
+  const [hasSnapped, setHasSnapped] = useState(false);
   useEffect(() => {
-    snapTo('half');
-  }, []);
+    if (currentView === 'explore' && !hasSnapped) {
+      setTimeout(() => {
+        snapTo('half');
+        setHasSnapped(true);
+      }, 10);
+    }
+  }, [currentView, hasSnapped]);
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (!containerRef.current) return;
@@ -95,8 +113,8 @@ export const Explore: React.FC = () => {
   };
 
   // Center on Legon area roughly
-  const centerLat = 5.6450;
-  const centerLng = -0.1900;
+  const centerLat = 5.6506;
+  const centerLng = -0.1870;
 
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden" ref={containerRef}>
@@ -105,26 +123,26 @@ export const Explore: React.FC = () => {
         <div className="flex items-start justify-between w-full mb-4">
           <button 
             onClick={() => setCurrentView('home')}
-            className="w-10 h-10 rounded-[14px] bg-card-bg/90 backdrop-blur shadow-sm flex items-center justify-center text-indigo pointer-events-auto active:scale-95 transition-transform"
+            className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={24} strokeWidth={2.5} />
           </button>
           
-          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-10">
-            <div className="bg-card-bg backdrop-blur shadow-sm rounded-[14px] px-3 sm:px-4 flex items-center gap-2 border border-border-subtle h-full">
-              <Search size={16} className="text-indigo shrink-0" />
+          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
+            <div className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
+              <Search size={18} className="text-gray-500 shrink-0" />
               <input 
                 type="text" 
                 placeholder="Search hostels, areas..." 
-                className="bg-transparent border-none outline-none w-full text-[0.85rem] font-medium text-text-primary placeholder:text-slate-400"
+                className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-gray-800 placeholder:text-gray-400"
+                value={localSearch}
+                onChange={(e) => {
+                  setLocalSearch(e.target.value);
+                  setExploreSearchQuery(e.target.value);
+                }}
               />
             </div>
           </div>
-
-          <button className="w-10 h-10 rounded-[14px] bg-indigo flex items-center justify-center text-white shadow-sm pointer-events-auto relative">
-            <Navigation size={18} />
-            <span className="absolute -top-[2px] -right-[2px] w-2.5 h-2.5 rounded-full bg-amber-glow border-2 border-app-bg"></span>
-          </button>
         </div>
 
         {/* Filter Chips */}
@@ -145,31 +163,31 @@ export const Explore: React.FC = () => {
         {/* Result Badge */}
         <div className="inline-flex items-center gap-1.5 bg-card-bg rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
           <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
-          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{HOSTELS.length} hostels nearby</span>
+          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{filteredHostels.length} hostels nearby</span>
         </div>
       </div>
 
       {/* Map Container */}
       <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out`}>
-        <MapContainer center={[centerLat, centerLng]} zoom={14} className="w-full h-full z-0" zoomControl={false}>
+        <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full z-0" zoomControl={false}>
           <TileLayer
-            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2"
             attribution="Google Maps"
             maxZoom={20}
           />
-          <MapUpdater center={peekHostel ? [peekHostel.lat, peekHostel.lng] : null} />
+          <MapUpdater center={peekHostel ? [peekHostel.lat, peekHostel.lng] : null} isVisible={currentView === 'explore'} />
           
-          {HOSTELS.map(h => {
+          {filteredHostels.map(h => {
              return (
                <React.Fragment key={h.id}>
                  <Circle 
                    center={[h.lat, h.lng]}
-                   radius={200}
+                   radius={140}
                    pathOptions={{ fillColor: '#3730a3', color: 'transparent', fillOpacity: 0.08 }}
                  />
                  <Marker 
                    position={[h.lat, h.lng]} 
-                   icon={getCustomIcon(h.price)} 
+                   icon={getCustomIcon(h.img)} 
                    eventHandlers={{ click: () => { 
                      setPeekHostelId(h.id); 
                      snapTo('peek'); // hide drawer to bottom
@@ -179,6 +197,13 @@ export const Explore: React.FC = () => {
              );
           })}
         </MapContainer>
+      </div>
+
+      {/* Floating Action Buttons */}
+      <div className="absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekHostel ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
+        <button className="w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
+          <div className="w-3.5 h-3.5 rounded-full bg-blue-500 border-[2.5px] border-white shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+        </button>
       </div>
 
       {/* Peek Card (shows above drawer) */}
@@ -250,7 +275,9 @@ export const Explore: React.FC = () => {
           </div>
           
           <div className="flex flex-col gap-3">
-            {HOSTELS.map(hostel => (
+            {filteredHostels.length === 0 ? (
+              <div className="text-center py-8 text-text-muted">No hostels found.</div>
+            ) : filteredHostels.map(hostel => (
               <div 
                 key={hostel.id} 
                 className="w-full bg-card-bg rounded-[18px] border border-border-subtle p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
