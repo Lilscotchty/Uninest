@@ -6,10 +6,10 @@
   --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
   
-  --color-indigo: #3730a3;
-  --color-indigo-dark: #1e1b4b;
+  --color-indigo: #412d6e;
+  --color-indigo-dark: #1c2042;
   --color-indigo-light: var(--indigo-light, #e0e7ff);
-  --color-indigo-mid: #4f46e5;
+  --color-indigo-mid: #28376e;
   --color-amber: #d97706;
   --color-amber-light: var(--amber-light, #fef3c7);
   --color-amber-glow: #f97316;
@@ -19,32 +19,32 @@
   --color-teal-light: var(--teal-light, #ccfbf1);
   --color-green: #16a34a;
   --color-green-light: var(--green-light, #dcfce7);
-  --color-app-bg: var(--app-bg, #f8f7ff);
+  --color-app-bg: var(--app-bg, #fdfdfd);
   --color-card-bg: var(--card-bg, #ffffff);
   
-  --color-text-primary: var(--text-primary, #1e1b4b);
+  --color-text-primary: var(--text-primary, #111827);
   --color-text-muted: var(--text-muted, #6b7280);
   --color-text-white: var(--text-white, #ffffff);
-  --color-border-subtle: var(--border-subtle, rgba(0,0,0,0.05));
+  --color-border-subtle: var(--border-subtle, rgba(0,0,0,0.06));
   
-  --shadow-card: var(--shadow-card-val, 0 2px 16px rgba(55,48,163,0.09));
-  --shadow-float: var(--shadow-float-val, 0 8px 32px rgba(55,48,163,0.15));
+  --shadow-card: var(--shadow-card-val, 0 2px 14px rgba(0,0,0,0.04));
+  --shadow-float: var(--shadow-float-val, 0 8px 30px rgba(0,0,0,0.08));
 }
 
 :root {
-  --app-bg: #f8f7ff;
+  --app-bg: #f6f7fa;
   --card-bg: #ffffff;
-  --text-primary: #1e1b4b;
-  --text-muted: #6b7280;
+  --text-primary: #121524;
+  --text-muted: #626982;
   --text-white: #ffffff;
-  --border-subtle: rgba(0,0,0,0.05);
+  --border-subtle: rgba(0,0,0,0.06);
   --indigo-light: #e0e7ff;
   --amber-light: #fef3c7;
   --coral-light: #ffe4e6;
   --teal-light: #ccfbf1;
   --green-light: #dcfce7;
-  --shadow-card-val: 0 2px 16px rgba(55,48,163,0.09);
-  --shadow-float-val: 0 8px 32px rgba(55,48,163,0.15);
+  --shadow-card-val: 0 2px 14px rgba(0,0,0,0.04);
+  --shadow-float-val: 0 8px 30px rgba(0,0,0,0.08);
 }
 
 .dark {

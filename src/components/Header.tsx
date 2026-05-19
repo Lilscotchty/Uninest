@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, User, Maximize, Minimize } from 'lucide-react';
+import { Bell, Maximize, Minimize, ArrowRightLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const Header: React.FC = () => {
@@ -7,66 +7,60 @@ export const Header: React.FC = () => {
   const [notifications, setNotifications] = React.useState(3);
 
   return (
-    <div className="relative overflow-hidden pt-12 px-5 pb-20"
-         style={{
-           background: 'linear-gradient(160deg, var(--color-indigo-dark) 0%, var(--color-indigo) 60%, #4f46e5 100%)',
-           borderRadius: '0 0 100% 100% / 0 0 30px 30px'
-         }}>
-      {/* Decorative blobs */}
-      <div className="absolute -top-[15px] -right-[15px] w-[220px] h-[220px] rounded-full bg-white/5" />
-      <div className="absolute -bottom-[30px] -left-[30px] w-[140px] h-[140px] rounded-full bg-amber-500/10 flex items-center justify-center p-[20px]" />
-      
-      <div className="relative z-10 flex justify-between items-start">
-        <div>
-          <div className="flex items-center gap-2 mb-5">
-            <div className="w-2 h-2 rounded-full bg-amber-glow" />
-            <span className="text-white/60 text-[0.78rem] font-light tracking-[3px] uppercase">
-              Student Dwell
-            </span>
-          </div>
-          <div className="relative z-10 w-full">
-            <h1 className="font-fraunces text-white text-[1.90rem] sm:text-[2.1rem] font-bold leading-[1.15] tracking-[-0.5px]">
-              <span className="whitespace-nowrap">Find your</span> <br /><em className="italic text-amber-glow">perfect</em> stay.
-            </h1>
-          </div>
-        </div>
-        
-        <div className="flex gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
-               onClick={toggleFullscreen}
-          >
-            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
-               onClick={() => {
-                 if (notifications > 0) {
-                   showToast(`You have ${notifications} new notifications`);
-                   setNotifications(0);
-                 } else {
-                   showToast('No new notifications');
-                 }
-               }}
-          >
-            <Bell size={18} />
-            {notifications > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-glow rounded-full border-2 border-indigo-dark text-[8px] flex items-center justify-center font-bold">
-                {notifications}
-              </span>
-            )}
-          </div>
-        </div>
+    <div 
+      className="w-full h-[72px] flex justify-between items-center px-4 sm:px-6 sticky top-0 z-20"
+      style={{
+        background: `
+          linear-gradient(115deg, transparent 55%, rgba(65, 45, 110, 0.4) 55%, rgba(65, 45, 110, 0.4) 68%, transparent 68%),
+          linear-gradient(35deg, transparent 40%, rgba(40, 55, 110, 0.3) 40%, rgba(40, 55, 110, 0.3) 75%, transparent 75%),
+          linear-gradient(160deg, transparent 20%, rgba(80, 50, 130, 0.2) 20%, rgba(80, 50, 130, 0.2) 40%, transparent 40%),
+          linear-gradient(to right, #0b1021 0%, #1c2042 50%, #151a30 100%)
+        `,
+      }}
+    >
+      <div className="flex items-center gap-2 z-[2]">
+        <span className="text-white text-[24px] font-bold tracking-[-0.5px]">UNINEST</span>
       </div>
-
-      <div className="relative z-10 flex gap-4 mt-6">
-        <div className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-[14px] p-2.5 text-center">
-          <strong className="block text-white text-[1.1rem] font-semibold font-fraunces">240+</strong>
-          <span className="text-white/60 text-[0.65rem] uppercase tracking-[0.8px]">Listings</span>
-        </div>
-        <div className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-[14px] p-2.5 text-center">
-          <strong className="block text-white text-[1.1rem] font-semibold font-fraunces">3</strong>
-          <span className="text-white/60 text-[0.65rem] uppercase tracking-[0.8px]">Cities</span>
-        </div>
+        
+      <div className="flex items-center gap-2.5 sm:gap-3 z-[2]">
+        <button 
+          onClick={toggleFullscreen}
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-white cursor-pointer border border-white/25 shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.2)] backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
+          style={{
+            background: 'linear-gradient(135deg, rgba(120, 130, 200, 0.4) 0%, rgba(135, 100, 170, 0.3) 40%, rgba(130, 140, 90, 0.2) 100%)'
+          }}
+        >
+          {isFullscreen ? <Minimize size={14} /> : <Maximize size={14} />}
+        </button>
+        
+        <button 
+          onClick={() => showToast('Compare mode activated')}
+          className="h-8 sm:h-9 px-3 rounded-xl flex items-center justify-center text-white font-semibold text-[11px] sm:text-xs cursor-pointer border border-white/25 shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.2)] backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
+          style={{
+            background: 'linear-gradient(135deg, rgba(120, 130, 200, 0.6) 0%, rgba(135, 100, 170, 0.5) 40%, rgba(130, 140, 90, 0.4) 100%)'
+          }}
+        >
+          <ArrowRightLeft size={13} className="mr-1.5" /> Compare
+        </button>
+        
+        <button 
+          onClick={() => {
+            if (notifications > 0) {
+              showToast(`You have ${notifications} new notifications`);
+              setNotifications(0);
+            } else {
+              showToast('No new notifications');
+            }
+          }}
+          className="relative flex items-center justify-center p-1.5 cursor-pointer transition-transform hover:scale-110 active:scale-95"
+        >
+          <Bell size={20} className="text-white" strokeWidth={2.5} />
+          {notifications > 0 && (
+            <span className="absolute top-[2px] right-[2px] w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#1c2042]"></span>
+          )}
+        </button>
       </div>
     </div>
   );
 };
+

@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
 
   // Testimonials
   const testimonials = [
-    { init: 'AK', name: 'Abena Korantema', sub: 'Level 200, UG · Legon Annex', body: '"Student Dwell literally saved me hours of stress. I found my room, viewed photos, and booked online before even arriving in Accra."' },
+    { init: 'AK', name: 'Abena Korantema', sub: 'Level 200, UG · Legon Annex', body: '"UniNest literally saved me hours of stress. I found my room, viewed photos, and booked online before even arriving in Accra."' },
     { init: 'KO', name: 'Kwame Owusu', sub: 'Level 300, Ashesi', body: '"The seamless booking process connected me to my ideal hostel in minutes. I\'d never have found it without this app. 10/10!"' },
     { init: 'EA', name: 'Efua Asante', sub: 'Fresher, KNUST', body: '"So easy to use. I viewed 6 hostels in under 10 minutes and found one within my budget near the main gate."' },
   ];
@@ -68,8 +68,8 @@ export const Home: React.FC = () => {
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar pb-[70px] relative scroll-smooth">
       <Header />
-      {/* SEARCH LIFT OVERLAPPING HEADER */}
-      <div className="px-5 -mt-10 relative z-20 mb-4">
+      {/* SEARCH BAR UNDER HEADER */}
+      <div className="px-5 relative z-20 mb-4 mt-6">
         <div className="bg-card-bg rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-border-subtle transition-transform focus-within:-translate-y-[1px]">
           <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0">
             <MapPin size={16} className="text-amber-glow" />

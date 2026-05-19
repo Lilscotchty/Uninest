@@ -151,7 +151,7 @@ export const SignUp: React.FC = () => {
         </h2>
         <p className="text-gray-500 text-[0.9rem] text-center mb-8 max-w-[280px]">
           {isStudent 
-            ? 'Your Student Dwell account is ready. Start exploring hostels near your campus right now.' 
+            ? 'Your UniNest account is ready. Start exploring hostels near your campus right now.' 
             : 'Your manager account is under review. We will verify your documents and notify you within 24 hours.'}
         </p>
         <button 
@@ -196,7 +196,7 @@ export const SignUp: React.FC = () => {
             <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
               <Building size={14} className="text-amber-glow" />
             </div>
-            <span className="font-fraunces text-white/70 text-[0.65rem] uppercase tracking-[0.2em] font-medium">Student Dwell</span>
+            <span className="font-fraunces text-white/70 text-[0.65rem] uppercase tracking-[0.2em] font-medium">UNINEST</span>
           </div>
 
           <h1 className="font-fraunces text-white text-[1.4rem] leading-[1.1] font-bold">
