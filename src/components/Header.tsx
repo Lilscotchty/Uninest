@@ -1,9 +1,9 @@
 import React from 'react';
-import { Bell, User } from 'lucide-react';
+import { Bell, User, Maximize, Minimize } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const Header: React.FC = () => {
-  const { showToast } = useAppContext();
+  const { showToast, isFullscreen, toggleFullscreen } = useAppContext();
   const [notifications, setNotifications] = React.useState(3);
 
   return (
@@ -32,6 +32,11 @@ export const Header: React.FC = () => {
         </div>
         
         <div className="flex gap-2.5">
+          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
+               onClick={toggleFullscreen}
+          >
+            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+          </div>
           <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white cursor-pointer relative hover:bg-card-bg/20 transition-colors"
                onClick={() => {
                  if (notifications > 0) {

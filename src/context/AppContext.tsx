@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { AppState, ViewState, Hostel } from '../types';
 import { HOSTELS as INITIAL_HOSTELS } from '../data';
 
@@ -17,6 +17,9 @@ interface AppContextType extends AppState, ViewState {
   toastMessage: string | null;
   clearToast: () => void;
   showToast: (msg: string) => void;
+  isFullscreen: boolean;
+  toggleFullscreen: () => void;
+  exitFullscreen: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -30,6 +33,51 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [selectedHostelId, setSelectedHostelId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    // Auto fullscreen on first interaction
+    const firstInteraction = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      }
+      document.removeEventListener('click', firstInteraction);
+      document.removeEventListener('touchstart', firstInteraction);
+    };
+
+    document.addEventListener('click', firstInteraction);
+    document.addEventListener('touchstart', firstInteraction);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('click', firstInteraction);
+      document.removeEventListener('touchstart', firstInteraction);
+    };
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen().catch(err => console.warn(err));
+    }
+  };
+
+  const exitFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(err => console.warn(err));
+    }
+  };
 
   const addCustomHostel = (hostel: Hostel) => setHostels(prev => [...prev, hostel]);
   const updateCustomHostel = (id: number, updates: Partial<Hostel>) => {
@@ -68,6 +116,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         showToast,
         theme,
         toggleTheme,
+        isFullscreen,
+        toggleFullscreen,
+        exitFullscreen,
       }}
     >
       {children}

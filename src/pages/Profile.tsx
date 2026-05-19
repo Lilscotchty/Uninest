@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { PageHeader } from '../components/PageHeader';
-import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun } from 'lucide-react';
+import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Maximize, Minimize } from 'lucide-react';
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, theme, toggleTheme } = useAppContext();
+  const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen } = useAppContext();
 
   const handleAction = (action: string) => {
     if (action === 'Log Out') {
@@ -146,6 +146,12 @@ export const Profile: React.FC = () => {
                   {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
+              </button>
+              <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+                <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
+                  {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{isFullscreen ? 'Exit Full Screen' : 'Go Full Screen'}</span>
               </button>
             </div>
           </div>
