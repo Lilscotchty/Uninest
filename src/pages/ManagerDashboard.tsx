@@ -76,7 +76,7 @@ export const ManagerDashboard: React.FC = () => {
             tags: [],
             category: 'standard',
             avail: 'Available',
-            img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80',
+            img: 'https://loremflickr.com/600/400/bedroom?lock=305',
           };
           addCustomHostel(newHostel);
           setIsEditing(false); 

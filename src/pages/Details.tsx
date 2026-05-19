@@ -83,7 +83,7 @@ export const Details: React.FC = () => {
       price: "GH₵5,000",
       avail: "4 rooms left",
       availClass: "bg-green-100 text-green-700",
-      img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80",
+      img: hostel.images?.[0] || hostel.img,
     },
     double: {
       name: "Shared Double Room",
@@ -93,7 +93,7 @@ export const Details: React.FC = () => {
       price: "GH₵3,800",
       avail: "2 rooms left",
       availClass: "bg-amber-100 text-amber-700",
-      img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80",
+      img: hostel.images?.[1] || hostel.img,
     },
     quad: {
       name: "Quad Dorm Room",
@@ -103,7 +103,7 @@ export const Details: React.FC = () => {
       price: "GH₵3,200",
       avail: "6 rooms left",
       availClass: "bg-green-100 text-green-700",
-      img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=80",
+      img: hostel.images?.[2] || hostel.img,
     },
   };
 
@@ -153,35 +153,32 @@ export const Details: React.FC = () => {
               setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
           }}
         >
-          {[
-            hostel.img,
-            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80",
-          ].map((src, i) => (
+          {(hostel.images || []).map((src, i) => (
             <div key={i} className="min-w-full h-full snap-start relative">
               <img src={src} className="w-full h-full object-cover" />
             </div>
           ))}
           {/* 360 Slide */}
-          <div className="min-w-full h-full snap-start relative bg-slate-900">
-              <Pannellum
-                width="100%"
-                height="100%"
-                image="https://pannellum.org/images/alma.jpg"
-                pitch={10}
-                yaw={180}
-                hfov={110}
-                autoLoad
-              />
-          </div>
+          {(hostel.panoramas || []).map((pano, i) => (
+            <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
+                <Pannellum
+                  width="100%"
+                  height="100%"
+                  image={pano}
+                  pitch={10}
+                  yaw={180}
+                  hfov={110}
+                  autoLoad
+                />
+            </div>
+          ))}
         </div>
 
         {/* Gradient Overlay */}
         <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
 
         <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
-          {[hostel.img, "url2", "url3", "url4"].map((src, i) => (
+          {(hostel.images || []).map((src, i) => (
             <div
               key={i}
               className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
@@ -193,33 +190,35 @@ export const Details: React.FC = () => {
               }
             >
               <img
-                src={
-                  i === 0
-                    ? src
-                    : "https://pannellum.org/images/alma.jpg"
-                }
+                src={src}
                 className="w-full h-full object-cover"
               />
             </div>
           ))}
-          <div
-            className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === 4 ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
-            onClick={() =>
-              trackRef.current?.scrollTo({
-                left: 4 * (trackRef.current?.clientWidth || 0),
-                behavior: "smooth",
-              })
-            }
-          >
-            <img src={hostel.img} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-              <FaVrCardboard size={12} />
-            </div>
-          </div>
+          {(hostel.panoramas || []).map((pano, j) => {
+            const i = (hostel.images?.length || 0) + j;
+            return (
+              <div
+                key={`pano-thumb-${j}`}
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+                onClick={() =>
+                  trackRef.current?.scrollTo({
+                    left: i * (trackRef.current?.clientWidth || 0),
+                    behavior: "smooth",
+                  })
+                }
+              >
+                <img src={pano} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
+                  <FaVrCardboard size={12} />
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-          {currentImg + 1} / 5
+          {currentImg + 1} / {(hostel.images?.length || 0) + (hostel.panoramas?.length || 0)}
         </div>
       </div>
 

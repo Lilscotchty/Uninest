@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
   const featuredHostels = [
     {
       id: 1,
-      img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80',
+      img: 'https://loremflickr.com/600/400/bedroom?lock=100',
       tag: '🔥 Trending',
       tagColor: 'amber',
       name: 'Evandy Hostel',
@@ -32,7 +32,7 @@ export const Home: React.FC = () => {
     },
     {
       id: 3,
-      img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80',
+      img: 'https://loremflickr.com/600/400/bedroom?lock=101',
       tag: '⭐ Premium',
       tagColor: 'indigo',
       name: 'Pentagon Annex',
@@ -41,7 +41,7 @@ export const Home: React.FC = () => {
     },
     {
       id: 2,
-      img: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=80',
+      img: 'https://loremflickr.com/600/400/bedroom?lock=102',
       tag: '📍 Best Location',
       tagColor: 'teal',
       name: 'Bani Hostel',

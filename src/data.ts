@@ -14,7 +14,13 @@ export const HOSTELS: Hostel[] = [
     tags: ['wifi', 'ac', 'sec'],
     category: 'premium',
     avail: '2 rooms',
-    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: ['https://pannellum.org/images/bma-0.jpg']
   },
   {
     id: 2,
@@ -29,7 +35,13 @@ export const HOSTELS: Hostel[] = [
     tags: ['sec', 'gen'],
     category: 'standard',
     avail: 'Sold out',
-    img: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: ['https://pannellum.org/images/library.jpg']
   },
   {
     id: 3,
@@ -44,7 +56,13 @@ export const HOSTELS: Hostel[] = [
     tags: ['wifi', 'sec', 'gen', 'ac'],
     category: 'premium',
     avail: 'Available',
-    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.pexels.com/photos/376533/pexels-photo-376533.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/376533/pexels-photo-376533.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/208323/pexels-photo-208323.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: ['https://pannellum.org/images/jfk.jpg']
   },
   {
     id: 4,
@@ -59,7 +77,13 @@ export const HOSTELS: Hostel[] = [
     tags: ['wifi'],
     category: 'budget',
     avail: '5 rooms',
-    img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/3316922/pexels-photo-3316922.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: ['https://pannellum.org/images/bma-1.jpg']
   },
   {
     id: 5,
@@ -74,6 +98,12 @@ export const HOSTELS: Hostel[] = [
     tags: ['sec', 'gen'],
     category: 'standard',
     avail: '1 room',
-    img: 'https://images.unsplash.com/photo-1502672260266-1c1f2ab0c281?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/775219/pexels-photo-775219.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1374125/pexels-photo-1374125.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: ['https://pannellum.org/images/milan.jpg']
   }
 ];

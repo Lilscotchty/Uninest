@@ -24,7 +24,7 @@ export const Profile: React.FC = () => {
           {/* Cover Banner */}
           <div className="h-28 w-full relative shrink-0 bg-slate-200">
             <img 
-              src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop" 
+              src="https://loremflickr.com/600/200/campus,university?lock=200" 
               alt="University Campus" 
               className="w-full h-full object-cover" 
             />
@@ -44,7 +44,7 @@ export const Profile: React.FC = () => {
                 {/* Avatar */}
                 <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-indigo/10">
                   <img 
-                    src="https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?q=80&w=200&auto=format&fit=crop" 
+                    src="https://loremflickr.com/200/200/face,smiling?lock=300" 
                     alt="Kwame Owusu" 
                     className="w-full h-full object-cover"
                   />

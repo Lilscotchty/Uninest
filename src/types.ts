@@ -12,6 +12,8 @@ export interface Hostel {
   category: string; // 'private campus wifi'
   avail: string;
   img: string;
+  images?: string[];
+  panoramas?: string[];
 }
 
 export interface AppState {
