@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
   const featuredHostels = [
     {
       id: 1,
-      img: 'https://loremflickr.com/600/400/bedroom?lock=100',
+      img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
       tag: '🔥 Trending',
       tagColor: 'amber',
       name: 'Evandy Hostel',
@@ -69,43 +69,13 @@ export const Home: React.FC = () => {
     <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar pb-[70px] relative scroll-smooth">
       <Header />
       {/* SEARCH BAR UNDER HEADER */}
-      <div className="px-5 relative z-20 mb-4 mt-6">
-        <div className="bg-card-bg rounded-2xl p-3.5 flex items-center gap-3 shadow-float border border-border-subtle transition-transform focus-within:-translate-y-[1px]">
-          <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0">
-            <MapPin size={16} className="text-amber-glow" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <input 
-              type="text" 
-              placeholder="Where do you want to live?" 
-              className="w-full bg-transparent border-none outline-none text-base font-semibold text-text-primary placeholder:text-text-muted"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  const val = e.currentTarget.value;
-                  if (val.trim()) {
-                    setExploreSearchQuery(val.trim());
-                    setCurrentView('explore');
-                  }
-                }
-              }}
-            />
-          </div>
-          <button 
-            className="w-10 h-10 rounded-[12px] bg-indigo text-white flex items-center justify-center shrink-0 hover:bg-indigo-dark transition-colors"
-            onClick={(e) => {
-              const input = e.currentTarget.previousElementSibling?.querySelector('input');
-              const val = input?.value || '';
-              if (val.trim()) {
-                setExploreSearchQuery(val.trim());
-                setCurrentView('explore');
-              } else {
-                setCurrentView('explore');
-              }
-            }}
-          >
-            <Search size={18} />
-          </button>
-        </div>
+      <div className="px-5 relative z-10 mb-4 mt-6">
+        <button 
+          onClick={() => setCurrentView('explore')}
+          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-border-subtle transition-transform hover:-translate-y-[1px] text-left"
+        >
+          <span className="text-base font-semibold text-text-muted flex-1">Where do you want to live?</span>
+        </button>
       </div>
 
       {/* FILTER CHIPS */}
@@ -288,7 +258,7 @@ export const Home: React.FC = () => {
           <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
-          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer" onClick={() => setCurrentView('explore')}>
+          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => setCurrentView('explore')}>
               <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full" zoomControl={false} dragging={false}>
                 <TileLayer
                    url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
