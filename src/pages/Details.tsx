@@ -288,7 +288,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Host */}
-        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Listed by
         </h2>
         <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border border-border-subtle shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
@@ -323,7 +323,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Amenities */}
-        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           What's Included
         </h2>
         <div className="grid grid-cols-2 gap-3 mb-8">
@@ -365,7 +365,7 @@ export const Details: React.FC = () => {
           </div>
         </div>
 
-        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           About this Hostel
         </h2>
         <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
@@ -379,7 +379,7 @@ export const Details: React.FC = () => {
         </button>
 
         {/* Room Options */}
-        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Room Options
         </h2>
         <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
@@ -444,7 +444,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Location  */}
-        <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Location
         </h2>
         <div className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 cursor-pointer">
@@ -454,7 +454,8 @@ export const Details: React.FC = () => {
             <MapContainer
               center={[hostel.lat, hostel.lng]}
               zoom={15}
-              className="w-full h-full"
+              className="w-full h-full !z-0"
+              style={{ zIndex: 0 }}
               zoomControl={false}
               dragging={false}
               scrollWheelZoom={false}
@@ -519,7 +520,7 @@ export const Details: React.FC = () => {
               onClick={() => setBookingModalOpen(false)}
             />
 
-            <h2 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-1">
+            <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-1">
               Request to Book
             </h2>
             <p className="text-[0.85rem] font-medium text-text-muted mb-6">

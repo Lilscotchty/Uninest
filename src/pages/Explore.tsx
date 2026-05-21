@@ -169,7 +169,7 @@ export const Explore: React.FC = () => {
 
       {/* Map Container */}
       <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out`}>
-        <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full z-0" zoomControl={false}>
+        <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
           <TileLayer
             url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2"
             attribution="Google Maps"
@@ -267,7 +267,7 @@ export const Explore: React.FC = () => {
              }}
         >
           <div className="flex justify-between items-center px-1 mb-4">
-            <h2 className="font-fraunces text-[1.4rem] font-bold text-text-primary">Nearby Hostels</h2>
+            <h2 className="font-montserrat text-[1.4rem] font-bold text-text-primary">Nearby Hostels</h2>
             <button className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>

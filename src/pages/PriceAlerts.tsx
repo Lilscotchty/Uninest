@@ -37,7 +37,7 @@ export const PriceAlerts: React.FC = () => {
           <div className="w-16 h-16 bg-teal-light text-teal-600 rounded-[20px] flex items-center justify-center mx-auto mb-4">
             <Bell size={32} />
           </div>
-          <h2 className="font-fraunces text-[1.5rem] font-bold text-text-primary mb-2">Never Miss a Drop</h2>
+          <h2 className="font-montserrat text-[1.5rem] font-bold text-text-primary mb-2">Never Miss a Drop</h2>
           <p className="text-[0.9rem] text-text-muted">Set up alerts to get notified instantly when the perfect room hits your dream price.</p>
         </div>
 

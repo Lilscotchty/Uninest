@@ -99,7 +99,7 @@ export const Home: React.FC = () => {
       {/* NEARBY HOSTELS */}
       <div className="mt-4 mb-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
+          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
           <span className="text-[0.82rem] font-semibold text-indigo cursor-pointer tracking-tight">See all →</span>
         </div>
         
@@ -143,7 +143,7 @@ export const Home: React.FC = () => {
       {/* QUICK ACTIONS */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
+          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
         <div className="grid grid-cols-2 gap-3.5 px-4 sm:px-5 pb-4">
           <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
@@ -179,7 +179,7 @@ export const Home: React.FC = () => {
       {/* FEATURED CAROUSEL */}
       <div className="mt-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Featured Picks</h2>
+          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Featured Picks</h2>
         </div>
         <div className="px-4 sm:px-5">
           <div className="flex gap-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar rounded-[20px] border border-border-subtle shadow-float scroll-smooth" ref={trackRef} onScroll={(e) => {
@@ -228,7 +228,7 @@ export const Home: React.FC = () => {
       {/* TESTIMONIAL */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">What Students Say</h2>
+          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">What Students Say</h2>
         </div>
         <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border border-border-subtle shadow-card group">
           <div className="flex items-center gap-[12px] mb-[12px]">
@@ -255,11 +255,11 @@ export const Home: React.FC = () => {
       {/* MAP VIEW */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-fraunces text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
+          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
           <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => setCurrentView('explore')}>
-              <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full" zoomControl={false} dragging={false}>
+              <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full !z-0" zoomControl={false} dragging={false} style={{ zIndex: 0 }}>
                 <TileLayer
                    url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
                    attribution="Google"

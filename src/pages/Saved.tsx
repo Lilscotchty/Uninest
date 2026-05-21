@@ -63,7 +63,7 @@ export const Saved: React.FC = () => {
             <div className="w-20 h-20 rounded-full bg-indigo-light text-indigo flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
-            <h2 className="font-fraunces text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved hostels yet</h2>
+            <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved hostels yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => setCurrentView('explore')}

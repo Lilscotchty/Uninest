@@ -219,7 +219,7 @@ export const SignUp: React.FC = () => {
         {step === 1 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300">
             <div className="mb-5">
-              <h2 className="font-fraunces text-2xl font-bold text-text-primary">Who are you?</h2>
+              <h2 className="font-montserrat text-2xl font-bold text-text-primary">Who are you?</h2>
               <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">Choose the account type that best describes you.</p>
             </div>
 
@@ -281,7 +281,7 @@ export const SignUp: React.FC = () => {
             <button onClick={() => setStep(1)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             
             <div className="mb-5">
-              <h2 className="font-fraunces text-2xl font-bold text-text-primary">Personal Details</h2>
+              <h2 className="font-montserrat text-2xl font-bold text-text-primary">Personal Details</h2>
               <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">Tell us a little about yourself.</p>
             </div>
 
@@ -304,7 +304,7 @@ export const SignUp: React.FC = () => {
             <button onClick={() => setStep(2)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             
             <div className="mb-5">
-              <h2 className="font-fraunces text-2xl font-bold text-text-primary">{isStudent ? 'Academic Details' : 'Property Details'}</h2>
+              <h2 className="font-montserrat text-2xl font-bold text-text-primary">{isStudent ? 'Academic Details' : 'Property Details'}</h2>
               <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">{isStudent ? 'Help us show hostels near your campus.' : 'Help us verify and list your property.'}</p>
             </div>
 
@@ -421,7 +421,7 @@ export const SignUp: React.FC = () => {
             <button onClick={() => setStep(3)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             
             <div className="mb-5">
-              <h2 className="font-fraunces text-2xl font-bold text-text-primary">Secure your account</h2>
+              <h2 className="font-montserrat text-2xl font-bold text-text-primary">Secure your account</h2>
               <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">Choose a password and review details.</p>
             </div>
 

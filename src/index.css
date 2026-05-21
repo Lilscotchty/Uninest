@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400..700&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 @theme {
   --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
+  --font-montserrat: "Montserrat", sans-serif;
   
   --color-indigo: #412d6e;
   --color-indigo-dark: #1c2042;
@@ -19,8 +20,8 @@
   --color-teal-light: var(--teal-light, #ccfbf1);
   --color-green: #16a34a;
   --color-green-light: var(--green-light, #dcfce7);
-  --color-app-bg: var(--app-bg, #fdfdfd);
-  --color-card-bg: var(--card-bg, #ffffff);
+  --color-app-bg: var(--app-bg, #ffffff);
+  --color-card-bg: var(--card-bg, #f3f4f6);
   
   --color-text-primary: var(--text-primary, #111827);
   --color-text-muted: var(--text-muted, #6b7280);
@@ -32,8 +33,8 @@
 }
 
 :root {
-  --app-bg: #f6f7fa;
-  --card-bg: #ffffff;
+  --app-bg: #ffffff;
+  --card-bg: #f3f4f6;
   --text-primary: #121524;
   --text-muted: #626982;
   --text-white: #ffffff;
