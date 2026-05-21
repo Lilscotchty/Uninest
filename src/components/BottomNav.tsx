@@ -1,15 +1,15 @@
 import React from 'react';
-import { Home, Search, Bookmark, User } from 'lucide-react';
+import { HiHome, HiSearch, HiBookmark, HiUser } from 'react-icons/hi';
 import { useAppContext } from '../context/AppContext';
 
 export const BottomNav: React.FC = () => {
   const { currentView, setCurrentView } = useAppContext();
 
   const navItems = [
-    { id: 'home', icon: Home, label: 'Home' },
-    { id: 'explore', icon: Search, label: 'Explore' },
-    { id: 'saved', icon: Bookmark, label: 'Saved' },
-    { id: 'profile', icon: User, label: 'Profile' }
+    { id: 'home', icon: HiHome, label: 'Home' },
+    { id: 'explore', icon: HiSearch, label: 'Explore' },
+    { id: 'saved', icon: HiBookmark, label: 'Saved' },
+    { id: 'profile', icon: HiUser, label: 'Profile' }
   ];
 
   return (
@@ -35,9 +35,8 @@ export const BottomNav: React.FC = () => {
                 : 'text-text-muted hover:text-text-primary/70'
             }`}>
               <IconComponent 
-                size={20} 
-                strokeWidth={isActive ? 2.5 : 2} 
-                className={isActive ? "fill-text-primary" : "fill-text-muted"} 
+                size={22} 
+                className={isActive ? "text-text-primary" : "text-text-muted"} 
               />
               <span className={`text-[10px] mt-0.5 ${isActive ? 'font-semibold text-text-primary' : 'font-medium text-text-muted'}`}>
                 {item.label}

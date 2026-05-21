@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { HiLocationMarker } from 'react-icons/hi';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
@@ -72,8 +73,9 @@ export const Home: React.FC = () => {
       <div className="px-5 relative z-10 mb-4 mt-6">
         <button 
           onClick={() => setCurrentView('explore')}
-          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border-transparent border transition-transform hover:-translate-y-[1px] text-left"
+          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-gray-200 transition-transform hover:-translate-y-[1px] text-left"
         >
+          <HiLocationMarker size={22} className="text-text-primary" />
           <span className="text-base font-semibold text-text-muted flex-1">Where do you want to live?</span>
         </button>
       </div>
