@@ -79,7 +79,7 @@ export const PriceAlerts: React.FC = () => {
 
         <div className="flex flex-col gap-3">
           {alerts.map((alert) => (
-            <div key={alert.id} className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-sm flex items-center justify-between">
+            <div key={alert.id} className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-sm flex items-center justify-between">
               <div>
                 <strong className="block text-[1rem] font-bold text-text-primary mb-0.5">{alert.loc}</strong>
                 <span className="text-[0.8rem] text-text-muted font-medium">Under GH₵{alert.maxPrice.toLocaleString()} / sem</span>

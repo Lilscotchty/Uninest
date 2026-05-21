@@ -153,7 +153,7 @@ export const Explore: React.FC = () => {
               className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
                   ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
-                  : 'bg-card-bg/90 backdrop-blur text-text-muted border-border-subtle hover:bg-card-bg'}`}
+                  : 'bg-card-bg/90 backdrop-blur text-text-muted border-transparent hover:bg-card-bg'}`}
             >
               {filter}
             </button>
@@ -207,7 +207,7 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Peek Card (shows above drawer) */}
-      <div className={`absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border border-border-subtle flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+      <div className={`absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border-transparent border flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
         {peekHostel && (
           <>
             <button 
@@ -280,7 +280,7 @@ export const Explore: React.FC = () => {
             ) : filteredHostels.map(hostel => (
               <div 
                 key={hostel.id} 
-                className="w-full bg-card-bg rounded-[18px] border border-border-subtle p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
+                className="w-full bg-card-bg rounded-[18px] border-transparent border p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
                 onClick={() => { setSelectedHostelId(hostel.id); setCurrentView('details'); }}
               >
                 <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">

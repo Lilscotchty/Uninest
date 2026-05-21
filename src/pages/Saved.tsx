@@ -48,7 +48,7 @@ export const Saved: React.FC = () => {
               key={filterItem}
               onClick={() => setActiveSavedFilter(filterKey)}
               className={`px-4 py-2 rounded-full border-[1.5px] text-xs font-semibold whitespace-nowrap cursor-pointer transition-all shadow-[0_2px_6px_rgba(0,0,0,0.03)]
-                ${isActive ? 'bg-indigo text-white border-indigo shadow-float' : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
+                ${isActive ? 'bg-indigo text-white border-indigo shadow-float' : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'}`}
             >
               {filterItem}
             </button>

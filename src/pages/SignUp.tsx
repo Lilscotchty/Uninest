@@ -129,7 +129,7 @@ export const SignUp: React.FC = () => {
             placeholder={placeholder}
             value={formData[field]}
             onChange={e => setFormData({...formData, [field]: e.target.value})}
-            className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
+            className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
           />
         </div>
       </div>
@@ -224,7 +224,7 @@ export const SignUp: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <button onClick={() => setRole('student')} className={`relative overflow-hidden p-4 rounded-[18px] flex flex-col items-center gap-2.5 transition-all text-center border-2 ${isStudent ? 'border-indigo bg-indigo/5 shadow-[0_8px_24px_rgba(55,48,163,0.12)] -translate-y-1' : 'border-transparent bg-card-bg shadow-sm border-border-subtle'}`}>
+              <button onClick={() => setRole('student')} className={`relative overflow-hidden p-4 rounded-[18px] flex flex-col items-center gap-2.5 transition-all text-center border-2 ${isStudent ? 'border-indigo bg-indigo/5 shadow-[0_8px_24px_rgba(55,48,163,0.12)] -translate-y-1' : 'border-transparent bg-card-bg shadow-sm border-transparent'}`}>
                 {isStudent && <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-indigo text-white rounded-full flex items-center justify-center"><Check size={10} /></div>}
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${isStudent ? 'bg-indigo text-white shadow-md' : 'bg-gray-100 text-gray-400'}`}>
                   <GraduationCap size={20} />
@@ -235,7 +235,7 @@ export const SignUp: React.FC = () => {
                 </div>
               </button>
 
-              <button onClick={() => setRole('manager')} className={`relative overflow-hidden p-4 rounded-[18px] flex flex-col items-center gap-2.5 transition-all text-center border-2 ${!isStudent ? 'border-teal bg-teal/5 shadow-[0_8px_24px_rgba(13,148,136,0.12)] -translate-y-1' : 'border-transparent bg-card-bg shadow-sm border-border-subtle'}`}>
+              <button onClick={() => setRole('manager')} className={`relative overflow-hidden p-4 rounded-[18px] flex flex-col items-center gap-2.5 transition-all text-center border-2 ${!isStudent ? 'border-teal bg-teal/5 shadow-[0_8px_24px_rgba(13,148,136,0.12)] -translate-y-1' : 'border-transparent bg-card-bg shadow-sm border-transparent'}`}>
                 {!isStudent && <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-teal text-white rounded-full flex items-center justify-center"><Check size={10} /></div>}
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${!isStudent ? 'bg-teal text-white shadow-md' : 'bg-gray-100 text-gray-400'}`}>
                   <Building size={20} />
@@ -259,7 +259,7 @@ export const SignUp: React.FC = () => {
                   { icon: <ChartLine size={14}/>, text: 'Real-time analytics and booking stats' },
                   { icon: <ShieldCheck size={14}/>, text: 'Get a Verified Landlord badge' }
                 ]).map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-card-bg p-3 rounded-xl border border-border-subtle shadow-sm">
+                  <div key={i} className="flex items-center gap-3 bg-card-bg p-3 rounded-xl border-transparent border shadow-sm">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isStudent ? 'bg-indigo/10 text-indigo' : 'bg-teal/10 text-teal'}`}>
                       {item.icon}
                     </div>
@@ -314,7 +314,7 @@ export const SignUp: React.FC = () => {
                   <label className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">Institution</label>
                   <div className="relative">
                     <School className="absolute left-3.5 top-3.5 text-gray-400" size={16} />
-                    <select className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] font-medium appearance-none"
+                    <select className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] font-medium appearance-none"
                       value={formData.university} onChange={e => setFormData({...formData, university: e.target.value})}
                     >
                       <option value="">Select your university...</option>
@@ -330,7 +330,7 @@ export const SignUp: React.FC = () => {
                   <label className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">Academic Level</label>
                   <div className="relative">
                     <GraduationCap className="absolute left-3.5 top-3.5 text-gray-400" size={16} />
-                    <select className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] font-medium appearance-none"
+                    <select className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] font-medium appearance-none"
                       value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})}
                     >
                       <option value="">Select level...</option>
@@ -346,7 +346,7 @@ export const SignUp: React.FC = () => {
             ) : (
               <div className="flex flex-col gap-5">
                 {/* Manager Property Form */}
-                <div className="bg-card-bg p-4 rounded-2xl border border-border-subtle shadow-sm flex flex-col gap-3">
+                <div className="bg-card-bg p-4 rounded-2xl border-transparent border shadow-sm flex flex-col gap-3">
                   <span className="font-fraunces font-bold text-teal flex items-center gap-2"><MapPin size={16}/> Digital Location</span>
                   <LocationInput 
                     address={formData.digitalAddress}
@@ -365,7 +365,7 @@ export const SignUp: React.FC = () => {
                       placeholder="Briefly describe what makes your hostel unique..."
                       value={formData.description}
                       onChange={e => setFormData({...formData, description: e.target.value})}
-                      className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-teal focus:ring-[3px] focus:ring-teal/10 text-[0.9rem] font-medium resize-none h-24 leading-relaxed"
+                      className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-teal focus:ring-[3px] focus:ring-teal/10 text-[0.9rem] font-medium resize-none h-24 leading-relaxed"
                     />
                   </div>
                 </div>
@@ -378,7 +378,7 @@ export const SignUp: React.FC = () => {
                     {AMENITIES_LIST.map(a => {
                       const sel = selectedAmenities.includes(a);
                       return (
-                        <button key={a} onClick={() => toggleAmenity(a)} className={`px-3 py-2 border rounded-xl text-[0.75rem] font-bold transition-all ${sel ? 'bg-teal border-teal text-white' : 'bg-card-bg border-border-subtle text-gray-500'}`}>
+                        <button key={a} onClick={() => toggleAmenity(a)} className={`px-3 py-2 border rounded-xl text-[0.75rem] font-bold transition-all ${sel ? 'bg-teal border-teal text-white' : 'bg-card-bg border-transparent text-gray-500'}`}>
                           {a}
                         </button>
                       );
@@ -392,9 +392,9 @@ export const SignUp: React.FC = () => {
                     <button onClick={addRoom} className="text-teal font-bold text-[0.75rem] flex items-center gap-1 hover:bg-teal/10 px-2 py-1 rounded"><Plus size={14}/> Add Room</button>
                   </div>
                   {rooms.map((room, i) => (
-                    <div key={room.id} className="bg-card-bg border border-border-subtle rounded-xl p-3 relative flex flex-col gap-3">
+                    <div key={room.id} className="bg-card-bg border-transparent border rounded-xl p-3 relative flex flex-col gap-3">
                       {rooms.length > 1 && (
-                        <button onClick={() => removeRoom(room.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-card-bg border border-border-subtle rounded-full text-red-500 flex items-center justify-center hover:bg-red-50 transition-colors shadow-sm"><Trash2 size={12}/></button>
+                        <button onClick={() => removeRoom(room.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-card-bg border-transparent border rounded-full text-red-500 flex items-center justify-center hover:bg-red-50 transition-colors shadow-sm"><Trash2 size={12}/></button>
                       )}
                       <div className="grid grid-cols-2 gap-3">
                         <select className="bg-app-bg border border-border-subtle rounded-lg p-2 text-[0.8rem] outline-none font-medium appearance-none" value={room.type} onChange={e => updateRoom(room.id, 'type', e.target.value)}>
@@ -434,7 +434,7 @@ export const SignUp: React.FC = () => {
                   placeholder="Min. 8 characters"
                   value={formData.password}
                   onChange={e => setFormData({...formData, password: e.target.value})}
-                  className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
+                  className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
                 />
                 <button onClick={() => setShowPass(!showPass)} className="absolute right-4 text-gray-400 hover:text-text-primary">
                   {showPass ? <EyeOff size={16}/> : <Eye size={16}/>}
@@ -451,13 +451,13 @@ export const SignUp: React.FC = () => {
                   placeholder="Re-enter password"
                   value={formData.confirmPassword}
                   onChange={e => setFormData({...formData, confirmPassword: e.target.value})}
-                  className="w-full bg-card-bg border border-border-subtle rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
+                  className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
                 />
               </div>
             </div>
 
             {/* Review Block */}
-            <div className="bg-card-bg rounded-2xl border border-border-subtle shadow-sm overflow-hidden mb-6">
+            <div className="bg-card-bg rounded-2xl border-transparent border shadow-sm overflow-hidden mb-6">
               <div className={`p-4 flex items-center gap-3 ${isStudent ? 'bg-indigo' : 'bg-teal'} text-white`}>
                 <div className="w-12 h-12 rounded-full border-2 border-white/20 bg-white/10 flex items-center justify-center font-fraunces font-bold text-lg">
                   {formData.firstName?.[0] || '?'}{formData.lastName?.[0] || ''}

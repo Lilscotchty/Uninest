@@ -102,7 +102,7 @@ export const ManagerDashboard: React.FC = () => {
   return (
     <div className="w-full h-full bg-app-bg flex font-sans relative overflow-hidden">
       {/* Sidebar Navigation */}
-      <div className={`absolute z-50 h-full bg-card-bg border-r border-border-subtle w-[260px] transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`absolute z-50 h-full bg-card-bg border-r border-transparent w-[260px] transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-4 border-b border-border-subtle h-[60px]">
           <span className="font-fraunces font-bold text-lg text-indigo">Hostel Portal</span>
           <button className="text-text-muted" onClick={() => setSidebarOpen(false)}>
@@ -124,7 +124,7 @@ export const ManagerDashboard: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="h-[60px] flex items-center justify-between px-4 bg-card-bg border-b border-border-subtle shrink-0">
+        <header className="h-[60px] flex items-center justify-between px-4 bg-card-bg border-b border-transparent shrink-0">
            <div className="flex items-center gap-3">
              <button className="text-text-muted hover:text-indigo" onClick={() => setSidebarOpen(true)}>
                <Menu size={24} />
@@ -176,7 +176,7 @@ const Overview = ({ onAddNew, hostels }: { onAddNew: () => void, hostels: Hostel
         <StatCard title="Pending Inquiries" value="12" trend="Needs action" alert />
       </div>
 
-      <div className="bg-card-bg rounded-2xl shadow-sm border border-border-subtle p-5">
+      <div className="bg-card-bg rounded-2xl shadow-sm border-transparent border p-5">
          <h2 className="text-lg font-bold text-text-primary mb-4">Active Listings</h2>
          <div className="overflow-x-auto">
            <table className="w-full text-left border-collapse min-w-[500px]">
@@ -222,7 +222,7 @@ const Overview = ({ onAddNew, hostels }: { onAddNew: () => void, hostels: Hostel
 };
 
 const StatCard = ({ title, value, trend, alert }: { title: string, value: string, trend: string, alert?: boolean }) => (
-  <div className="bg-card-bg p-4 rounded-2xl border border-border-subtle shadow-sm flex flex-col gap-1">
+  <div className="bg-card-bg p-4 rounded-2xl border-transparent border shadow-sm flex flex-col gap-1">
     <span className="text-xs font-semibold text-text-muted uppercase tracking-wide">{title}</span>
     <strong className="text-2xl font-black text-text-primary mt-1">{value}</strong>
     <span className={`text-xs font-medium ${alert ? 'text-coral' : 'text-emerald-600'}`}>{trend}</span>
@@ -270,7 +270,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
       <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); onSave(formData as ManagerHostelForm); }}>
         
         {step === 1 && (
-          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border border-border-subtle flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
             <h2 className="text-lg font-bold text-text-primary mb-2">Basic Information</h2>
             
             <div className="flex flex-col gap-1.5">
@@ -296,7 +296,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
         )}
 
         {step === 2 && (
-          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border border-border-subtle flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
             <h2 className="text-lg font-bold text-text-primary mb-2">Room & Pricing Configuration</h2>
             <p className="text-xs text-text-muted">Add the different types of rooms available.</p>
             
@@ -327,7 +327,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
         )}
 
         {step === 3 && (
-          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border border-border-subtle flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
             <h2 className="text-lg font-bold text-text-primary mb-2">Media Uploads</h2>
             
             <div className="flex flex-col gap-1.5">
@@ -346,7 +346,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
         )}
 
         {step === 4 && (
-          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border border-border-subtle flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+          <div className="bg-card-bg p-4 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
             <h2 className="text-lg font-bold text-text-primary mb-2">Amenities & Policies</h2>
             
             <div className="flex flex-col gap-2 mb-4">

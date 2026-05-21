@@ -13,7 +13,7 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <div className="absolute bottom-0 w-full bg-card-bg flex justify-around items-center border-t border-border-subtle z-[9999] h-[52px] px-2 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] pb-[env(safe-area-inset-bottom)]">
+    <div className="absolute bottom-0 w-full bg-card-bg flex justify-around items-center border-t border-transparent z-[9999] h-[52px] px-2 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] pb-[env(safe-area-inset-bottom)]">
       {navItems.map((item) => {
         const IconComponent = item.icon;
         const isActive = currentView === item.id;

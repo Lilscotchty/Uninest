@@ -72,7 +72,7 @@ export const Home: React.FC = () => {
       <div className="px-5 relative z-10 mb-4 mt-6">
         <button 
           onClick={() => setCurrentView('explore')}
-          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-border-subtle transition-transform hover:-translate-y-[1px] text-left"
+          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border-transparent border transition-transform hover:-translate-y-[1px] text-left"
         >
           <span className="text-base font-semibold text-text-muted flex-1">Where do you want to live?</span>
         </button>
@@ -87,7 +87,7 @@ export const Home: React.FC = () => {
             className={`flex flex-row items-center gap-1.5 shrink-0 px-4 py-2 rounded-full text-[0.82rem] font-medium transition-all shadow-[0_1px_4px_rgba(55,48,163,0.06)] border ${
               activeFilter === f.id 
                 ? 'bg-indigo text-white border-indigo shadow-[0_4px_12px_rgba(55,48,163,0.25)]' 
-                : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'
+                : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'
             }`}
           >
             {f.icon}
@@ -146,7 +146,7 @@ export const Home: React.FC = () => {
           <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
         <div className="grid grid-cols-2 gap-3.5 px-4 sm:px-5 pb-4">
-          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+          <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
                onClick={() => setCurrentView('virtual-tour')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
@@ -160,7 +160,7 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-card-bg rounded-[18px] p-4 border border-border-subtle shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+          <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
                onClick={() => setCurrentView('price-alerts')}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
@@ -230,7 +230,7 @@ export const Home: React.FC = () => {
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
           <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">What Students Say</h2>
         </div>
-        <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border border-border-subtle shadow-card group">
+        <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border-transparent border shadow-card group">
           <div className="flex items-center gap-[12px] mb-[12px]">
             <div className="w-[40px] h-[40px] rounded-full bg-indigo-light flex items-center justify-center font-bold text-[0.85rem] text-indigo shrink-0">
               {testimonials[tIdx].init}

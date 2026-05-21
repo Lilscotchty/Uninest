@@ -20,7 +20,7 @@ export const Profile: React.FC = () => {
       <div className="flex-1 overflow-y-auto px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar w-full mt-4">
         
         {/* User Identity Card Redesign */}
-        <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
           {/* Cover Banner */}
           <div className="h-28 w-full relative shrink-0 bg-slate-200">
             <img 
@@ -83,7 +83,7 @@ export const Profile: React.FC = () => {
         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-[100ms]">
           
           {/* Management Group */}
-          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border overflow-hidden">
             <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
             </div>
@@ -99,12 +99,12 @@ export const Profile: React.FC = () => {
           </div>
 
           {/* Account Group */}
-          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border overflow-hidden">
             <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Account</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-indigo-light text-indigo flex items-center justify-center shrink-0">
                   <User size={16} />
                 </div>
@@ -122,12 +122,12 @@ export const Profile: React.FC = () => {
           </div>
 
           {/* Preferences Group */}
-          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border overflow-hidden">
             <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Preferences</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Notifications')} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Notifications')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-amber-light text-amber-glow flex items-center justify-center shrink-0">
                   <Bell size={16} />
                 </div>
@@ -141,13 +141,13 @@ export const Profile: React.FC = () => {
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Privacy & Security</span>
                 <ChevronRight size={16} className="text-text-muted group-hover:text-indigo transition-colors" />
               </button>
-              <button onClick={() => toggleTheme()} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => toggleTheme()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
                   {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
               </button>
-              <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
                   {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
                 </div>
@@ -157,12 +157,12 @@ export const Profile: React.FC = () => {
           </div>
 
           {/* Support Group */}
-          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-border-subtle overflow-hidden">
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border overflow-hidden">
             <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Support</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Help Center')} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Help Center')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-[#fef3c7] text-[#d97706] flex items-center justify-center shrink-0">
                   <HelpCircle size={16} />
                 </div>

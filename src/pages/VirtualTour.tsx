@@ -35,7 +35,7 @@ export const VirtualTour: React.FC = () => {
 
         <div className="flex flex-col gap-4">
           {featuredTours.map((hostel) => (
-            <div key={hostel.id} className="bg-card-bg rounded-[20px] overflow-hidden border border-border-subtle shadow-sm flex flex-col cursor-pointer group" onClick={() => setSelectedVideo(hostel.img)}>
+            <div key={hostel.id} className="bg-card-bg rounded-[20px] overflow-hidden border-transparent border shadow-sm flex flex-col cursor-pointer group" onClick={() => setSelectedVideo(hostel.img)}>
               <div className="relative h-[200px] w-full">
                 <img src={hostel.img} alt={hostel.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">

@@ -243,7 +243,7 @@ export const Details: React.FC = () => {
           <h1 className="font-fraunces text-[1.4rem] sm:text-[1.85rem] font-bold text-text-primary leading-[1.1] tracking-[-0.5px] break-words">
             {hostel.name}
           </h1>
-          <div className="bg-card-bg border border-border-subtle shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
+          <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
             <Star size={14} className="fill-amber-400 text-amber-400" />
             <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
               {hostel.rating}
@@ -291,7 +291,7 @@ export const Details: React.FC = () => {
         <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Listed by
         </h2>
-        <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border border-border-subtle shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
+        <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
           <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-indigo-light to-indigo flex items-center justify-center text-white font-fraunces font-bold text-[1.2rem]">
             C
           </div>
@@ -403,7 +403,7 @@ export const Details: React.FC = () => {
           </button>
         </div>
 
-        <div className="bg-card-bg rounded-[20px] border border-border-subtle shadow-sm overflow-hidden mb-8">
+        <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
           <div className="h-[160px]">
             <img
               src={selectedRoom.img}
@@ -475,7 +475,7 @@ export const Details: React.FC = () => {
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="fixed bottom-0 w-full max-w-[400px] bg-card-bg/95 backdrop-blur-md px-4 sm:px-6 py-3 border-t border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-[100] flex justify-between items-center gap-3 pb-8">
+      <div className="fixed bottom-0 w-full max-w-[400px] bg-card-bg/95 backdrop-blur-md px-4 sm:px-6 py-3 border-t border-transparent shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-[100] flex justify-between items-center gap-3 pb-8">
         <div className="flex-1 min-w-0">
           <div className="font-fraunces text-[1.1rem] sm:text-[1.2rem] font-bold text-text-primary leading-[1.1]">
             {selectedRoom.price}

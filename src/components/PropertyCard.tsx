@@ -13,7 +13,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
   return (
     <div 
       onClick={onClick}
-      className="w-[180px] sm:w-[200px] min-w-[180px] sm:min-w-[200px] bg-card-bg rounded-[20px] border border-border-subtle shadow-card overflow-hidden flex flex-col cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] shrink-0"
+      className="w-[180px] sm:w-[200px] min-w-[180px] sm:min-w-[200px] bg-card-bg rounded-[20px] border-transparent border shadow-card overflow-hidden flex flex-col cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] shrink-0"
     >
       {/* Image Container */}
       <div className="relative h-[130px] overflow-hidden group">
