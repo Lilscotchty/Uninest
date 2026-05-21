@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 
 interface RoomType {
+  imageFile?: File;
+  imageUrlPreview?: string;
   id: string;
   name: string;
   totalRooms: number;
@@ -33,6 +35,10 @@ interface ManagerHostelForm {
   location: string;
   roomTypes: RoomType[];
   videoTour?: string;
+  compoundImageFile?: File;
+  compoundImagePreview?: string;
+  image360File?: File;
+  image360Preview?: string;
   amenities: {
     wifi: boolean;
     generator: boolean;
@@ -59,37 +65,123 @@ export const ManagerDashboard: React.FC = () => {
     if (isEditing) {
       return <CreateEditListing 
         onBack={() => setIsEditing(false)} 
-        onSave={(data) => { 
-          // Generate deterministic coords from string length or use default
-          const baseLat = 5.6000;
-          const baseLng = -0.1900;
-          const randOffset = (str: string) => (str.length * 0.001);
-          
-          const newHostel: Hostel = {
-            id: Date.now(),
-            name: data.title,
-            loc: data.location || data.ghanaPostGPS || 'Accra',
-            lat: baseLat + randOffset(data.ghanaPostGPS),
-            lng: baseLng + randOffset(data.title),
-            price: 'GH₵5,000',
-            priceNum: 5000,
-            rating: 4.0,
-            reviews: 0,
-            tags: [],
-            category: 'standard',
-            avail: 'Available',
-            img: 'https://loremflickr.com/600/400/bedroom?lock=305',
-          };
-          addCustomHostel(newHostel);
-          setIsEditing(false); 
-          showToast('Listing saved successfully! View it in Explore.'); 
-        }} 
-      />;
+        onSave={async (data) => {
+          showToast("Saving to database...");
+          try {
+            const amenitiesList = [];
+            if (data.amenities.wifi) amenitiesList.push("WiFi");
+            if (data.amenities.generator) amenitiesList.push("Generator");
+            if (data.amenities.water) amenitiesList.push("Water");
+            if (data.amenities.ac) amenitiesList.push("AC");
+            if (data.amenities.kitchen) amenitiesList.push("Kitchen");
+            if (data.amenities.studyRoom) amenitiesList.push("Study Room");
+            if (data.amenities.security) amenitiesList.push("Security");
+
+            let compoundUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
+            if (data.compoundImageFile) {
+              const fileExt = data.compoundImageFile.name.split(".").pop();
+              const fileName = `compound-${Math.random()}.${fileExt}`;
+              const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, data.compoundImageFile);
+              if (!uploadError) {
+                compoundUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+              }
+            }
+
+            let image360Url = "";
+            if (data.image360File) {
+              const fileExt = data.image360File.name.split(".").pop();
+              const fileName = `360-${Math.random()}.${fileExt}`;
+              const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, data.image360File);
+              if (!uploadError) {
+                image360Url = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+              }
+            }
+
+            const baseLat = 5.6000;
+            const baseLng = -0.1900;
+            const randOffsetLat = (str: string) => (str.length * 0.001);
+            const generatedLat = baseLat + randOffsetLat(data.ghanaPostGPS);
+            const generatedLng = baseLng - randOffsetLat(data.title);
+
+            const { data: hostel, error: hostelError } = await supabase.from("hostels").insert({
+              name: data.title,
+              description: data.description,
+              digital_address: data.ghanaPostGPS,
+              location: data.location,
+              amenities: amenitiesList,
+              policies: data.policies,
+              video_url: data.videoTour,
+              image_url: compoundUrl,
+              image_360_url: image360Url,
+              lat: generatedLat,
+              lng: generatedLng
+            }).select().single();
+
+            if (hostelError) throw hostelError;
+
+            const roomsToInsert = [];
+            const roomImages = [];
+            for (const r of data.roomTypes) {
+              let roomImgUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
+              if (r.imageFile) {
+                const fileExt = r.imageFile.name.split(".").pop();
+                const fileName = `room-${Math.random()}.${fileExt}`;
+                const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, r.imageFile);
+                if (!uploadError) {
+                  roomImgUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+                }
+              }
+              roomImages.push(roomImgUrl);
+              roomsToInsert.push({
+                hostel_id: hostel.id,
+                room_type: r.name,
+                price: Number(r.pricePerYear),
+                capacity: Number(r.occupantsPerRoom),
+                quantity: Number(r.totalRooms),
+                image_url: roomImgUrl
+              });
+            }
+            if (roomsToInsert.length > 0) {
+              const { error: roomsError } = await supabase.from("rooms").insert(roomsToInsert);
+              if (roomsError) throw roomsError;
+            }
+            
+            const newHostel: Hostel = {
+              id: hostel?.id || Date.now(),
+              name: data.title,
+              loc: data.location || data.ghanaPostGPS || "Accra",
+              lat: generatedLat,
+              lng: generatedLng,
+              price: `GH₵${data.roomTypes[0]?.pricePerYear || 5000}`,
+              priceNum: data.roomTypes[0]?.pricePerYear || 5000,
+              rating: 0.0,
+              reviews: 0,
+              tags: amenitiesList.slice(0, 3),
+              category: "standard" as const,
+              avail: "Available" as const,
+              img: compoundUrl,
+              desc: data.description,
+              amenities: amenitiesList,
+              policies: data.policies,
+              rooms: roomsToInsert as any[],
+              videoTour: data.videoTour,
+              panoramas: image360Url ? [image360Url] : [],
+              images: [compoundUrl, ...roomImages].filter(Boolean),
+              dbId: hostel?.id
+            };
+            addCustomHostel(newHostel);
+            setIsEditing(false); 
+            showToast("Listing saved successfully!"); 
+          } catch (e: any) {
+            showToast("Error saving to database: " + e.message);
+          }
+        }} />;
+
     }
 
     switch (activeTab) {
-      case 'overview':
-      case 'hostels':
+      case "overview":
+      case "hostels":
         return <Overview onAddNew={() => setIsEditing(true)} hostels={myHostels} />;
       default:
         return (
@@ -341,6 +433,25 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
                        setFormData({...formData, roomTypes: newRooms});
                      }} placeholder="4500" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
                    </div>
+                   <div className="flex flex-col gap-1.5">
+                     <label className="text-xs font-semibold text-text-primary">Room Image *</label>
+                     <div className="relative border-2 border-dashed border-indigo-light bg-app-bg rounded-xl h-24 flex flex-col items-center justify-center text-text-muted gap-1 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                       {room.imageUrlPreview ? (
+                         <img src={room.imageUrlPreview} alt="Room" className="w-full h-full object-cover" />
+                       ) : (
+                         <><UploadCloud size={18} className="text-indigo" /><span className="text-xs">Upload Room Image</span></>
+                       )}
+                       <input type="file" accept="image/*" title="Room Image" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => {
+                         if (e.target.files && e.target.files[0]) {
+                           const file = e.target.files[0];
+                           const newRooms = [...formData.roomTypes!];
+                           newRooms[index].imageFile = file;
+                           newRooms[index].imageUrlPreview = URL.createObjectURL(file);
+                           setFormData({...formData, roomTypes: newRooms});
+                         }
+                       }} />
+                     </div>
+                   </div>
                  </div>
               </div>
             ))}
@@ -355,15 +466,41 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
             <h2 className="text-lg font-bold text-text-primary mb-2">Media Uploads</h2>
             
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-text-primary">Images (minimum 1 required)</label>
-              <div className="border-2 border-dashed border-indigo-light bg-app-bg rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors">
-                <UploadCloud size={24} className="text-indigo" />
-                <span className="text-sm">Drag & drop or Click to upload</span>
+              <label className="text-sm font-semibold text-text-primary">Compound Image *</label>
+              <div className="relative border-2 border-dashed border-indigo-light bg-app-bg rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                 {formData.compoundImagePreview ? (
+                   <img src={formData.compoundImagePreview} alt="Compound" className="w-full h-full object-cover" />
+                 ) : (
+                   <><UploadCloud size={24} className="text-indigo" /><span className="text-sm">Upload Compound Image</span></>
+                 )}
+                 <input type="file" accept="image/*" title="Compound Image" required className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => {
+                   if (e.target.files && e.target.files[0]) {
+                     const file = e.target.files[0];
+                     setFormData({...formData, compoundImageFile: file, compoundImagePreview: URL.createObjectURL(file)});
+                   }
+                 }} />
               </div>
             </div>
 
             <div className="flex flex-col gap-1.5 mt-2">
-              <label className="text-sm font-semibold text-text-primary">Video Tour (YouTube/Vimeo URL)</label>
+              <label className="text-sm font-semibold text-text-primary">360 Virtual Tour Image (Optional)</label>
+              <div className="relative border-2 border-dashed border-indigo-light bg-app-bg rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                 {formData.image360Preview ? (
+                   <img src={formData.image360Preview} alt="360 Tour" className="w-full h-full object-cover" />
+                 ) : (
+                   <><UploadCloud size={24} className="text-indigo" /><span className="text-sm">Upload 360 Panorama</span></>
+                 )}
+                 <input type="file" accept="image/*" title="360 Image" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => {
+                   if (e.target.files && e.target.files[0]) {
+                     const file = e.target.files[0];
+                     setFormData({...formData, image360File: file, image360Preview: URL.createObjectURL(file)});
+                   }
+                 }} />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5 mt-2">
+              <label className="text-sm font-semibold text-text-primary">Video Tour (YouTube/Vimeo URL) (Optional)</label>
               <input type="url" value={formData.videoTour || ""} onChange={e => setFormData({...formData, videoTour: e.target.value})} className="w-full border border-border-subtle rounded-xl px-4 py-2.5 text-sm bg-app-bg focus:border-indigo outline-none" placeholder="https://..." />
             </div>
           </div>
@@ -376,10 +513,10 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
             <div className="flex flex-col gap-2 mb-4">
               <label className="text-sm font-semibold text-text-primary mb-1">Select Available Facilities</label>
               <div className="grid grid-cols-2 gap-3">
-                {['wifi', 'generator', 'water', 'ac', 'kitchen', 'studyRoom', 'security'].map((item) => (
+                {["wifi", "generator", "water", "ac", "kitchen", "studyRoom", "security"].map((item) => (
                   <label key={item} className="flex items-center gap-2 text-sm cursor-pointer border border-border-subtle rounded-lg p-3 hover:bg-app-bg transition-colors">
-                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as keyof Hostel['amenities'])} className="w-4 h-4 rounded text-indigo focus:ring-indigo capitalize" />
-                    <span className="capitalize text-text-primary">{item.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as any)} className="w-4 h-4 rounded text-indigo focus:ring-indigo capitalize" />
+                    <span className="capitalize text-text-primary">{item.replace(/([A-Z])/g, " $1").trim()}</span>
                   </label>
                 ))}
               </div>

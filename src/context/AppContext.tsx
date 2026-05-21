@@ -47,8 +47,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             id: Math.random().toString(36).substr(2, 9), // Keep ID format mixed or cast, ideally keep original id
             name: h.name,
             loc: h.location || h.digital_address || "Accra",
-            lat: 5.6000 + (h.name.length * 0.001), // mock lat
-            lng: -0.1900 + (h.name.length * 0.001), // mock lng
+            lat: h.lat || (5.6000 + (h.name.length * 0.001)),
+            lng: h.lng || (-0.1900 + (h.name.length * 0.001)),
+            panoramas: h.image_360_url ? [h.image_360_url] : [],
+            images: [h.image_url, ...(h.rooms?.map(r => r.image_url).filter(Boolean) || [])],
+            amenities: h.amenities || [],
+            policies: h.policies || "",
+            rooms: h.rooms || [],
+            videoTour: h.video_url,
             price: h.rooms && h.rooms.length > 0 ? `GH₵${h.rooms[0].price}` : "GH₵5,000",
             priceNum: h.rooms && h.rooms.length > 0 ? h.rooms[0].price : 5000,
             rating: 0.0,

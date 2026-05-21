@@ -9,8 +9,11 @@ CREATE TABLE hostels (
   distance_to_campus text,
   amenities text[],
   policies text,
-  image_url text, -- Main display image
+  image_url text, -- Compound display image
   video_url text, -- Virtual tour video url
+  image_360_url text, -- 360 Virtual Tour image url
+  lat double precision,
+  lng double precision,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -22,6 +25,7 @@ CREATE TABLE rooms (
   price numeric NOT NULL, -- Price per semester
   capacity integer, -- Number of people
   quantity integer, -- Number of this room type available
+  image_url text, -- Room image
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 

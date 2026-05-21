@@ -327,42 +327,26 @@ export const Details: React.FC = () => {
           What's Included
         </h2>
         <div className="grid grid-cols-2 gap-3 mb-8">
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-            <FaWifi className="text-indigo text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              Fast Wi-Fi
-            </span>
-          </div>
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-            <FaSnowflake className="text-indigo text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              Air/con
-            </span>
-          </div>
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-            <FaShieldAlt className="text-indigo text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              24/7 Security
-            </span>
-          </div>
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-            <FaPlug className="text-indigo text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              Backup Gen
-            </span>
-          </div>
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-            <FaTint className="text-indigo text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              Water 24/7
-            </span>
-          </div>
-          <div className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle opacity-50">
-            <FaUtensils className="text-slate-400 text-base" />{" "}
-            <span className="text-[0.85rem] font-bold text-text-primary">
-              Cafeteria
-            </span>
-          </div>
+          {((hostel.amenities?.length ? hostel.amenities : hostel.tags) || []).map((am, i) => {
+            const label = am.toLowerCase();
+            let Icon = FaWifi;
+            let color = "text-indigo";
+            if (label.includes("ac")) { Icon = FaSnowflake; color = "text-blue-400"; }
+            else if (label.includes("security") || label.includes("sec")) { Icon = FaShieldAlt; color = "text-emerald-500"; }
+            else if (label.includes("gen")) { Icon = FaPlug; color = "text-amber-500"; }
+            else if (label.includes("study")) { Icon = FaBookOpen; color = "text-pink-500"; }
+            else if (label.includes("water") || label.includes("piped")) { Icon = FaTint; color = "text-cyan-500"; }
+            else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = FaUtensils; color = "text-orange-500"; }
+            
+            return (
+              <div key={i} className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
+                <Icon className={`${color} text-base`} />
+                <span className="text-[0.85rem] font-bold text-text-primary">
+                  {am}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
         <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
@@ -447,9 +431,10 @@ export const Details: React.FC = () => {
         <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Location
         </h2>
-        <div className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 cursor-pointer">
+        <a href={`https://www.google.com/maps/search/?api=1&query=${hostel.lat},${hostel.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
+          <div className="absolute inset-0 bg-transparent z-10" />
           <div
-            className={`w-full h-full transition-all`}
+            className={`w-full h-full transition-all group-hover:opacity-90`}
           >
             <MapContainer
               center={[hostel.lat, hostel.lng]}
@@ -467,10 +452,10 @@ export const Details: React.FC = () => {
               <Marker position={[hostel.lat, hostel.lng]} icon={mapIcon} />
             </MapContainer>
           </div>
-        </div>
+        </a>
         <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
-          <Info size={14} className="text-indigo" />{" "}
-          "Location unlocked. Tap map to open."
+          <MapPin size={14} className="text-indigo" />{" "}
+          <a href={`https://www.google.com/maps/search/?api=1&query=${hostel.lat},${hostel.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo">Open in Google Maps</a>
         </p>
       </div>
 

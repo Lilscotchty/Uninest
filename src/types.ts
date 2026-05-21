@@ -1,5 +1,5 @@
 export interface Hostel {
-  id: number;
+  id: number | string;
   name: string;
   loc: string; // e.g., 'Legon · 3 min to main gate'
   lat: number;
@@ -14,6 +14,12 @@ export interface Hostel {
   img: string;
   images?: string[];
   panoramas?: string[];
+  desc?: string;
+  amenities?: string[];
+  policies?: string;
+  rooms?: any[];
+  videoTour?: string;
+  dbId?: string;
 }
 
 export interface AppState {
