@@ -220,14 +220,14 @@ export const Explore: React.FC = () => {
               <img src={peekHostel.img} alt={peekHostel.name} className="w-full h-full object-cover" />
             </div>
             <div className="flex-1 min-w-0 pr-6">
-              <div className="font-fraunces text-[0.98rem] font-bold text-text-primary mb-1 truncate">
+              <div className="font-montserrat text-[0.98rem] font-bold text-text-primary mb-1 truncate">
                 {peekHostel.name}
               </div>
               <div className="text-[0.73rem] text-text-muted mb-[6px] flex items-center gap-1">
                 <MapPin size={10} className="text-amber-glow" /> Area: {peekHostel.loc}
               </div>
               <div className="flex items-center justify-between">
-                <div className="font-fraunces text-base font-bold text-text-primary">
+                <div className="font-montserrat text-base font-bold text-text-primary">
                   {peekHostel.price} <span className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
                 </div>
                 <button 
@@ -292,7 +292,7 @@ export const Explore: React.FC = () => {
 
                 <div className="flex flex-col flex-1 min-w-0 py-0.5">
                   <div className="flex items-start justify-between mb-1 gap-2">
-                    <h3 className="font-fraunces text-[0.95rem] font-bold text-text-primary truncate">
+                    <h3 className="font-montserrat text-[0.95rem] font-bold text-text-primary truncate">
                       {hostel.name}
                     </h3>
                     <div className="flex items-center gap-[3px] text-[0.75rem] font-semibold text-text-primary shrink-0">
