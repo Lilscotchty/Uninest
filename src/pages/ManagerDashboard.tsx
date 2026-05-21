@@ -1,3 +1,4 @@
+import { supabase } from "../lib/supabase";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { Hostel } from '../types';
@@ -31,6 +32,7 @@ interface ManagerHostelForm {
   ghanaPostGPS: string;
   location: string;
   roomTypes: RoomType[];
+  videoTour?: string;
   amenities: {
     wifi: boolean;
     generator: boolean;
@@ -233,7 +235,8 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Partial<ManagerHostelForm>>({
      title: '', description: '', ghanaPostGPS: '', location: '',
-     roomTypes: [],
+     roomTypes: [{ id: "1", name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }],
+     videoTour: "",
      amenities: { wifi: false, generator: false, water: false, ac: false, kitchen: false, studyRoom: false, security: false },
      policies: ''
   });
@@ -300,29 +303,50 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
             <h2 className="text-lg font-bold text-text-primary mb-2">Room & Pricing Configuration</h2>
             <p className="text-xs text-text-muted">Add the different types of rooms available.</p>
             
-            <div className="border border-border-subtle rounded-xl p-4 bg-app-bg/50">
-               <div className="grid grid-cols-1 gap-4">
-                 <div className="flex flex-col gap-1.5">
-                   <label className="text-xs font-semibold text-text-primary">Room Name</label>
-                   <input type="text" placeholder="e.g. 2 in a room" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
+            {formData.roomTypes?.map((room, index) => (
+              <div key={room.id} className="border border-border-subtle rounded-xl p-4 bg-app-bg/50 relative">
+                 {formData.roomTypes!.length > 1 && (
+                   <button type="button" onClick={() => setFormData({...formData, roomTypes: formData.roomTypes?.filter((_, i) => i !== index)})} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"><X size={12} /></button>
+                 )}
+                 <div className="grid grid-cols-1 gap-4">
+                   <div className="flex flex-col gap-1.5">
+                     <label className="text-xs font-semibold text-text-primary">Room Name</label>
+                     <input type="text" value={room.name} onChange={e => {
+                       const newRooms = [...formData.roomTypes!];
+                       newRooms[index].name = e.target.value;
+                       setFormData({...formData, roomTypes: newRooms});
+                     }} placeholder="e.g. 2 in a room" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
+                   </div>
+                   <div className="flex flex-col gap-1.5">
+                     <label className="text-xs font-semibold text-text-primary">Total Rooms</label>
+                     <input type="number" value={room.totalRooms || ""} onChange={e => {
+                       const newRooms = [...formData.roomTypes!];
+                       newRooms[index].totalRooms = Number(e.target.value);
+                       setFormData({...formData, roomTypes: newRooms});
+                     }} placeholder="10" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
+                   </div>
+                   <div className="flex flex-col gap-1.5">
+                     <label className="text-xs font-semibold text-text-primary">Occupants per rm.</label>
+                     <input type="number" value={room.occupantsPerRoom || ""} onChange={e => {
+                       const newRooms = [...formData.roomTypes!];
+                       newRooms[index].occupantsPerRoom = Number(e.target.value);
+                       setFormData({...formData, roomTypes: newRooms});
+                     }} placeholder="2" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
+                   </div>
+                   <div className="flex flex-col gap-1.5">
+                     <label className="text-xs font-semibold text-text-primary">Price (per Sem)</label>
+                     <input type="number" value={room.pricePerYear || ""} onChange={e => {
+                       const newRooms = [...formData.roomTypes!];
+                       newRooms[index].pricePerYear = Number(e.target.value);
+                       setFormData({...formData, roomTypes: newRooms});
+                     }} placeholder="4500" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
+                   </div>
                  </div>
-                 <div className="flex flex-col gap-1.5">
-                   <label className="text-xs font-semibold text-text-primary">Total Rooms</label>
-                   <input type="number" placeholder="10" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
-                 </div>
-                 <div className="flex flex-col gap-1.5">
-                   <label className="text-xs font-semibold text-text-primary">Occupants per rm.</label>
-                   <input type="number" placeholder="2" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
-                 </div>
-                 <div className="flex flex-col gap-1.5">
-                   <label className="text-xs font-semibold text-text-primary">Price (per Sem)</label>
-                   <input type="number" placeholder="4500" className="w-full border border-border-subtle rounded-lg px-3 py-2 text-sm bg-white" />
-                 </div>
-               </div>
-               <button type="button" className="mt-4 text-sm font-bold text-indigo flex items-center gap-1 active:scale-95">
-                 <Plus size={16} /> Add Room Type
-               </button>
-            </div>
+              </div>
+            ))}
+            <button type="button" onClick={() => setFormData({...formData, roomTypes: [...formData.roomTypes!, { id: Math.random().toString(), name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }]})} className="text-sm font-bold text-indigo flex items-center gap-1 active:scale-95 self-start">
+               <Plus size={16} /> Add Room Type
+            </button>
           </div>
         )}
 
@@ -340,7 +364,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
 
             <div className="flex flex-col gap-1.5 mt-2">
               <label className="text-sm font-semibold text-text-primary">Video Tour (YouTube/Vimeo URL)</label>
-              <input type="url" className="w-full border border-border-subtle rounded-xl px-4 py-2.5 text-sm bg-app-bg focus:border-indigo outline-none" placeholder="https://..." />
+              <input type="url" value={formData.videoTour || ""} onChange={e => setFormData({...formData, videoTour: e.target.value})} className="w-full border border-border-subtle rounded-xl px-4 py-2.5 text-sm bg-app-bg focus:border-indigo outline-none" placeholder="https://..." />
             </div>
           </div>
         )}

@@ -1,3 +1,4 @@
+import { supabase } from "../lib/supabase";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { AppState, ViewState, Hostel } from '../types';
 import { HOSTELS as INITIAL_HOSTELS } from '../data';
@@ -34,6 +35,41 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const fetchHostels = async () => {
+      try {
+        const { data, error } = await supabase.from("hostels").select("*, rooms(*)");
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          const dbHostels = data.map(h => ({
+            id: Math.random().toString(36).substr(2, 9), // Keep ID format mixed or cast, ideally keep original id
+            name: h.name,
+            loc: h.location || h.digital_address || "Accra",
+            lat: 5.6000 + (h.name.length * 0.001), // mock lat
+            lng: -0.1900 + (h.name.length * 0.001), // mock lng
+            price: h.rooms && h.rooms.length > 0 ? `GH₵${h.rooms[0].price}` : "GH₵5,000",
+            priceNum: h.rooms && h.rooms.length > 0 ? h.rooms[0].price : 5000,
+            rating: 0.0,
+            reviews: 0,
+            tags: h.amenities ? h.amenities.slice(0, 3) : [],
+            category: "standard",
+            avail: "Available",
+            img: h.image_url || "https://loremflickr.com/600/400/bedroom?lock=305",
+            desc: h.description,
+            dbId: h.id
+          }));
+          
+          setHostels(prev => [...prev.filter(p => !dbHostels.find(d => d.name === p.name)), ...dbHostels]);
+        }
+      } catch (err) {
+        console.error("Error fetching hostels:", err);
+      }
+    };
+    
+    fetchHostels();
+  }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
