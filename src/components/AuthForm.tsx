@@ -108,8 +108,7 @@ export function AuthForm({ type }: AuthFormProps) {
       } else {
         toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!");
         showToast(isLogin ? "Logged in successfully!" : "Account created successfully!");
-        // The App component's useEffect will automatically redirect based on user role
-        // but we can also manually navigate here for swift reaction.
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");

@@ -5,7 +5,7 @@ import { PageHeader } from '../components/PageHeader';
 import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Maximize, Minimize } from 'lucide-react';
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen } = useAppContext();
+  const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen, user } = useAppContext();
   const navigate = useNavigate();
 
   const handleAction = (action: string) => {
@@ -20,6 +20,14 @@ export const Profile: React.FC = () => {
       showToast(`${action} action triggered`);
     }
   };
+
+  const fullName = user?.user_metadata?.full_name || 
+                   `${user?.user_metadata?.first_name || ''} ${user?.user_metadata?.last_name || ''}`.trim() || 
+                   'User';
+  const role = user?.user_metadata?.account_type === 'manager' ? 'Hostel Manager' : 'Student';
+  const levelText = user?.user_metadata?.level ? `Level ${user?.user_metadata?.level} ` : '';
+  const university = user?.user_metadata?.university || 'University of Ghana, Legon';
+  const email = user?.email || '';
 
   return (
     <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
@@ -51,15 +59,15 @@ export const Profile: React.FC = () => {
                 {/* Avatar */}
                 <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-indigo/10">
                   <img 
-                    src="https://loremflickr.com/200/200/face,smiling?lock=300" 
-                    alt="Kwame Owusu" 
+                    src={user?.user_metadata?.avatar_url || "https://loremflickr.com/200/200/face,smiling?lock=300"} 
+                    alt={fullName} 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 {/* Distinctive Status Badge to avoid copyright while keeping the vibe */}
                 <div className="absolute -bottom-1 -left-2 rotate-[-8deg] z-20 drop-shadow-sm">
                   <div className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-[8px] rounded-tl-[2px] rounded-br-[2px] uppercase tracking-wider border-[2px] border-card-bg">
-                    #RoommateSeach
+                    {role === 'Student' ? '#RoommateSeach' : '#VerifiedManager'}
                   </div>
                 </div>
               </div>
@@ -75,11 +83,11 @@ export const Profile: React.FC = () => {
 
             {/* User Info */}
             <div className="flex flex-col mt-1">
-              <h2 className="text-[22px] font-bold text-text-primary leading-tight tracking-tight mb-1">Kwame Owusu</h2>
-              <p className="text-[15px] text-text-primary font-medium leading-snug">Level 300 Computer Science Student</p>
-              <p className="text-[14px] text-text-primary/80 mt-0.5">University of Ghana, Legon</p>
+              <h2 className="text-[22px] font-bold text-text-primary leading-tight tracking-tight mb-1">{fullName}</h2>
+              <p className="text-[15px] text-text-primary font-medium leading-snug">{role === 'Student' ? `${levelText}${role}` : role}</p>
+              <p className="text-[14px] text-text-primary/80 mt-0.5">{university}</p>
               <div className="flex flex-col mt-2 gap-1 text-[13px] text-text-muted leading-relaxed">
-                <span>Accra, Greater Accra Region, Ghana</span>
+                <span>{email}</span>
                 <span className="text-indigo font-medium hover:underline cursor-pointer transition-colors">54 connections</span>
               </div>
             </div>

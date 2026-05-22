@@ -39,7 +39,20 @@ const AppContent: React.FC = () => {
       // If user is logged in, restrict access to login/signup
       if (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/') {
         // Find user role
-        const role = user.user_metadata?.account_type || 'student';
+        let role = user.user_metadata?.account_type;
+        const storedRole = localStorage.getItem('signupRole');
+        
+        if (storedRole && (!role || role !== storedRole)) {
+            role = storedRole;
+            // Best effort update
+            import('./lib/supabase').then(({ supabase }) => {
+                supabase.auth.updateUser({ data: { account_type: role } });
+                supabase.from('profiles').update({ account_type: role }).eq('id', user.id).then();
+            });
+            localStorage.removeItem('signupRole');
+        }
+
+        role = role || 'student';
         navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     }
