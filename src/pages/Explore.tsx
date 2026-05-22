@@ -117,32 +117,24 @@ export const Explore: React.FC = () => {
   const centerLng = -0.1870;
 
   return (
-    <div // @ts-ignore
-className="relative w-full h-[100dvh] overflow-hidden" ref={containerRef}>
+    <div className="relative w-full h-[100dvh] overflow-hidden" ref={containerRef}>
       {/* Top Bar over map */}
-      <div // @ts-ignore
-className="absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
-        <div // @ts-ignore
-className="flex items-start justify-between w-full mb-4">
+      <div className="absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
+        <div className="flex items-start justify-between w-full mb-4">
           <button 
             onClick={() => setCurrentView('home')}
-            // @ts-ignore
-className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
+            className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
           >
             <ChevronLeft size={24} strokeWidth={2.5} />
           </button>
           
-          <div // @ts-ignore
-className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
-            <div // @ts-ignore
-className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
-              <Search size={18} // @ts-ignore
-className="text-gray-500 shrink-0" />
+          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
+            <div className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
+              <Search size={18} className="text-gray-500 shrink-0" />
               <input 
                 type="text" 
                 placeholder="Search hostels, areas..." 
-                // @ts-ignore
-className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-gray-800 placeholder:text-gray-400"
+                className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-gray-800 placeholder:text-gray-400"
                 value={localSearch}
                 onChange={(e) => {
                   setLocalSearch(e.target.value);
@@ -154,13 +146,11 @@ className="bg-transparent border-none outline-none w-full text-[0.9rem] font-med
         </div>
 
         {/* Filter Chips */}
-        <div // @ts-ignore
-className="flex gap-2 overflow-x-auto hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pointer-events-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pointer-events-auto pb-2">
           {['All', 'Private', 'Shared', 'Near Campus', 'Budget', 'Wi-Fi'].map((filter, i) => (
             <button 
               key={filter}
-              // @ts-ignore
-className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
+              className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
                   ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
                   : 'bg-card-bg/90 backdrop-blur text-text-muted border-transparent hover:bg-card-bg'}`}
@@ -171,20 +161,15 @@ className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1
         </div>
 
         {/* Result Badge */}
-        <div // @ts-ignore
-className="inline-flex items-center gap-1.5 bg-card-bg rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
-          <span // @ts-ignore
-className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
-          <span // @ts-ignore
-className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{filteredHostels.length} hostels nearby</span>
+        <div className="inline-flex items-center gap-1.5 bg-card-bg rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
+          <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
+          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{filteredHostels.length} hostels nearby</span>
         </div>
       </div>
 
       {/* Map Container */}
-      <div // @ts-ignore
-className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out`}>
-        <MapContainer center={[centerLat, centerLng]} zoom={15} // @ts-ignore
-className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
+      <div className={`absolute inset-0 z-0 transition-all duration-500 ease-in-out`}>
+        <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
           <TileLayer
             url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2"
             attribution="Google Maps"
@@ -215,54 +200,39 @@ className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
       </div>
 
       {/* Floating Action Buttons */}
-      <div // @ts-ignore
-className="absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekHostel ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
-        <button // @ts-ignore
-className="w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
-          <div // @ts-ignore
-className="w-3.5 h-3.5 rounded-full bg-blue-500 border-[2.5px] border-white shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+      <div className="absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekHostel ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
+        <button className="w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
+          <div className="w-3.5 h-3.5 rounded-full bg-blue-500 border-[2.5px] border-white shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
         </button>
       </div>
 
       {/* Peek Card (shows above drawer) */}
-      <div // @ts-ignore
-className={`absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border-transparent border flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+      <div className={`absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border-transparent border flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekHostel ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
         {peekHostel && (
           <>
             <button 
-              // @ts-ignore
-className="absolute top-2.5 right-2.5 text-text-muted hover:text-text-primary p-1"
+              className="absolute top-2.5 right-2.5 text-text-muted hover:text-text-primary p-1"
               onClick={() => setPeekHostelId(null)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div // @ts-ignore
-className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
-              <img src={peekHostel.img} alt={peekHostel.name} // @ts-ignore
-className="w-full h-full object-cover" />
+            <div className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
+              <img src={peekHostel.img} alt={peekHostel.name} className="w-full h-full object-cover" />
             </div>
-            <div // @ts-ignore
-className="flex-1 min-w-0 pr-6">
-              <div // @ts-ignore
-className="font-montserrat text-[0.98rem] font-bold text-text-primary mb-1 truncate">
+            <div className="flex-1 min-w-0 pr-6">
+              <div className="font-montserrat text-[0.98rem] font-bold text-text-primary mb-1 truncate">
                 {peekHostel.name}
               </div>
-              <div // @ts-ignore
-className="text-[0.73rem] text-text-muted mb-[6px] flex items-center gap-1">
-                <MapPin size={10} // @ts-ignore
-className="text-amber-glow" /> Area: {peekHostel.loc}
+              <div className="text-[0.73rem] text-text-muted mb-[6px] flex items-center gap-1">
+                <MapPin size={10} className="text-amber-glow" /> Area: {peekHostel.loc}
               </div>
-              <div // @ts-ignore
-className="flex items-center justify-between">
-                <div // @ts-ignore
-className="font-montserrat text-base font-bold text-text-primary">
-                  {peekHostel.price} <span // @ts-ignore
-className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
+              <div className="flex items-center justify-between">
+                <div className="font-montserrat text-base font-bold text-text-primary">
+                  {peekHostel.price} <span className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
                 </div>
                 <button 
                   onClick={() => { setSelectedHostelId(peekHostel.id); setCurrentView('details'); }}
-                  // @ts-ignore
-className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem] font-bold cursor-pointer transition-colors hover:bg-indigo-dark"
+                  className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem] font-bold cursor-pointer transition-colors hover:bg-indigo-dark"
                 >
                   View →
                 </button>
@@ -279,19 +249,15 @@ className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem
         dragConstraints={{ top: 0, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
         dragElastic={0.1}
         onDragEnd={handleDragEnd}
-        // @ts-ignore
-className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
+        className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
       >
         {/* Drawer Handle */}
-        <div // @ts-ignore
-className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0">
-          <div // @ts-ignore
-className="w-12 h-1.5 bg-indigo-light rounded-full"></div>
+        <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0">
+          <div className="w-12 h-1.5 bg-indigo-light rounded-full"></div>
         </div>
         
         {/* Scrollable Content inside Drawer */}
-        <div // @ts-ignore
-className="flex-1 overflow-y-auto px-5 pb-10 hide-scrollbar"
+        <div className="flex-1 overflow-y-auto px-5 pb-10 hide-scrollbar"
              onPointerDown={(e) => {
                // Prevent dragging the drawer when scrolling inside it unless at the very top
                const target = e.currentTarget;
@@ -300,68 +266,48 @@ className="flex-1 overflow-y-auto px-5 pb-10 hide-scrollbar"
                }
              }}
         >
-          <div // @ts-ignore
-className="flex justify-between items-center px-1 mb-4">
-            <h2 // @ts-ignore
-className="font-montserrat text-[1.4rem] font-bold text-text-primary">Nearby Hostels</h2>
-            <button // @ts-ignore
-className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
-              <Navigation size={12} // @ts-ignore
-className="rotate-180" />
+          <div className="flex justify-between items-center px-1 mb-4">
+            <h2 className="font-montserrat text-[1.4rem] font-bold text-text-primary">Nearby Hostels</h2>
+            <button className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
+              <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
             </button>
           </div>
           
-          <div // @ts-ignore
-className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             {filteredHostels.length === 0 ? (
-              <div // @ts-ignore
-className="text-center py-8 text-text-muted">No hostels found.</div>
+              <div className="text-center py-8 text-text-muted">No hostels found.</div>
             ) : filteredHostels.map(hostel => (
               <div 
                 key={hostel.id} 
-                // @ts-ignore
-className="w-full bg-card-bg rounded-[18px] border-transparent border p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
+                className="w-full bg-card-bg rounded-[18px] border-transparent border p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
                 onClick={() => { setSelectedHostelId(hostel.id); setCurrentView('details'); }}
               >
-                <div // @ts-ignore
-className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
-                  <img src={hostel.img} alt={hostel.name} // @ts-ignore
-className="w-full h-full object-cover transition-transform duration-400 hover:scale-105" />
-                  <div // @ts-ignore
-className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-[#0f0e2e]/80 backdrop-blur-[4px] text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-md whitespace-nowrap">
+                <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
+                  <img src={hostel.img} alt={hostel.name} className="w-full h-full object-cover transition-transform duration-400 hover:scale-105" />
+                  <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-[#0f0e2e]/80 backdrop-blur-[4px] text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-md whitespace-nowrap">
                     {hostel.price}
                   </div>
                 </div>
 
-                <div // @ts-ignore
-className="flex flex-col flex-1 min-w-0 py-0.5">
-                  <div // @ts-ignore
-className="flex items-start justify-between mb-1 gap-2">
-                    <h3 // @ts-ignore
-className="font-montserrat text-[0.95rem] font-bold text-text-primary truncate">
+                <div className="flex flex-col flex-1 min-w-0 py-0.5">
+                  <div className="flex items-start justify-between mb-1 gap-2">
+                    <h3 className="font-montserrat text-[0.95rem] font-bold text-text-primary truncate">
                       {hostel.name}
                     </h3>
-                    <div // @ts-ignore
-className="flex items-center gap-[3px] text-[0.75rem] font-semibold text-text-primary shrink-0">
-                      <FaStar // @ts-ignore
-className="text-amber-400" size={10} /> {hostel.rating}
+                    <div className="flex items-center gap-[3px] text-[0.75rem] font-semibold text-text-primary shrink-0">
+                      <FaStar className="text-amber-400" size={10} /> {hostel.rating}
                     </div>
                   </div>
 
-                  <div // @ts-ignore
-className="flex items-center gap-1 text-[0.75rem] text-text-muted mb-2 truncate">
-                    <MapPin size={10} // @ts-ignore
-className="text-amber-glow shrink-0" />
-                    <span // @ts-ignore
-className="truncate">Area: {hostel.loc}</span>
+                  <div className="flex items-center gap-1 text-[0.75rem] text-text-muted mb-2 truncate">
+                    <MapPin size={10} className="text-amber-glow shrink-0" />
+                    <span className="truncate">Area: {hostel.loc}</span>
                   </div>
 
-                  <div // @ts-ignore
-className="mt-auto flex flex-wrap gap-1.5">
+                  <div className="mt-auto flex flex-wrap gap-1.5">
                     {hostel.tags.map((tag, i) => (
-                      <span key={i} // @ts-ignore
-className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap
+                      <span key={i} className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap
                         ${tag === 'wifi' ? 'bg-indigo-light text-indigo' : 
                           tag === 'sec' ? 'bg-teal-light text-teal' : 
                           tag === 'gen' ? 'bg-amber-light text-amber-600' : 'bg-indigo-light/20 text-text-muted'}`}
@@ -372,8 +318,7 @@ className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowr
                         {!['wifi', 'sec', 'gen'].includes(tag) && tag}
                       </span>
                     ))}
-                    <span // @ts-ignore
-className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap bg-green-light text-green-600">
+                    <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap bg-green-light text-green-600">
                       {hostel.avail}
                     </span>
                   </div>
