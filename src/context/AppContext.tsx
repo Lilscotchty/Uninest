@@ -36,14 +36,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any | null | undefined>(undefined);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user && window.location.hash.includes('access_token')) {
-         setCurrentView('home');
-      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {

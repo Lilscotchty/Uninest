@@ -29,6 +29,8 @@ const AppContent: React.FC = () => {
 
   // Middleware simulation for protecting routes
   useEffect(() => {
+    if (user === undefined) return; // Wait for auth check
+
     // If not user and trying to access protected UI (everything EXCEPT login/signup)
     const publicPaths = ['/login', '/signup', '/'];
     if (user === null) {
@@ -80,9 +82,15 @@ const AppContent: React.FC = () => {
 
         {/* Fallback */}
         <Route path="*" element={
-          user 
-            ? <Navigate to={user.user_metadata?.account_type === 'manager' ? '/manager/dashboard' : '/student/dashboard'} replace /> 
-            : <Navigate to="/login" replace />
+          user === undefined ? (
+            <div className="flex-1 flex items-center justify-center min-h-[100dvh]">
+              <div className="w-8 h-8 border-4 border-indigo/30 border-t-indigo rounded-full animate-spin" />
+            </div>
+          ) : user ? (
+            <Navigate to={user.user_metadata?.account_type === 'manager' ? '/manager/dashboard' : '/student/dashboard'} replace /> 
+          ) : (
+            <Navigate to="/login" replace />
+          )
         } />
       </Routes>
     </div>
