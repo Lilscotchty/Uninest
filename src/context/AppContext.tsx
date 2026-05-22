@@ -19,6 +19,7 @@ interface AppContextType extends AppState, ViewState {
   clearToast: () => void;
   showToast: (msg: string) => void;
   isFullscreen: boolean;
+  user: any;
   toggleFullscreen: () => void;
   exitFullscreen: () => void;
 }
@@ -35,6 +36,22 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user && window.location.hash.includes('access_token')) {
+         setCurrentView('home');
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchHostels = async () => {
@@ -160,6 +177,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         toggleTheme,
         isFullscreen,
         toggleFullscreen,
+        user,
         exitFullscreen,
       }}
     >

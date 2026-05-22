@@ -25,6 +25,7 @@ export const SignUp: React.FC = () => {
   
   const [role, setRole] = useState<Role>('student');
   const [step, setStep] = useState(1);
+  const [isSignIn, setIsSignIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -106,7 +107,40 @@ export const SignUp: React.FC = () => {
     if (validateStep()) setStep(s => Math.min(4, s + 1));
   };
 
-  const handleSubmit = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+  const handleEmailSignIn = async () => {
+    if (!formData.email || !formData.password) {
+      showToast('Please enter both email and password');
+      return;
+    }
+    setIsLoading(true);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password
+    });
+    setIsLoading(false);
+    if (error) {
+      showToast(error.message);
+    } else {
+      showToast('Signed in successfully!');
+      setCurrentView('home');
+    }
+  };
+
+  const handleGoogleAuth = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
+    if (error) {
+      showToast(error.message);
+    }
+  };
+
+  const handleSubmit = async () => {
     if (formData.password.length < 8) {
       showToast('Password must be at least 8 characters');
       return;
@@ -115,6 +149,31 @@ export const SignUp: React.FC = () => {
       showToast('Passwords do not match');
       return;
     }
+    setIsLoading(true);
+    
+    // We can directly use Supabase sign up
+    const { data, error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          account_type: role,
+          university: formData.university,
+          level: formData.level,
+        }
+      }
+    });
+    
+    setIsLoading(false);
+    
+    if (error) {
+      showToast(error.message);
+      return;
+    }
+    
     setIsSuccess(true);
   };
 
@@ -156,7 +215,14 @@ export const SignUp: React.FC = () => {
             : 'Your manager account is under review. We will verify your documents and notify you within 24 hours.'}
         </p>
         <button 
-          onClick={() => setCurrentView('home')}
+          onClick={() => {
+    if (isSignIn) {
+      setIsSignIn(false);
+      setStep(1);
+    } else {
+      setIsSignIn(true);
+    }
+  }}
           className="w-full bg-green text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-[0_6px_20px_rgba(22,163,74,0.25)] hover:bg-green-700 transition-colors"
         >
           {isStudent ? 'Go to Home' : 'Return to Home'}
@@ -190,7 +256,7 @@ export const SignUp: React.FC = () => {
 
         <div className="relative z-10 flex flex-col h-full">
           <button onClick={() => setCurrentView('home')} className="self-start flex items-center gap-1.5 text-white/70 hover:text-white transition-colors text-[0.8rem] font-semibold mb-3">
-            <ChevronLeft size={14} /> Already have an account? Sign in
+            <ChevronLeft size={14} /> {isSignIn ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
           </button>
           
           <div className="flex items-center gap-2 mb-2">
@@ -210,14 +276,62 @@ export const SignUp: React.FC = () => {
       <div className="flex-1 -mt-4 px-5 pb-20 relative z-20 flex flex-col">
         
         {/* Dots */}
-        <div className="flex justify-center items-center gap-1.5 mb-6">
-          {[1,2,3,4].map(s => (
-            <div key={s} className={`h-2 transition-all duration-300 rounded-full ${step === s ? (isStudent ? 'w-6 bg-indigo' : 'w-6 bg-teal') : step > s ? 'w-2 bg-gray-400' : 'w-2 bg-gray-200'}`} />
-          ))}
-        </div>
+        {!isSignIn && (
+          <div className="flex justify-center items-center gap-1.5 mb-6">
+            {[1,2,3,4].map(s => (
+              <div key={s} className={`h-2 transition-all duration-300 rounded-full ${step === s ? (isStudent ? 'w-6 bg-indigo' : 'w-6 bg-teal') : step > s ? 'w-2 bg-gray-400' : 'w-2 bg-gray-200'}`} />
+            ))}
+          </div>
+        )}
+
+                {/* Sign In Form */}
+        {isSignIn && (
+          <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+            <div className="mb-5">
+              <h2 className="font-montserrat text-2xl font-bold text-text-primary">Welcome Back</h2>
+              <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">Sign in to continue to UniNest.</p>
+            </div>
+
+            <button onClick={handleGoogleAuth} className="w-full bg-white border border-gray-300 text-gray-700 font-bold text-[0.95rem] py-3.5 rounded-[14px] shadow-sm mb-6 flex items-center justify-center gap-3 transition-colors hover:bg-gray-50">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+              Sign in with Google
+            </button>
+
+            <div className="relative flex items-center py-2 mb-6">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <span className="flex-shrink-0 mx-4 text-gray-400 text-xs font-semibold uppercase">Or continue with email</span>
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
+
+            <div className="flex flex-col gap-4 mb-6">
+              {renderInput('Email Address', Mail, 'email', 'email', 'you@example.com')}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">Password</label>
+                <div className="relative flex items-center">
+                  <Lock className="absolute left-3.5 text-gray-400" size={16} />
+                  <input 
+                    type={showPass ? 'text' : 'password'} 
+                    placeholder="Your password"
+                    value={formData.password}
+                    onChange={e => setFormData({...formData, password: e.target.value})}
+                    className="w-full bg-card-bg border-transparent border rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-indigo focus:ring-[3px] focus:ring-indigo/10 text-[0.9rem] transition-all shadow-sm font-medium"
+                  />
+                  <button onClick={() => setShowPass(!showPass)} className="absolute right-4 text-gray-400 hover:text-text-primary">
+                    {showPass ? <EyeOff size={16}/> : <Eye size={16}/>}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button onClick={handleEmailSignIn} disabled={isLoading} className="w-full bg-indigo text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg shadow-indigo/25 transition-transform active:scale-[0.98]">
+              {isLoading ? 'Signing In...' : 'Sign In'}
+            </button>
+          </div>
+        )}
 
         {/* Step 1: Role Selection */}
-        {step === 1 && (
+
+        {!isSignIn && step === 1 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300">
             <div className="mb-5">
               <h2 className="font-montserrat text-2xl font-bold text-text-primary">Who are you?</h2>
@@ -277,7 +391,7 @@ export const SignUp: React.FC = () => {
         )}
 
         {/* Step 2: Personal Details */}
-        {step === 2 && (
+        {!isSignIn && step === 2 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300">
             <button onClick={() => setStep(1)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             
@@ -286,6 +400,15 @@ export const SignUp: React.FC = () => {
               <p className="text-gray-500 text-[0.8rem] mt-1 leading-relaxed">Tell us a little about yourself.</p>
             </div>
 
+            <button onClick={() => { localStorage.setItem('signupRole', role); handleGoogleAuth(); }} className="w-full bg-white border border-gray-300 text-gray-700 font-bold text-[0.95rem] py-3.5 rounded-[14px] shadow-sm mb-6 flex items-center justify-center gap-3 transition-colors hover:bg-gray-50">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+              Sign up with Google
+            </button>
+            <div className="relative flex items-center py-2 mb-6">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <span className="flex-shrink-0 mx-4 text-gray-400 text-xs font-semibold uppercase">Or enter details manually</span>
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               {renderInput('First Name', User, 'firstName', 'text', 'Kwame')}
               {renderInput('Last Name', User, 'lastName', 'text', 'Owusu')}
@@ -300,7 +423,7 @@ export const SignUp: React.FC = () => {
         )}
 
         {/* Step 3: Academic / Business */}
-        {step === 3 && (
+        {!isSignIn && step === 3 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300">
             <button onClick={() => setStep(2)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             
@@ -417,7 +540,7 @@ export const SignUp: React.FC = () => {
         )}
 
         {/* Step 4: Password & Review */}
-        {step === 4 && (
+        {!isSignIn && step === 4 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300">
             <button onClick={() => setStep(3)} className="flex items-center gap-1 text-[0.8rem] font-bold text-gray-500 hover:text-text-primary mb-4 w-fit"><ChevronLeft size={16}/> Back</button>
             

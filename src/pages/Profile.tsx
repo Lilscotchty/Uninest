@@ -8,7 +8,12 @@ export const Profile: React.FC = () => {
 
   const handleAction = (action: string) => {
     if (action === 'Log Out') {
-      setCurrentView('signup');
+      import('../lib/supabase').then(({ supabase }) => {
+        supabase.auth.signOut().then(() => {
+          setCurrentView('signup');
+          showToast('Logged out successfully');
+        });
+      });
     } else {
       showToast(`${action} action triggered`);
     }
