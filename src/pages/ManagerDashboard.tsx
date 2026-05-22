@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
@@ -53,6 +54,7 @@ interface ManagerHostelForm {
 
 export const ManagerDashboard: React.FC = () => {
   const { setCurrentView, showToast, hostels, addCustomHostel } = useAppContext();
+  const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'hostels' | 'inquiries' | 'settings'>('overview');
   
@@ -239,7 +241,7 @@ export const ManagerDashboard: React.FC = () => {
              <button className="text-text-muted hover:text-indigo" onClick={() => setSidebarOpen(true)}>
                <Menu size={24} />
              </button>
-             <button onClick={() => setCurrentView('profile')} className="flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-indigo">
+             <button onClick={() => navigate("/profile")} className="flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-indigo">
                <ChevronLeft size={16} /> Exit
              </button>
            </div>

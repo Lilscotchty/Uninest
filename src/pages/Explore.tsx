@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -44,6 +45,7 @@ const MapUpdater = ({ center, isVisible }: { center: [number, number] | null, is
 
 export const Explore: React.FC = () => {
   const { currentView, setCurrentView, savedHostels, toggleSave, setSelectedHostelId, exploreSearchQuery, setExploreSearchQuery, hostels } = useAppContext();
+  const navigate = useNavigate();
   
   // Drawer states
   const drawerControls = useAnimation();
@@ -122,7 +124,7 @@ export const Explore: React.FC = () => {
       <div className="absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
         <div className="flex items-start justify-between w-full mb-4">
           <button 
-            onClick={() => setCurrentView('home')}
+            onClick={() => navigate("/student/dashboard")}
             className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
           >
             <ChevronLeft size={24} strokeWidth={2.5} />
@@ -231,7 +233,7 @@ export const Explore: React.FC = () => {
                   {peekHostel.price} <span className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
                 </div>
                 <button 
-                  onClick={() => { setSelectedHostelId(peekHostel.id); setCurrentView('details'); }}
+                  onClick={() => { setSelectedHostelId(peekHostel.id); navigate("/details"); }}
                   className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem] font-bold cursor-pointer transition-colors hover:bg-indigo-dark"
                 >
                   View →
@@ -281,7 +283,7 @@ export const Explore: React.FC = () => {
               <div 
                 key={hostel.id} 
                 className="w-full bg-card-bg rounded-[18px] border-transparent border p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
-                onClick={() => { setSelectedHostelId(hostel.id); setCurrentView('details'); }}
+                onClick={() => { setSelectedHostelId(hostel.id); navigate("/details"); }}
               >
                 <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
                   <img src={hostel.img} alt={hostel.name} className="w-full h-full object-cover transition-transform duration-400 hover:scale-105" />

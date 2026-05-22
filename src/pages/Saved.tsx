@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { HOSTELS } from '../data';
@@ -6,6 +7,7 @@ import { Bookmark, Star, ArrowRightLeft, TrendingDown } from 'lucide-react';
 
 export const Saved: React.FC = () => {
   const { savedHostels, toggleSave, showToast, setCurrentView, hostels } = useAppContext();
+  const navigate = useNavigate();
   const [activeSavedFilter, setActiveSavedFilter] = useState<string>('all');
 
   const allSavedItems = hostels.filter(h => savedHostels.includes(h.id));
@@ -66,7 +68,7 @@ export const Saved: React.FC = () => {
             <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved hostels yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
-              onClick={() => setCurrentView('explore')}
+              onClick={() => navigate("/explore")}
               className="bg-indigo text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-indigo-dark"
             >
               Start Exploring

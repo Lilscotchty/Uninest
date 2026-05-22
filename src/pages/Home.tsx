@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { HiLocationMarker } from 'react-icons/hi';
 import { MapContainer, TileLayer } from 'react-leaflet';
@@ -17,6 +18,7 @@ const FILTERS = [
 
 export const Home: React.FC = () => {
   const { activeFilter, setActiveFilter, setCurrentView, savedHostels, toggleSave, showToast, setSelectedHostelId, setExploreSearchQuery, hostels } = useAppContext();
+  const navigate = useNavigate();
   
   // Featured Picks auto-sliding carousel (like index.html)
   const trackRef = useRef<HTMLDivElement>(null);
@@ -72,7 +74,7 @@ export const Home: React.FC = () => {
       {/* SEARCH BAR UNDER HEADER */}
       <div className="px-5 relative z-10 mb-4 mt-6">
         <button 
-          onClick={() => setCurrentView('explore')}
+          onClick={() => navigate("/explore")}
           className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-gray-200 transition-transform hover:-translate-y-[1px] text-left"
         >
           <HiLocationMarker size={22} className="text-text-primary" />
@@ -114,7 +116,7 @@ export const Home: React.FC = () => {
               onToggleSave={toggleSave}
               onClick={() => {
                 setSelectedHostelId(hostel.id);
-                setCurrentView('details');
+                navigate("/details");
               }} 
             />
           ))}
@@ -149,7 +151,7 @@ export const Home: React.FC = () => {
         </div>
         <div className="grid grid-cols-2 gap-3.5 px-4 sm:px-5 pb-4">
           <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => setCurrentView('virtual-tour')}>
+               onClick={() => navigate("/virtual-tour")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
                 <Video size={18} />
@@ -163,7 +165,7 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
-               onClick={() => setCurrentView('price-alerts')}>
+               onClick={() => navigate("/price-alerts")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
                 <Bell size={18} />
@@ -208,7 +210,7 @@ export const Home: React.FC = () => {
                   <button 
                     onClick={() => {
                       setSelectedHostelId(feat.id);
-                      setCurrentView('details');
+                      navigate("/details");
                     }}
                     className="bg-amber-glow text-white border-none rounded-[12px] px-[20px] py-[10px] text-[0.88rem] font-bold cursor-pointer transition-colors shadow-[0_4px_14px_rgba(245,158,11,0.3)] hover:bg-[#d97706] active:scale-95"
                   >
@@ -260,7 +262,7 @@ export const Home: React.FC = () => {
           <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
-          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => setCurrentView('explore')}>
+          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => navigate("/explore")}>
               <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full !z-0" zoomControl={false} dragging={false} style={{ zIndex: 0 }}>
                 <TileLayer
                    url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"

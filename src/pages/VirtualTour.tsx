@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { ChevronLeft, Video, Play, MapPin } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
@@ -6,6 +7,7 @@ import { PageHeader } from '../components/PageHeader';
 
 export const VirtualTour: React.FC = () => {
   const { setCurrentView, showToast, hostels } = useAppContext();
+  const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   const featuredTours = hostels.slice(0, 3);
@@ -16,7 +18,7 @@ export const VirtualTour: React.FC = () => {
         title="Virtual Tours"
         rightAction={
           <button 
-            onClick={() => setCurrentView('home')}
+            onClick={() => navigate("/student/dashboard")}
             className="text-white hover:text-indigo-200 transition-colors"
           >
             <ChevronLeft size={24} /> Back
@@ -77,7 +79,7 @@ export const VirtualTour: React.FC = () => {
           </div>
           <div className="p-6 text-center">
             <button 
-              onClick={() => { setSelectedVideo(null); setCurrentView('details'); }}
+              onClick={() => { setSelectedVideo(null); navigate("/details"); }}
               className="bg-amber-glow text-white font-bold py-4 px-8 rounded-xl w-full max-w-[300px] active:scale-95 transition-transform"
             >
               Book this room

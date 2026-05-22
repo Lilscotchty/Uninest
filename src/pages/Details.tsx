@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 import { Pannellum } from "pannellum-react";
 import {
@@ -56,6 +57,7 @@ export const Details: React.FC = () => {
     toggleSave,
     hostels,
   } = useAppContext();
+  const navigate = useNavigate();
 
   const hostel = hostels.find((h) => h.id === selectedHostelId) || hostels[0];
   const isSaved = savedHostels.includes(hostel.id);
@@ -115,7 +117,7 @@ export const Details: React.FC = () => {
       <div className="relative h-[380px] bg-black">
         <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
           <button
-            onClick={() => setCurrentView("home")}
+            onClick={() => navigate("/student/dashboard")}
             className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
           >
             <ChevronLeft size={20} />
@@ -576,7 +578,7 @@ export const Details: React.FC = () => {
               onClick={() => {
                 setBookingModalOpen(false);
                 showToast("Booking request sent! 🎉");
-                setTimeout(() => setCurrentView('home'), 1500);
+                setTimeout(() => navigate("/student/dashboard"), 1500);
               }}
               className="w-full bg-indigo text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"
             >

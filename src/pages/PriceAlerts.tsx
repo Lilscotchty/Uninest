@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { ChevronLeft, Bell, Plus, Check } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
@@ -5,6 +6,7 @@ import { PageHeader } from '../components/PageHeader';
 
 export const PriceAlerts: React.FC = () => {
   const { setCurrentView, showToast } = useAppContext();
+  const navigate = useNavigate();
   const [alerts, setAlerts] = useState([
     { id: 1, loc: 'Legon Campus', maxPrice: 4000, active: true },
     { id: 2, loc: 'Madina Area', maxPrice: 3000, active: false }
@@ -24,7 +26,7 @@ export const PriceAlerts: React.FC = () => {
         title="Price Alerts"
         rightAction={
           <button 
-            onClick={() => setCurrentView('home')}
+            onClick={() => navigate("/student/dashboard")}
             className="text-white hover:text-indigo-200 transition-colors"
           >
             <ChevronLeft size={24} /> Back

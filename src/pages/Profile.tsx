@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { PageHeader } from '../components/PageHeader';
@@ -5,12 +6,13 @@ import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, 
 
 export const Profile: React.FC = () => {
   const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen } = useAppContext();
+  const navigate = useNavigate();
 
   const handleAction = (action: string) => {
     if (action === 'Log Out') {
       import('../lib/supabase').then(({ supabase }) => {
         supabase.auth.signOut().then(() => {
-          setCurrentView('signup');
+          navigate("/login");
           showToast('Logged out successfully');
         });
       });
@@ -93,7 +95,7 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => setCurrentView('manager-dashboard')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => navigate("/manager/dashboard")} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
                 <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                   <FileText size={16} />
                 </div>
