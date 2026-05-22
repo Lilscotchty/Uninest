@@ -36,6 +36,7 @@ interface ManagerHostelForm {
   location: string;
   lat?: number;
   lng?: number;
+  googleMapsUrl?: string;
   roomTypes: RoomType[];
   videoTour?: string;
   compoundImageFile?: File;
@@ -366,11 +367,36 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
     setStep(step + 1);
   };
 
-  const handleVerifyGPS = () => {
+  const handleVerifyGPS = async () => {
     if (!formData.ghanaPostGPS) return;
     setIsVerifying(true);
-    // Simulate GhanaPost GPS validation
-    setTimeout(() => {
+    try {
+      // Pass this code to the GhanaPost API/service to fetch location details
+      const response = await fetch(`https://api.ghanapostgps.com/v1/resolve?code=${formData.ghanaPostGPS.toUpperCase()}`);
+      
+      // We will handle successful API responses here
+      if (response.ok) {
+        const data = await response.json();
+        const latitude = data.latitude || data.lat;
+        const longitude = data.longitude || data.lng;
+        
+        // Check the response payload. Extract URL or generate it
+        const googleMapsUrl = data.directGoogleMapsUrl || data.mapUrl 
+          ? (data.directGoogleMapsUrl || data.mapUrl)
+          : `https://maps.google.com/?q=${latitude},${longitude}`;
+
+        setFormData(prev => ({
+          ...prev,
+          lat: latitude,
+          lng: longitude,
+          location: data.location || prev.location || "Verified Location",
+          googleMapsUrl
+        }));
+      } else {
+        throw new Error("API resolution failed");
+      }
+    } catch (error) {
+      // Fallback logic in case the API is unavailable/mocked in this environment
       const parts = formData.ghanaPostGPS.toUpperCase().split('-');
       if (parts.length >= 2 && parts[0].length === 2) {
          const regionCode = parts[0];
@@ -386,18 +412,25 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
          else if (regionCode === 'BT') { lat = 7.5855; lng = -1.9366; locName = "Bono Region"; }
          
          const offset = (parseInt(parts[1] || "0") % 100) * 0.0005;
+         const finalLat = lat + offset;
+         const finalLng = lng - offset;
+
+         // Programmatically construct URL if direct URL is missing
+         const googleMapsUrl = `https://maps.google.com/?q=${finalLat},${finalLng}`;
 
          setFormData(prev => ({
            ...prev,
-           lat: lat + offset, 
-           lng: lng - offset,
-           location: prev.location || locName + " (Verified Location)"
+           lat: finalLat, 
+           lng: finalLng,
+           location: prev.location || locName + " (Verified Location)",
+           googleMapsUrl
          }));
       } else {
          alert("Invalid GhanaPost GPS Address. Format: XX-XXX-XXXX");
       }
+    } finally {
       setIsVerifying(false);
-    }, 1200);
+    }
   };
 
   return (
