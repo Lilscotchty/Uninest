@@ -1,21 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Retrieve Vite-specific environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const url = import.meta.env.VITE_SUPABASE_URL;
+const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Fail loudly if variables are missing so you don't get malformed JWS errors
-if (!supabaseUrl) {
-  throw new Error(
-    'Supabase Client Error: VITE_SUPABASE_URL is missing. Please check your .env local file or Vercel dashboard environment variables.'
-  );
-}
+// Log only the first 5 characters to check if it's there, without revealing the whole key
+console.log("DEBUG: URL starts with:", url?.substring(0, 10));
+console.log("DEBUG: Key starts with:", key?.substring(0, 5));
+console.log("DEBUG: Is Key undefined?", key === undefined);
 
-if (!supabaseAnonKey) {
-  throw new Error(
-    'Supabase Client Error: VITE_SUPABASE_ANON_KEY is missing. Please check your .env local file or Vercel dashboard environment variables.'
-  );
-}
-
-// Safely initialize the client using the validated keys
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(url, key);
