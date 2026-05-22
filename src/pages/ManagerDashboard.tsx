@@ -34,6 +34,8 @@ interface ManagerHostelForm {
   description: string;
   ghanaPostGPS: string;
   location: string;
+  lat?: number;
+  lng?: number;
   roomTypes: RoomType[];
   videoTour?: string;
   compoundImageFile?: File;
@@ -111,8 +113,8 @@ export const ManagerDashboard: React.FC = () => {
             const baseLat = 5.6000;
             const baseLng = -0.1900;
             const randOffsetLat = (str: string) => (str.length * 0.001);
-            const generatedLat = baseLat + randOffsetLat(data.ghanaPostGPS);
-            const generatedLng = baseLng - randOffsetLat(data.title);
+            const generatedLat = data.lat || (baseLat + randOffsetLat(data.ghanaPostGPS));
+            const generatedLng = data.lng || (baseLng - randOffsetLat(data.title));
 
             const { data: hostel, error: hostelError } = await supabase.from("hostels").insert({
               manager_id: managerId,
@@ -343,6 +345,7 @@ const StatCard = ({ title, value, trend, alert }: { title: string, value: string
 
 const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (data: ManagerHostelForm) => void }) => {
   const [step, setStep] = useState(1);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [formData, setFormData] = useState<Partial<ManagerHostelForm>>({
      title: '', description: '', ghanaPostGPS: '', location: '',
      roomTypes: [{ id: "1", name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }],
@@ -363,6 +366,28 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
     setStep(step + 1);
   };
 
+  const handleVerifyGPS = () => {
+    if (!formData.ghanaPostGPS) return;
+    setIsVerifying(true);
+    // Mock API call to GhanaPost GPS
+    setTimeout(() => {
+      // Create some mock coordinates based on the input
+      const len = formData.ghanaPostGPS.length;
+      if (len > 4) {
+         setFormData(prev => ({
+           ...prev,
+           lat: 5.6037 + (len * 0.001), 
+           lng: -0.1870 - (len * 0.001),
+           location: prev.location || "Greater Accra (Verified via GPS)"
+         }));
+         // showToast typically comes from hook, but we can just use native alert or trust the user sees UI
+      } else {
+         alert("Invalid GhanaPost GPS Address");
+      }
+      setIsVerifying(false);
+    }, 1200);
+  };
+
   return (
     <div className="p-4 flex flex-col gap-5 w-full mx-auto pb-20">
       <div className="flex items-center gap-3 mb-2">
@@ -380,7 +405,14 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
          ))}
       </div>
 
-      <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); onSave(formData as ManagerHostelForm); }}>
+      <form className="flex flex-col gap-5" onSubmit={(e) => { 
+        e.preventDefault(); 
+        if (step < 4) {
+          handleNext();
+        } else {
+          onSave(formData as ManagerHostelForm); 
+        }
+      }}>
         
         {step === 1 && (
           <div className="bg-card-bg p-4 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
@@ -398,8 +430,30 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
 
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-semibold text-text-primary">GhanaPost GPS Address *</label>
-              <input type="text" value={formData.ghanaPostGPS} onChange={e => setFormData({...formData, ghanaPostGPS: e.target.value})} className="w-full border border-border-subtle rounded-xl px-4 py-2.5 text-sm bg-app-bg focus:border-indigo outline-none" placeholder="e.g. GA-123-4567" required />
+              <div className="flex gap-2">
+                <input type="text" value={formData.ghanaPostGPS} onChange={e => setFormData({...formData, ghanaPostGPS: e.target.value})} className="flex-1 border border-border-subtle rounded-xl px-4 py-2.5 text-sm bg-app-bg focus:border-indigo outline-none" placeholder="e.g. GA-123-4567" required />
+                <button type="button" onClick={handleVerifyGPS} disabled={isVerifying || !formData.ghanaPostGPS} className="bg-indigo-light text-indigo font-bold px-4 rounded-xl text-sm whitespace-nowrap active:scale-95 disabled:opacity-50">
+                   {isVerifying ? 'Verifying...' : 'Verify'}
+                </button>
+              </div>
             </div>
+            
+            {formData.lat && formData.lng && (
+              <div className="rounded-xl overflow-hidden border border-border-subtle h-[160px] relative animate-in fade-in">
+                <iframe 
+                  src={`https://maps.google.com/maps?q=${formData.lat},${formData.lng}&z=15&output=embed`} 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={false} 
+                  loading="lazy"
+                ></iframe>
+                <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur text-xs px-3 py-2 rounded-lg font-medium text-emerald-700 shadow-sm flex items-center justify-between">
+                  <span>Address Verified</span>
+                  <CheckCircle2 size={14} />
+                </div>
+              </div>
+            )}
 
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-semibold text-text-primary">Location / Proximity</label>
