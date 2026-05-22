@@ -9,7 +9,9 @@ export const Profile: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAction = (action: string) => {
-    if (action === 'Log Out') {
+    if (action === 'Personal Information' || action === 'Edit Profile') {
+      navigate('/edit-profile');
+    } else if (action === 'Log Out') {
       import('../lib/supabase').then(({ supabase }) => {
         supabase.auth.signOut().then(() => {
           navigate("/login");

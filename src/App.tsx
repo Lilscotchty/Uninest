@@ -8,6 +8,7 @@ import { Details } from './pages/Details';
 import { Saved } from './pages/Saved';
 import { Profile } from './pages/Profile';
 import { SignUp } from './pages/SignUp';
+import { EditProfile } from './pages/EditProfile';
 import { Toast } from './components/Toast';
 import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
@@ -55,7 +56,15 @@ const AppContent: React.FC = () => {
         }
 
         role = role || 'student';
-        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+
+        // Check if required profile information is missing
+        const isMissingInfo = !user.user_metadata?.phone || (role === 'student' && (!user.user_metadata?.university || !user.user_metadata?.level));
+
+        if (isMissingInfo) {
+           navigate('/edit-profile?complete=true', { replace: true });
+        } else {
+           navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+        }
       }
     }
   }, [user, location.pathname, navigate]);
@@ -79,6 +88,8 @@ const AppContent: React.FC = () => {
         
         {/* Manager Routes */}
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
+
+        <Route path="/edit-profile" element={<div className="flex-1 overflow-hidden"><EditProfile /></div>} />
 
         {/* Fallback */}
         <Route path="*" element={
