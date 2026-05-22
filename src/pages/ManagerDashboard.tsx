@@ -82,6 +82,7 @@ export const ManagerDashboard: React.FC = () => {
               const fileExt = data.compoundImageFile.name.split(".").pop();
               const fileName = `compound-${Math.random()}.${fileExt}`;
               const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, data.compoundImageFile);
+              if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
               if (!uploadError) {
                 compoundUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
               }
@@ -92,10 +93,18 @@ export const ManagerDashboard: React.FC = () => {
               const fileExt = data.image360File.name.split(".").pop();
               const fileName = `360-${Math.random()}.${fileExt}`;
               const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, data.image360File);
+              if (uploadError) throw new Error("360 Image upload failed: " + uploadError.message);
               if (!uploadError) {
                 image360Url = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
               }
             }
+
+            // Fetch logged in user to check auth and supply manager_id
+            const { data: authData, error: authError } = await supabase.auth.getUser();
+            if (authError || !authData?.user) {
+              throw new Error("Authentication failed: You must be logged in as a Manager to insert or modify listings.");
+            }
+            const managerId = authData.user.id;
 
             const baseLat = 5.6000;
             const baseLng = -0.1900;
@@ -104,6 +113,7 @@ export const ManagerDashboard: React.FC = () => {
             const generatedLng = baseLng - randOffsetLat(data.title);
 
             const { data: hostel, error: hostelError } = await supabase.from("hostels").insert({
+              manager_id: managerId,
               name: data.title,
               description: data.description,
               digital_address: data.ghanaPostGPS,
@@ -127,6 +137,7 @@ export const ManagerDashboard: React.FC = () => {
                 const fileExt = r.imageFile.name.split(".").pop();
                 const fileName = `room-${Math.random()}.${fileExt}`;
                 const { error: uploadError } = await supabase.storage.from("hostel-media").upload(fileName, r.imageFile);
+                if (uploadError) throw new Error("Room image upload failed: " + uploadError.message);
                 if (!uploadError) {
                   roomImgUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
                 }
@@ -173,7 +184,12 @@ export const ManagerDashboard: React.FC = () => {
             setIsEditing(false); 
             showToast("Listing saved successfully!"); 
           } catch (e: any) {
-            showToast("Error saving to database: " + e.message);
+            console.error("[ManagerDashboard] Error saving listing:", e);
+            if (e.message && e.message.includes("Failed to fetch")) {
+               showToast("Network error: Failed to fetch. Please ensure your Vercel Environment Variables (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY) are configured correctly and the domain is allowed.");
+            } else {
+               showToast("Error saving to database: " + e.message);
+            }
           }
         }} />;
 
