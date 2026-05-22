@@ -374,18 +374,17 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
     try {
       // Phase 1: Input Capture and Validation
       let code = formData.ghanaPostGPS.trim().toUpperCase();
-      const codeRegex = /^[A-Z]{2}-?[0-9]{3}-?[0-9]{4}$/;
+      const codeRegex = /^([A-Z]{2})-?(\d{3,4})-?(\d{4})$/;
       
-      if (!codeRegex.test(code)) {
-        alert("Invalid GhanaPost GPS Address format. Please use XX-XXX-XXXX.");
+      const match = code.match(codeRegex);
+      if (!match) {
+        alert("Invalid GhanaPost GPS Address format. Please use XX-XXX-XXXX or XX-XXXX-XXXX.");
         setIsVerifying(false);
         return;
       }
 
-      // Normalization: Insert hyphens if omitted
-      if (!code.includes('-')) {
-        code = `${code.substring(0, 2)}-${code.substring(2, 5)}-${code.substring(5, 9)}`;
-      }
+      // Normalization: Insert hyphens to format strictly as XX-XXX-XXXX or XX-XXXX-XXXX
+      code = `${match[1]}-${match[2]}-${match[3]}`;
 
       // Phase 2: API Request Execution
       // Using a placeholder URL and Headers for enterprise API
@@ -404,12 +403,17 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
 
       // Phase 3: Data Extraction
       const data = await response.json();
-      const latitude = data.Latitude ?? data.lat;
-      const longitude = data.Longitude ?? data.lng;
-
-      if (latitude == null || longitude == null) {
+      
+      // Strict extraction sequence: Parse natively and cast to numbers (preserves negative signs)
+      const rawLat = data.Latitude ?? data.lat;
+      const rawLng = data.Longitude ?? data.lng;
+      
+      if (rawLat == null || rawLng == null) {
         throw new Error("Missing coordinates in response.");
       }
+
+      const latitude = parseFloat(rawLat);
+      const longitude = parseFloat(rawLng);
 
       // Phase 4: Google Maps URL Construction
       const googleMapsUrl = data.directGoogleMapsUrl 
@@ -429,8 +433,8 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
       // Phase 5 continued: Fallback UI / Simulation if real API fails/mocked in environment
       console.warn("API failed, falling back to simulated resolution:", error.message);
       
-      // We know the regex passed, so code is XX-XXX-XXXX or similar
-      const parts = formData.ghanaPostGPS.trim().toUpperCase().replace(/-/g, '').match(/^([A-Z]{2})([0-9]{3})([0-9]{4})$/);
+      // We know the regex passed from Phase 1, so let's match again to extract normalized parts
+      const parts = formData.ghanaPostGPS.trim().toUpperCase().replace(/-/g, '').match(/^([A-Z]{2})(\d{3,4})(\d{4})$/);
       if (parts) {
          const regionCode = parts[1];
          let lat = 5.6037;
@@ -448,6 +452,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
          const finalLat = lat + offset;
          const finalLng = lng - offset;
 
+         // Phase 4: Google Maps URL Construction for fallback
          const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${finalLat},${finalLng}`;
          const normalizedCode = `${parts[1]}-${parts[2]}-${parts[3]}`;
 
