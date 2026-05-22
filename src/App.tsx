@@ -78,18 +78,18 @@ const AppContent: React.FC = () => {
         <Route path="/signup" element={<SignUp />} />
         
         {/* Student Routes */}
-        <Route path="/student/dashboard" element={<><div className="flex-1 min-h-0 flex flex-col"><Home /></div><BottomNav /></>} />
-        <Route path="/explore" element={<><div className="flex-1 min-h-0 flex flex-col"><Explore /></div><BottomNav /></>} />
-        <Route path="/details" element={<div className="flex-1 min-h-0 flex flex-col"><Details /></div>} />
-        <Route path="/virtual-tour" element={<div className="flex-1 min-h-0 flex flex-col"><VirtualTour /></div>} />
-        <Route path="/price-alerts" element={<div className="flex-1 min-h-0 flex flex-col"><PriceAlerts /></div>} />
-        <Route path="/saved" element={<><div className="flex-1 min-h-0 flex flex-col"><Saved /></div><BottomNav /></>} />
-        <Route path="/profile" element={<><div className="flex-1 min-h-0 flex flex-col"><Profile /></div><BottomNav /></>} />
+        <Route path="/student/dashboard" element={<><Home /><BottomNav /></>} />
+        <Route path="/explore" element={<><Explore /><BottomNav /></>} />
+        <Route path="/details" element={<Details />} />
+        <Route path="/virtual-tour" element={<VirtualTour />} />
+        <Route path="/price-alerts" element={<PriceAlerts />} />
+        <Route path="/saved" element={<><Saved /><BottomNav /></>} />
+        <Route path="/profile" element={<><Profile /><BottomNav /></>} />
         
         {/* Manager Routes */}
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
 
-        <Route path="/edit-profile" element={<div className="flex-1 min-h-0 flex flex-col"><EditProfile /></div>} />
+        <Route path="/edit-profile" element={<EditProfile />} />
 
         {/* Fallback */}
         <Route path="*" element={

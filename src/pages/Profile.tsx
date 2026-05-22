@@ -32,7 +32,7 @@ export const Profile: React.FC = () => {
   const email = user?.email || '';
 
   return (
-    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
+    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden">
       <PageHeader title="Profile" />
       <div className="flex-1 overflow-y-auto px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar w-full mt-4">
         

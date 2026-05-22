@@ -214,7 +214,7 @@ export const ManagerDashboard: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-app-bg flex font-sans relative overflow-hidden">
+    <div className="w-full flex-1 min-h-0 bg-app-bg flex font-sans relative overflow-hidden">
       {/* Sidebar Navigation */}
       <div className={`absolute z-50 h-full bg-card-bg border-r border-transparent w-[260px] transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-4 border-b border-border-subtle h-[60px]">
@@ -369,20 +369,32 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void, onSave: (da
   const handleVerifyGPS = () => {
     if (!formData.ghanaPostGPS) return;
     setIsVerifying(true);
-    // Mock API call to GhanaPost GPS
+    // Simulate GhanaPost GPS validation
     setTimeout(() => {
-      // Create some mock coordinates based on the input
-      const len = formData.ghanaPostGPS.length;
-      if (len > 4) {
+      const parts = formData.ghanaPostGPS.toUpperCase().split('-');
+      if (parts.length >= 2 && parts[0].length === 2) {
+         const regionCode = parts[0];
+         let lat = 5.6037;
+         let lng = -0.1870;
+         let locName = "Greater Accra Region";
+
+         if (regionCode === 'AK') { lat = 6.6885; lng = -1.6244; locName = "Ashanti Region"; }
+         else if (regionCode === 'CC') { lat = 5.1053; lng = -1.2466; locName = "Central Region"; }
+         else if (regionCode === 'WS') { lat = 4.8893; lng = -1.7516; locName = "Western Region"; }
+         else if (regionCode === 'EN') { lat = 6.0955; lng = -0.2590; locName = "Eastern Region"; }
+         else if (regionCode === 'VH') { lat = 6.6101; lng = 0.4785; locName = "Volta Region"; }
+         else if (regionCode === 'BT') { lat = 7.5855; lng = -1.9366; locName = "Bono Region"; }
+         
+         const offset = (parseInt(parts[1] || "0") % 100) * 0.0005;
+
          setFormData(prev => ({
            ...prev,
-           lat: 5.6037 + (len * 0.001), 
-           lng: -0.1870 - (len * 0.001),
-           location: prev.location || "Greater Accra (Verified via GPS)"
+           lat: lat + offset, 
+           lng: lng - offset,
+           location: prev.location || locName + " (Verified Location)"
          }));
-         // showToast typically comes from hook, but we can just use native alert or trust the user sees UI
       } else {
-         alert("Invalid GhanaPost GPS Address");
+         alert("Invalid GhanaPost GPS Address. Format: XX-XXX-XXXX");
       }
       setIsVerifying(false);
     }, 1200);

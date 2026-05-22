@@ -119,7 +119,7 @@ export const Explore: React.FC = () => {
   const centerLng = -0.1870;
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden" ref={containerRef}>
+    <div className="relative w-full flex-1 min-h-0 overflow-hidden" ref={containerRef}>
       {/* Top Bar over map */}
       <div className="absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
         <div className="flex items-start justify-between w-full mb-4">

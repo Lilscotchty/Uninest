@@ -13,7 +13,7 @@ export const VirtualTour: React.FC = () => {
   const featuredTours = hostels.slice(0, 3);
 
   return (
-    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative">
+    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative">
       <PageHeader 
         title="Virtual Tours"
         rightAction={

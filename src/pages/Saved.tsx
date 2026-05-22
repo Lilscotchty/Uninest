@@ -24,7 +24,7 @@ export const Saved: React.FC = () => {
   });
 
   return (
-   <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden">
+   <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden">
       <PageHeader 
         title="Saved" 
         rightAction={
