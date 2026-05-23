@@ -451,110 +451,125 @@ const CreateEditListing = ({
     setStep(step + 1);
   };
 
-  // ─── GhanaPost GPS Verification ─────────────────────────────────────────────
-  //
-  // PRIMARY  → GhanaPost public lookup (ghanapostgps.sperixlabs.org)
-  //            Returns real lat/lng for any valid Ghana digital address.
-  // FALLBACK → Nominatim (OpenStreetMap) geocoder.
-  //            Best-effort; accuracy may vary.
-  //
-  // On both failure: user is alerted and NO coordinates are stored.
-  // Dummy/generated coordinates are NEVER used.
-  // ────────────────────────────────────────────────────────────────────────────
+ // ─────────────────────────────────────────────────────────────────────────────
+// handleVerifyGPS — GhanaPost GPS → real lat/lng
+//
+// API:  POST https://ghanapostgps.sperixlabs.org/get-location
+//       Content-Type: application/x-www-form-urlencoded
+//       Body param:   address=GM-132-4567
+//
+// Response shape (found):
+// {
+//   "found": true,
+//   "data": {
+//     "Table": [{
+//       "CenterLatitude":  5.601...,
+//       "CenterLongitude": -0.187...,
+//       "Area": "...", "Street": "...", "District": "...", "Region": "...",
+//       "PostCode": "...", "GPSName": "..."
+//     }]
+//   }
+// }
+//
+// Response shape (not found):
+// { "found": false, "data": { "Table": null } }
+//
+// NOTE: Your environment variable must be named VITE_GHANAPOST_API_URL
+//       and set to: https://ghanapostgps.sperixlabs.org
+//       OR call the endpoint directly as shown below.
+// ─────────────────────────────────────────────────────────────────────────────
 
-  const handleVerifyGPS = async () => {
-    if (!formData.ghanaPostGPS) return;
-    setIsVerifying(true);
+const handleVerifyGPS = async () => {
+  if (!formData.ghanaPostGPS) return;
+  setIsVerifying(true);
 
-    // 1. Sanitise & validate format (XX-NNN-NNNN or XX-NNNN-NNNN)
-    const raw = formData.ghanaPostGPS.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
-    const parts = raw.match(/^([A-Z]{2})(\d{3,4})(\d{4})$/);
+  // 1. Sanitise input — strip everything except letters and digits, uppercase
+  const raw = formData.ghanaPostGPS.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
 
-    if (!parts) {
-      alert("Invalid GhanaPost GPS format. Expected XX-NNN-NNNN or XX-NNNN-NNNN (e.g. GA-144-3280).");
+  // 2. Validate format: XX-NNN-NNNN or XX-NNNN-NNNN  (e.g. GM-132-4567)
+  const parts = raw.match(/^([A-Z]{2})(\d{3,4})(\d{4})$/);
+  if (!parts) {
+    alert(
+      'Invalid GhanaPost GPS format.\n' +
+      'Expected XX-NNN-NNNN or XX-NNNN-NNNN — e.g. GM-132-4567 or GA-144-3280.'
+    );
+    setIsVerifying(false);
+    return;
+  }
+
+  // Re-format to canonical dashed form the API accepts
+  const standardCode = `${parts[1]}-${parts[2]}-${parts[3]}`;
+
+  try {
+    // ── PRIMARY: sperixlabs GhanaPost API ────────────────────────────────────
+    // Method: POST | Content-Type: application/x-www-form-urlencoded
+    // Env var: VITE_GHANAPOST_API_URL (set to https://ghanapostgps.sperixlabs.org)
+    const apiBase =
+      import.meta.env.VITE_GHANAPOST_API_URL?.replace(/\/$/, '') ||
+      'https://ghanapostgps.sperixlabs.org';
+
+    const body = new URLSearchParams();
+    body.append('address', standardCode);
+
+    const response = await fetch(`${apiBase}/get-location`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API responded with HTTP ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // 3. Check the `found` flag first — never trust Table[0] without it
+    if (!result.found || !result.data?.Table?.[0]) {
+      alert(
+        `Address "${standardCode}" was not found in the GhanaPost database.\n\n` +
+        'Please double-check the code and try again.'
+      );
       setIsVerifying(false);
       return;
     }
 
-    const standardCode = `${parts[1]}-${parts[2]}-${parts[3]}`;
+    const record = result.data.Table[0];
 
-    try {
-      // 2a. PRIMARY — GhanaPost public lookup
-      const gpResponse = await fetch(
-        `https://ghanapostgps.sperixlabs.org/get-address?address=${encodeURIComponent(standardCode)}`,
-        { headers: { "Content-Type": "application/json" } }
-      );
+    // 4. Extract real coordinates — CenterLatitude / CenterLongitude
+    const lat = parseFloat(record.CenterLatitude);
+    const lng = parseFloat(record.CenterLongitude);
 
-      if (gpResponse.ok) {
-        const gpData = await gpResponse.json();
-        // API shape: { data: { Table: [{ Latitude, Longitude, Area, Street, District, Region }] } }
-        const record = gpData?.data?.Table?.[0];
-
-        if (record?.Latitude && record?.Longitude) {
-          const lat = parseFloat(record.Latitude);
-          const lng = parseFloat(record.Longitude);
-
-          setFormData((prev) => ({
-            ...prev,
-            ghanaPostGPS: standardCode,
-            lat,
-            lng,
-            googleMapsUrl: `https://www.google.com/maps?q=${lat},${lng}`,
-            ghanaPostUrl: `https://www.ghanapostgps.com/map/#${raw}`,
-            resolvedAddress: [record.Area, record.Street, record.District, record.Region]
-              .filter(Boolean)
-              .join(", "),
-          }));
-          setIsVerifying(false);
-          return; // ✅ primary success
-        }
-      }
-
-      // 2b. FALLBACK — Nominatim (OpenStreetMap)
-      const nominatimUrl =
-        `https://nominatim.openstreetmap.org/search` +
-        `?q=${encodeURIComponent(standardCode + ", Ghana")}` +
-        `&format=json&limit=1&addressdetails=1`;
-
-      const nmResponse = await fetch(nominatimUrl, {
-        headers: { "Accept-Language": "en", "User-Agent": "HostelApp/1.0" },
-      });
-
-      if (nmResponse.ok) {
-        const nmData = await nmResponse.json();
-        const hit = nmData?.[0];
-
-        if (hit?.lat && hit?.lon) {
-          const lat = parseFloat(hit.lat);
-          const lng = parseFloat(hit.lon);
-
-          setFormData((prev) => ({
-            ...prev,
-            ghanaPostGPS: standardCode,
-            lat,
-            lng,
-            googleMapsUrl: `https://www.google.com/maps?q=${lat},${lng}`,
-            ghanaPostUrl: `https://www.ghanapostgps.com/map/#${raw}`,
-            resolvedAddress: hit.display_name ?? "",
-          }));
-          setIsVerifying(false);
-          return; // ✅ fallback success
-        }
-      }
-
-      // 2c. Both sources failed — do NOT store any coordinates
-      alert(
-        "Could not resolve this GPS address to real coordinates.\n\n" +
-          "Please double-check the address or verify it manually on ghanapostgps.com."
-      );
-    } catch (err) {
-      console.error("GPS verification error:", err);
-      alert("A network error occurred while verifying the address. Please check your connection and try again.");
-    } finally {
-      setIsVerifying(false);
+    if (isNaN(lat) || isNaN(lng)) {
+      throw new Error('API returned non-numeric coordinates.');
     }
-  };
 
+    // 5. Build a human-readable resolved address from the returned fields
+    const resolvedAddress = [record.Area, record.Street, record.District, record.Region]
+      .filter(Boolean)
+      .join(', ');
+
+    // 6. Commit everything to form state
+    setFormData(prev => ({
+      ...prev,
+      ghanaPostGPS:    standardCode,
+      lat,
+      lng,
+      googleMapsUrl:   `https://www.google.com/maps?q=${lat},${lng}`,
+      ghanaPostUrl:    `https://www.ghanapostgps.com/map/#${raw}`,
+      resolvedAddress,
+    }));
+
+  } catch (err: any) {
+    console.error('[handleVerifyGPS]', err);
+    alert(
+      'Could not reach the GhanaPost API.\n\n' +
+      'Check your network connection or that VITE_GHANAPOST_API_URL is set correctly.\n\n' +
+      `Detail: ${err?.message ?? err}`
+    );
+  } finally {
+    setIsVerifying(false);
+  }
+};
   // ────────────────────────────────────────────────────────────────────────────
 
   return (
