@@ -28,7 +28,7 @@ export const BottomNav: React.FC = () => {
           >
             {/* Active Top Bar Indicator */}
             {isActive && (
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[2.5px] bg-text-primary rounded-b-[2px]" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[2.5px] bg-text-primary text-bold rounded-b-[2px]" />
             )}
             
             <div className={`flex flex-col items-center justify-center pt-[2px] transition-colors ${
@@ -37,7 +37,7 @@ export const BottomNav: React.FC = () => {
                 : 'text-text-muted hover:text-text-primary/70'
             }`}>
               <IconComponent 
-                size={15} 
+                size={17} 
                 // @ts-ignore
                 className={isActive ? "text-text-primary" : "text-text-muted"} 
               />
