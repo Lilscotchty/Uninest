@@ -22,7 +22,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
           alt={hostel.name} 
           className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
         />
-        <div className="absolute top-2.5 left-2.5 bg-teal/90 text-white text-[0.65rem] font-bold px-2 py-1 rounded-md tracking-[0.4px] uppercase flex items-center gap-1">
+        <div className="absolute top-2.5 left-2.5 bg-teal/90 text-white text-[0.45rem] font-bold px-2 py-1 rounded-md tracking-[0.4px] uppercase flex items-center gap-1">
           <FaCheck size={10} /> Verified
         </div>
         <button 
@@ -36,7 +36,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
       {/* Card Body */}
       <div className="p-[14px] flex flex-col flex-1">
         <div className="flex justify-between items-center mb-1.5">
-          <div className="text-[0.65rem] sm:text-[0.75rem] font-semibold text-text-primary flex items-center gap-1">
+          <div className="text-[0.6rem] sm:text-[0.75rem] font-semibold text-text-primary flex items-center gap-1">
             <FaStar className="text-yellow-400 text-[0.7rem] sm:text-[0.8rem]" /> {hostel.rating} <span className="text-text-primary hidden sm:inline">({hostel.reviews})</span>
           </div>
           <div className="text-[0.6rem] sm:text-[0.68rem] bg-indigo-light text-indigo font-semibold px-2 py-0.5 rounded-[5px]">
@@ -44,7 +44,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
           </div>
         </div>
         
-        <h3 className="text-[0.85rem] sm:text-[0.98rem] font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+        <h3 className="text-[0.8rem] sm:text-[0.98rem] font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
           {hostel.name}
         </h3>
         
@@ -60,8 +60,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ hostel, isSaved, onT
         </div>
         
         <div className="mt-auto">
-          <div className="text-[0.7rem] sm:text-[0.78rem] text-text-muted">
-            <strong className="font-fraunces text-[1.1rem] sm:text-[1.2rem] font-bold text-text-primary">{hostel.price}</strong>/sem
+          <div className="text-[0.55rem] sm:text-[0.55rem] text-text-muted">
+            <strong className="font-fraunces text-[0.7rem] sm:text-[1.2rem] font-bold text-text-primary">{hostel.price}</strong>/sem
           </div>
           
           <div className="text-[0.65rem] sm:text-[0.72rem] text-teal font-semibold mt-[2px] sm:mt-[3px] flex items-center gap-1">

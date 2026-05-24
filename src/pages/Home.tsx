@@ -103,8 +103,8 @@ export const Home: React.FC = () => {
       {/* NEARBY HOSTELS */}
       <div className="mt-4 mb-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[1.4rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
-          <span className="text-[0.82rem] font-semibold text-indigo cursor-pointer tracking-tight">See all →</span>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
+          <span className="text-[0.7rem] font-semibold text-indigo cursor-pointer tracking-tight">See all →</span>
         </div>
         
         <div className="flex gap-3.5 overflow-x-auto hide-scrollbar pl-5 pr-5 pb-4 items-stretch">
