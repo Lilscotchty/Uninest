@@ -21,7 +21,7 @@
   --color-green: #16a34a;
   --color-green-light: var(--green-light, #dcfce7);
   --color-app-bg: var(--app-bg, #ffffff);
-  --color-card-bg: var(--card-bg, #ffffff);
+  --color-card-bg: var(--card-bg, #fafafa);
   
   --color-text-primary: var(--text-primary, #111827);
   --color-text-muted: var(--text-muted, #6b7280);
@@ -34,7 +34,7 @@
 
 :root {
   --app-bg: #ffffff;
-  --card-bg: #ffffff;
+  --card-bg: #fafafa;
   --text-primary: #111827;
   --text-muted: #6b7280;
   --text-white: #ffffff;
