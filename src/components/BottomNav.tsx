@@ -37,7 +37,7 @@ export const BottomNav: React.FC = () => {
                 : 'text-text-muted hover:text-text-primary/70'
             }`}>
               <IconComponent 
-                size={22} 
+                size={15} 
                 // @ts-ignore
                 className={isActive ? "text-text-primary" : "text-text-muted"} 
               />
