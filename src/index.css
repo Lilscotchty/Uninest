@@ -1,11 +1,11 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400..700&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @theme {
-  --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
-  --font-montserrat: "Montserrat", sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-customDark: #121212;
   
   --color-indigo: #412d6e;
   --color-indigo-dark: #1c2042;
@@ -21,7 +21,7 @@
   --color-green: #16a34a;
   --color-green-light: var(--green-light, #dcfce7);
   --color-app-bg: var(--app-bg, #ffffff);
-  --color-card-bg: var(--card-bg, #f3f4f6);
+  --color-card-bg: var(--card-bg, #ffffff);
   
   --color-text-primary: var(--text-primary, #111827);
   --color-text-muted: var(--text-muted, #6b7280);
@@ -34,11 +34,11 @@
 
 :root {
   --app-bg: #ffffff;
-  --card-bg: #f3f4f6;
-  --text-primary: #121524;
-  --text-muted: #626982;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-muted: #6b7280;
   --text-white: #ffffff;
-  --border-subtle: rgba(0,0,0,0.06);
+  --border-subtle: #f3f4f6; /* Set to gray-100 */
   --indigo-light: #e0e7ff;
   --amber-light: #fef3c7;
   --coral-light: #ffe4e6;
@@ -49,12 +49,12 @@
 }
 
 .dark {
-  --app-bg: #0f172a;       /* slate-900 */
-  --card-bg: #1e293b;      /* slate-800 */
-  --text-primary: #f8fafc; /* slate-50 */
-  --text-muted: #94a3b8;   /* slate-400 */
-  --text-white: #f8fafc;
-  --border-subtle: rgba(255,255,255,0.1);
+  --app-bg: #121212;       /* user requested #121212 */
+  --card-bg: #121212;
+  --text-primary: #f3f4f6; /* gray-100 */
+  --text-muted: #9ca3af;   /* gray-400 */
+  --text-white: #ffffff;
+  --border-subtle: #1f2937; /* gray-800 */
   --indigo-light: rgba(55, 48, 163, 0.4);
   --amber-light: rgba(217, 119, 6, 0.15);
   --coral-light: rgba(225, 29, 72, 0.15);
