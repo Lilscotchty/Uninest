@@ -41,7 +41,7 @@ export const BottomNav: React.FC = () => {
                 // @ts-ignore
                 className={isActive ? "text-text-primary" : "text-text-muted"} 
               />
-              <span className={`text-[5px] mt-0.5 ${isActive ? 'font-semibold text-text-primary' : 'font-medium text-text-muted'}`}>
+              <span className={`text-[10px] mt-0.5 ${isActive ? 'font-semibold text-text-primary' : 'font-medium text-text-muted'}`}>
                 {item.label}
               </span>
             </div>
