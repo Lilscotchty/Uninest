@@ -130,8 +130,8 @@ export const Home: React.FC = () => {
       >
         <div className="absolute -top-[30px] -right-[30px] w-[100px] h-[100px] rounded-full bg-white/10" />
         <div className="relative z-10">
-          <p className="text-white/65 text-[0.75rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 First semester deal</p>
-          <h3 className="text-white text-[1.1rem] font-bold leading-tight">15% off your<br/>first booking</h3>
+          <p className="text-white/65 text-[0.55rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 First semester deal</p>
+          <h3 className="text-white text-[0.91rem] font-bold leading-tight">15% off your first booking</h3>
         </div>
         <button 
           onClick={() => {
