@@ -1,4 +1,4 @@
-export interface Hostel {
+export interface Property {
   id: number | string;
   name: string;
   loc: string; // e.g., 'Legon · 3 min to main gate'
@@ -23,11 +23,11 @@ export interface Hostel {
 }
 
 export interface AppState {
-  savedHostels: number[]; // Array of saved hostel IDs
+  savedProperties: number[]; // Array of saved property IDs
   activeFilter: string; // Defaults to 'all'
 }
 
 export interface ViewState {
   currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard';
-  selectedHostelId: number | null;
+  selectedPropertyId: number | null;
 }

@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
       className="w-full h-[72px] flex justify-between items-center px-4 sm:px-6 sticky top-0 z-[100] bg-[#0b1021] shadow-sm"
     >
       <div className="flex items-center gap-2 z-[2]">
-        <span className="text-white text-[24px] font-bold tracking-[-0.5px]">UNINEST</span>
+        <span className="text-white text-[24px] font-bold tracking-[-0.5px]">SKY<span style={{ color: '#e8b96a' }}>COBE</span></span>
       </div>
         
       <div className="flex items-center gap-2.5 sm:gap-3 z-[2]">

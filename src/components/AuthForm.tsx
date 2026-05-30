@@ -167,7 +167,7 @@ export function AuthForm({ type }: AuthFormProps) {
         </h2>
         <p className="text-gray-500 text-[0.85rem] mt-1">
           {isLogin 
-            ? 'Sign in to continue to UniNest.' 
+            ? 'Sign in to continue to SkyCobe.' 
             : `Signing up as a ${role === 'manager' ? 'Manager' : 'Student'}.`}
         </p>
       </div>

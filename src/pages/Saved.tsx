@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { HOSTELS } from '../data';
+import { PROPERTIES } from '../data';
 import { PageHeader } from '../components/PageHeader';
 import { Bookmark, Star, ArrowRightLeft, TrendingDown } from 'lucide-react';
 
 export const Saved: React.FC = () => {
-  const { savedHostels, toggleSave, showToast, setCurrentView, hostels } = useAppContext();
+  const { savedProperties, toggleSave, showToast, setCurrentView, properties } = useAppContext();
   const navigate = useNavigate();
   const [activeSavedFilter, setActiveSavedFilter] = useState<string>('all');
 
-  const allSavedItems = hostels.filter(h => savedHostels.includes(h.id));
+  const allSavedItems = properties.filter(h => savedProperties.includes(h.id));
 
   // Simulating "Price Dropped" for specific categories or conditions,
-  // Here we arbitrarily say premium or campus hostels have price drops for demo
+  // Here we arbitrarily say premium or campus properties have price drops for demo
   const isDrop = (category: string) => ['campus', 'premium'].includes(category);
   const isAvail = (avail: string) => avail !== 'Sold out';
 
@@ -24,7 +24,7 @@ export const Saved: React.FC = () => {
   });
 
   return (
-   <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden">
+   <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
       <PageHeader 
         title="Saved" 
         rightAction={
@@ -40,8 +40,9 @@ export const Saved: React.FC = () => {
         }
       />
 
+    <div className="max-w-screen-2xl mx-auto w-full px-4 sm:px-6 lg:px-8">
       {/* Filter Chips */}
-      <div className="px-5 pt-4 pb-2 flex gap-2 overflow-x-auto hide-scrollbar bg-app-bg w-full shrink-0">
+      <div className="pt-4 pb-2 flex gap-2 overflow-x-auto hide-scrollbar bg-app-bg w-full shrink-0">
         {['All Saved', 'Price Dropped', 'Available Now'].map((filterItem) => {
           const filterKey = filterItem === 'All Saved' ? 'all' : filterItem === 'Price Dropped' ? 'drop' : 'avail';
           const isActive = activeSavedFilter === filterKey;
@@ -59,13 +60,13 @@ export const Saved: React.FC = () => {
       </div>
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto px-5 pb-[70px] flex flex-col gap-7 hide-scrollbar w-full mt-2">
+      <div className="w-full mt-2 pb-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredItems.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="w-20 h-20 rounded-full bg-indigo-light text-indigo flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
-            <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved hostels yet</h2>
+            <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved properties yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => navigate("/explore")}
@@ -119,6 +120,7 @@ export const Saved: React.FC = () => {
             </div>
           ))
         )}
+      </div>
       </div>
     </div>
   );

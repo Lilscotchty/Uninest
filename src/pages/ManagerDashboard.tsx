@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Hostel } from '../types';
+import { Property } from '../types';
 import {
   LayoutDashboard,
   Home as HomeIcon,
@@ -122,7 +122,7 @@ interface RoomType {
   pricePerYear: number;
 }
 
-interface ManagerHostelForm {
+interface ManagerPropertyForm {
   title: string;
   description: string;
   ghanaPostGPS: string;
@@ -152,13 +152,13 @@ interface ManagerHostelForm {
 }
 
 export const ManagerDashboard: React.FC = () => {
-  const { setCurrentView, showToast, hostels, addCustomHostel } = useAppContext();
+  const { setCurrentView, showToast, properties, addCustomProperty } = useAppContext();
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'hostels' | 'inquiries' | 'settings'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'properties' | 'inquiries' | 'settings'>('overview');
   const [isEditing, setIsEditing] = useState(false);
 
-  const myHostels = hostels;
+  const myProperties = properties;
 
   const renderContent = () => {
     if (isEditing) {
@@ -182,9 +182,9 @@ export const ManagerDashboard: React.FC = () => {
                 const fileExt = data.compoundImageFile.name.split(".").pop();
                 const fileName = `compound-${Math.random()}.${fileExt}`;
                 const { error: uploadError } = await supabase.storage
-                  .from("hostel-media").upload(fileName, data.compoundImageFile);
+                  .from("property-media").upload(fileName, data.compoundImageFile);
                 if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
-                compoundUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+                compoundUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
               }
 
               let image360Url = "";
@@ -192,9 +192,9 @@ export const ManagerDashboard: React.FC = () => {
                 const fileExt = data.image360File.name.split(".").pop();
                 const fileName = `360-${Math.random()}.${fileExt}`;
                 const { error: uploadError } = await supabase.storage
-                  .from("hostel-media").upload(fileName, data.image360File);
+                  .from("property-media").upload(fileName, data.image360File);
                 if (uploadError) throw new Error("360 Image upload failed: " + uploadError.message);
-                image360Url = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+                image360Url = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
               }
 
               const { data: authData, error: authError } = await supabase.auth.getUser();
@@ -211,8 +211,8 @@ export const ManagerDashboard: React.FC = () => {
                 ? `${distanceLabel(data.nearestCampus.distanceM)} from ${data.nearestCampus.shortName} (${data.nearestCampus.walkLabel})`
                 : data.location;
 
-              const { data: hostel, error: hostelError } = await supabase
-                .from("hostels")
+              const { data: property, error: propertyError } = await supabase
+                .from("properties")
                 .insert({
                   manager_id: managerId,
                   name: data.title,
@@ -229,7 +229,7 @@ export const ManagerDashboard: React.FC = () => {
                 })
                 .select().single();
 
-              if (hostelError) throw hostelError;
+              if (propertyError) throw propertyError;
 
               const roomsToInsert: any[] = [];
               const roomImages: string[] = [];
@@ -239,13 +239,13 @@ export const ManagerDashboard: React.FC = () => {
                   const fileExt = r.imageFile.name.split(".").pop();
                   const fileName = `room-${Math.random()}.${fileExt}`;
                   const { error: uploadError } = await supabase.storage
-                    .from("hostel-media").upload(fileName, r.imageFile);
+                    .from("property-media").upload(fileName, r.imageFile);
                   if (uploadError) throw new Error("Room image upload failed: " + uploadError.message);
-                  roomImgUrl = supabase.storage.from("hostel-media").getPublicUrl(fileName).data.publicUrl;
+                  roomImgUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
                 }
                 roomImages.push(roomImgUrl);
                 roomsToInsert.push({
-                  hostel_id: hostel.id,
+                  property_id: property.id,
                   room_type: r.name,
                   price: Number(r.pricePerYear),
                   capacity: Number(r.occupantsPerRoom),
@@ -258,8 +258,8 @@ export const ManagerDashboard: React.FC = () => {
                 if (roomsError) throw roomsError;
               }
 
-              const newHostel: Hostel = {
-                id: hostel?.id || Date.now(),
+              const newProperty: Property = {
+                id: property?.id || Date.now(),
                 name: data.title,
                 loc: proximityStr || data.location || data.ghanaPostGPS || "Accra",
                 lat: finalLat ?? 0,
@@ -279,10 +279,10 @@ export const ManagerDashboard: React.FC = () => {
                 videoTour: data.videoTour,
                 panoramas: image360Url ? [image360Url] : [],
                 images: [compoundUrl, ...roomImages].filter(Boolean),
-                dbId: hostel?.id,
+                dbId: property?.id,
               };
 
-              addCustomHostel(newHostel);
+              addCustomProperty(newProperty);
               setIsEditing(false);
               showToast("Listing saved successfully!");
             } catch (e: any) {
@@ -300,8 +300,8 @@ export const ManagerDashboard: React.FC = () => {
 
     switch (activeTab) {
       case "overview":
-      case "hostels":
-        return <Overview onAddNew={() => setIsEditing(true)} hostels={myHostels} />;
+      case "properties":
+        return <Overview onAddNew={() => setIsEditing(true)} properties={myProperties} />;
       default:
         return (
           <div className="flex flex-col items-center justify-center py-20 text-text-muted">
@@ -313,26 +313,27 @@ export const ManagerDashboard: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex-1 min-h-0 bg-white dark:bg-customDark flex font-sans relative overflow-hidden">
-      <div className={`absolute z-50 h-full bg-white dark:bg-customDark border-r border-transparent w-[260px] transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+    <div className="w-full h-full bg-white dark:bg-customDark flex font-sans relative overflow-hidden">
+      {/* Sidebar */}
+      <div className={`fixed md:relative z-50 h-full bg-white dark:bg-customDark border-r border-gray-100 dark:border-gray-800 w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 h-[60px]">
-          <span className=" text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Hostel Portal</span>
-          <button className="text-text-muted" onClick={() => setSidebarOpen(false)}><X size={24} /></button>
+          <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Property Portal</span>
+          <button className="text-text-muted md:hidden" onClick={() => setSidebarOpen(false)}><X size={24} /></button>
         </div>
         <div className="flex flex-col p-4 gap-2">
           <NavItem icon={<LayoutDashboard size={18} />} label="Overview" active={activeTab === "overview"} onClick={() => { setActiveTab("overview"); setSidebarOpen(false); }} />
-          <NavItem icon={<HomeIcon size={18} />} label="My Hostels" active={activeTab === "hostels"} onClick={() => { setActiveTab("hostels"); setSidebarOpen(false); }} />
+          <NavItem icon={<HomeIcon size={18} />} label="My Properties" active={activeTab === "properties"} onClick={() => { setActiveTab("properties"); setSidebarOpen(false); }} />
           <NavItem icon={<MessageSquare size={18} />} label="Inquiries" active={activeTab === "inquiries"} onClick={() => { setActiveTab("inquiries"); setSidebarOpen(false); }} />
           <NavItem icon={<Settings size={18} />} label="Settings" active={activeTab === "settings"} onClick={() => { setActiveTab("settings"); setSidebarOpen(false); }} />
         </div>
       </div>
 
-      {isSidebarOpen && <div className="absolute inset-0 bg-black/20 z-40" onClick={() => setSidebarOpen(false)} />}
+      {isSidebarOpen && <div className="absolute inset-0 bg-black/20 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />}
 
-      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
-        <header className="h-[60px] flex items-center justify-between px-4 bg-white dark:bg-customDark border-b border-transparent shrink-0">
+      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative">
+        <header className="h-[60px] flex items-center justify-between px-4 bg-white dark:bg-customDark border-b border-gray-100 dark:border-gray-800 shrink-0">
           <div className="flex items-center gap-3">
-            <button className="text-text-muted hover:text-indigo" onClick={() => setSidebarOpen(true)}><Menu size={24} /></button>
+            <button className="text-text-muted hover:text-indigo md:hidden" onClick={() => setSidebarOpen(true)}><Menu size={24} /></button>
             <button onClick={() => navigate("/profile")} className="flex items-center gap-1 text-sm font-normal text-gray-500 dark:text-gray-400 hover:text-indigo">
               <ChevronLeft size={16} /> Exit
             </button>
@@ -351,7 +352,7 @@ const NavItem = ({ icon, label, active, onClick }: { icon: React.ReactNode; labe
   </button>
 );
 
-const Overview = ({ onAddNew, hostels }: { onAddNew: () => void; hostels: Hostel[] }) => (
+const Overview = ({ onAddNew, properties }: { onAddNew: () => void; properties: Property[] }) => (
   <div className="p-6 flex flex-col gap-6 w-full max-w-5xl mx-auto">
     <div className="flex flex-col gap-3">
       <div>
@@ -363,7 +364,7 @@ const Overview = ({ onAddNew, hostels }: { onAddNew: () => void; hostels: Hostel
       </button>
     </div>
     <div className="grid grid-cols-2 gap-3">
-      <StatCard title="Total Properties" value={hostels.length.toString()} trend="+1 this month" />
+      <StatCard title="Total Properties" value={properties.length.toString()} trend="+1 this month" />
       <StatCard title="Total Rooms" value="120" trend="Active" />
       <StatCard title="Occupancy Rate" value="85%" trend="+5% up" />
       <StatCard title="Pending Inquiries" value="12" trend="Needs action" alert />
@@ -381,7 +382,7 @@ const Overview = ({ onAddNew, hostels }: { onAddNew: () => void; hostels: Hostel
             </tr>
           </thead>
           <tbody>
-            {hostels.map((h) => (
+            {properties.map((h) => (
               <tr key={h.id} className="border-b border-gray-100 dark:border-gray-800 last:border-0">
                 <td className="py-4 text-base font-medium text-gray-900 dark:text-gray-200">{h.name}</td>
                 <td className="py-4 text-sm font-normal text-gray-500 dark:text-gray-400">{h.loc}</td>
@@ -392,7 +393,7 @@ const Overview = ({ onAddNew, hostels }: { onAddNew: () => void; hostels: Hostel
                 </td>
               </tr>
             ))}
-            {hostels.length === 0 && (
+            {properties.length === 0 && (
               <tr><td colSpan={4} className="py-8 text-center text-text-muted text-sm">No listings found. Create one.</td></tr>
             )}
           </tbody>
@@ -412,10 +413,10 @@ const StatCard = ({ title, value, trend, alert }: { title: string; value: string
 
 // ─── CreateEditListing ─────────────────────────────────────────────────────────
 
-const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (data: ManagerHostelForm) => void }) => {
+const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (data: ManagerPropertyForm) => void }) => {
   const [step, setStep] = useState(1);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [formData, setFormData] = useState<Partial<ManagerHostelForm>>({
+  const [formData, setFormData] = useState<Partial<ManagerPropertyForm>>({
     title: "",
     description: "",
     ghanaPostGPS: "",
@@ -432,7 +433,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (da
     policies: "",
   });
 
-  const handleAmenitiesChange = (key: keyof ManagerHostelForm["amenities"]) => {
+  const handleAmenitiesChange = (key: keyof ManagerPropertyForm["amenities"]) => {
     setFormData({ ...formData, amenities: { ...formData.amenities, [key]: !(formData.amenities as any)[key] } as any });
   };
 
@@ -535,7 +536,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (da
         ))}
       </div>
 
-      <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); if (step < 4) { handleNext(); } else { onSave(formData as ManagerHostelForm); } }}>
+      <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); if (step < 4) { handleNext(); } else { onSave(formData as ManagerPropertyForm); } }}>
 
         {/* ── Step 1: Basic Information ─────────────────────────────────── */}
         {step === 1 && (
@@ -543,8 +544,8 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (da
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Basic Information</h2>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Hostel Title *</label>
-              <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none" placeholder="e.g. Pentagon Hostel" required />
+              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Property Title *</label>
+              <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none" placeholder="e.g. Pentagon Property" required />
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -703,7 +704,7 @@ const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (da
               <div className="grid grid-cols-2 gap-3">
                 {["wifi", "generator", "water", "ac", "kitchen", "studyRoom", "security"].map((item) => (
                   <label key={item} className="flex items-center gap-2 text-sm cursor-pointer border border-gray-100 dark:border-gray-800 rounded-lg p-3 hover:bg-white dark:bg-customDark transition-colors">
-                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as keyof ManagerHostelForm["amenities"])} className="w-4 h-4 rounded text-indigo focus:ring-indigo" />
+                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as keyof ManagerPropertyForm["amenities"])} className="w-4 h-4 rounded text-indigo focus:ring-indigo" />
                     <span className="capitalize text-text-primary">{item.replace(/([A-Z])/g, " $1").trim()}</span>
                   </label>
                 ))}

@@ -1,20 +1,20 @@
 import { supabase } from "../lib/supabase";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { AppState, ViewState, Hostel } from '../types';
-import { HOSTELS as INITIAL_HOSTELS } from '../data';
+import { AppState, ViewState, Property } from '../types';
+import { PROPERTIES as INITIAL_PROPERTIES } from '../data';
 
 interface AppContextType extends AppState, ViewState {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  hostels: Hostel[];
-  addCustomHostel: (hostel: Hostel) => void;
-  updateCustomHostel: (id: number, updates: Partial<Hostel>) => void;
+  properties: Property[];
+  addCustomProperty: (property: Property) => void;
+  updateCustomProperty: (id: number, updates: Partial<Property>) => void;
   toggleSave: (id: number) => void;
   setActiveFilter: (filter: string) => void;
   exploreSearchQuery: string;
   setExploreSearchQuery: (query: string) => void;
   setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard') => void;
-  setSelectedHostelId: (id: number | null) => void;
+  setSelectedPropertyId: (id: number | null) => void;
   toastMessage: string | null;
   clearToast: () => void;
   showToast: (msg: string) => void;
@@ -27,12 +27,12 @@ interface AppContextType extends AppState, ViewState {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [hostels, setHostels] = useState<Hostel[]>(INITIAL_HOSTELS);
-  const [savedHostels, setSavedHostels] = useState<number[]>([]);
+  const [properties, setProperties] = useState<Property[]>(INITIAL_PROPERTIES);
+  const [savedProperties, setSavedProperties] = useState<number[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [exploreSearchQuery, setExploreSearchQuery] = useState('');
   const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard'>('home');
-  const [selectedHostelId, setSelectedHostelId] = useState<number | null>(null);
+  const [selectedPropertyId, setSelectedPropertyId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -51,13 +51,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   }, []);
 
   useEffect(() => {
-    const fetchHostels = async () => {
+    const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("hostels").select("*, rooms(*)");
+        const { data, error } = await supabase.from("properties").select("*, rooms(*)");
         if (error) throw error;
         
         if (data && data.length > 0) {
-          const dbHostels = data.map(h => ({
+          const dbProperties = data.map(h => ({
             id: Math.random().toString(36).substr(2, 9), // Keep ID format mixed or cast, ideally keep original id
             name: h.name,
             loc: h.location || h.digital_address || "Accra",
@@ -81,14 +81,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             dbId: h.id
           }));
           
-          setHostels(prev => [...prev.filter(p => !dbHostels.find(d => d.name === p.name)), ...dbHostels]);
+          setProperties(prev => [...prev.filter(p => !dbProperties.find(d => d.name === p.name)), ...dbProperties]);
         }
       } catch (err) {
-        console.error("Error fetching hostels:", err);
+        console.error("Error fetching properties:", err);
       }
     };
     
-    fetchHostels();
+    fetchProperties();
   }, []);
 
   useEffect(() => {
@@ -135,16 +135,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  const addCustomHostel = (hostel: Hostel) => setHostels(prev => [...prev, hostel]);
-  const updateCustomHostel = (id: number, updates: Partial<Hostel>) => {
-    setHostels(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
+  const addCustomProperty = (property: Property) => setProperties(prev => [...prev, property]);
+  const updateCustomProperty = (id: number, updates: Partial<Property>) => {
+    setProperties(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
   };
   
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   const toggleSave = (id: number) => {
-    setSavedHostels((prev) =>
-      prev.includes(id) ? prev.filter((hostelId) => hostelId !== id) : [...prev, id]
+    setSavedProperties((prev) =>
+      prev.includes(id) ? prev.filter((propertyId) => propertyId !== id) : [...prev, id]
     );
   };
 
@@ -154,19 +154,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   return (
     <AppContext.Provider
       value={{
-        hostels,
-        addCustomHostel,
-        updateCustomHostel,
-        savedHostels,
+        properties,
+        addCustomProperty,
+        updateCustomProperty,
+        savedProperties,
         activeFilter,
         exploreSearchQuery,
         setExploreSearchQuery,
         currentView,
-        selectedHostelId,
+        selectedPropertyId,
         toggleSave,
         setActiveFilter,
         setCurrentView,
-        setSelectedHostelId,
+        setSelectedPropertyId,
         toastMessage,
         clearToast,
         showToast,

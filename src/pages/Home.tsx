@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
-import { HiLocationMarker } from 'react-icons/hi';
+
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
@@ -17,21 +17,21 @@ const FILTERS = [
 ];
 
 export const Home: React.FC = () => {
-  const { activeFilter, setActiveFilter, setCurrentView, savedHostels, toggleSave, showToast, setSelectedHostelId, setExploreSearchQuery, hostels } = useAppContext();
+  const { activeFilter, setActiveFilter, setCurrentView, savedProperties, toggleSave, showToast, setSelectedPropertyId, setExploreSearchQuery, properties } = useAppContext();
   const navigate = useNavigate();
   
   // Featured Picks auto-sliding carousel (like index.html)
   const trackRef = useRef<HTMLDivElement>(null);
   const [currentFeatured, setCurrentFeatured] = useState(0);
-  const featuredHostels = [
+  const featuredProperties = [
     {
       id: 1,
       img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
       tag: '🔥 Trending',
       tagColor: 'amber',
-      name: 'Evandy Hostel',
-      desc: 'Shared study spaces, rooftop lounge, and weekly social events. Built for students who want more than just a room.',
-      action: 'Explore Hostel →'
+      name: 'Evandy Property',
+      desc: 'Shared study spaces, rooftop lounge, and weekly social events. Built for students who want more than just a unit.',
+      action: 'Explore Property →'
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
       tag: '⭐ Premium',
       tagColor: 'indigo',
       name: 'Pentagon Annex',
-      desc: 'Executive single rooms with en-suite bathrooms. For students who won\'t compromise on comfort and privacy.',
+      desc: 'Executive single suites with en-suite bathrooms. For students who won\'t compromise on comfort and privacy.',
       action: 'Explore Luxury →'
     },
     {
@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
       img: 'https://loremflickr.com/600/400/bedroom?lock=102',
       tag: '📍 Best Location',
       tagColor: 'teal',
-      name: 'Bani Hostel',
+      name: 'Bani Property',
       desc: 'Exactly 2 minutes from the main gate, with 24/7 security, steady electricity, and free Wi-Fi included.',
       action: 'See Location →'
     }
@@ -55,9 +55,9 @@ export const Home: React.FC = () => {
 
   // Testimonials
   const testimonials = [
-    { init: 'AK', name: 'Abena Korantema', sub: 'Level 200, UG · Legon Annex', body: '"UniNest literally saved me hours of stress. I found my room, viewed photos, and booked online before even arriving in Accra."' },
-    { init: 'KO', name: 'Kwame Owusu', sub: 'Level 300, Ashesi', body: '"The seamless booking process connected me to my ideal hostel in minutes. I\'d never have found it without this app. 10/10!"' },
-    { init: 'EA', name: 'Efua Asante', sub: 'Fresher, KNUST', body: '"So easy to use. I viewed 6 hostels in under 10 minutes and found one within my budget near the main gate."' },
+    { init: 'AK', name: 'Abena Korantema', sub: 'Level 200, UG · Legon Annex', body: '"SkyCobe literally saved me hours of stress. I found my unit, viewed photos, and booked online before even arriving in Accra."' },
+    { init: 'KO', name: 'Kwame Owusu', sub: 'Level 300, Ashesi', body: '"The seamless booking process connected me to my ideal property in minutes. I\'d never have found it without this app. 10/10!"' },
+    { init: 'EA', name: 'Efua Asante', sub: 'Fresher, KNUST', body: '"So easy to use. I viewed 6 properties in under 10 minutes and found one within my budget near the main gate."' },
   ];
   const [tIdx, setTIdx] = useState(0);
 
@@ -69,15 +69,15 @@ export const Home: React.FC = () => {
   }, [testimonials.length]);
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar pb-[70px] relative scroll-smooth">
+    <div className="flex-1 w-full hide-scrollbar relative scroll-smooth flex flex-col pt-4">
       <Header />
       {/* SEARCH BAR UNDER HEADER */}
-      <div className="px-5 relative z-10 mb-4 mt-6">
+      <div className="px-4 sm:px-6 lg:px-8 relative z-10 mb-4 mt-6 max-w-4xl mx-auto w-full">
         <button 
           onClick={() => navigate("/explore")}
           className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-gray-200 transition-transform hover:-translate-y-[1px] text-left"
         >
-          <HiLocationMarker size={22} className="text-text-primary" />
+          <MapPin size={22} className="text-text-primary" />
           <span className="text-base font-semibold text-text-muted flex-1">Where do you want to live?</span>
         </button>
       </div>
@@ -100,24 +100,25 @@ export const Home: React.FC = () => {
         ))}
       </div>
 
-      {/* NEARBY HOSTELS */}
-      <div className="mt-4 mb-2">
-        <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Hostels</h2>
-          <span className="text-[0.7rem] font-semibold text-indigo cursor-pointer tracking-tight">See all →</span>
+      {/* NEARBY PROPERTIES */}
+      <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
+        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
+          <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Nearby Properties</h2>
+          <span className="text-sm font-semibold text-indigo cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
-        <div className="flex gap-3.5 overflow-x-auto hide-scrollbar pl-5 pr-5 pb-4 items-stretch">
-          {hostels.map((hostel) => (
+        <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 items-stretch">
+          {properties.map((property) => (
             <PropertyCard 
-              key={hostel.id} 
-              hostel={hostel} 
-              isSaved={savedHostels.includes(hostel.id)}
+              key={property.id} 
+              property={property} 
+              isSaved={savedProperties.includes(property.id)}
               onToggleSave={toggleSave}
               onClick={() => {
-                setSelectedHostelId(hostel.id);
+                setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
+              layout="compact"
             />
           ))}
         </div>
@@ -145,12 +146,12 @@ export const Home: React.FC = () => {
       </div>
 
       {/* QUICK ACTIONS */}
-      <div className="mt-2 text-text-primary">
-        <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
+      <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full">
+        <div className="flex justify-between items-center py-4 pb-3">
+          <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
-        <div className="grid grid-cols-2 gap-3.5 px-4 sm:px-5 pb-4">
-          <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
+          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-zinc-100 shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
                onClick={() => navigate("/virtual-tour")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
@@ -160,11 +161,11 @@ export const Home: React.FC = () => {
             </div>
             <div>
               <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Virtual Tour</strong>
-              <span className="block text-[0.75rem] text-text-muted leading-tight">See rooms live</span>
+              <span className="block text-[0.75rem] text-text-muted leading-tight">See units live</span>
             </div>
           </div>
 
-          <div className="bg-card-bg rounded-[18px] p-4 border-transparent border shadow-card cursor-pointer group transition-all hover:-translate-y-[3px] hover:shadow-float flex flex-col gap-3"
+          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-zinc-100 shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
                onClick={() => navigate("/price-alerts")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
@@ -192,7 +193,7 @@ export const Home: React.FC = () => {
             const idx = Math.round(track.scrollLeft / track.clientWidth);
             setCurrentFeatured(idx);
           }}>
-            {featuredHostels.map((feat, i) => (
+            {featuredProperties.map((feat, i) => (
               <div key={i} className="min-w-full snap-start bg-card-bg rounded-[20px] overflow-hidden">
                 <img src={feat.img} alt={feat.name} className="w-full h-[170px] object-cover" />
                 <div className="p-[18px]">
@@ -209,7 +210,7 @@ export const Home: React.FC = () => {
                   </p>
                   <button 
                     onClick={() => {
-                      setSelectedHostelId(feat.id);
+                      setSelectedPropertyId(feat.id);
                       navigate("/details");
                     }}
                     className="bg-amber-glow text-white border-none rounded-[12px] px-[20px] py-[10px] text-[0.88rem] font-bold cursor-pointer transition-colors shadow-[0_4px_14px_rgba(245,158,11,0.3)] hover:bg-[#d97706] active:scale-95"
@@ -222,7 +223,7 @@ export const Home: React.FC = () => {
           </div>
           
           <div className="flex justify-center gap-[6px] mt-[12px] mb-[4px]">
-            {featuredHostels.map((_, i) => (
+            {featuredProperties.map((_, i) => (
               <div key={i} className={`h-[7px] rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-[22px] bg-indigo' : 'w-[7px] bg-[#d1d5db]'}`} />
             ))}
           </div>

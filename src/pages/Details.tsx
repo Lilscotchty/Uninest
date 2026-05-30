@@ -21,24 +21,15 @@ import {
   Bed,
   Ruler,
   Tag,
+  Heart,
+  MessageCircle,
+  Coffee,
+  Video
 } from "lucide-react";
-import {
-  FaHeart,
-  FaRegHeart,
-  FaWhatsapp,
-  FaWifi,
-  FaSnowflake,
-  FaShieldAlt,
-  FaPlug,
-  FaBookOpen,
-  FaTint,
-  FaUtensils,
-  FaVrCardboard,
-} from "react-icons/fa";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useAppContext } from "../context/AppContext";
-import { HOSTELS } from "../data";
+import { PROPERTIES } from "../data";
 
 const mapIcon = L.divIcon({
   className: "",
@@ -51,23 +42,23 @@ export const Details: React.FC = () => {
   const {
     currentView,
     setCurrentView,
-    selectedHostelId,
+    selectedPropertyId,
     showToast,
-    savedHostels,
+    savedProperties,
     toggleSave,
-    hostels,
+    properties,
   } = useAppContext();
   const navigate = useNavigate();
 
-  const hostel = hostels.find((h) => h.id === selectedHostelId) || hostels[0];
-  const isSaved = savedHostels.includes(hostel.id);
+  const property = properties.find((h) => h.id === selectedPropertyId) || properties[0];
+  const isSaved = savedProperties.includes(property.id);
 
   // Gallery State
   const [currentImg, setCurrentImg] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [descExpanded, setDescExpanded] = useState(false);
-  const fullDesc = `Located perfectly for students looking to minimize their commute. ${hostel.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living. The rooms are fully tiled, spacious, and recently renovated with fresh interiors.\n\nEach room comes with an in-built wardrobe, study desk, and fan. The compound is gated and guarded around the clock. Utility bills (water) are included in the semester fee, making budgeting simple and stress-free.`;
+  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living. The units are fully tiled, spacious, and recently renovated with fresh interiors.\n\nEach unit comes with an in-built wardrobe, study desk, and fan. The compound is gated and guarded around the clock. Utility bills (water) are included in the semester fee, making budgeting simple and stress-free.`;
 
   const [activeRoomMode, setActiveRoomMode] = useState<
     "single" | "double" | "quad"
@@ -78,24 +69,24 @@ export const Details: React.FC = () => {
 
   const rooms = {
     single: {
-      name: "Private Single Room",
+      name: "Private Single Suite",
       size: "12 m²",
       occ: "1 occupant",
       bed: "Single bed",
       price: "GH₵5,000",
-      avail: "4 rooms left",
+      avail: "4 units left",
       availClass: "bg-green-100 text-green-700",
-      img: hostel.images?.[0] || hostel.img,
+      img: property.images?.[0] || property.img,
     },
     double: {
-      name: "Shared Double Room",
+      name: "Shared Double Unit",
       size: "18 m²",
       occ: "2 occupants",
       bed: "Bunk beds",
       price: "GH₵3,800",
-      avail: "2 rooms left",
+      avail: "2 units left",
       availClass: "bg-amber-100 text-amber-700",
-      img: hostel.images?.[1] || hostel.img,
+      img: property.images?.[1] || property.img,
     },
     quad: {
       name: "Quad Dorm Room",
@@ -103,18 +94,19 @@ export const Details: React.FC = () => {
       occ: "4 occupants",
       bed: "4 single beds",
       price: "GH₵3,200",
-      avail: "6 rooms left",
+      avail: "6 units left",
       availClass: "bg-green-100 text-green-700",
-      img: hostel.images?.[2] || hostel.img,
+      img: property.images?.[2] || property.img,
     },
   };
 
   const selectedRoom = rooms[activeRoomMode];
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar bg-slate-200 relative pb-[70px]">
+    <div className="flex-1 w-full bg-slate-100 dark:bg-app-bg relative flex flex-col md:overflow-y-auto">
+    <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
       {/* GALLERY */}
-      <div className="relative h-[380px] bg-black">
+      <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
         <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
           <button
             onClick={() => navigate("/student/dashboard")}
@@ -125,13 +117,13 @@ export const Details: React.FC = () => {
 
           <div className="flex gap-2.5 items-center">
             <button
-              onClick={() => toggleSave(hostel.id)}
+              onClick={() => toggleSave(property.id)}
               className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
             >
               {isSaved ? (
-                <FaHeart className="text-coral" size={18} />
+                <Heart strokeWidth={2.5} className="text-coral" />
               ) : (
-                <FaRegHeart size={18} />
+                <Heart strokeWidth={2.5} fill="none" color="currentColor" />
               )}
             </button>
             <button
@@ -155,13 +147,13 @@ export const Details: React.FC = () => {
               setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
           }}
         >
-          {(hostel.images || []).map((src, i) => (
+          {(property.images || []).map((src, i) => (
             <div key={i} className="min-w-full h-full snap-start relative">
               <img src={src} className="w-full h-full object-cover" />
             </div>
           ))}
           {/* 360 Slide */}
-          {(hostel.panoramas || []).map((pano, i) => (
+          {(property.panoramas || []).map((pano, i) => (
             <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
                 <Pannellum
                   width="100%"
@@ -180,7 +172,7 @@ export const Details: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
 
         <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
-          {(hostel.images || []).map((src, i) => (
+          {(property.images || []).map((src, i) => (
             <div
               key={i}
               className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
@@ -197,8 +189,8 @@ export const Details: React.FC = () => {
               />
             </div>
           ))}
-          {(hostel.panoramas || []).map((pano, j) => {
-            const i = (hostel.images?.length || 0) + j;
+          {(property.panoramas || []).map((pano, j) => {
+            const i = (property.images?.length || 0) + j;
             return (
               <div
                 key={`pano-thumb-${j}`}
@@ -212,7 +204,7 @@ export const Details: React.FC = () => {
               >
                 <img src={pano} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-                  <FaVrCardboard size={12} />
+                  <Video size={14} />
                 </div>
               </div>
             );
@@ -220,7 +212,7 @@ export const Details: React.FC = () => {
         </div>
 
         <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-          {currentImg + 1} / {(hostel.images?.length || 0) + (hostel.panoramas?.length || 0)}
+          {currentImg + 1} / {(property.images?.length || 0) + (property.panoramas?.length || 0)}
         </div>
       </div>
 
@@ -243,29 +235,29 @@ export const Details: React.FC = () => {
 
         <div className="flex justify-between items-start mb-2 gap-2">
           <h1 className="font-fraunces text-[1.4rem] sm:text-[1.85rem] font-bold text-text-primary leading-[1.1] tracking-[-0.5px] break-words">
-            {hostel.name}
+            {property.name}
           </h1>
           <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
             <Star size={14} className="fill-amber-400 text-amber-400" />
             <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
-              {hostel.rating}
+              {property.rating}
             </strong>
             <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted">
-              ({hostel.reviews})
+              ({property.reviews})
             </span>
           </div>
         </div>
 
         <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
           <MapPin size={14} className="text-indigo shrink-0" />
-          <span>{hostel.loc}</span>
+          <span>{property.loc}</span>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
           <div className="text-center py-2 sm:py-2.5">
             <strong className="block font-fraunces text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
-              {hostel.price.split(",")[0]}K
+              {property.price.split(",")[0]}K
             </strong>
             <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
               Per Sem
@@ -273,7 +265,7 @@ export const Details: React.FC = () => {
           </div>
           <div className="text-center py-2 sm:py-2.5">
             <strong className="block font-fraunces text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
-              {hostel.reviews}
+              {property.reviews}
             </strong>
             <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
               Reviews
@@ -319,7 +311,7 @@ export const Details: React.FC = () => {
                   href="https://wa.me/233"
                   className="w-10 h-10 rounded-full bg-indigo-light/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
                 >
-                  <FaWhatsapp size={16} />
+                  <MessageCircle size={20} />
                 </a>
           </div>
         </div>
@@ -329,16 +321,16 @@ export const Details: React.FC = () => {
           What's Included
         </h2>
         <div className="grid grid-cols-2 gap-3 mb-8">
-          {((hostel.amenities?.length ? hostel.amenities : hostel.tags) || []).map((am, i) => {
+          {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
             const label = am.toLowerCase();
-            let Icon = FaWifi;
+            let Icon = Wifi;
             let color = "text-indigo";
-            if (label.includes("ac")) { Icon = FaSnowflake; color = "text-blue-400"; }
-            else if (label.includes("security") || label.includes("sec")) { Icon = FaShieldAlt; color = "text-emerald-500"; }
-            else if (label.includes("gen")) { Icon = FaPlug; color = "text-amber-500"; }
-            else if (label.includes("study")) { Icon = FaBookOpen; color = "text-pink-500"; }
-            else if (label.includes("water") || label.includes("piped")) { Icon = FaTint; color = "text-cyan-500"; }
-            else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = FaUtensils; color = "text-orange-500"; }
+            if (label.includes("ac")) { Icon = Snowflake; color = "text-blue-400"; }
+            else if (label.includes("security") || label.includes("sec")) { Icon = ShieldCheck; color = "text-emerald-500"; }
+            else if (label.includes("gen")) { Icon = PlugZap; color = "text-amber-500"; }
+            else if (label.includes("study")) { Icon = BookOpen; color = "text-pink-500"; }
+            else if (label.includes("water") || label.includes("piped")) { Icon = Droplet; color = "text-cyan-500"; }
+            else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = Coffee; color = "text-orange-500"; }
             
             return (
               <div key={i} className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
@@ -352,7 +344,7 @@ export const Details: React.FC = () => {
         </div>
 
         <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
-          About this Hostel
+          About this Property
         </h2>
         <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
           {descExpanded ? fullDesc : fullDesc.slice(0, 200) + "..."}
@@ -433,13 +425,13 @@ export const Details: React.FC = () => {
         <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-4 tracking-tight">
           Location
         </h2>
-        <a href={`https://www.google.com/maps/search/?api=1&query=${hostel.lat},${hostel.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
+        <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
           <div className="absolute inset-0 bg-transparent z-10" />
           <div
             className={`w-full h-full transition-all group-hover:opacity-90`}
           >
             <MapContainer
-              center={[hostel.lat, hostel.lng]}
+              center={[property.lat, property.lng]}
               zoom={15}
               className="w-full h-full !z-0"
               style={{ zIndex: 0 }}
@@ -451,67 +443,71 @@ export const Details: React.FC = () => {
                 url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                 attribution="© OpenStreetMap"
               />
-              <Marker position={[hostel.lat, hostel.lng]} icon={mapIcon} />
+              <Marker position={[property.lat, property.lng]} icon={mapIcon} />
             </MapContainer>
           </div>
         </a>
         <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
           <MapPin size={14} className="text-indigo" />{" "}
-          <a href={`https://www.google.com/maps/search/?api=1&query=${hostel.lat},${hostel.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo">Open in Google Maps</a>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo">Open in Google Maps</a>
         </p>
       </div>
 
-      {/* BOTTOM BAR */}
-      <div className="fixed bottom-0 w-full max-w-[400px] bg-card-bg/95 backdrop-blur-md px-4 sm:px-6 py-3 border-t border-transparent shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-[100] flex justify-between items-center gap-3 pb-8">
-        <div className="flex-1 min-w-0">
-          <div className="font-fraunces text-[1.1rem] sm:text-[1.2rem] font-bold text-text-primary leading-[1.1]">
+      {/* BOTTOM BAR / DESKTOP SIDEBAR */}
+      <div className="fixed md:sticky bottom-0 md:top-24 left-0 w-full md:w-auto bg-card-bg/95 md:bg-card-bg backdrop-blur-md px-4 sm:px-6 md:p-6 py-3 border-t md:border border-transparent md:border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-card z-[100] flex justify-between md:flex-col items-center md:items-stretch gap-3 pb-8 md:pb-6 md:col-span-1 md:rounded-2xl md:h-fit">
+        <div className="flex-1 min-w-0 md:text-center shrink-0">
+          <div className="font-fraunces text-[1.1rem] sm:text-[1.2rem] md:text-3xl font-bold text-text-primary leading-[1.1]">
             {selectedRoom.price}
           </div>
-          <div className="text-[0.65rem] sm:text-[0.75rem] text-text-muted font-medium mt-0.5 mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="text-[0.65rem] sm:text-[0.75rem] md:text-sm text-text-muted font-medium mt-0.5 mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
             {activeRoomMode === "single"
               ? "1"
               : activeRoomMode === "double"
                 ? "2"
                 : "4"}{" "}
-            in a room / sem
+            in a unit / sem
           </div>
-          <div className="bg-indigo-light text-indigo text-[0.65rem] sm:text-[0.75rem] font-bold px-2 py-1 rounded-[6px] inline-flex items-center gap-1 truncate max-w-full">
+          <div className="bg-indigo-light text-indigo text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-center gap-1 truncate max-w-full md:mt-2 md:w-full">
             <Tag size={12} className="shrink-0" /> Code DWELL15
           </div>
         </div>
-        <div className="flex gap-2 shrink-0">
+        <div className="flex md:flex-col gap-2 shrink-0 md:mt-4">
+          <button
+            onClick={() => setBookingModalOpen(true)}
+            className="bg-indigo text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] flex-1 w-full"
+          >
+            Request Booking
+          </button>
           <button
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
               showToast("Link copied!");
             }}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-indigo-light/20 transition-colors"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-indigo-light/20 transition-colors gap-2"
           >
-            <ArrowUpFromLine size={16} />
-          </button>
-          <button
-            onClick={() => setBookingModalOpen(true)}
-            className="bg-indigo text-white font-bold h-10 sm:h-12 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem]"
-          >
-            Request
+            <ArrowUpFromLine size={16} /> <span className="hidden md:inline font-bold">Share Link</span>
           </button>
         </div>
       </div>
 
       {/* BOOKING MODAL */}
       {bookingModalOpen && (
-        <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end">
-          <div className="w-full max-w-[400px] max-h-[85vh] overflow-y-auto hide-scrollbar mx-auto bg-card-bg rounded-t-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom">
+        <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end md:items-center justify-center">
+          <div className="w-full max-w-[400px] md:max-w-[500px] max-h-[85vh] overflow-y-auto hide-scrollbar bg-card-bg rounded-t-[32px] md:rounded-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom md:slide-in-from-bottom-8 md:fade-in">
             <div
-              className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-6 shadow-sm cursor-pointer hover:bg-slate-400"
+              className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-6 shadow-sm cursor-pointer hover:bg-slate-400 md:hidden"
               onClick={() => setBookingModalOpen(false)}
             />
+            
+            <div className="hidden md:flex justify-end -mt-2 -mr-2 mb-4">
+               <button onClick={() => setBookingModalOpen(false)} className="text-text-muted hover:text-text-primary p-2">✕</button>
+            </div>
 
-            <h2 className="font-montserrat text-[1.1rem] font-bold text-text-primary mb-1">
+            <h2 className="font-montserrat text-[1.1rem] md:text-xl font-bold text-text-primary mb-1">
               Request to Book
             </h2>
             <p className="text-[0.85rem] font-medium text-text-muted mb-6">
-              {hostel.name} · {selectedRoom.name}
+              {property.name} · {selectedRoom.name}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-4">
@@ -556,12 +552,12 @@ export const Details: React.FC = () => {
                 className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
               >
                 <option value="single">
-                  Single Room – {rooms.single.price}/sem
+                  Single Unit – {rooms.single.price}/sem
                 </option>
                 <option value="double">
-                  Double Room – {rooms.double.price}/sem
+                  Double Unit – {rooms.double.price}/sem
                 </option>
-                <option value="quad">Quad Room – {rooms.quad.price}/sem</option>
+                <option value="quad">Quad Unit – {rooms.quad.price}/sem</option>
               </select>
             </div>
 
@@ -587,6 +583,7 @@ export const Details: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

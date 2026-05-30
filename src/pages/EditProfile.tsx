@@ -135,61 +135,65 @@ export const EditProfile: React.FC = () => {
 
   return (
     <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
-      {/* Header */}
-      <div className="flex items-center px-5 pt-12 pb-4 bg-app-bg sticky top-0 z-20">
-        {!isCompleting && (
-          <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-primary hover:bg-gray-100 transition-colors">
-            <ChevronLeft size={24} />
-          </button>
-        )}
-        <h1 className="font-montserrat text-xl font-bold text-text-primary ml-2">
-          {isCompleting ? 'Complete Profile' : 'Personal Info'}
-        </h1>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-5 pb-8 hide-scrollbar">
-        {isCompleting && (
-          <div className="bg-indigo/10 p-4 rounded-xl mb-6 border border-indigo/20">
-            <p className="text-sm text-indigo font-medium">
-              We need a little more information to set up your {role} account properly before you can continue.
-            </p>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2">
-          <div className="grid grid-cols-2 gap-3">
-            <InputField label="First Name" icon={User} id="firstName" type="text" placeholder="First name" error={errors.firstName} />
-            <InputField label="Last Name" icon={User} id="lastName" type="text" placeholder="Last name" error={errors.lastName} />
+      <div className="flex-1 w-full overflow-y-auto">
+        <div className="max-w-xl mx-auto w-full flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-center px-5 pt-12 md:pt-16 pb-4 bg-app-bg sticky top-0 z-20">
+            {!isCompleting && (
+              <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-primary hover:bg-gray-100 transition-colors">
+                <ChevronLeft size={24} />
+              </button>
+            )}
+            <h1 className="font-montserrat text-xl md:text-2xl font-bold text-text-primary ml-2">
+              {isCompleting ? 'Complete Profile' : 'Personal Info'}
+            </h1>
           </div>
 
-          <InputField label="Phone / WhatsApp" icon={Phone} id="phone" type="tel" placeholder="+233 50 123 4567" error={errors.phone} />
+          <div className="px-5 pb-8">
+            {isCompleting && (
+              <div className="bg-indigo/10 p-4 rounded-xl mb-6 border border-indigo/20">
+                <p className="text-sm text-indigo font-medium">
+                  We need a little more information to set up your {role} account properly before you can continue.
+                </p>
+              </div>
+            )}
 
-          {role === 'student' && (
-            <div className="flex flex-col gap-4">
-              <InputField label="University" icon={BookOpen} id="university" type="text" placeholder="e.g. KNUST, UG" error={errors.university} />
-              <InputField label="Level" icon={Layers} id="level" type="text" placeholder="e.g. 200, 300" error={errors.level} />
-            </div>
-          )}
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2">
+              <div className="grid grid-cols-2 gap-3">
+                <InputField label="First Name" icon={User} id="firstName" type="text" placeholder="First name" error={errors.firstName} />
+                <InputField label="Last Name" icon={User} id="lastName" type="text" placeholder="Last name" error={errors.lastName} />
+              </div>
 
-          <div className="mt-6 mb-4">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] flex justify-center items-center gap-2 ${
-                role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-teal-600' : 'bg-indigo shadow-indigo/25 hover:bg-indigo-600'
-              } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-            >
-              {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <Save size={18} />
-                  {isCompleting ? 'Save & Continue' : 'Save Changes'}
-                </>
+              <InputField label="Phone / WhatsApp" icon={Phone} id="phone" type="tel" placeholder="+233 50 123 4567" error={errors.phone} />
+
+              {role === 'student' && (
+                <div className="flex flex-col gap-4">
+                  <InputField label="University" icon={BookOpen} id="university" type="text" placeholder="e.g. KNUST, UG" error={errors.university} />
+                  <InputField label="Level" icon={Layers} id="level" type="text" placeholder="e.g. 200, 300" error={errors.level} />
+                </div>
               )}
-            </button>
+
+              <div className="mt-6 mb-4">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] flex justify-center items-center gap-2 ${
+                    role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-teal-600' : 'bg-indigo shadow-indigo/25 hover:bg-indigo-600'
+                  } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isLoading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Save size={18} />
+                      {isCompleting ? 'Save & Continue' : 'Save Changes'}
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

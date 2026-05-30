@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AppProvider, useAppContext } from './context/AppContext';
-import { BottomNav } from './components/BottomNav';
+import { AppShell } from './components/layout/AppShell';
 import { Home } from './pages/Home';
 import { Explore } from './pages/Explore';
 import { Details } from './pages/Details';
@@ -70,7 +70,7 @@ const AppContent: React.FC = () => {
   }, [user, location.pathname, navigate]);
 
   return (
-    <div className={`w-full flex-shrink-0 self-center max-w-[400px] bg-app-bg h-[100dvh] overflow-hidden relative shadow-[0_0_60px_rgba(30,27,75,0.25)] flex flex-col font-sans ${theme === "dark" ? "dark" : ""}`}>
+    <div className={`w-full min-h-screen bg-app-bg text-text-primary flex flex-col font-sans ${theme === "dark" ? "dark" : ""}`}>
       <Toast />
       
       <Routes>
@@ -78,13 +78,13 @@ const AppContent: React.FC = () => {
         <Route path="/signup" element={<SignUp />} />
         
         {/* Student Routes */}
-        <Route path="/student/dashboard" element={<><Home /><BottomNav /></>} />
-        <Route path="/explore" element={<><Explore /><BottomNav /></>} />
+        <Route path="/student/dashboard" element={<AppShell><Home /></AppShell>} />
+        <Route path="/explore" element={<AppShell><Explore /></AppShell>} />
         <Route path="/details" element={<Details />} />
         <Route path="/virtual-tour" element={<VirtualTour />} />
         <Route path="/price-alerts" element={<PriceAlerts />} />
-        <Route path="/saved" element={<><Saved /><BottomNav /></>} />
-        <Route path="/profile" element={<><Profile /><BottomNav /></>} />
+        <Route path="/saved" element={<AppShell><Saved /></AppShell>} />
+        <Route path="/profile" element={<AppShell><Profile /></AppShell>} />
         
         {/* Manager Routes */}
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />

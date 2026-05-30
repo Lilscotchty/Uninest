@@ -1,9 +1,9 @@
-import { Hostel } from './types';
+import { Property } from './types';
 
-export const HOSTELS: Hostel[] = [
+export const PROPERTIES: Property[] = [
   {
     id: 1,
-    name: 'Evandy Hostel',
+    name: 'Evandy Property',
     loc: 'North Legon · 5 min to campus',
     lat: 5.6420,
     lng: -0.1982,
@@ -13,7 +13,7 @@ export const HOSTELS: Hostel[] = [
     reviews: 124,
     tags: ['wifi', 'ac', 'sec'],
     category: 'premium',
-    avail: '2 rooms',
+    avail: '2 units',
     img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
     images: [
       'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -24,7 +24,7 @@ export const HOSTELS: Hostel[] = [
   },
   {
     id: 2,
-    name: 'Bani Hostel',
+    name: 'Bani Property',
     loc: 'Legon Campus · 2 min to main gate',
     lat: 5.6471,
     lng: -0.1901,
@@ -66,7 +66,7 @@ export const HOSTELS: Hostel[] = [
   },
   {
     id: 4,
-    name: 'TF Hostel',
+    name: 'TF Property',
     loc: 'Atomic Junction · 8 min to campus',
     lat: 5.6582,
     lng: -0.1868,
@@ -76,7 +76,7 @@ export const HOSTELS: Hostel[] = [
     reviews: 45,
     tags: ['wifi'],
     category: 'budget',
-    avail: '5 rooms',
+    avail: '5 units',
     img: 'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
     images: [
       'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -97,7 +97,7 @@ export const HOSTELS: Hostel[] = [
     reviews: 62,
     tags: ['sec', 'gen'],
     category: 'standard',
-    avail: '1 room',
+    avail: '1 unit',
     img: 'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',
     images: [
       'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',

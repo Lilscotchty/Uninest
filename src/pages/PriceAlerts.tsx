@@ -34,10 +34,11 @@ export const PriceAlerts: React.FC = () => {
         }
       />
 
-      <div className="flex-1 overflow-y-auto px-5 py-6">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-teal-light text-teal-600 rounded-[20px] flex items-center justify-center mx-auto mb-4">
-            <Bell size={32} />
+      <div className="flex-1 w-full overflow-y-auto">
+        <div className="max-w-screen-md mx-auto w-full px-5 py-6">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-teal-light text-teal-600 rounded-[20px] flex items-center justify-center mx-auto mb-4">
+              <Bell size={32} />
           </div>
           <h2 className="font-montserrat text-[1.5rem] font-bold text-text-primary mb-2">Never Miss a Drop</h2>
           <p className="text-[0.9rem] text-text-muted">Set up alerts to get notified instantly when the perfect room hits your dream price.</p>
@@ -58,7 +59,7 @@ export const PriceAlerts: React.FC = () => {
             <div className="flex flex-col gap-3">
               <input 
                  type="text" 
-                 placeholder="Area/Hostel (e.g., East Legon)" 
+                 placeholder="Area/Property (e.g., East Legon)" 
                  className="w-full bg-app-bg border border-border-subtle rounded-xl px-3 py-2 text-[0.85rem] outline-none focus:border-teal" 
               />
               <div className="flex items-center gap-2">
@@ -97,6 +98,7 @@ export const PriceAlerts: React.FC = () => {
               </button>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>
