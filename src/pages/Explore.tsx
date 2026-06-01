@@ -230,6 +230,7 @@ export const Explore: React.FC = () => {
             <div key={h.id} className="w-full" onMouseEnter={() => setPeekPropertyId(h.id)} onMouseLeave={() => setPeekPropertyId(null)}>
                <PropertyCard 
                  property={h} 
+                 layout="explore-list"
                  isSaved={savedProperties.includes(h.id)} 
                  onToggleSave={toggleSave} 
                  onClick={() => { setSelectedPropertyId(h.id); navigate("/details"); }} 

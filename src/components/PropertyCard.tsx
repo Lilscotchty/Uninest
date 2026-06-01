@@ -7,10 +7,59 @@ interface PropertyCardProps {
   isSaved: boolean;
   onToggleSave: (id: number | string) => void;
   onClick: () => void;
-  layout?: 'responsive' | 'compact';
+  layout?: 'responsive' | 'compact' | 'explore-list';
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, onToggleSave, onClick, layout = 'responsive' }) => {
+  if (layout === 'explore-list') {
+    return (
+      <div 
+        onClick={onClick}
+        className="group flex w-full max-w-[400px] h-[100px] bg-white dark:bg-card-bg border border-slate-200 dark:border-slate-800 rounded-[30px] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 cursor-pointer"
+      >
+        <div className="w-[125px] h-full shrink-0 relative overflow-hidden" style={{ clipPath: 'polygon(0 0, 100% 0, 82% 100%, 0 100%)' }}>
+          <img 
+            src={property.img} 
+            alt={property.name} 
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <button 
+            onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
+            className="absolute top-2 left-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm border-none rounded-full w-6 h-6 flex items-center justify-center cursor-pointer shadow-sm transition-transform duration-200 hover:scale-110 active:scale-95 z-20"
+          >
+            <Heart size={12} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-gray-500 dark:text-gray-300 fill-transparent'}`} />
+          </button>
+          <div className="absolute top-0 left-[-150%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-15deg] transition-[left] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] z-10 pointer-events-none group-hover:left-[200%]" />
+        </div>
+        <div className="flex-1 flex flex-col justify-between py-3 pr-3.5 pl-2 overflow-hidden">
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between items-center gap-2">
+              <h3 className="m-0 text-[15px] font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap overflow-hidden text-ellipsis">
+                {property.name}
+              </h3>
+              <div className="text-[12px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-[2px] shrink-0">
+                <Star className="text-yellow-400 fill-yellow-400 mb-[1px]" size={11} /> {property.rating}
+              </div>
+            </div>
+            <div className="text-[12px] text-slate-500 flex items-center gap-1">
+              <MapPin size={11} className="opacity-80 shrink-0" />
+              <span className="truncate">{property.loc}</span>
+            </div>
+          </div>
+          <div className="flex justify-between items-center mt-auto">
+            <div className="text-[16px] font-bold text-slate-900 dark:text-slate-100">
+              {property.price}
+            </div>
+            <div className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[4px] tracking-wide uppercase">
+              {property.avail.includes('Available') ? 'Available' : property.avail.replace('left', '').trim()}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const isCompact = layout === 'compact';
   
   return (
