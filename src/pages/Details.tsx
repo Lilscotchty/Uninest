@@ -38,8 +38,6 @@ const mapIcon = L.divIcon({
   iconAnchor: [7, 7],
 });
 
-import { PageHeader } from "../components/layout/PageHeader";
-
 export const Details: React.FC = () => {
   const {
     currentView,
@@ -106,33 +104,39 @@ export const Details: React.FC = () => {
 
   return (
     <div className="flex-1 w-full bg-slate-100 dark:bg-app-bg relative flex flex-col md:overflow-y-auto">
-      <PageHeader
-         sticky={true}
-         actions={[
-           {
-             icon: <ChevronLeft size={22} strokeWidth={1.8} />,
-             label: "Back",
-             onClick: () => navigate("/student/dashboard")
-           },
-           {
-             icon: isSaved ? <Heart className="text-coral fill-coral" size={22} strokeWidth={1.8} /> : <Heart size={22} strokeWidth={1.8} />,
-             label: "Save",
-             onClick: () => toggleSave(property.id)
-           },
-           {
-             icon: <ArrowUpFromLine size={22} strokeWidth={1.8} />,
-             label: "Share",
-             onClick: () => {
-                navigator.clipboard.writeText(window.location.href);
-                showToast("Link copied!");
-             }
-           }
-         ]}
-      />
     <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
       {/* GALLERY */}
       <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
+        <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
+          <button
+            onClick={() => navigate("/student/dashboard")}
+            className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+          >
+            <ChevronLeft size={20} />
+          </button>
 
+          <div className="flex gap-2.5 items-center">
+            <button
+              onClick={() => toggleSave(property.id)}
+              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            >
+              {isSaved ? (
+                <Heart strokeWidth={2.5} className="text-coral" />
+              ) : (
+                <Heart strokeWidth={2.5} fill="none" color="currentColor" />
+              )}
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                showToast("Link copied!");
+              }}
+              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            >
+              <ArrowUpFromLine size={18} />
+            </button>
+          </div>
+        </div>
 
         <div
           className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"

@@ -232,7 +232,7 @@ export const Explore: React.FC = () => {
         <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
           <TileLayer
             key={mapMode}
-            url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"}
+            url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"}
             attribution="Google Maps"
             maxZoom={20}
           />
@@ -261,13 +261,13 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Floating Action Buttons */}
-      <div className="absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
+      <div className="absolute right-4 z-[2000] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
         <button 
           onClick={() => setMapMode(prev => prev === 'standard' ? 'satellite' : 'standard')}
-          className="w-12 h-12 rounded-full bg-white text-gray-700 shadow-md flex items-center justify-center pointer-events-auto active:scale-95 transition-transform"
+          className="w-12 h-12 rounded-full bg-white text-gray-800 shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-auto active:scale-95 border border-black/5 transition-transform cursor-pointer"
           aria-label="Toggle map mode"
         >
-          <Layers size={22} strokeWidth={2} />
+          <Layers size={22} strokeWidth={1.8} />
         </button>
         <button className="md:hidden w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
           <div className="w-3.5 h-3.5 rounded-full bg-blue-500 border-[2.5px] border-white shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
