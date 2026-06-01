@@ -292,38 +292,23 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Peek Card (shows above drawer) */}
-      <div className={`md:hidden absolute left-4 right-4 z-[1050] bg-card-bg rounded-[18px] shadow-[0_12px_40px_rgba(55,48,163,0.2)] border-transparent border flex gap-3 p-3 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${peekProperty ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+      <div className={`md:hidden absolute left-4 right-4 z-[1050] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] flex justify-center ${peekProperty ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
         {peekProperty && (
-          <>
+          <div className="relative w-full max-w-[400px]">
             <button 
-              className="absolute top-2.5 right-2.5 text-text-muted hover:text-text-primary p-1"
-              onClick={() => setPeekPropertyId(null)}
+              className="absolute top-2 right-2 text-slate-400 hover:text-slate-700 bg-white/80 backdrop-blur-sm rounded-full p-1 z-30 shadow-sm"
+              onClick={(e) => { e.stopPropagation(); setPeekPropertyId(null); }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
-              <img src={peekProperty.img} alt={peekProperty.name} className="w-full h-full object-cover" />
-            </div>
-            <div className="flex-1 min-w-0 pr-6">
-              <div className="font-montserrat text-[0.98rem] font-bold text-text-primary mb-1 truncate">
-                {peekProperty.name}
-              </div>
-              <div className="text-[0.73rem] text-text-muted mb-[6px] flex items-center gap-1">
-                <MapPin size={10} className="text-amber-glow" /> Area: {peekProperty.loc}
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="font-montserrat text-base font-bold text-text-primary">
-                  {peekProperty.price} <span className="text-[0.7rem] text-text-muted font-normal font-sans">/sem</span>
-                </div>
-                <button 
-                  onClick={() => { setSelectedPropertyId(peekProperty.id); navigate("/details"); }}
-                  className="bg-indigo text-white border-none rounded-lg px-3 py-1.5 text-[0.75rem] font-bold cursor-pointer transition-colors hover:bg-indigo-dark"
-                >
-                  View →
-                </button>
-              </div>
-            </div>
-          </>
+            <PropertyCard 
+              property={peekProperty} 
+              layout="explore-list"
+              isSaved={savedProperties.includes(peekProperty.id)} 
+              onToggleSave={toggleSave} 
+              onClick={() => { setSelectedPropertyId(peekProperty.id); navigate("/details"); }} 
+            />
+          </div>
         )}
       </div>
 
