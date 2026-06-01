@@ -32,26 +32,26 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           </button>
           <div className="absolute top-0 left-[-150%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-15deg] transition-[left] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] z-10 pointer-events-none group-hover:left-[200%]" />
         </div>
-        <div className="flex-1 flex flex-col justify-between py-3 pr-3.5 pl-2 overflow-hidden">
-          <div className="flex flex-col gap-1">
-            <div className="flex justify-between items-center gap-2">
-              <h3 className="m-0 text-[15px] font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap overflow-hidden text-ellipsis">
+        <div className="flex-1 flex flex-col justify-between py-3 pr-3.5 pl-2 overflow-hidden min-w-0">
+          <div className="flex flex-col gap-1 min-w-0">
+            <div className="flex justify-between items-center gap-2 min-w-0 w-full">
+              <h3 className="m-0 text-[15px] min-w-0 font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap overflow-hidden text-ellipsis">
                 {property.name}
               </h3>
               <div className="text-[12px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-[2px] shrink-0">
                 <Star className="text-yellow-400 fill-yellow-400 mb-[1px]" size={11} /> {property.rating}
               </div>
             </div>
-            <div className="text-[12px] text-slate-500 flex items-center gap-1">
+            <div className="text-[12px] text-slate-500 flex items-center gap-1 min-w-0">
               <MapPin size={11} className="opacity-80 shrink-0" />
               <span className="truncate">{property.loc}</span>
             </div>
           </div>
-          <div className="flex justify-between items-center mt-auto">
-            <div className="text-[16px] font-bold text-slate-900 dark:text-slate-100">
+          <div className="flex justify-between items-center mt-auto w-full">
+            <div className="text-[16px] font-bold text-slate-900 dark:text-slate-100 truncate">
               {property.price}
             </div>
-            <div className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[4px] tracking-wide uppercase">
+            <div className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[4px] tracking-wide uppercase shrink-0">
               {property.avail.includes('Available') ? 'Available' : property.avail.replace('left', '').trim()}
             </div>
           </div>

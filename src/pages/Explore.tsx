@@ -348,51 +348,14 @@ export const Explore: React.FC = () => {
             {filteredProperties.length === 0 ? (
               <div className="text-center py-8 text-text-muted">No properties found.</div>
             ) : filteredProperties.map(property => (
-              <div 
-                key={property.id} 
-                className="w-full bg-card-bg rounded-[18px] border-transparent border p-3 flex gap-3 shadow-sm hover:-translate-y-0.5 hover:shadow-float transition-all cursor-pointer" 
-                onClick={() => { setSelectedPropertyId(property.id); navigate("/details"); }}
-              >
-                <div className="w-[86px] h-[86px] shrink-0 rounded-[13px] overflow-hidden relative">
-                  <img src={property.img} alt={property.name} className="w-full h-full object-cover transition-transform duration-400 hover:scale-105" />
-                  <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-[#0f0e2e]/80 backdrop-blur-[4px] text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-md whitespace-nowrap">
-                    {property.price}
-                  </div>
-                </div>
-
-                <div className="flex flex-col flex-1 min-w-0 py-0.5">
-                  <div className="flex items-start justify-between mb-1 gap-2">
-                    <h3 className="font-montserrat text-[0.95rem] font-bold text-text-primary truncate">
-                      {property.name}
-                    </h3>
-                    <div className="flex items-center gap-[3px] text-[0.75rem] font-semibold text-text-primary shrink-0">
-                      <Star  className="text-amber-400" /> {property.rating}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 text-[0.75rem] text-text-muted mb-2 truncate">
-                    <MapPin size={10} className="text-amber-glow shrink-0" />
-                    <span className="truncate">Area: {property.loc}</span>
-                  </div>
-
-                  <div className="mt-auto flex flex-wrap gap-1.5">
-                    {property.tags.map((tag, i) => (
-                      <span key={i} className={`text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap
-                        ${tag === 'wifi' ? 'bg-indigo-light text-indigo' : 
-                          tag === 'sec' ? 'bg-teal-light text-teal' : 
-                          tag === 'gen' ? 'bg-amber-light text-amber-600' : 'bg-indigo-light/20 text-text-muted'}`}
-                      >
-                        {tag === 'wifi' && 'Wi-Fi'}
-                        {tag === 'sec' && 'Secure'}
-                        {tag === 'gen' && '24h Power'}
-                        {!['wifi', 'sec', 'gen'].includes(tag) && tag}
-                      </span>
-                    ))}
-                    <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded-[5px] whitespace-nowrap bg-green-light text-green-600">
-                      {property.avail}
-                    </span>
-                  </div>
-                </div>
+              <div key={property.id} className="w-full flex justify-center">
+                <PropertyCard 
+                  property={property} 
+                  layout="explore-list"
+                  isSaved={savedProperties.includes(property.id)} 
+                  onToggleSave={toggleSave} 
+                  onClick={() => { setSelectedPropertyId(property.id); navigate("/details"); }} 
+                />
               </div>
             ))}
           </div>
