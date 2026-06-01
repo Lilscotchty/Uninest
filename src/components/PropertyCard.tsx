@@ -15,7 +15,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     return (
       <div 
         onClick={onClick}
-        className="group flex w-full max-w-[400px] h-[100px] bg-white dark:bg-card-bg border border-slate-200 dark:border-slate-800 rounded-[30px] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 cursor-pointer"
+        className="group flex w-full max-w-[400px] h-[100px] bg-card-bg border-transparent border rounded-[30px] overflow-hidden shadow-card transition-all duration-300 hover:shadow-float hover:-translate-y-1 active:scale-[0.98] cursor-pointer"
       >
         <div className="w-[125px] h-full shrink-0 relative overflow-hidden" style={{ clipPath: 'polygon(0 0, 100% 0, 82% 100%, 0 100%)' }}>
           <img 
@@ -35,20 +35,20 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         <div className="flex-1 flex flex-col justify-between py-3 pr-3.5 pl-2 overflow-hidden min-w-0">
           <div className="flex flex-col gap-1 min-w-0">
             <div className="flex justify-between items-center gap-2 min-w-0 w-full">
-              <h3 className="m-0 text-[15px] min-w-0 font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap overflow-hidden text-ellipsis">
+              <h3 className="m-0 text-[15px] min-w-0 font-bold text-text-primary whitespace-nowrap overflow-hidden text-ellipsis">
                 {property.name}
               </h3>
-              <div className="text-[12px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-[2px] shrink-0">
+              <div className="text-[12px] font-semibold text-text-primary flex items-center gap-[2px] shrink-0">
                 <Star className="text-yellow-400 fill-yellow-400 mb-[1px]" size={11} /> {property.rating}
               </div>
             </div>
-            <div className="text-[12px] text-slate-500 flex items-center gap-1 min-w-0">
-              <MapPin size={11} className="opacity-80 shrink-0" />
+            <div className="text-[12px] text-text-muted flex items-center gap-1 min-w-0">
+              <MapPin size={11} className="shrink-0" />
               <span className="truncate">{property.loc}</span>
             </div>
           </div>
           <div className="flex justify-between items-center mt-auto w-full">
-            <div className="text-[16px] font-bold text-slate-900 dark:text-slate-100 truncate">
+            <div className="text-[16px] font-bold text-text-primary truncate">
               {property.price}
             </div>
             <div className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[4px] tracking-wide uppercase shrink-0">
