@@ -5,7 +5,7 @@ import { Property } from '../types';
 interface PropertyCardProps {
   property: Property;
   isSaved: boolean;
-  onToggleSave: (id: number) => void;
+  onToggleSave: (id: number | string) => void;
   onClick: () => void;
   layout?: 'responsive' | 'compact';
 }

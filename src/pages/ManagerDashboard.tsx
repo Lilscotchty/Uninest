@@ -212,7 +212,7 @@ export const ManagerDashboard: React.FC = () => {
                 : data.location;
 
               const { data: property, error: propertyError } = await supabase
-                .from("properties")
+                .from("hostels")
                 .insert({
                   manager_id: managerId,
                   name: data.title,
@@ -245,7 +245,7 @@ export const ManagerDashboard: React.FC = () => {
                 }
                 roomImages.push(roomImgUrl);
                 roomsToInsert.push({
-                  property_id: property.id,
+                  hostel_id: property.id,
                   room_type: r.name,
                   price: Number(r.pricePerYear),
                   capacity: Number(r.occupantsPerRoom),

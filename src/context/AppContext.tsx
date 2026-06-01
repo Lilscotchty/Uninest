@@ -8,13 +8,13 @@ interface AppContextType extends AppState, ViewState {
   toggleTheme: () => void;
   properties: Property[];
   addCustomProperty: (property: Property) => void;
-  updateCustomProperty: (id: number, updates: Partial<Property>) => void;
-  toggleSave: (id: number) => void;
+  updateCustomProperty: (id: number | string, updates: Partial<Property>) => void;
+  toggleSave: (id: number | string) => void;
   setActiveFilter: (filter: string) => void;
   exploreSearchQuery: string;
   setExploreSearchQuery: (query: string) => void;
   setCurrentView: (view: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard') => void;
-  setSelectedPropertyId: (id: number | null) => void;
+  setSelectedPropertyId: (id: number | string | null) => void;
   toastMessage: string | null;
   clearToast: () => void;
   showToast: (msg: string) => void;
@@ -28,11 +28,11 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [properties, setProperties] = useState<Property[]>(INITIAL_PROPERTIES);
-  const [savedProperties, setSavedProperties] = useState<number[]>([]);
+  const [savedProperties, setSavedProperties] = useState<(number | string)[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [exploreSearchQuery, setExploreSearchQuery] = useState('');
   const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard'>('home');
-  const [selectedPropertyId, setSelectedPropertyId] = useState<number | null>(null);
+  const [selectedPropertyId, setSelectedPropertyId] = useState<number | string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -53,18 +53,18 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("properties").select("*, rooms(*)");
+        const { data, error } = await supabase.from("hostels").select("*, rooms(*)");
         if (error) throw error;
         
         if (data && data.length > 0) {
           const dbProperties = data.map(h => ({
-            id: Math.random().toString(36).substr(2, 9), // Keep ID format mixed or cast, ideally keep original id
+            id: h.id, 
             name: h.name,
             loc: h.location || h.digital_address || "Accra",
             lat: h.lat || (5.6000 + (h.name.length * 0.001)),
             lng: h.lng || (-0.1900 + (h.name.length * 0.001)),
             panoramas: h.image_360_url ? [h.image_360_url] : [],
-            images: [h.image_url, ...(h.rooms?.map(r => r.image_url).filter(Boolean) || [])],
+            images: [h.image_url, ...(h.rooms?.map((r: any) => r.image_url).filter(Boolean) || [])],
             amenities: h.amenities || [],
             policies: h.policies || "",
             rooms: h.rooms || [],
@@ -136,13 +136,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const addCustomProperty = (property: Property) => setProperties(prev => [...prev, property]);
-  const updateCustomProperty = (id: number, updates: Partial<Property>) => {
+  const updateCustomProperty = (id: number | string, updates: Partial<Property>) => {
     setProperties(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
   };
   
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
-  const toggleSave = (id: number) => {
+  const toggleSave = (id: number | string) => {
     setSavedProperties((prev) =>
       prev.includes(id) ? prev.filter((propertyId) => propertyId !== id) : [...prev, id]
     );

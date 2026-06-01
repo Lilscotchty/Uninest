@@ -23,11 +23,11 @@ export interface Property {
 }
 
 export interface AppState {
-  savedProperties: number[]; // Array of saved property IDs
+  savedProperties: (number | string)[]; // Array of saved property IDs
   activeFilter: string; // Defaults to 'all'
 }
 
 export interface ViewState {
   currentView: 'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard';
-  selectedPropertyId: number | null;
+  selectedPropertyId: number | string | null;
 }
