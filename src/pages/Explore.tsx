@@ -231,10 +231,14 @@ export const Explore: React.FC = () => {
       <div className="absolute md:relative inset-0 md:inset-auto z-0 md:z-auto transition-all duration-500 ease-in-out md:flex-1 md:h-full">
         <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
           <TileLayer
-            key={mapMode}
-            url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"}
+            url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"}
             attribution="Google Maps"
             maxZoom={20}
+            maxNativeZoom={19}
+            updateWhenIdle={false}
+            updateWhenZooming={false}
+            keepBuffer={10}
+            crossOrigin="anonymous"
           />
           <MapUpdater center={peekProperty ? [peekProperty.lat, peekProperty.lng] : null} isVisible={currentView === 'explore'} />
           
