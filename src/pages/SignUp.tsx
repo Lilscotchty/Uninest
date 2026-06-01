@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Mail, Eye, EyeOff, User, Lock, ArrowLeft } from "lucide-react";
 import { Facebook, Twitter, Linkedin, Apple, CheckCircle2 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { supabase } from "../lib/supabase";
+import { toast } from "sonner";
 import { useAppContext } from "../context/AppContext";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
@@ -196,13 +198,14 @@ function PrimaryBtn({ children, loading, className = "", ...rest }: { children: 
 // ─── Main Auth Page ───────────────────────────────────────────────────────────
 
 export function SignUp() {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const location = useLocation();
+  const [mode, setMode] = useState<"signin" | "signup">(location.pathname === "/signup" ? "signup" : "signin");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
-  const { login } = useAppContext();
+  const { showToast } = useAppContext();
 
   // Sign-in form
   const signInForm = useForm<SignInData>({
@@ -214,13 +217,30 @@ export function SignUp() {
     resolver: zodResolver(signUpSchema),
   });
 
+  
+  const [searchParams] = useSearchParams();
+  const rawRole = searchParams.get('role') || 'student';
+  const role = rawRole === 'manager' ? 'manager' : 'student';
+
   const onSignIn = async (data: SignInData) => {
     setLoading(true);
     try {
-      console.log("Sign in", data);
-      await new Promise(r => setTimeout(r, 1200));
-      login({ id: 1, email: data.emailOrUsername, role: 'student' });
-      navigate("/");
+      const { error } = await supabase.auth.signInWithPassword({
+        email: data.emailOrUsername,
+        password: data.password || '',
+      });
+      
+      if (error) {
+        toast.error(error.message);
+        showToast(error.message);
+      } else {
+        toast.success("Logged in successfully!");
+        showToast("Logged in successfully!");
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+      }
+    } catch (err: any) {
+      toast.error("An unexpected error occurred.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -229,14 +249,55 @@ export function SignUp() {
   const onSignUp = async (data: SignUpData) => {
     setLoading(true);
     try {
-      console.log("Sign up", data);
-      await new Promise(r => setTimeout(r, 1200));
-      login({ id: 1, email: data.email, role: 'student' });
-      navigate("/");
+      const { error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            first_name: data.fullName.split(" ")[0] || "",
+            last_name: data.fullName.split(" ").slice(1).join(" ") || "",
+            full_name: data.fullName,
+            account_type: role,
+          }
+        }
+      });
+      
+      if (error) {
+        toast.error(error.message);
+        showToast(error.message);
+      } else {
+        toast.success("Account created successfully!");
+        showToast("Account created successfully!");
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+      }
+    } catch (err: any) {
+      toast.error("An unexpected error occurred.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
+
+  const handleGoogleAuth = async () => {
+    try {
+      if (role) {
+        localStorage.setItem('signupRole', role);
+      }
+      
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      });
+      if (error) {
+        toast.error(error.message);
+      }
+    } catch (err: any) {
+      toast.error("An unexpected error occurred.");
+    }
+  };
+
 
   const socialProviders = [
     { icon: <Facebook color="#1877f2" />, label: "Continue with Facebook" },
@@ -312,6 +373,7 @@ export function SignUp() {
               {/* Google primary */}
               <button
                 type="button"
+                onClick={handleGoogleAuth}
                 className="w-full h-[52px] rounded-xl flex items-center justify-center gap-3 mb-3 font-medium text-white text-[15px] transition-all hover:opacity-90 active:scale-[0.98] cursor-pointer"
                 style={{
                   background: "rgba(15,23,36,0.8)",
