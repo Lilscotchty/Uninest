@@ -3,10 +3,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { motion, useAnimation, PanInfo } from 'motion/react';
-import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers, Settings } from 'lucide-react';
+import { ChevronLeft, MapPin, Search, Navigation, Heart, Star } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
-import { PageHeader } from '../components/layout/PageHeader';
 
 // Dummy icon for exact location using round image
 const getCustomIcon = (img: string) => new L.DivIcon({
@@ -119,28 +118,19 @@ export const Explore: React.FC = () => {
   const centerLng = -0.1870;
 
   return (
-    <div className="relative w-full flex-1 min-h-0 overflow-hidden flex flex-col pt-0">
-      <PageHeader
-        actions={[
-          {
-            icon: <Layers size={22} strokeWidth={1.8} />,
-            label: "Layer",
-            onClick: () => {}
-          },
-          {
-            icon: <Settings size={22} strokeWidth={1.8} />,
-            label: "Settings",
-            onClick: () => {}
-          }
-        ]}
-      />
-      
-      <div className="flex-1 min-h-0 relative flex flex-col md:flex-row w-full h-[calc(100vh-64px-60px)]" ref={containerRef}>
+    <div className="relative w-full flex-1 min-h-0 overflow-hidden flex flex-col md:flex-row h-[calc(100vh-64px)]" ref={containerRef}>
       {/* Top Bar over map */}
       <div className="md:hidden absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
         <div className="flex items-start justify-between w-full mb-4">
-          <div className="flex-1 pointer-events-auto h-11">
-            <div className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full max-w-sm mx-auto">
+          <button 
+            onClick={() => navigate("/student/dashboard")}
+            className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
+          >
+            <ChevronLeft size={24} strokeWidth={2.5} />
+          </button>
+          
+          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
+            <div className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
               <Search size={18} className="text-gray-500 shrink-0" />
               <input 
                 type="text" 
@@ -397,7 +387,6 @@ export const Explore: React.FC = () => {
           </div>
         </div>
       </motion.div>
-      </div>
     </div>
   );
 };

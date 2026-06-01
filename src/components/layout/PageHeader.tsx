@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { cn } from "../../lib/utils"; 
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ export interface PageHeaderProps {
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 /** Single icon action button — top-right area */
-function ActionButton({ action }: { action: HeaderAction }) {
+const ActionButton: React.FC<{ action: HeaderAction }> = ({ action }) => {
   return (
     <button
       type="button"
@@ -84,11 +84,9 @@ function ActionButton({ action }: { action: HeaderAction }) {
 }
 
 /** Filled social icon button — Pattern C */
-function SocialButton({
-  social,
-}: {
+const SocialButton: React.FC<{
   social: { icon: React.ReactNode; href: string; label: string };
-}) {
+}> = ({ social }) => {
   return (
     <a
       href={social.href}
