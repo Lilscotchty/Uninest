@@ -4,8 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
-import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search } from 'lucide-react';
-import { Header } from '../components/Header';
+import { PageHeader } from '../components/layout/PageHeader';
+import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search, SlidersHorizontal } from 'lucide-react';
+
 
 const FILTERS = [
   { id: 'all', label: 'All', icon: <Grip size={14} /> },
@@ -69,8 +70,23 @@ export const Home: React.FC = () => {
   }, [testimonials.length]);
 
   return (
-    <div className="flex-1 w-full hide-scrollbar relative scroll-smooth flex flex-col pt-4">
-      <Header />
+    <div className="flex-1 w-full hide-scrollbar relative scroll-smooth flex flex-col pt-0">
+      <PageHeader 
+        title="Explore"
+        actions={[
+          { icon: <Search size={22} strokeWidth={1.8} />, label: "Search", onClick: () => navigate("/explore") },
+          { icon: <SlidersHorizontal size={22} strokeWidth={1.8} />, label: "Filter", onClick: () => {} }
+        ]}
+        tabs={[
+          { id: 'all', label: 'All' },
+          { id: 'nearby', label: 'Nearby' },
+          { id: 'featured', label: 'Featured' },
+          { id: 'new', label: 'New Listings' }
+        ]}
+        activeTab="all"
+        onTabChange={() => {}}
+      />
+
       {/* SEARCH BAR UNDER HEADER */}
       <div className="px-4 sm:px-6 lg:px-8 relative z-10 mb-4 mt-6 max-w-4xl mx-auto w-full">
         <button 

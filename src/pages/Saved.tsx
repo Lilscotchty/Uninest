@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { PROPERTIES } from '../data';
-import { PageHeader } from '../components/PageHeader';
-import { Bookmark, Star, ArrowRightLeft, TrendingDown } from 'lucide-react';
+import { PageHeader } from '../components/layout/PageHeader';
+import { Bookmark, Star, ArrowRightLeft, TrendingDown, SortAsc } from 'lucide-react';
 
 export const Saved: React.FC = () => {
   const { savedProperties, toggleSave, showToast, setCurrentView, properties } = useAppContext();
   const navigate = useNavigate();
   const [activeSavedFilter, setActiveSavedFilter] = useState<string>('all');
+  const [activeHeaderTab, setActiveHeaderTab] = useState<string>('properties');
 
   const allSavedItems = properties.filter(h => savedProperties.includes(h.id));
 
@@ -27,18 +28,21 @@ export const Saved: React.FC = () => {
    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
       <PageHeader 
         title="Saved" 
-        rightAction={
-          <button 
-            onClick={() => showToast('Compare mode activated')}
-            className="w-[100px] h-[35px] rounded-[15px] flex items-center justify-center text-white font-semibold text-xs cursor-pointer border border-white/25 shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.2)] backdrop-blur-md transition-transform hover:scale-105"
-            style={{
-              background: 'linear-gradient(135deg, rgba(120, 130, 200, 0.6) 0%, rgba(135, 100, 170, 0.5) 40%, rgba(130, 140, 90, 0.4) 100%)'
-            }}
-          >
-            <ArrowRightLeft size={14} className="mr-1.5" /> Compare
-          </button>
-        }
+        tabs={[
+          { id: 'properties', label: 'Properties' },
+          { id: 'searches', label: 'Searches' }
+        ]}
+        activeTab={activeHeaderTab}
+        onTabChange={setActiveHeaderTab}
+        actions={[
+          {
+            icon: <SortAsc size={22} strokeWidth={1.8} />,
+            label: "Sort",
+            onClick: () => showToast('Sort options')
+          }
+        ]}
       />
+
 
     <div className="max-w-screen-2xl mx-auto w-full px-4 sm:px-6 lg:px-8">
       {/* Filter Chips */}

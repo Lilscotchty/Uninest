@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
-import { PageHeader } from '../components/PageHeader';
-import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Maximize, Minimize } from 'lucide-react';
+import { PageHeader } from '../components/layout/PageHeader';
+import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Maximize, Minimize, ScanLine, Settings } from 'lucide-react';
 
 export const Profile: React.FC = () => {
   const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen, user } = useAppContext();
@@ -33,7 +33,21 @@ export const Profile: React.FC = () => {
 
   return (
     <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
-      <PageHeader title="Profile" />
+      <PageHeader 
+        actions={[
+          {
+            icon: <ScanLine size={22} strokeWidth={1.8} />,
+            label: "Scan",
+            onClick: () => showToast('Scan action triggered'),
+          },
+          {
+            icon: <Settings size={22} strokeWidth={1.8} />,
+            label: "Settings",
+            onClick: () => showToast('Settings action triggered'),
+          },
+        ]}
+      />
+
       <div className="flex-1 w-full px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar mt-4 max-w-3xl mx-auto relative pt-0">
         
         {/* User Identity Card Redesign */}

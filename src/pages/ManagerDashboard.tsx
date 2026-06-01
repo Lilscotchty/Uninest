@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { PageHeader } from '../components/layout/PageHeader';
 import { Property } from '../types';
 import {
   LayoutDashboard,
@@ -18,6 +19,7 @@ import {
   CheckCircle2,
   MapPin,
   Navigation,
+  MoreHorizontal
 } from 'lucide-react';
 
 // ─── Ghana University Campus Database ─────────────────────────────────────────
@@ -331,15 +333,20 @@ export const ManagerDashboard: React.FC = () => {
       {isSidebarOpen && <div className="absolute inset-0 bg-black/20 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />}
 
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative">
-        <header className="h-[60px] flex items-center justify-between px-4 bg-white dark:bg-customDark border-b border-gray-100 dark:border-gray-800 shrink-0">
-          <div className="flex items-center gap-3">
-            <button className="text-text-muted hover:text-indigo md:hidden" onClick={() => setSidebarOpen(true)}><Menu size={24} /></button>
-            <button onClick={() => navigate("/profile")} className="flex items-center gap-1 text-sm font-normal text-gray-500 dark:text-gray-400 hover:text-indigo">
-              <ChevronLeft size={16} /> Exit
-            </button>
-          </div>
-          <div className="flex items-center gap-3 text-sm font-semibold">Manager View</div>
-        </header>
+        <PageHeader
+          title="Your Listings"
+          actions={[
+            { icon: <Plus size={22} strokeWidth={1.8} />, label: "Add", onClick: () => setIsEditing(true) },
+            { icon: <MoreHorizontal size={22} strokeWidth={1.8} />, label: "More", onClick: () => {} }
+          ]}
+          tabs={[
+            { id: 'active', label: 'Active' },
+            { id: 'pending', label: 'Pending' },
+            { id: 'drafts', label: 'Drafts' }
+          ]}
+          activeTab="active"
+          onTabChange={() => {}}
+        />
         <main className="flex-1 overflow-y-auto bg-white dark:bg-customDark hide-scrollbar">{renderContent()}</main>
       </div>
     </div>
