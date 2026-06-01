@@ -7,18 +7,30 @@ import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers } from 'lu
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 
+const formatShortPrice = (num: number) => {
+  if (!num) return '';
+  if (num >= 1000) return `GH₵${(num / 1000).toFixed(1).replace('.0', '')}k`;
+  return `GH₵${num}`;
+};
+
 // Dummy icon for exact location using round image
-const getCustomIcon = (img: string) => new L.DivIcon({
-  className: 'custom-marker',
-  html: `
-    <div style="position:relative;width:44px;height:44px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
-      <img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
-      <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-width:8px 6px 0;border-style:solid;border-color:white transparent transparent;"></div>
-    </div>
-  `,
-  iconSize: [44, 52],
-  iconAnchor: [22, 52],
-});
+const getCustomIcon = (img: string, priceNum?: number) => {
+  const priceLabel = priceNum ? formatShortPrice(priceNum) : '';
+  return new L.DivIcon({
+    className: 'custom-marker',
+    html: `
+      <div style="position:relative;width:56px;height:56px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
+        <img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;filter:brightness(0.65);" />
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:50%;">
+          <span style="color:white;font-weight:700;font-size:11px;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,0.9);letter-spacing:-0.2px;">${priceLabel}</span>
+        </div>
+        <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-width:8px 6px 0;border-style:solid;border-color:white transparent transparent;"></div>
+      </div>
+    `,
+    iconSize: [56, 64],
+    iconAnchor: [28, 64],
+  });
+};
 
 interface Offsets {
   [id: number]: { lat: number; lng: number };
@@ -252,7 +264,7 @@ export const Explore: React.FC = () => {
                  />
                  <Marker 
                    position={[h.lat, h.lng]} 
-                   icon={getCustomIcon(h.img)} 
+                   icon={getCustomIcon(h.img, h.priceNum)} 
                    eventHandlers={{ click: () => { 
                      setPeekPropertyId(h.id); 
                      snapTo('peek'); // hide drawer to bottom
