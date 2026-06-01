@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { motion, useAnimation, PanInfo } from 'motion/react';
-import { ChevronLeft, MapPin, Search, Navigation, Heart, Star } from 'lucide-react';
+import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 
@@ -52,6 +52,7 @@ export const Explore: React.FC = () => {
 
   const [peekPropertyId, setPeekPropertyId] = useState<number | null>(null);
   const [localSearch, setLocalSearch] = useState(exploreSearchQuery || '');
+  const [mapMode, setMapMode] = useState<'standard' | 'satellite'>('standard');
 
   const peekProperty = peekPropertyId ? properties.find(h => h.id === peekPropertyId) : null;
 
@@ -230,7 +231,8 @@ export const Explore: React.FC = () => {
       <div className="absolute md:relative inset-0 md:inset-auto z-0 md:z-auto transition-all duration-500 ease-in-out md:flex-1 md:h-full">
         <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
           <TileLayer
-            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2"
+            key={mapMode}
+            url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"}
             attribution="Google Maps"
             maxZoom={20}
           />
@@ -259,8 +261,15 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Floating Action Buttons */}
-      <div className="md:hidden absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
-        <button className="w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
+      <div className="absolute right-4 z-[1050] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
+        <button 
+          onClick={() => setMapMode(prev => prev === 'standard' ? 'satellite' : 'standard')}
+          className="w-12 h-12 rounded-full bg-white text-gray-700 shadow-md flex items-center justify-center pointer-events-auto active:scale-95 transition-transform"
+          aria-label="Toggle map mode"
+        >
+          <Layers size={22} strokeWidth={2} />
+        </button>
+        <button className="md:hidden w-12 h-12 rounded-full bg-[#1a1b26]/90 backdrop-blur shadow-lg flex items-center justify-center pointer-events-auto border border-white/10 active:scale-95 transition-transform">
           <div className="w-3.5 h-3.5 rounded-full bg-blue-500 border-[2.5px] border-white shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
         </button>
       </div>
