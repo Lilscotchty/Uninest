@@ -154,19 +154,76 @@ interface ManagerPropertyForm {
 }
 
 export const ManagerDashboard: React.FC = () => {
-  const { setCurrentView, showToast, properties, addCustomProperty } = useAppContext();
+  const { setCurrentView, showToast, properties, addCustomProperty, removeCustomProperty, updateCustomProperty, user } = useAppContext();
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'properties' | 'inquiries' | 'settings'>('overview');
   const [isEditing, setIsEditing] = useState(false);
+  const [editingPropertyId, setEditingPropertyId] = useState<string | number | null>(null);
 
-  const myProperties = properties;
+  const managerId = user?.id || 'local-mock-manager';
+  const myProperties = properties.filter(p => p.manager_id === managerId);
+
+  const handleDeleteProperty = async (id: string | number) => {
+    if (!window.confirm("Are you sure you want to delete this property?")) return;
+    try {
+      const propertyToDelete = myProperties.find(p => p.id === id);
+      if (propertyToDelete?.dbId) {
+        showToast("Deleting...");
+        const { error } = await supabase.from("hostels").delete().eq("id", propertyToDelete.dbId);
+        if (error) throw error;
+      }
+      removeCustomProperty(id);
+      showToast("Property deleted!");
+    } catch(err: any) {
+      console.error(err);
+      showToast("Failed to delete: " + err.message);
+    }
+  };
+
+  const handleEditProperty = (id: string | number) => {
+    setEditingPropertyId(id);
+    setIsEditing(true);
+  };
 
   const renderContent = () => {
     if (isEditing) {
+      let initialData: Partial<ManagerPropertyForm> | undefined = undefined;
+      if (editingPropertyId) {
+         const p = myProperties.find(x => x.id === editingPropertyId);
+         if (p) {
+            initialData = {
+              title: p.name,
+              description: p.desc || "",
+              location: p.loc,
+              lat: p.lat,
+              lng: p.lng,
+              amenities: {
+                wifi: (p.amenities || []).includes("WiFi") || (p.amenities || []).includes("wifi"),
+                generator: (p.amenities || []).includes("Generator"),
+                water: (p.amenities || []).includes("Water"),
+                ac: (p.amenities || []).includes("AC"),
+                kitchen: (p.amenities || []).includes("Kitchen"),
+                studyRoom: (p.amenities || []).includes("Study Room"),
+                security: (p.amenities || []).includes("Security"),
+              },
+              policies: p.policies || "",
+              videoTour: p.videoTour || "",
+              roomTypes: p.rooms ? p.rooms.map((r, i) => ({
+                 id: String(i),
+                 name: r.room_type,
+                 pricePerYear: Number(r.price),
+                 occupantsPerRoom: Number(r.capacity),
+                 totalRooms: Number(r.quantity),
+              })) : [{ id: "1", name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }]
+            };
+         }
+      }
+
       return (
         <CreateEditListing
-          onBack={() => setIsEditing(false)}
+          initialData={initialData}
+          onBack={() => { setIsEditing(false); setEditingPropertyId(null); }}
           onSave={async (data) => {
             showToast("Saving to database...");
             try {
@@ -181,65 +238,88 @@ export const ManagerDashboard: React.FC = () => {
 
               let compoundUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
               if (data.compoundImageFile) {
-                compoundUrl = URL.createObjectURL(data.compoundImageFile); // Local fallback
-                try {
-                  const fileExt = data.compoundImageFile.name.split(".").pop();
-                  const fileName = `compound-${Math.random()}.${fileExt}`;
-                  const { error: uploadError } = await supabase.storage
-                    .from("property-media").upload(fileName, data.compoundImageFile);
-                  if (!uploadError) {
-                    compoundUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
-                  }
-                } catch (e) {
-                  console.log("Compound img upload skipped or failed", e);
-                }
+                const fileExt = data.compoundImageFile.name.split(".").pop();
+                const fileName = `compound-${Math.random()}.${fileExt}`;
+                const { error: uploadError } = await supabase.storage
+                  .from("property-media").upload(fileName, data.compoundImageFile);
+                if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
+                compoundUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
               }
 
               let image360Url = "";
               if (data.image360File) {
-                image360Url = URL.createObjectURL(data.image360File); // Local fallback
-                try {
-                  const fileExt = data.image360File.name.split(".").pop();
-                  const fileName = `360-${Math.random()}.${fileExt}`;
-                  const { error: uploadError } = await supabase.storage
-                    .from("property-media").upload(fileName, data.image360File);
-                  if (!uploadError) {
-                    image360Url = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
-                  }
-                } catch (e) {
-                  console.log("360 img upload skipped or failed", e);
-                }
+                const fileExt = data.image360File.name.split(".").pop();
+                const fileName = `360-${Math.random()}.${fileExt}`;
+                const { error: uploadError } = await supabase.storage
+                  .from("property-media").upload(fileName, data.image360File);
+                if (uploadError) throw new Error("360 Image upload failed: " + uploadError.message);
+                image360Url = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
               }
 
-              const finalLat = data.lat ?? 0;
-              const finalLng = data.lng ?? 0;
+              const { data: authData, error: authError } = await supabase.auth.getUser();
+              if (authError || !authData?.user) {
+                throw new Error("Authentication failed: You must be logged in as a Manager.");
+              }
+              const managerId = authData.user.id;
+
+              const finalLat = data.lat ?? null;
+              const finalLng = data.lng ?? null;
 
               // Build proximity string to save alongside location
               const proximityStr = data.nearestCampus
                 ? `${distanceLabel(data.nearestCampus.distanceM)} from ${data.nearestCampus.shortName} (${data.nearestCampus.walkLabel})`
                 : data.location;
 
+              const updatePayload = {
+                  manager_id: managerId,
+                  name: data.title,
+                  description: data.description,
+                  digital_address: data.ghanaPostGPS,
+                  location: proximityStr || data.location,
+                  amenities: amenitiesList,
+                  policies: data.policies,
+                  video_url: data.videoTour,
+                  lat: finalLat,
+                  lng: finalLng,
+                  ...((compoundUrl && compoundUrl !== "https://loremflickr.com/600/400/bedroom?lock=305") ? { image_url: compoundUrl } : {}),
+                  ...(image360Url ? { image_360_url: image360Url } : {}),
+              };
+
+              let property: any = null;
+              const edittingDbId = editingPropertyId ? myProperties.find(p => p.id === editingPropertyId)?.dbId : null;
+
+              if (editingPropertyId && edittingDbId) {
+                 const { data: dbProp, error: propertyError } = await supabase
+                    .from("hostels")
+                    .update(updatePayload)
+                    .eq('id', edittingDbId)
+                    .select().single();
+                 if (propertyError) throw propertyError;
+                 property = dbProp;
+              } else {
+                 const { data: dbProp, error: propertyError } = await supabase
+                    .from("hostels")
+                    .insert(updatePayload)
+                    .select().single();
+                 if (propertyError) throw propertyError;
+                 property = dbProp;
+              }
+
               const roomsToInsert: any[] = [];
               const roomImages: string[] = [];
               for (const r of data.roomTypes) {
                 let roomImgUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
                 if (r.imageFile) {
-                  roomImgUrl = URL.createObjectURL(r.imageFile); // Local fallback
-                  try {
-                    const fileExt = r.imageFile.name.split(".").pop();
-                    const fileName = `room-${Math.random()}.${fileExt}`;
-                    const { error: uploadError } = await supabase.storage
-                      .from("property-media").upload(fileName, r.imageFile);
-                    if (!uploadError) {
-                      roomImgUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
-                    }
-                  } catch (e) {
-                    console.log("Room img upload skipped or failed", e);
-                  }
+                  const fileExt = r.imageFile.name.split(".").pop();
+                  const fileName = `room-${Math.random()}.${fileExt}`;
+                  const { error: uploadError } = await supabase.storage
+                    .from("property-media").upload(fileName, r.imageFile);
+                  if (uploadError) throw new Error("Room image upload failed: " + uploadError.message);
+                  roomImgUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
                 }
                 roomImages.push(roomImgUrl);
                 roomsToInsert.push({
-                  id: Math.random().toString(),
+                  hostel_id: property.id,
                   room_type: r.name,
                   price: Number(r.pricePerYear),
                   capacity: Number(r.occupantsPerRoom),
@@ -247,52 +327,20 @@ export const ManagerDashboard: React.FC = () => {
                   image_url: roomImgUrl,
                 });
               }
-
-              let dbId = undefined;
-              try {
-                const { data: authData } = await supabase.auth.getUser();
-                const managerId = authData?.user?.id || 'local-mock-manager';
-
-                const { data: property, error: propertyError } = await supabase
-                  .from("hostels")
-                  .insert({
-                    manager_id: managerId,
-                    name: data.title,
-                    description: data.description,
-                    digital_address: data.ghanaPostGPS,
-                    location: proximityStr || data.location,
-                    amenities: amenitiesList,
-                    policies: data.policies,
-                    video_url: data.videoTour,
-                    image_url: compoundUrl,
-                    image_360_url: image360Url,
-                    lat: finalLat,
-                    lng: finalLng,
-                  })
-                  .select().single();
-
-                if (!propertyError && property) {
-                  dbId = property.id;
-                  const dbRooms = roomsToInsert.map(r => ({
-                     hostel_id: property.id,
-                     room_type: r.room_type,
-                     price: r.price,
-                     capacity: r.capacity,
-                     quantity: r.quantity,
-                     image_url: r.image_url,
-                  }));
-                  await supabase.from("rooms").insert(dbRooms);
-                }
-              } catch (e) {
-                console.log("Supabase save bypassed or failed", e);
+              if (editingPropertyId && property.id) {
+                 await supabase.from("rooms").delete().eq("hostel_id", property.id);
+              }
+              if (roomsToInsert.length > 0) {
+                const { error: roomsError } = await supabase.from("rooms").insert(roomsToInsert);
+                if (roomsError) throw roomsError;
               }
 
               const newProperty: Property = {
-                id: dbId || Date.now(),
+                id: property?.id || Date.now(),
                 name: data.title,
                 loc: proximityStr || data.location || data.ghanaPostGPS || "Accra",
-                lat: finalLat,
-                lng: finalLng,
+                lat: finalLat ?? 0,
+                lng: finalLng ?? 0,
                 price: `GH₵${data.roomTypes[0]?.pricePerYear || 5000}`,
                 priceNum: data.roomTypes[0]?.pricePerYear || 5000,
                 rating: 0.0,
@@ -308,15 +356,24 @@ export const ManagerDashboard: React.FC = () => {
                 videoTour: data.videoTour,
                 panoramas: image360Url ? [image360Url] : [],
                 images: [compoundUrl, ...roomImages].filter(Boolean),
-                dbId: dbId,
+                dbId: property?.id,
               };
 
-              addCustomProperty(newProperty);
+              if (editingPropertyId) {
+                updateCustomProperty(editingPropertyId, newProperty);
+              } else {
+                addCustomProperty(newProperty);
+              }
               setIsEditing(false);
+              setEditingPropertyId(null);
               showToast("Listing saved successfully!");
             } catch (e: any) {
-              console.error("[ManagerDashboard] Uncaught error preserving listing:", e);
-              showToast("Error processing listing: " + (e.message || "Unknown error"));
+              console.error("[ManagerDashboard] Error saving listing:", e);
+              if (e.message?.includes("Failed to fetch")) {
+                showToast("Network error. Check VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY env vars.");
+              } else {
+                showToast("Error saving to database: " + e.message);
+              }
             }
           }}
         />
@@ -326,7 +383,7 @@ export const ManagerDashboard: React.FC = () => {
     switch (activeTab) {
       case "overview":
       case "properties":
-        return <Overview onAddNew={() => setIsEditing(true)} properties={myProperties} />;
+        return <Overview onAddNew={() => { setEditingPropertyId(null); setIsEditing(true); }} onEdit={handleEditProperty} onDelete={handleDeleteProperty} properties={myProperties} />;
       default:
         return (
           <div className="flex flex-col items-center justify-center py-20 text-text-muted">
@@ -382,7 +439,11 @@ const NavItem = ({ icon, label, active, onClick }: { icon: React.ReactNode; labe
   </button>
 );
 
-const Overview = ({ onAddNew, properties }: { onAddNew: () => void; properties: Property[] }) => (
+const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => void; onEdit: (id: string | number) => void; onDelete: (id: string | number) => void; properties: Property[] }) => {
+  const totalRooms = properties.reduce((sum, p) => sum + (p.rooms ? p.rooms.reduce((s2, r) => s2 + (Number(r.quantity) || 0), 0) : 0), 0);
+  const totalViews = properties.length * 42; // mock performance metric
+
+  return (
   <div className="p-6 flex flex-col gap-6 w-full max-w-5xl mx-auto">
     <div className="flex flex-col gap-3">
       <div>
@@ -394,10 +455,10 @@ const Overview = ({ onAddNew, properties }: { onAddNew: () => void; properties: 
       </button>
     </div>
     <div className="grid grid-cols-2 gap-3">
-      <StatCard title="Total Properties" value={properties.length.toString()} trend="+1 this month" />
-      <StatCard title="Total Rooms" value="120" trend="Active" />
-      <StatCard title="Occupancy Rate" value="85%" trend="+5% up" />
-      <StatCard title="Pending Inquiries" value="12" trend="Needs action" alert />
+      <StatCard title="Total Properties" value={properties.length.toString()} trend="Active Listings" />
+      <StatCard title="Total Rooms" value={totalRooms.toString()} trend="Total capacity" />
+      <StatCard title="Total Views" value={totalViews.toString()} trend="Profile views" />
+      <StatCard title="Performance" value="Good" trend="Above average" />
     </div>
     <div className="bg-white dark:bg-customDark rounded-2xl shadow-sm border-transparent border p-5">
       <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Active Listings</h2>
@@ -418,8 +479,8 @@ const Overview = ({ onAddNew, properties }: { onAddNew: () => void; properties: 
                 <td className="py-4 text-sm font-normal text-gray-500 dark:text-gray-400">{h.loc}</td>
                 <td className="py-4"><span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">published</span></td>
                 <td className="py-4 flex items-center justify-end gap-2">
-                  <button onClick={onAddNew} className="w-8 h-8 rounded-lg bg-indigo-light/30 text-indigo flex items-center justify-center hover:bg-indigo hover:text-white transition-colors"><Edit2 size={14} /></button>
-                  <button className="w-8 h-8 rounded-lg bg-slate-100 text-text-muted flex items-center justify-center hover:bg-slate-200 transition-colors"><Eye size={14} /></button>
+                  <button onClick={() => onEdit(h.id)} className="w-8 h-8 rounded-lg bg-indigo-light/30 text-indigo flex items-center justify-center hover:bg-indigo hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
+                  <button onClick={() => onDelete(h.id)} className="w-8 h-8 rounded-lg bg-coral/10 text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-colors" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg></button>
                 </td>
               </tr>
             ))}
@@ -431,7 +492,7 @@ const Overview = ({ onAddNew, properties }: { onAddNew: () => void; properties: 
       </div>
     </div>
   </div>
-);
+)};
 
 const StatCard = ({ title, value, trend, alert }: { title: string; value: string; trend: string; alert?: boolean }) => (
   <div className="bg-white dark:bg-customDark p-6 rounded-2xl border-transparent border shadow-sm flex flex-col gap-1">
@@ -443,10 +504,10 @@ const StatCard = ({ title, value, trend, alert }: { title: string; value: string
 
 // ─── CreateEditListing ─────────────────────────────────────────────────────────
 
-const CreateEditListing = ({ onBack, onSave }: { onBack: () => void; onSave: (data: ManagerPropertyForm) => void }) => {
+const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void; onSave: (data: ManagerPropertyForm) => void; initialData?: Partial<ManagerPropertyForm> }) => {
   const [step, setStep] = useState(1);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [formData, setFormData] = useState<Partial<ManagerPropertyForm>>({
+  const [formData, setFormData] = useState<Partial<ManagerPropertyForm>>(initialData || {
     title: "",
     description: "",
     ghanaPostGPS: "",

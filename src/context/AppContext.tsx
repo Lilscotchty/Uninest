@@ -9,6 +9,7 @@ interface AppContextType extends AppState, ViewState {
   properties: Property[];
   addCustomProperty: (property: Property) => void;
   updateCustomProperty: (id: number | string, updates: Partial<Property>) => void;
+  removeCustomProperty: (id: number | string) => void;
   toggleSave: (id: number | string) => void;
   setActiveFilter: (filter: string) => void;
   exploreSearchQuery: string;
@@ -78,7 +79,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             avail: "Available",
             img: h.image_url || "https://loremflickr.com/600/400/bedroom?lock=305",
             desc: h.description,
-            dbId: h.id
+            dbId: h.id,
+            manager_id: h.manager_id
           }));
           
           setProperties(prev => [...prev.filter(p => !dbProperties.find(d => d.name === p.name)), ...dbProperties]);
@@ -139,6 +141,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const updateCustomProperty = (id: number | string, updates: Partial<Property>) => {
     setProperties(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
   };
+  const removeCustomProperty = (id: number | string) => {
+    setProperties(prev => prev.filter(h => h.id !== id && h.dbId !== id));
+  };
   
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
@@ -157,6 +162,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         properties,
         addCustomProperty,
         updateCustomProperty,
+        removeCustomProperty,
         savedProperties,
         activeFilter,
         exploreSearchQuery,

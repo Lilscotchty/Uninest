@@ -20,6 +20,7 @@ export interface Property {
   rooms?: any[];
   videoTour?: string;
   dbId?: string;
+  manager_id?: string;
 }
 
 export interface AppState {
