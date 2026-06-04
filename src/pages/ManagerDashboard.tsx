@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import { uploadPropertyMedia } from "../lib/storage";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { PageHeader } from '../components/layout/PageHeader';
@@ -236,31 +237,27 @@ export const ManagerDashboard: React.FC = () => {
               if (data.amenities.studyRoom) amenitiesList.push("Study Room");
               if (data.amenities.security) amenitiesList.push("Security");
 
-              let compoundUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
-              if (data.compoundImageFile) {
-                const fileExt = data.compoundImageFile.name.split(".").pop();
-                const fileName = `compound-${Math.random()}.${fileExt}`;
-                const { error: uploadError } = await supabase.storage
-                  .from("property-media").upload(fileName, data.compoundImageFile);
-                if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
-                compoundUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
-              }
-
-              let image360Url = "";
-              if (data.image360File) {
-                const fileExt = data.image360File.name.split(".").pop();
-                const fileName = `360-${Math.random()}.${fileExt}`;
-                const { error: uploadError } = await supabase.storage
-                  .from("property-media").upload(fileName, data.image360File);
-                if (uploadError) throw new Error("360 Image upload failed: " + uploadError.message);
-                image360Url = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
-              }
-
               const { data: authData, error: authError } = await supabase.auth.getUser();
               if (authError || !authData?.user) {
                 throw new Error("Authentication failed: You must be logged in as a Manager.");
               }
               const managerId = authData.user.id;
+              
+              const edittingDbId = editingPropertyId ? myProperties.find(p => p.id === editingPropertyId)?.dbId : null;
+              // Generate or use existing ID for the property to use as folder name
+              const propertyIdToUse = edittingDbId || crypto.randomUUID();
+
+              let compoundUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
+              if (data.compoundImageFile) {
+                const result = await uploadPropertyMedia(managerId, propertyIdToUse, data.compoundImageFile);
+                compoundUrl = result.publicUrl;
+              }
+
+              let image360Url = "";
+              if (data.image360File) {
+                const result = await uploadPropertyMedia(managerId, propertyIdToUse, data.image360File);
+                image360Url = result.publicUrl;
+              }
 
               const finalLat = data.lat ?? null;
               const finalLng = data.lng ?? null;
@@ -270,7 +267,7 @@ export const ManagerDashboard: React.FC = () => {
                 ? `${distanceLabel(data.nearestCampus.distanceM)} from ${data.nearestCampus.shortName} (${data.nearestCampus.walkLabel})`
                 : data.location;
 
-              const updatePayload = {
+              const updatePayload: any = {
                   manager_id: managerId,
                   name: data.title,
                   description: data.description,
@@ -286,7 +283,6 @@ export const ManagerDashboard: React.FC = () => {
               };
 
               let property: any = null;
-              const edittingDbId = editingPropertyId ? myProperties.find(p => p.id === editingPropertyId)?.dbId : null;
 
               if (editingPropertyId && edittingDbId) {
                  const { data: dbProp, error: propertyError } = await supabase
@@ -297,6 +293,7 @@ export const ManagerDashboard: React.FC = () => {
                  if (propertyError) throw propertyError;
                  property = dbProp;
               } else {
+                 updatePayload.id = propertyIdToUse;
                  const { data: dbProp, error: propertyError } = await supabase
                     .from("hostels")
                     .insert(updatePayload)
@@ -310,12 +307,8 @@ export const ManagerDashboard: React.FC = () => {
               for (const r of data.roomTypes) {
                 let roomImgUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
                 if (r.imageFile) {
-                  const fileExt = r.imageFile.name.split(".").pop();
-                  const fileName = `room-${Math.random()}.${fileExt}`;
-                  const { error: uploadError } = await supabase.storage
-                    .from("property-media").upload(fileName, r.imageFile);
-                  if (uploadError) throw new Error("Room image upload failed: " + uploadError.message);
-                  roomImgUrl = supabase.storage.from("property-media").getPublicUrl(fileName).data.publicUrl;
+                  const result = await uploadPropertyMedia(managerId, propertyIdToUse, r.imageFile);
+                  roomImgUrl = result.publicUrl;
                 }
                 roomImages.push(roomImgUrl);
                 roomsToInsert.push({
