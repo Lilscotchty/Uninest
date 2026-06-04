@@ -542,15 +542,29 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
     if (!formData.ghanaPostGPS) return;
     setIsVerifying(true);
 
-    const raw = formData.ghanaPostGPS.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
-    const parts = raw.match(/^([A-Z]{2})(\d{3,4})(\d{4})$/);
-    if (!parts) {
-      alert("Invalid GhanaPost GPS format. Expected XX-NNN-NNNN or XX-NNNN-NNNN — e.g. GM-132-4567.");
+    let raw = formData.ghanaPostGPS.trim().toUpperCase();
+    
+    // If user forgot hyphens, strictly try to infer them based on 2-3 letter prefix
+    if (!raw.includes("-")) {
+      const match = raw.match(/^([A-Z]{2,3})(\d+)$/);
+      if (match) {
+        const prefix = match[1];
+        const nums = match[2];
+        const firstPartLen = Math.max(3, Math.floor(nums.length / 2));
+        raw = `${prefix}-${nums.slice(0, firstPartLen)}-${nums.slice(firstPartLen)}`;
+      }
+    }
+
+    // Ensure there are at least two hyphens to form a standard code for the API
+    const parts = raw.split("-");
+    if (parts.length < 3) {
+      alert("Please ensure your GhanaPost GPS code includes hyphens (e.g., AZ-1234-1234, GA-123-4567).");
       setIsVerifying(false);
       return;
     }
 
-    const standardCode = `${parts[1]}-${parts[2]}-${parts[3]}`;
+    // Reconstruct the standard code without strict digit counts to allow flexibility
+    const standardCode = parts.join("-");
 
     try {
       const apiBase =
@@ -571,6 +585,27 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
       const result = await response.json();
 
       if (!result.found || !result.data?.Table?.[0]) {
+        // Fallback: check if we know the prefix
+        const prefix = parts[0];
+        try {
+            const { prefixToDistrictMap } = await import('../lib/ghanaPostGpsPrefixes');
+            const match = prefixToDistrictMap[prefix];
+            if (match) {
+                const genericAddress = `${match.district}, ${match.region}`;
+                setFormData(prev => ({
+                    ...prev,
+                    ghanaPostGPS: standardCode,
+                    resolvedAddress: genericAddress,
+                    location: prev.location?.trim() ? prev.location : genericAddress,
+                }));
+                alert(`Address "${standardCode}" not found precisely, but recognized prefix '${prefix}'. Generic location set to: ${genericAddress}`);
+                setIsVerifying(false);
+                return;
+            }
+        } catch (e) {
+            console.error("Failed to load prefix map", e);
+        }
+        
         alert(`Address "${standardCode}" was not found in the GhanaPost database.\n\nPlease double-check the code.`);
         setIsVerifying(false);
         return;
@@ -605,6 +640,24 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
     } catch (err: any) {
       console.error("[handleVerifyGPS]", err);
+      // Final Offline fallback
+      try {
+          const prefix = parts[0];
+          const { prefixToDistrictMap } = await import('../lib/ghanaPostGpsPrefixes');
+          const match = prefixToDistrictMap[prefix];
+          if (match) {
+              const genericAddress = `${match.district}, ${match.region}`;
+              setFormData(prev => ({
+                  ...prev,
+                  ghanaPostGPS: standardCode,
+                  resolvedAddress: genericAddress,
+                  location: prev.location?.trim() ? prev.location : genericAddress,
+              }));
+              alert(`Network error, but offline map recognized prefix '${prefix}'. Generic location set to: ${genericAddress}`);
+              return;
+          }
+      } catch(e) {}
+      
       alert(
         "Could not reach the GhanaPost API.\n\nCheck your connection or VITE_GHANAPOST_API_URL.\n\nDetail: " +
         (err?.message ?? err)
