@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 import { Pannellum } from "pannellum-react";
+import { BlazingRifts } from "../components/BlazingRifts";
 import {
   ChevronLeft,
   ArrowUpFromLine,
@@ -153,19 +154,30 @@ export const Details: React.FC = () => {
             </div>
           ))}
           {/* 360 Slide */}
-          {(property.panoramas || []).map((pano, i) => (
-            <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
-                <Pannellum
-                  width="100%"
-                  height="100%"
-                  image={pano}
-                  pitch={10}
-                  yaw={180}
-                  hfov={110}
-                  autoLoad
-                />
+          {property.panoramas && property.panoramas.length > 0 ? (
+             property.panoramas.map((pano, i) => (
+              <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
+                  <Pannellum
+                    width="100%"
+                    height="100%"
+                    image={pano}
+                    pitch={10}
+                    yaw={180}
+                    hfov={110}
+                    autoLoad={false}
+                  />
+              </div>
+            ))
+          ) : (
+            <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
+                <BlazingRifts />
+                <div className="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
+                  <div className="text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm text-sm font-bold flex items-center gap-2">
+                    <Video size={16} /> Virtual Tour Not Available
+                  </div>
+                </div>
             </div>
-          ))}
+          )}
         </div>
 
         {/* Gradient Overlay */}
@@ -189,7 +201,7 @@ export const Details: React.FC = () => {
               />
             </div>
           ))}
-          {(property.panoramas || []).map((pano, j) => {
+          {property.panoramas && property.panoramas.length > 0 ? property.panoramas.map((pano, j) => {
             const i = (property.images?.length || 0) + j;
             return (
               <div
@@ -208,11 +220,26 @@ export const Details: React.FC = () => {
                 </div>
               </div>
             );
-          })}
+          }) : (
+            <div
+                key="pano-thumb-fallback"
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+                onClick={() =>
+                  trackRef.current?.scrollTo({
+                    left: (property.images?.length || 0) * (trackRef.current?.clientWidth || 0),
+                    behavior: "smooth",
+                  })
+                }
+              >
+                <div className="w-full h-full bg-slate-900 border border-slate-700 flex items-center justify-center text-white">
+                  <Video size={14} className="opacity-50" />
+                </div>
+              </div>
+          )}
         </div>
 
         <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-          {currentImg + 1} / {(property.images?.length || 0) + (property.panoramas?.length || 0)}
+          {currentImg + 1} / {(property.images?.length || 0) + Math.max((property.panoramas?.length || 0), 1)}
         </div>
       </div>
 

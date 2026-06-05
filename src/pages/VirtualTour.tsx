@@ -4,6 +4,7 @@ import { ChevronLeft, Video, Play, MapPin } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PROPERTIES } from '../data';
 import { PageHeader } from '../components/PageHeader';
+import { BlazingRifts } from '../components/BlazingRifts';
 
 export const VirtualTour: React.FC = () => {
   const { setCurrentView, showToast, properties } = useAppContext();
@@ -73,10 +74,12 @@ export const VirtualTour: React.FC = () => {
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center p-4">
-             {/* Fake video player using the image placeholder */}
-             <div className="relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden flex items-center justify-center border border-white/10">
-                <img src={selectedVideo} className="absolute inset-0 w-full h-full object-cover opacity-50 blur-sm" alt="Blurred bg" />
-                <div className="relative text-white font-bold tracking-widest uppercase text-xl animate-pulse">Playing Video...</div>
+             <div className="relative w-full aspect-video rounded-lg overflow-hidden flex items-center justify-center border border-white/10 group cursor-pointer" onClick={() => { setSelectedVideo(null); navigate("/details"); }}>
+                {selectedVideo.includes('pano') ? (
+                  <img src={selectedVideo} className="absolute inset-0 w-full h-full object-cover blur-sm opacity-50" />
+                ) : (
+                  <BlazingRifts />
+                )}
              </div>
           </div>
           <div className="p-6 text-center">

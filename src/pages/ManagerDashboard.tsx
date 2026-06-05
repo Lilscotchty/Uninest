@@ -255,7 +255,7 @@ export const ManagerDashboard: React.FC = () => {
 
               let image360Url = "";
               if (data.image360File) {
-                const result = await uploadHostelMedia(managerId, propertyIdToUse, data.image360File);
+                const result = await uploadHostelMedia(managerId, propertyIdToUse, data.image360File, true);
                 image360Url = result.publicUrl;
               }
 

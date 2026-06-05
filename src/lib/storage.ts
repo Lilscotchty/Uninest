@@ -28,7 +28,7 @@ export class StorageValidationError extends Error {
 
 // ─── Client-side validation (runs before network hit) ─────────────────────────
 
-function validateFile(file: File): void {
+async function validateFile(file: File, is360: boolean = false): Promise<void> {
   if (!ALLOWED_MIME_TYPES.has(file.type)) {
     throw new StorageValidationError(
       `"${file.type}" is not allowed. Accepted: JPEG, PNG, WEBP, GIF, MP4.`
@@ -39,6 +39,39 @@ function validateFile(file: File): void {
     throw new StorageValidationError(
       `File is ${mb} MB — maximum allowed size is 15 MB.`
     );
+  }
+
+  if (is360 && file.type.startsWith('image/')) {
+    const isEquirectangular = await new Promise<boolean>((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        // 360 panoramas (equirectangular) generally have an exactly 2:1 aspect ratio.
+        const aspect = img.width / img.height;
+        const aspectTarget = 2.0;
+        const aspectTolerance = 0.05; // 5% tolerance
+        URL.revokeObjectURL(url);
+        
+        // Also ensure a minimum resolution for a decent 360 experience
+        if (img.width < 1024) {
+          resolve(false);
+          return;
+        }
+        
+        resolve(Math.abs(aspect - aspectTarget) < aspectTolerance);
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(false);
+      };
+      img.src = url;
+    });
+
+    if (!isEquirectangular) {
+      throw new StorageValidationError(
+        'Upload failed: The image must be a valid 360° panorama (equirectangular). It should have a 2:1 aspect ratio and at least 1024x512 resolution.'
+      );
+    }
   }
 }
 
@@ -68,9 +101,10 @@ export interface UploadResult {
 export async function uploadHostelMedia(
   userId:   string,
   hostelId: string,
-  file:     File
+  file:     File,
+  is360:    boolean = false
 ): Promise<UploadResult> {
-  validateFile(file);
+  await validateFile(file, is360);
 
   const path = buildMediaPath(userId, hostelId, file);
 
@@ -104,13 +138,14 @@ export async function uploadHostelMedia(
 export async function uploadHostelMediaBatch(
   userId:   string,
   hostelId: string,
-  files:    File[]
+  files:    File[],
+  is360:    boolean = false
 ): Promise<UploadResult[]> {
   const CONCURRENCY = 5;
   const results: UploadResult[] = [];
   for (let i = 0; i < files.length; i += CONCURRENCY) {
     const batch = await Promise.all(
-      files.slice(i, i + CONCURRENCY).map(f => uploadHostelMedia(userId, hostelId, f))
+      files.slice(i, i + CONCURRENCY).map(f => uploadHostelMedia(userId, hostelId, f, is360))
     );
     results.push(...batch);
   }
@@ -121,9 +156,10 @@ export async function uploadHostelMediaBatch(
 
 export async function replaceHostelMedia(
   path: string,
-  file: File
+  file: File,
+  is360: boolean = false
 ): Promise<UploadResult> {
-  validateFile(file);
+  await validateFile(file, is360);
   const { error } = await supabase.storage
     .from(BUCKET)
     .update(path, file, { upsert: true, cacheControl: '3600', contentType: file.type });
