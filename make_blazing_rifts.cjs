@@ -1,4 +1,6 @@
-// Original effect: "Blazing Rifts" by Paul (prisoner849)
+const fs = require('fs');
+
+const code = `// Original effect: "Blazing Rifts" by Paul (prisoner849)
 // Licensed under MIT: https://codepen.io/prisoner849/pen/ZYBKmRN
 
 import React, { useRef, useEffect } from 'react';
@@ -13,7 +15,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { FXAAPass } from 'three/examples/jsm/postprocessing/FXAAPass.js';
 
-const noise3d = `
+const noise3d = \\\`
 //	Simplex 3D Noise 
 //	by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
 //
@@ -80,9 +82,9 @@ float snoise(vec3 v){
   return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), 
                                 dot(p2,x2), dot(p3,x3) ) );
 }
-`;
+\\\`;
 
-const noise4d = `
+const noise4d = \\\`
 //	Simplex 4D Noise 
 //	by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
 //
@@ -162,7 +164,7 @@ float snoise(vec4 v){
                + dot(m1*m1, vec2( dot( p3, x3 ), dot( p4, x4 ) ) ) ) ;
 
 }
-`;
+\\\`;
 
 const createBlazingRifts = (container: HTMLDivElement) => {
   const mu = THREE.MathUtils;
@@ -188,11 +190,11 @@ const createBlazingRifts = (container: HTMLDivElement) => {
       outputPass.material.onBeforeCompile = (shader: any) => {
         shader.uniforms.time = gu.time;
         shader.uniforms.aspect = gu.aspect;
-        shader.fragmentShader = `
-          \${shader.fragmentShader}
-        `.replace(
-          `precision highp float;`,
-          `
+        shader.fragmentShader = \\\`
+          \\\${shader.fragmentShader}
+        \\\`.replace(
+          \\\`precision highp float;\\\`,
+          \\\`
           #define S(a, b, c) smoothstep(a, b, c)
           precision highp float;
           uniform float time;
@@ -200,13 +202,13 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           
           mat2 rot(float a){return mat2(cos(a), -sin(a), sin(a), cos(a));}
           
-          \${noise3d}
+          \\\${noise3d}
           
           #include <common>
-          `
+          \\\`
         ).replace(
-          `gl_FragColor = texture2D( tDiffuse, vUv );`,
-          `
+          \\\`gl_FragColor = texture2D( tDiffuse, vUv );\\\`,
+          \\\`
           vec2 postUV = (vUv - 0.5) * vec2(aspect, 1.) * 2.; //-1..1
           float u = length(postUV);
           float v = (atan(postUV.y, postUV.x) + PI2) / PI2;
@@ -219,7 +221,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
                   
           gl_FragColor = texture2D( tDiffuse, vUv + shift);
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(1, 0.5, 0), effectLim * 0.01);
-          `
+          \\\`
         );
       }
       this.addPass( outputPass );
@@ -343,7 +345,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         onBeforeCompile: shader => {
-          shader.vertexShader = `
+          shader.vertexShader = \\\`
             attribute vec4 timing;
             varying float action;
             varying float vFinish;
@@ -353,29 +355,29 @@ const createBlazingRifts = (container: HTMLDivElement) => {
               return decK * decK * decK + 1.;
             }
             
-            \${shader.vertexShader}
-          `.replace(
-            `#include <begin_vertex>`,
-            `#include <begin_vertex>
+            \\\${shader.vertexShader}
+          \\\`.replace(
+            \\\`#include <begin_vertex>\\\`,
+            \\\`#include <begin_vertex>
               action = clamp((timing.x / timing.y), 0., 1.);
               transformed = position + normal * graphOut(action) * timing.z;
-            `
+            \\\`
           ).replace(
-            `gl_PointSize = size;`,
-            `
+            \\\`gl_PointSize = size;\\\`,
+            \\\`
             float sizeRatio = smoothstep(0., 0.05, action) - smoothstep(0.75, 1., action);
             vFinish = smoothstep(0.8, 0.85, action) - smoothstep(0.85, 0.9, action);
             sizeRatio = max(sizeRatio, vFinish);
             gl_PointSize = size * sizeRatio * timing.w;
-            `
+            \\\`
           );
-          shader.fragmentShader = `
+          shader.fragmentShader = \\\`
             varying float action;
             varying float vFinish;
-            \${shader.fragmentShader}
-          `.replace(
-            `vec4 diffuseColor = vec4( diffuse, opacity );`,
-            `
+            \\\${shader.fragmentShader}
+          \\\`.replace(
+            \\\`vec4 diffuseColor = vec4( diffuse, opacity );\\\`,
+            \\\`
             vec2 uv = gl_PointCoord.xy - 0.5;
             float dist = length(uv) * 2.;
             
@@ -390,7 +392,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
             col = mix(col, vec3(1, 1, 0.5), vFinish);
             
             vec4 diffuseColor = vec4( col, a );
-            `
+            \\\`
           );
         }
       })
@@ -596,30 +598,30 @@ const createBlazingRifts = (container: HTMLDivElement) => {
       this.material.onBeforeCompile = (shader: any) => {
         shader.uniforms.time = gu.time;
         shader.uniforms.splitPoint = this.uniforms.splitPoint;
-        shader.vertexShader = `
+        shader.vertexShader = \\\`
           uniform vec3 splitPoint;
           attribute vec3 moves;
           attribute float geometryID;
           varying float vGID;
           varying vec3 vPos;
-          \${shader.vertexShader}
-        `.replace(
-          `#include <begin_vertex>`,
-          `#include <begin_vertex>
+          \\\${shader.vertexShader}
+        \\\`.replace(
+          \\\`#include <begin_vertex>\\\`,
+          \\\`#include <begin_vertex>
           float splitWidth = 0.1;
           vec3 pos = position;
           pos += (splitPoint + moves * splitWidth) * abs(moves);
           transformed = pos;
           vPos = transformed;
           vGID = geometryID;
-          `
+          \\\`
         );
         
-        shader.fragmentShader = `
+        shader.fragmentShader = \\\`
           uniform float time;
           varying float vGID;
           varying vec3 vPos;
-          \${noise4d}
+          \\\${noise4d}
           
           float sdRoundBox( vec3 p, vec3 b, float r ) {
             vec3 q = abs(p) - b + r;
@@ -641,10 +643,10 @@ const createBlazingRifts = (container: HTMLDivElement) => {
             }
             return v;
           }
-          \${shader.fragmentShader}
-        `.replace(
-          `#include <opaque_fragment>`,
-          `#include <opaque_fragment>
+          \\\${shader.fragmentShader}
+        \\\`.replace(
+          \\\`#include <opaque_fragment>\\\`,
+          \\\`#include <opaque_fragment>
           float nVal = fbm(vPos * 0.5);
           float f = smoothstep(0.0, 0.5, abs(nVal));
           float negF = 1. - f;
@@ -660,7 +662,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           if (floor(vGID + 0.1) > 7.){
             gl_FragColor.rgb = vColor.rgb;
           }
-          `
+          \\\`
         );
       };
 
@@ -862,9 +864,11 @@ export const BlazingRifts: React.FC<{ className?: string }> = ({ className = '' 
   }, []);
 
   return (
-    <div className={`relative w-full h-full overflow-hidden bg-black ${className}`} ref={containerRef}>
+    <div className={\\\`relative w-full h-full overflow-hidden bg-black \\\${className}\\\`} ref={containerRef}>
       {/* Remove the pointer-events-none from any child that blocks dragging the view! */}
       {/* We allow interacting with the 3D scene directly. */}
     </div>
   );
 };
+`
+fs.writeFileSync('./src/components/BlazingRifts.tsx', code, 'utf8');

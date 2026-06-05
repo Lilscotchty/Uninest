@@ -74,9 +74,9 @@ export const VirtualTour: React.FC = () => {
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center p-4">
-             <div className="relative w-full aspect-video rounded-lg overflow-hidden flex items-center justify-center border border-white/10 group cursor-pointer" onClick={() => { setSelectedVideo(null); navigate("/details"); }}>
+             <div className="relative w-full aspect-video rounded-lg overflow-hidden flex items-center justify-center border border-white/10 group">
                 {selectedVideo.includes('pano') ? (
-                  <img src={selectedVideo} className="absolute inset-0 w-full h-full object-cover blur-sm opacity-50" />
+                  <img onClick={() => { setSelectedVideo(null); navigate("/details"); }} src={selectedVideo} className="absolute inset-0 w-full h-full object-cover blur-sm opacity-50 cursor-pointer" />
                 ) : (
                   <BlazingRifts />
                 )}
