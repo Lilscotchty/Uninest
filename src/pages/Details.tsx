@@ -171,11 +171,6 @@ export const Details: React.FC = () => {
           ) : (
             <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
                 <BlazingRifts />
-                <div className="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
-                  <div className="text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm text-sm font-bold flex items-center gap-2">
-                    <Video size={16} /> Virtual Tour Not Available
-                  </div>
-                </div>
             </div>
           )}
         </div>

@@ -200,7 +200,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           
           mat2 rot(float a){return mat2(cos(a), -sin(a), sin(a), cos(a));}
           
-          \${noise3d}
+          ${noise3d}
           
           #include <common>
           `
@@ -818,18 +818,35 @@ const createBlazingRifts = (container: HTMLDivElement) => {
   let t = 0;
   let raf: number;
 
+  let errorCaught = false;
+
   const animate = () => {
     raf = requestAnimationFrame(animate);
-    const dt = clock.getDelta();
-    t += dt;
+    if (errorCaught) return;
     
-    gu.timeDelta.value = dt;
-    gu.time.value = t;
-    
-    controls.update();
-    sketch.update();
-    
-    postprocessing.render();
+    try {
+      const dt = clock.getDelta();
+      t += dt;
+      
+      gu.timeDelta.value = dt;
+      gu.time.value = t;
+      
+      controls.update();
+      sketch.update();
+      
+      postprocessing.render();
+    } catch (err: any) {
+      errorCaught = true;
+      console.error(err);
+      const debugDiv = document.createElement('div');
+      debugDiv.style.position = 'absolute';
+      debugDiv.style.zIndex = '9999';
+      debugDiv.style.background = 'red';
+      debugDiv.style.color = 'white';
+      debugDiv.style.padding = '10px';
+      debugDiv.innerText = 'Render Error: ' + err.message;
+      container.appendChild(debugDiv);
+    }
   }
   
   animate();
@@ -858,23 +875,38 @@ export const BlazingRifts: React.FC<{ className?: string }> = ({ className = '' 
     let w = container.clientWidth || 1;
     let h = container.clientHeight || 1;
     
-    let effect = createBlazingRifts(containerRef.current);
-    effect.resize(w, h);
-
-    const ro = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const { width, height } = entry.contentRect;
-        if (width > 0 && height > 0) {
-          effect.resize(width, height);
-        }
-      }
-    });
+    let effect: any;
+    let ro: ResizeObserver | null = null;
     
-    ro.observe(container);
+    try {
+      effect = createBlazingRifts(container);
+      effect.resize(w, h);
+
+      ro = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          const { width, height } = entry.contentRect;
+          if (width > 0 && height > 0) {
+            effect.resize(width, height);
+          }
+        }
+      });
+      ro.observe(container);
+    } catch (err: any) {
+      console.error(err);
+      // Create error text to see why it fails
+      const debugDiv = document.createElement('div');
+      debugDiv.style.position = 'absolute';
+      debugDiv.style.zIndex = '9999';
+      debugDiv.style.background = 'red';
+      debugDiv.style.color = 'white';
+      debugDiv.style.padding = '10px';
+      debugDiv.innerText = err.message + '\n' + err.stack;
+      container.appendChild(debugDiv);
+    }
 
     return () => {
-      ro.disconnect();
-      effect.dispose();
+      if (ro) ro.disconnect();
+      if (effect) effect.dispose();
     };
   }, []);
 
