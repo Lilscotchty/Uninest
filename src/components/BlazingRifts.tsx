@@ -820,6 +820,43 @@ const createBlazingRifts = (container: HTMLDivElement) => {
 
   let errorCaught = false;
 
+  let targetRotationX = 0;
+  let targetRotationY = 0;
+
+  const handleOrientation = (event: DeviceOrientationEvent) => {
+    if (event.beta !== null && event.gamma !== null) {
+      let gamma = event.gamma; 
+      let beta = event.beta;
+      
+      // Attempt to normalize across landscape/portrait if needed, but general approximation is fine.
+      let orientation = window.orientation || 0;
+      if (orientation === 90) {
+        gamma = event.beta;
+        beta = -event.gamma;
+      } else if (orientation === -90) {
+        gamma = -event.beta;
+        beta = event.gamma;
+      }
+
+      const maxRot = Math.PI / 4;
+      targetRotationY = THREE.MathUtils.clamp((gamma / 45) * maxRot, -maxRot, maxRot);
+      targetRotationX = THREE.MathUtils.clamp(((beta - 45) / 45) * maxRot, -maxRot, maxRot);
+    }
+  };
+
+  const handlePointerMove = (event: PointerEvent) => {
+    if (event.pointerType === 'mouse') {
+      const x = (event.clientX / window.innerWidth) * 2 - 1;
+      const y = -(event.clientY / window.innerHeight) * 2 + 1;
+      const maxRot = Math.PI / 8;
+      targetRotationY = x * maxRot;
+      targetRotationX = -y * maxRot;
+    }
+  };
+
+  window.addEventListener('deviceorientation', handleOrientation);
+  window.addEventListener('pointermove', handlePointerMove);
+
   const animate = () => {
     raf = requestAnimationFrame(animate);
     if (errorCaught) return;
@@ -834,6 +871,10 @@ const createBlazingRifts = (container: HTMLDivElement) => {
       controls.update();
       sketch.update();
       
+      // Apply parallax effect
+      sketch.rotation.x += (targetRotationX - sketch.rotation.x) * 0.05;
+      sketch.rotation.y += (targetRotationY - sketch.rotation.y) * 0.05;
+
       postprocessing.render();
     } catch (err: any) {
       errorCaught = true;
@@ -855,6 +896,8 @@ const createBlazingRifts = (container: HTMLDivElement) => {
     resize,
     dispose: () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener('pointermove', handlePointerMove);
       renderer.dispose();
       envTex.dispose();
       bakTex.dispose();
