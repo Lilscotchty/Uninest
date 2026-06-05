@@ -103,7 +103,7 @@ export const Details: React.FC = () => {
   const selectedRoom = rooms[activeRoomMode];
 
   return (
-    <div className="flex-1 w-full bg-slate-100 dark:bg-app-bg relative flex flex-col md:overflow-y-auto">
+    <div className="flex-1 w-full bg-slate-100  relative flex flex-col md:overflow-y-auto">
     <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
       {/* GALLERY */}
       <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
@@ -249,7 +249,7 @@ export const Details: React.FC = () => {
         </div>
 
         <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
-          <MapPin size={14} className="text-indigo shrink-0" />
+          <MapPin size={14} className="text-[var(--color-accent)] shrink-0" />
           <span>{property.loc}</span>
         </div>
 
@@ -303,13 +303,13 @@ export const Details: React.FC = () => {
           <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
                 <a
                   href="tel:+233"
-                  className="w-10 h-10 rounded-full bg-indigo-light/20 text-indigo flex items-center justify-center transition-transform hover:bg-indigo hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent)] hover:text-white hover:-translate-y-0.5"
                 >
                   <Phone size={16} />
                 </a>
                 <a
                   href="https://wa.me/233"
-                  className="w-10 h-10 rounded-full bg-indigo-light/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
                 >
                   <MessageCircle size={20} />
                 </a>
@@ -324,7 +324,7 @@ export const Details: React.FC = () => {
           {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
             const label = am.toLowerCase();
             let Icon = Wifi;
-            let color = "text-indigo";
+            let color = "text-[var(--color-accent)]";
             if (label.includes("ac")) { Icon = Snowflake; color = "text-blue-400"; }
             else if (label.includes("security") || label.includes("sec")) { Icon = ShieldCheck; color = "text-emerald-500"; }
             else if (label.includes("gen")) { Icon = PlugZap; color = "text-amber-500"; }
@@ -351,7 +351,7 @@ export const Details: React.FC = () => {
         </p>
         <button
           onClick={() => setDescExpanded(!descExpanded)}
-          className="text-indigo font-bold text-[0.85rem] mb-8"
+          className="text-[var(--color-accent)] font-bold text-[0.85rem] mb-8"
         >
           {descExpanded ? "Show less ↑" : "Read more →"}
         </button>
@@ -363,19 +363,19 @@ export const Details: React.FC = () => {
         <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
           <button
             onClick={() => setActiveRoomMode("single")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
           >
             Single
           </button>
           <button
             onClick={() => setActiveRoomMode("double")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
           >
             Double
           </button>
           <button
             onClick={() => setActiveRoomMode("quad")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-indigo-dark text-white shadow-sm" : "bg-indigo-light/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
           >
             Quad
           </button>
@@ -394,13 +394,13 @@ export const Details: React.FC = () => {
             </h3>
             <div className="flex gap-3 flex-wrap mb-3.5">
               <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                <Ruler size={14} className="text-indigo" /> {selectedRoom.size}
+                <Ruler size={14} className="text-[var(--color-accent)]" /> {selectedRoom.size}
               </div>
               <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                <User size={14} className="text-indigo" /> {selectedRoom.occ}
+                <User size={14} className="text-[var(--color-accent)]" /> {selectedRoom.occ}
               </div>
               <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                <Bed size={14} className="text-indigo" /> {selectedRoom.bed}
+                <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
               </div>
             </div>
             <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
@@ -448,8 +448,8 @@ export const Details: React.FC = () => {
           </div>
         </a>
         <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
-          <MapPin size={14} className="text-indigo" />{" "}
-          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo">Open in Google Maps</a>
+          <MapPin size={14} className="text-[var(--color-accent)]" />{" "}
+          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-[var(--color-accent)]">Open in Google Maps</a>
         </p>
       </div>
 
@@ -467,14 +467,14 @@ export const Details: React.FC = () => {
                 : "4"}{" "}
             in a unit / sem
           </div>
-          <div className="bg-indigo-light text-indigo text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-center gap-1 truncate max-w-full md:mt-2 md:w-full">
+          <div className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-center gap-1 truncate max-w-full md:mt-2 md:w-full">
             <Tag size={12} className="shrink-0" /> Code DWELL15
           </div>
         </div>
         <div className="flex md:flex-col gap-2 shrink-0 md:mt-4">
           <button
             onClick={() => setBookingModalOpen(true)}
-            className="bg-indigo text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] flex-1 w-full"
+            className="bg-[var(--color-accent)] text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] flex-1 w-full"
           >
             Request Booking
           </button>
@@ -483,7 +483,7 @@ export const Details: React.FC = () => {
               navigator.clipboard.writeText(window.location.href);
               showToast("Link copied!");
             }}
-            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-indigo-light/20 transition-colors gap-2"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[var(--color-accent-muted)]/20 transition-colors gap-2"
           >
             <ArrowUpFromLine size={16} /> <span className="hidden md:inline font-bold">Share Link</span>
           </button>
@@ -518,7 +518,7 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Kwame"
-                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
               <div>
@@ -528,7 +528,7 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Owusu"
-                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
             </div>
@@ -539,7 +539,7 @@ export const Details: React.FC = () => {
               <input
                 type="tel"
                 placeholder="+233 5X XXX XXXX"
-                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
               />
             </div>
             <div className="mb-4">
@@ -549,7 +549,7 @@ export const Details: React.FC = () => {
               <select
                 value={activeRoomMode}
                 onChange={(e) => setActiveRoomMode(e.target.value as any)}
-                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-indigo focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
               >
                 <option value="single">
                   Single Unit – {rooms.single.price}/sem
@@ -576,7 +576,7 @@ export const Details: React.FC = () => {
                 showToast("Booking request sent! 🎉");
                 setTimeout(() => navigate("/student/dashboard"), 1500);
               }}
-              className="w-full bg-indigo text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"
+              className="w-full bg-[var(--color-accent)] text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"
             >
               Confirm Request {`->`}
             </button>

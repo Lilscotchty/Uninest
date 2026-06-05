@@ -116,17 +116,17 @@ export const EditProfile: React.FC = () => {
 
   const InputField = ({ label, icon: Icon, id, type: inputType, placeholder, error }: any) => (
     <div className="flex flex-col gap-1.5 w-full mb-4">
-      <label htmlFor={id} className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">
+      <label htmlFor={id} className="text-[0.7rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider ml-1">
         {label}
       </label>
       <div className="relative flex items-center">
-        <Icon className="absolute left-3.5 text-gray-400" size={16} />
+        <Icon className="absolute left-3.5 text-[var(--color-text-disabled)]" size={16} />
         <input
           {...register(id)}
           type={inputType}
           id={id}
           placeholder={placeholder}
-          className={`w-full bg-card-bg border ${error ? 'border-red-500' : 'border-transparent'} rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo-500 focus:ring-[3px] focus:ring-indigo-500/10 text-[0.9rem] transition-all shadow-sm font-medium`}
+          className={`w-full bg-card-bg border ${error ? 'border-red-500' : 'border-transparent'} rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-[var(--color-accent)]-500 focus:ring-[3px] focus:ring-[var(--color-accent)]/10 text-[0.9rem] transition-all shadow-sm font-medium`}
         />
       </div>
       {error && <p className="text-red-500 text-xs mt-1 ml-1 font-medium">{error.message}</p>}
@@ -140,7 +140,7 @@ export const EditProfile: React.FC = () => {
           {/* Header */}
           <div className="flex items-center px-5 pt-12 md:pt-16 pb-4 bg-app-bg sticky top-0 z-20">
             {!isCompleting && (
-              <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-primary hover:bg-gray-100 transition-colors">
+              <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-primary hover:bg-[var(--color-surface-2)] transition-colors">
                 <ChevronLeft size={24} />
               </button>
             )}
@@ -151,8 +151,8 @@ export const EditProfile: React.FC = () => {
 
           <div className="px-5 pb-8">
             {isCompleting && (
-              <div className="bg-indigo/10 p-4 rounded-xl mb-6 border border-indigo/20">
-                <p className="text-sm text-indigo font-medium">
+              <div className="bg-[var(--color-accent)]/10 p-4 rounded-xl mb-6 border border-[var(--color-accent)]/20">
+                <p className="text-sm text-[var(--color-accent)] font-medium">
                   We need a little more information to set up your {role} account properly before you can continue.
                 </p>
               </div>
@@ -178,7 +178,7 @@ export const EditProfile: React.FC = () => {
                   type="submit"
                   disabled={isLoading}
                   className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] flex justify-center items-center gap-2 ${
-                    role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-teal-600' : 'bg-indigo shadow-indigo/25 hover:bg-indigo-600'
+                    role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-teal-600' : 'bg-[var(--color-accent)] shadow-indigo/25 hover:bg-[var(--color-accent)]-600'
                   } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   {isLoading ? (

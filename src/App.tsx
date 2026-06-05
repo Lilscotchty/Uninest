@@ -16,17 +16,9 @@ import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
 
 const AppContent: React.FC = () => {
-  const { theme, user } = useAppContext();
+  const { user } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
 
   // Middleware simulation for protecting routes
   useEffect(() => {
@@ -70,7 +62,7 @@ const AppContent: React.FC = () => {
   }, [user, location.pathname, navigate]);
 
   return (
-    <div className={`w-full min-h-screen bg-app-bg text-text-primary flex flex-col font-sans ${theme === "dark" ? "dark" : ""}`}>
+    <div className={`w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] flex flex-col font-sans`}>
       <Toast />
       
       <Routes>
@@ -95,7 +87,7 @@ const AppContent: React.FC = () => {
         <Route path="*" element={
           user === undefined ? (
             <div className="flex-1 flex items-center justify-center min-h-[100dvh]">
-              <div className="w-8 h-8 border-4 border-indigo/30 border-t-indigo rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-[var(--color-accent)]/30 border-t-indigo rounded-full animate-spin" />
             </div>
           ) : user ? (
             <Navigate to={user.user_metadata?.account_type === 'manager' ? '/manager/dashboard' : '/student/dashboard'} replace /> 

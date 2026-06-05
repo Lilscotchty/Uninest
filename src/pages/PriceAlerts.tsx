@@ -27,7 +27,7 @@ export const PriceAlerts: React.FC = () => {
         rightAction={
           <button 
             onClick={() => navigate("/student/dashboard")}
-            className="text-white hover:text-indigo-200 transition-colors"
+            className="text-white hover:text-[var(--color-accent)]-200 transition-colors"
           >
             <ChevronLeft size={24} /> Back
           </button>
@@ -92,7 +92,7 @@ export const PriceAlerts: React.FC = () => {
                 onClick={() => handleToggle(alert.id)}
                 className={`w-[50px] h-[30px] rounded-full relative transition-colors duration-300 ${alert.active ? 'bg-teal' : 'bg-slate-200'}`}
               >
-                <div className={`w-[22px] h-[22px] bg-white rounded-full absolute top-[4px] shadow-sm transition-all duration-300 flex items-center justify-center ${alert.active ? 'left-[24px]' : 'left-[4px]'}`}>
+                <div className={`w-[22px] h-[22px] bg-[var(--color-surface)] rounded-full absolute top-[4px] shadow-sm transition-all duration-300 flex items-center justify-center ${alert.active ? 'left-[24px]' : 'left-[4px]'}`}>
                   {alert.active && <Check size={12} className="text-teal" />}
                 </div>
               </button>

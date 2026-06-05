@@ -142,17 +142,17 @@ export function AuthForm({ type }: AuthFormProps) {
 
   const InputField = ({ label, icon: Icon, id, type: inputType, placeholder, error }: any) => (
     <div className="flex flex-col gap-1.5 w-full">
-      <label htmlFor={id} className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">
+      <label htmlFor={id} className="text-[0.7rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider ml-1">
         {label}
       </label>
       <div className="relative flex items-center">
-        <Icon className="absolute left-3.5 text-gray-400" size={16} />
+        <Icon className="absolute left-3.5 text-[var(--color-text-disabled)]" size={16} />
         <input
           {...register(id)}
           type={inputType}
           id={id}
           placeholder={placeholder}
-          className={`w-full bg-white border ${error ? 'border-red-500' : 'border-gray-200'} rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-indigo-500 focus:ring-[3px] focus:ring-indigo-500/10 text-[0.9rem] transition-all shadow-sm font-medium`}
+          className={`w-full bg-[var(--color-surface)] border ${error ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-[14px] py-3.5 pl-10 pr-4 outline-none focus:border-[var(--color-accent)]-500 focus:ring-[3px] focus:ring-[var(--color-accent)]/10 text-[0.9rem] transition-all shadow-sm font-medium`}
         />
       </div>
       {error && <p className="text-red-500 text-xs mt-1 ml-1 font-medium">{error.message}</p>}
@@ -162,10 +162,10 @@ export function AuthForm({ type }: AuthFormProps) {
   return (
     <div className="w-full flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-right-4 duration-300">
       <div className="mb-6">
-        <h2 className="font-montserrat text-2xl font-bold text-gray-900">
+        <h2 className="font-montserrat text-2xl font-bold text-[var(--color-text-primary)]">
           {isLogin ? 'Welcome Back' : 'Create Account'}
         </h2>
-        <p className="text-gray-500 text-[0.85rem] mt-1">
+        <p className="text-[var(--color-text-secondary)] text-[0.85rem] mt-1">
           {isLogin 
             ? 'Sign in to continue to SkyCobe.' 
             : `Signing up as a ${role === 'manager' ? 'Manager' : 'Student'}.`}
@@ -175,18 +175,18 @@ export function AuthForm({ type }: AuthFormProps) {
       <button
         onClick={handleGoogleAuth}
         type="button"
-        className="w-full bg-white border border-gray-300 text-gray-700 font-bold text-[0.95rem] py-3.5 rounded-[14px] shadow-sm mb-6 flex items-center justify-center gap-3 transition-colors hover:bg-gray-50 active:scale-[0.98]"
+        className="w-full bg-[var(--color-surface)] border border-gray-300 text-gray-700 font-bold text-[0.95rem] py-3.5 rounded-[14px] shadow-sm mb-6 flex items-center justify-center gap-3 transition-colors hover:bg-[var(--color-input-bg)] active:scale-[0.98]"
       >
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
         {isLogin ? 'Sign in with Google' : 'Sign up with Google'}
       </button>
 
       <div className="relative flex items-center py-2 mb-6">
-        <div className="flex-grow border-t border-gray-200"></div>
-        <span className="flex-shrink-0 mx-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+        <div className="flex-grow border-t border-[var(--color-border)]"></div>
+        <span className="flex-shrink-0 mx-4 text-[var(--color-text-disabled)] text-xs font-semibold uppercase tracking-wider">
           Or continue with email
         </span>
-        <div className="flex-grow border-t border-gray-200"></div>
+        <div className="flex-grow border-t border-[var(--color-border)]"></div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -211,19 +211,19 @@ export function AuthForm({ type }: AuthFormProps) {
         )}
 
         <div className="flex flex-col gap-1.5 w-full">
-          <label className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">Password</label>
+          <label className="text-[0.7rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider ml-1">Password</label>
           <div className="relative flex items-center">
-            <Lock className="absolute left-3.5 text-gray-400" size={16} />
+            <Lock className="absolute left-3.5 text-[var(--color-text-disabled)]" size={16} />
             <input
               {...register('password')}
               type={showPassword ? 'text' : 'password'}
               placeholder="Your password"
-              className={`w-full bg-white border ${errors.password ? 'border-red-500' : 'border-gray-200'} rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-indigo-500 focus:ring-[3px] focus:ring-indigo-500/10 text-[0.9rem] transition-all shadow-sm font-medium`}
+              className={`w-full bg-[var(--color-surface)] border ${errors.password ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-[var(--color-accent)]-500 focus:ring-[3px] focus:ring-[var(--color-accent)]/10 text-[0.9rem] transition-all shadow-sm font-medium`}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 text-gray-400 hover:text-gray-700"
+              className="absolute right-4 text-[var(--color-text-disabled)] hover:text-gray-700"
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
@@ -233,19 +233,19 @@ export function AuthForm({ type }: AuthFormProps) {
 
         {!isLogin && (
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-[0.7rem] font-bold text-gray-500 uppercase tracking-wider ml-1">Confirm Password</label>
+            <label className="text-[0.7rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider ml-1">Confirm Password</label>
             <div className="relative flex items-center">
-              <Lock className="absolute left-3.5 text-gray-400" size={16} />
+              <Lock className="absolute left-3.5 text-[var(--color-text-disabled)]" size={16} />
               <input
                 {...register('confirmPassword')}
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="Confirm password"
-                className={`w-full bg-white border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-indigo-500 focus:ring-[3px] focus:ring-indigo-500/10 text-[0.9rem] transition-all shadow-sm font-medium`}
+                className={`w-full bg-[var(--color-surface)] border ${errors.confirmPassword ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-[14px] py-3.5 pl-10 pr-12 outline-none focus:border-[var(--color-accent)]-500 focus:ring-[3px] focus:ring-[var(--color-accent)]/10 text-[0.9rem] transition-all shadow-sm font-medium`}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-4 text-gray-400 hover:text-gray-700"
+                className="absolute right-4 text-[var(--color-text-disabled)] hover:text-gray-700"
               >
                 {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -271,14 +271,14 @@ export function AuthForm({ type }: AuthFormProps) {
 
       <div className="mt-8 text-center">
         {isLogin ? (
-          <p className="text-gray-500 text-sm font-medium">
+          <p className="text-[var(--color-text-secondary)] text-sm font-medium">
             Don't have an account?{' '}
             <button onClick={() => navigate(`/signup?role=${role}`)} className="text-[#6366f1] font-bold hover:underline">
               Sign up
             </button>
           </p>
         ) : (
-          <p className="text-gray-500 text-sm font-medium">
+          <p className="text-[var(--color-text-secondary)] text-sm font-medium">
             Already have an account?{' '}
             <button onClick={() => navigate(`/login?role=${role}`)} className="text-[#6366f1] font-bold hover:underline">
               Sign in

@@ -4,8 +4,6 @@ import { AppState, ViewState, Property } from '../types';
 import { PROPERTIES as INITIAL_PROPERTIES } from '../data';
 
 interface AppContextType extends AppState, ViewState {
-  theme: 'light' | 'dark';
-  toggleTheme: () => void;
   properties: Property[];
   addCustomProperty: (property: Property) => void;
   updateCustomProperty: (id: number | string, updates: Partial<Property>) => void;
@@ -35,7 +33,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard'>('home');
   const [selectedPropertyId, setSelectedPropertyId] = useState<number | string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [user, setUser] = useState<any | null | undefined>(undefined);
 
@@ -144,8 +141,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const removeCustomProperty = (id: number | string) => {
     setProperties(prev => prev.filter(h => h.id !== id && h.dbId !== id));
   };
-  
-  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   const toggleSave = (id: number | string) => {
     setSavedProperties((prev) =>
@@ -176,8 +171,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         toastMessage,
         clearToast,
         showToast,
-        theme,
-        toggleTheme,
         isFullscreen,
         toggleFullscreen,
         user,

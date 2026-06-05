@@ -1,15 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import "./styles/tokens.css";
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   
-  --color-customDark: #121212;
-  
-  --color-indigo: #412d6e;
+  /* Map tokens to Tailwind colour names */
+  --color-bg:             var(--color-bg);
+  --color-surface:        var(--color-surface);
+  --color-surface-2:      var(--color-surface-2);
+  --color-elevated:       var(--color-elevated);
+  --color-border:         var(--color-border);
+  --color-border-strong:  var(--color-border-strong);
+  --color-primary:        var(--color-text-primary);
+  --color-secondary:      var(--color-text-secondary);
+  --color-disabled:       var(--color-text-disabled);
+  --color-inverse:        var(--color-text-inverse);
+  --color-accent:         var(--color-accent);
+  --color-accent-muted:   var(--color-accent-muted);
+  --color-highlight:      var(--color-highlight);
+  --color-highlight-muted: var(--color-highlight-muted);
+  --color-on-highlight:   var(--color-on-highlight);
+  --color-success:        var(--color-success);
+  --color-warning:        var(--color-warning);
+  --color-error:          var(--color-error);
+  --color-nav-bg:         var(--color-nav-bg);
+  --color-card-bg:        var(--color-card-bg);
+  --color-input-bg:       var(--color-input-bg);
+  --color-header-bg:      var(--color-header-bg);
+
+  /* Preserving specific color aliases in case they are used as bg-indigo etc. */
+  --color-indigo: var(--color-accent);
   --color-indigo-dark: #1c2042;
-  --color-indigo-light: var(--indigo-light, #e0e7ff);
+  --color-indigo-light: var(--color-accent-muted);
   --color-indigo-mid: #28376e;
   --color-amber: #d97706;
   --color-amber-light: var(--amber-light, #fef3c7);
@@ -18,56 +42,37 @@
   --color-coral-light: var(--coral-light, #ffe4e6);
   --color-teal: #0d9488;
   --color-teal-light: var(--teal-light, #ccfbf1);
-  --color-green: #16a34a;
+  --color-green: var(--color-success);
   --color-green-light: var(--green-light, #dcfce7);
-  --color-app-bg: var(--app-bg, #ffffff);
-  --color-card-bg: var(--card-bg, #fafafa);
+  --color-app-bg: var(--color-bg);
+  --color-card-bg: var(--color-card-bg);
   
-  --color-text-primary: var(--text-primary, #111827);
-  --color-text-muted: var(--text-muted, #6b7280);
-  --color-text-white: var(--text-white, #ffffff);
-  --color-border-subtle: var(--border-subtle, rgba(0,0,0,0.06));
+  --color-text-primary: var(--color-text-primary);
+  --color-text-muted: var(--color-text-secondary);
+  --color-text-white: var(--color-text-inverse);
+  --color-border-subtle: var(--color-border);
   
   --shadow-card: var(--shadow-card-val, 0 2px 14px rgba(0,0,0,0.04));
   --shadow-float: var(--shadow-float-val, 0 8px 30px rgba(0,0,0,0.08));
 }
 
-:root {
-  --app-bg: #ffffff;
-  --card-bg: #f3f3f3;
-  --text-primary: #111827;
-  --text-muted: #6b7280;
-  --text-white: #ffffff;
-  --border-subtle: #f3f4f6; /* Set to gray-100 */
-  --indigo-light: #e0e7ff;
-  --amber-light: #fef3c7;
-  --coral-light: #ffe4e6;
-  --teal-light: #ccfbf1;
-  --green-light: #dcfce7;
-  --shadow-card-val: 0 2px 14px rgba(0,0,0,0.04);
-  --shadow-float-val: 0 8px 30px rgba(0,0,0,0.08);
-}
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
 
-.dark {
-  --app-bg: #121212;       /* user requested #121212 */
-  --card-bg: #121212;
-  --text-primary: #f3f4f6; /* gray-100 */
-  --text-muted: #9ca3af;   /* gray-400 */
-  --text-white: #ffffff;
-  --border-subtle: #1f2937; /* gray-800 */
-  --indigo-light: rgba(55, 48, 163, 0.4);
-  --amber-light: rgba(217, 119, 6, 0.15);
-  --coral-light: rgba(225, 29, 72, 0.15);
-  --teal-light: rgba(13, 148, 136, 0.15);
-  --green-light: rgba(22, 163, 74, 0.15);
-  --shadow-card-val: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-float-val: 0 10px 40px rgba(0, 0, 0, 0.6);
+  /* Smooth theme transition on all elements */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-app-bg);
-  color: var(--color-text-primary);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

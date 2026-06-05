@@ -55,7 +55,7 @@ export const Saved: React.FC = () => {
               key={filterItem}
               onClick={() => setActiveSavedFilter(filterKey)}
               className={`px-4 py-2 rounded-full border-[1.5px] text-xs font-semibold whitespace-nowrap cursor-pointer transition-all shadow-[0_2px_6px_rgba(0,0,0,0.03)]
-                ${isActive ? 'bg-indigo text-white border-indigo shadow-float' : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'}`}
+                ${isActive ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-float' : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'}`}
             >
               {filterItem}
             </button>
@@ -67,14 +67,14 @@ export const Saved: React.FC = () => {
       <div className="w-full mt-2 pb-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredItems.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="w-20 h-20 rounded-full bg-indigo-light text-indigo flex items-center justify-center mb-5">
+            <div className="w-20 h-20 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
             <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved properties yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => navigate("/explore")}
-              className="bg-indigo text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-indigo-dark"
+              className="bg-[var(--color-accent)] text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-[var(--color-accent)]-dark"
             >
               Start Exploring
             </button>
@@ -96,7 +96,7 @@ export const Saved: React.FC = () => {
                     toggleSave(h.id);
                     showToast('Bookmark removed');
                   }}
-                  className="absolute top-3.5 right-3.5 bg-card-bg/85 backdrop-blur-md text-indigo w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-indigo hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
+                  className="absolute top-3.5 right-3.5 bg-card-bg/85 backdrop-blur-md text-[var(--color-accent)] w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-[var(--color-accent)] hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
                 >
                   <Bookmark size={18} fill="currentColor" />
                 </button>

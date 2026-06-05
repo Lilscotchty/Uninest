@@ -143,12 +143,12 @@ export const Explore: React.FC = () => {
           </button>
           
           <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
-            <div className="bg-white/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
-              <Search size={18} className="text-gray-500 shrink-0" />
+            <div className="bg-[var(--color-surface)]/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center gap-2 border border-black/5 h-full">
+              <Search size={18} className="text-[var(--color-text-secondary)] shrink-0" />
               <input 
                 type="text" 
                 placeholder="Search properties, areas..." 
-                className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-gray-800 placeholder:text-gray-400"
+                className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-[var(--color-text-primary)] placeholder:text-[var(--color-text-disabled)]"
                 value={localSearch}
                 onChange={(e) => {
                   setLocalSearch(e.target.value);
@@ -166,7 +166,7 @@ export const Explore: React.FC = () => {
               key={filter}
               className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
-                  ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                  ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
                   : 'bg-card-bg/90 backdrop-blur text-text-muted border-transparent hover:bg-card-bg'}`}
             >
               {filter}
@@ -177,7 +177,7 @@ export const Explore: React.FC = () => {
         {/* Result Badge */}
         <div className="inline-flex items-center gap-1.5 bg-card-bg rounded-full px-3 py-1.5 mt-2 self-start shadow-[0_2px_10px_rgba(55,48,163,0.12)] pointer-events-none transition-all">
           <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
-          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-indigo">{filteredProperties.length} properties nearby</span>
+          <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-[var(--color-accent)]">{filteredProperties.length} properties nearby</span>
         </div>
       </div>
 
@@ -193,7 +193,7 @@ export const Explore: React.FC = () => {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </button>
               <div className="bg-app-bg rounded-xl px-4 flex items-center gap-2 border border-border-subtle h-11 flex-1">
-                <Search size={18} className="text-gray-500 shrink-0" />
+                <Search size={18} className="text-[var(--color-text-secondary)] shrink-0" />
                 <input 
                   type="text" 
                   placeholder="Search properties, areas..." 
@@ -213,7 +213,7 @@ export const Explore: React.FC = () => {
                  key={filter}
                  className={`shrink-0 px-4 py-1.5 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                    ${i === 0 
-                     ? 'bg-indigo text-white border-indigo shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                     ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
                      : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
                >
                  {filter}
@@ -281,7 +281,7 @@ export const Explore: React.FC = () => {
       <div className="absolute right-4 z-[2000] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
         <button 
           onClick={() => setMapMode(prev => prev === 'standard' ? 'satellite' : 'standard')}
-          className="w-12 h-12 rounded-full bg-white text-gray-800 shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-auto active:scale-95 border border-black/5 transition-transform cursor-pointer"
+          className="w-12 h-12 rounded-full bg-[var(--color-surface)] text-[var(--color-text-primary)] shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-auto active:scale-95 border border-black/5 transition-transform cursor-pointer"
           aria-label="Toggle map mode"
         >
           <Layers size={22} strokeWidth={1.8} />
@@ -296,7 +296,7 @@ export const Explore: React.FC = () => {
         {peekProperty && (
           <div className="relative w-full max-w-[400px]">
             <button 
-              className="absolute top-2 right-2 text-slate-400 hover:text-slate-700 bg-white/80 backdrop-blur-sm rounded-full p-1 z-30 shadow-sm"
+              className="absolute top-2 right-2 text-slate-400 hover:text-slate-700 bg-[var(--color-surface)]/80 backdrop-blur-sm rounded-full p-1 z-30 shadow-sm"
               onClick={(e) => { e.stopPropagation(); setPeekPropertyId(null); }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -323,7 +323,7 @@ export const Explore: React.FC = () => {
       >
         {/* Drawer Handle */}
         <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0">
-          <div className="w-12 h-1.5 bg-indigo-light rounded-full"></div>
+          <div className="w-12 h-1.5 bg-[var(--color-accent-muted)] rounded-full"></div>
         </div>
         
         {/* Scrollable Content inside Drawer */}
@@ -338,7 +338,7 @@ export const Explore: React.FC = () => {
         >
           <div className="flex justify-between items-center px-1 mb-4">
             <h2 className="font-montserrat text-[1.4rem] font-bold text-text-primary">Nearby Properties</h2>
-            <button className="flex items-center gap-1.5 bg-indigo-light text-indigo px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-indigo-light/80">
+            <button className="flex items-center gap-1.5 bg-[var(--color-accent-muted)] text-[var(--color-accent)] px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-[var(--color-accent-muted)]/80">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
             </button>

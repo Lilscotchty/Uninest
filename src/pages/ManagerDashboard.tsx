@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
-import { uploadPropertyMedia } from "../lib/storage";
+import { uploadHostelMedia } from "../lib/storage";
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { PageHeader } from '../components/layout/PageHeader';
@@ -249,13 +249,13 @@ export const ManagerDashboard: React.FC = () => {
 
               let compoundUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
               if (data.compoundImageFile) {
-                const result = await uploadPropertyMedia(managerId, propertyIdToUse, data.compoundImageFile);
+                const result = await uploadHostelMedia(managerId, propertyIdToUse, data.compoundImageFile);
                 compoundUrl = result.publicUrl;
               }
 
               let image360Url = "";
               if (data.image360File) {
-                const result = await uploadPropertyMedia(managerId, propertyIdToUse, data.image360File);
+                const result = await uploadHostelMedia(managerId, propertyIdToUse, data.image360File);
                 image360Url = result.publicUrl;
               }
 
@@ -307,7 +307,7 @@ export const ManagerDashboard: React.FC = () => {
               for (const r of data.roomTypes) {
                 let roomImgUrl = "https://loremflickr.com/600/400/bedroom?lock=305";
                 if (r.imageFile) {
-                  const result = await uploadPropertyMedia(managerId, propertyIdToUse, r.imageFile);
+                  const result = await uploadHostelMedia(managerId, propertyIdToUse, r.imageFile);
                   roomImgUrl = result.publicUrl;
                 }
                 roomImages.push(roomImgUrl);
@@ -388,11 +388,11 @@ export const ManagerDashboard: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white dark:bg-customDark flex font-sans relative overflow-hidden">
+    <div className="w-full h-full bg-[var(--color-surface)] flex font-sans relative overflow-hidden">
       {/* Sidebar */}
-      <div className={`fixed md:relative z-50 h-full bg-white dark:bg-customDark border-r border-gray-100 dark:border-gray-800 w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
-        <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 h-[60px]">
-          <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Property Portal</span>
+      <div className={`fixed md:relative z-50 h-full bg-[var(--color-surface)] border-r border-[var(--color-border)] w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)] h-[60px]">
+          <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">Property Portal</span>
           <button className="text-text-muted md:hidden" onClick={() => setSidebarOpen(false)}><X size={24} /></button>
         </div>
         <div className="flex flex-col p-4 gap-2">
@@ -420,14 +420,14 @@ export const ManagerDashboard: React.FC = () => {
           activeTab="active"
           onTabChange={() => {}}
         />
-        <main className="flex-1 overflow-y-auto bg-white dark:bg-customDark hide-scrollbar">{renderContent()}</main>
+        <main className="flex-1 overflow-y-auto bg-[var(--color-surface)] hide-scrollbar">{renderContent()}</main>
       </div>
     </div>
   );
 };
 
 const NavItem = ({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) => (
-  <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-semibold text-[0.9rem] ${active ? "bg-indigo text-white shadow-sm" : "text-text-muted hover:bg-indigo-light/50 hover:text-text-primary"}`}>
+  <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-semibold text-[0.9rem] ${active ? "bg-[var(--color-accent)] text-white shadow-sm" : "text-text-muted hover:bg-[var(--color-accent-muted)]/50 hover:text-text-primary"}`}>
     {icon} {label}
   </button>
 );
@@ -440,10 +440,10 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
   <div className="p-6 flex flex-col gap-6 w-full max-w-5xl mx-auto">
     <div className="flex flex-col gap-3">
       <div>
-        <h1 className=" text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Overview</h1>
-        <p className="text-sm font-normal text-gray-500 dark:text-gray-400 mt-1">Manage your properties and track performance.</p>
+        <h1 className=" text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">Overview</h1>
+        <p className="text-sm font-normal text-[var(--color-text-secondary)] mt-1">Manage your properties and track performance.</p>
       </div>
-      <button onClick={onAddNew} className="bg-indigo text-white font-bold px-5 py-2.5 rounded-xl shadow-sm hover:bg-indigo/90 active:scale-95 transition-all flex items-center gap-2 justify-center w-full">
+      <button onClick={onAddNew} className="bg-[var(--color-accent)] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm hover:bg-[var(--color-accent)]/90 active:scale-95 transition-all flex items-center gap-2 justify-center w-full">
         <Plus size={18} /> New Listing
       </button>
     </div>
@@ -453,12 +453,12 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
       <StatCard title="Total Views" value={totalViews.toString()} trend="Profile views" />
       <StatCard title="Performance" value="Good" trend="Above average" />
     </div>
-    <div className="bg-white dark:bg-customDark rounded-2xl shadow-sm border-transparent border p-5">
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Active Listings</h2>
+    <div className="bg-[var(--color-surface)] rounded-2xl shadow-sm border-transparent border p-5">
+      <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-4">Active Listings</h2>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[500px]">
           <thead>
-            <tr className="border-b border-gray-100 dark:border-gray-800 text-xs uppercase text-text-muted">
+            <tr className="border-b border-[var(--color-border)] text-xs uppercase text-text-muted">
               <th className="pb-3 font-semibold">Property</th>
               <th className="pb-3 font-semibold">Location</th>
               <th className="pb-3 font-semibold">Status</th>
@@ -467,12 +467,12 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
           </thead>
           <tbody>
             {properties.map((h) => (
-              <tr key={h.id} className="border-b border-gray-100 dark:border-gray-800 last:border-0">
-                <td className="py-4 text-base font-medium text-gray-900 dark:text-gray-200">{h.name}</td>
-                <td className="py-4 text-sm font-normal text-gray-500 dark:text-gray-400">{h.loc}</td>
+              <tr key={h.id} className="border-b border-[var(--color-border)] last:border-0">
+                <td className="py-4 text-base font-medium text-[var(--color-text-primary)]">{h.name}</td>
+                <td className="py-4 text-sm font-normal text-[var(--color-text-secondary)]">{h.loc}</td>
                 <td className="py-4"><span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">published</span></td>
                 <td className="py-4 flex items-center justify-end gap-2">
-                  <button onClick={() => onEdit(h.id)} className="w-8 h-8 rounded-lg bg-indigo-light/30 text-indigo flex items-center justify-center hover:bg-indigo hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
+                  <button onClick={() => onEdit(h.id)} className="w-8 h-8 rounded-lg bg-[var(--color-accent-muted)]/30 text-[var(--color-accent)] flex items-center justify-center hover:bg-[var(--color-accent)] hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
                   <button onClick={() => onDelete(h.id)} className="w-8 h-8 rounded-lg bg-coral/10 text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-colors" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg></button>
                 </td>
               </tr>
@@ -488,8 +488,8 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
 )};
 
 const StatCard = ({ title, value, trend, alert }: { title: string; value: string; trend: string; alert?: boolean }) => (
-  <div className="bg-white dark:bg-customDark p-6 rounded-2xl border-transparent border shadow-sm flex flex-col gap-1">
-    <span className="text-xs font-normal text-gray-400 dark:text-gray-500 uppercase tracking-wide">{title}</span>
+  <div className="bg-[var(--color-surface)] p-6 rounded-2xl border-transparent border shadow-sm flex flex-col gap-1">
+    <span className="text-xs font-normal text-[var(--color-text-disabled)] uppercase tracking-wide">{title}</span>
     <strong className="text-2xl font-black text-text-primary mt-1">{value}</strong>
     <span className={`text-xs font-medium ${alert ? "text-coral" : "text-emerald-600"}`}>{trend}</span>
   </div>
@@ -663,13 +663,13 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
   return (
     <div className="p-6 flex flex-col gap-6 w-full mx-auto pb-20">
       <div className="flex items-center gap-3 mb-2">
-        <button onClick={onBack} className="text-text-muted hover:text-indigo"><ChevronLeft size={20} /></button>
-        <h1 className=" text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Add New Listing</h1>
+        <button onClick={onBack} className="text-text-muted hover:text-[var(--color-accent)]"><ChevronLeft size={20} /></button>
+        <h1 className=" text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">Add New Listing</h1>
       </div>
 
       <div className="flex gap-2 mb-2">
         {[1, 2, 3, 4].map((s) => (
-          <div key={s} className={`h-2 flex-1 rounded-full ${s <= step ? "bg-indigo" : "bg-gray-200 dark:bg-gray-700"}`} />
+          <div key={s} className={`h-2 flex-1 rounded-full ${s <= step ? "bg-[var(--color-accent)]" : "bg-[var(--color-border)]"}`} />
         ))}
       </div>
 
@@ -677,31 +677,31 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
         {/* ── Step 1: Basic Information ─────────────────────────────────── */}
         {step === 1 && (
-          <div className="bg-white dark:bg-customDark p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Basic Information</h2>
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">Basic Information</h2>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Property Title *</label>
-              <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none" placeholder="e.g. Pentagon Property" required />
+              <label className="text-base font-medium text-[var(--color-text-primary)]">Property Title *</label>
+              <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none" placeholder="e.g. Pentagon Property" required />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Description</label>
-              <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none h-24 resize-none" placeholder="Describe the atmosphere, community..." />
+              <label className="text-base font-medium text-[var(--color-text-primary)]">Description</label>
+              <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none h-24 resize-none" placeholder="Describe the atmosphere, community..." />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">GhanaPost GPS Address *</label>
+              <label className="text-base font-medium text-[var(--color-text-primary)]">GhanaPost GPS Address *</label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={formData.ghanaPostGPS}
                   onChange={(e) => setFormData({ ...formData, ghanaPostGPS: e.target.value, lat: undefined, lng: undefined, resolvedAddress: "", nearestCampus: undefined })}
-                  className="flex-1 border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none"
+                  className="flex-1 border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none"
                   placeholder="e.g. GM-132-4567"
                   required
                 />
-                <button type="button" onClick={handleVerifyGPS} disabled={isVerifying || !formData.ghanaPostGPS} className="bg-indigo-light text-indigo font-bold px-4 rounded-xl text-sm whitespace-nowrap active:scale-95 disabled:opacity-50">
+                <button type="button" onClick={handleVerifyGPS} disabled={isVerifying || !formData.ghanaPostGPS} className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-bold px-4 rounded-xl text-sm whitespace-nowrap active:scale-95 disabled:opacity-50">
                   {isVerifying ? "Verifying…" : "Verify"}
                 </button>
               </div>
@@ -709,13 +709,13 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
             {/* ── Map preview ─────────────────────────────────────────────── */}
             {formData.lat && formData.lng && (
-              <div className="rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 h-[160px] relative animate-in fade-in">
+              <div className="rounded-xl overflow-hidden border border-[var(--color-border)] h-[160px] relative animate-in fade-in">
                 <iframe
                   src={`https://maps.google.com/maps?q=${formData.lat},${formData.lng}&z=16&output=embed`}
                   width="100%" height="100%" style={{ border: 0 }}
                   allowFullScreen={false} loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 />
-                <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur text-xs px-3 py-2 rounded-lg font-medium text-emerald-700 shadow-sm flex items-center justify-between gap-2">
+                <div className="absolute bottom-2 left-2 right-2 bg-[var(--color-surface)]/90 backdrop-blur text-xs px-3 py-2 rounded-lg font-medium text-emerald-700 shadow-sm flex items-center justify-between gap-2">
                   <span className="truncate flex items-center gap-1">
                     <CheckCircle2 size={12} className="shrink-0" />
                     {formData.resolvedAddress ? formData.resolvedAddress : "Address Verified"}
@@ -726,12 +726,12 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
             {/* ── Nearest campus badge ────────────────────────────────────── */}
             {formData.nearestCampus && (
-              <div className="flex items-start gap-3 bg-indigo/5 border border-indigo/20 rounded-xl px-4 py-3 animate-in fade-in">
-                <Navigation size={16} className="text-indigo shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 bg-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 rounded-xl px-4 py-3 animate-in fade-in">
+                <Navigation size={16} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-0.5 min-w-0">
-                  <span className="text-xs font-bold text-indigo uppercase tracking-wide">Nearest Campus</span>
-                  <span className="text-base font-medium text-gray-900 dark:text-gray-200 truncate">{formData.nearestCampus.name}</span>
-                  <span className="text-xs font-normal text-gray-400 dark:text-gray-500">
+                  <span className="text-xs font-bold text-[var(--color-accent)] uppercase tracking-wide">Nearest Campus</span>
+                  <span className="text-base font-medium text-[var(--color-text-primary)] truncate">{formData.nearestCampus.name}</span>
+                  <span className="text-xs font-normal text-[var(--color-text-disabled)]">
                     {distanceLabel(formData.nearestCampus.distanceM)} away · {formData.nearestCampus.walkLabel}
                   </span>
                 </div>
@@ -741,9 +741,9 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
             {/* ── Location / Proximity (auto-filled, editable) ────────────── */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-base font-medium text-gray-900 dark:text-gray-200">Location / Proximity</label>
+                <label className="text-base font-medium text-[var(--color-text-primary)]">Location / Proximity</label>
                 {formData.nearestCampus && (
-                  <span className="text-xs text-indigo font-medium flex items-center gap-1">
+                  <span className="text-xs text-[var(--color-accent)] font-medium flex items-center gap-1">
                     <MapPin size={10} /> Auto-filled from GPS
                   </span>
                 )}
@@ -752,11 +752,11 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none"
+                className="w-full border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none"
                 placeholder="e.g. 5 mins walk from Main Gate"
               />
               {formData.nearestCampus && (
-                <p className="text-xs font-normal text-gray-400 dark:text-gray-500">
+                <p className="text-xs font-normal text-[var(--color-text-disabled)]">
                   Auto-computed from your verified GPS address. You can edit this freely.
                 </p>
               )}
@@ -766,42 +766,42 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
         {/* ── Step 2: Room & Pricing ──────────────────────────────────────── */}
         {step === 2 && (
-          <div className="bg-white dark:bg-customDark p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Room & Pricing Configuration</h2>
-            <p className="text-xs font-normal text-gray-400 dark:text-gray-500">Add the different types of rooms available.</p>
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">Room & Pricing Configuration</h2>
+            <p className="text-xs font-normal text-[var(--color-text-disabled)]">Add the different types of rooms available.</p>
             {formData.roomTypes?.map((room, index) => (
-              <div key={room.id} className="border border-gray-100 dark:border-gray-800 rounded-xl p-4 bg-white dark:bg-customDark relative">
+              <div key={room.id} className="border border-[var(--color-border)] rounded-xl p-4 bg-[var(--color-surface)] relative">
                 {formData.roomTypes!.length > 1 && (
                   <button type="button" onClick={() => setFormData({ ...formData, roomTypes: formData.roomTypes?.filter((_, i) => i !== index) })} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"><X size={12} /></button>
                 )}
                 <div className="grid grid-cols-1 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-normal text-gray-500 dark:text-gray-400">Room Name</label>
-                    <input type="text" value={room.name} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].name = e.target.value; setFormData({ ...formData, roomTypes: nr }); }} placeholder="e.g. 2 in a room" className="w-full border border-gray-100 dark:border-gray-800 rounded-lg px-3 py-2 text-sm bg-white" />
+                    <label className="text-sm font-normal text-[var(--color-text-secondary)]">Room Name</label>
+                    <input type="text" value={room.name} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].name = e.target.value; setFormData({ ...formData, roomTypes: nr }); }} placeholder="e.g. 2 in a room" className="w-full border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm bg-[var(--color-surface)]" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-normal text-gray-500 dark:text-gray-400">Total Rooms</label>
-                    <input type="number" value={room.totalRooms || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].totalRooms = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="10" className="w-full border border-gray-100 dark:border-gray-800 rounded-lg px-3 py-2 text-sm bg-white" />
+                    <label className="text-sm font-normal text-[var(--color-text-secondary)]">Total Rooms</label>
+                    <input type="number" value={room.totalRooms || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].totalRooms = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="10" className="w-full border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm bg-[var(--color-surface)]" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-normal text-gray-500 dark:text-gray-400">Occupants per rm.</label>
-                    <input type="number" value={room.occupantsPerRoom || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].occupantsPerRoom = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="2" className="w-full border border-gray-100 dark:border-gray-800 rounded-lg px-3 py-2 text-sm bg-white" />
+                    <label className="text-sm font-normal text-[var(--color-text-secondary)]">Occupants per rm.</label>
+                    <input type="number" value={room.occupantsPerRoom || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].occupantsPerRoom = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="2" className="w-full border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm bg-[var(--color-surface)]" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-normal text-gray-500 dark:text-gray-400">Price (per Sem)</label>
-                    <input type="number" value={room.pricePerYear || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].pricePerYear = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="4500" className="w-full border border-gray-100 dark:border-gray-800 rounded-lg px-3 py-2 text-sm bg-white" />
+                    <label className="text-sm font-normal text-[var(--color-text-secondary)]">Price (per Sem)</label>
+                    <input type="number" value={room.pricePerYear || ""} onChange={(e) => { const nr = [...formData.roomTypes!]; nr[index].pricePerYear = Number(e.target.value); setFormData({ ...formData, roomTypes: nr }); }} placeholder="4500" className="w-full border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm bg-[var(--color-surface)]" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-normal text-gray-500 dark:text-gray-400">Room Image *</label>
-                    <div className="relative border-2 border-dashed border-indigo-light bg-white dark:bg-customDark rounded-xl h-24 flex flex-col items-center justify-center text-text-muted gap-1 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
-                      {room.imageUrlPreview ? <img src={room.imageUrlPreview} alt="Room" className="w-full h-full object-cover" /> : <><UploadCloud size={18} className="text-indigo" /><span className="text-xs">Upload Room Image</span></>}
+                    <label className="text-sm font-normal text-[var(--color-text-secondary)]">Room Image *</label>
+                    <div className="relative border-2 border-dashed border-[var(--color-accent)]-light bg-[var(--color-surface)] rounded-xl h-24 flex flex-col items-center justify-center text-text-muted gap-1 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                      {room.imageUrlPreview ? <img src={room.imageUrlPreview} alt="Room" className="w-full h-full object-cover" /> : <><UploadCloud size={18} className="text-[var(--color-accent)]" /><span className="text-xs">Upload Room Image</span></>}
                       <input type="file" accept="image/*" title="Room Image" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => { if (e.target.files?.[0]) { const f = e.target.files[0]; const nr = [...formData.roomTypes!]; nr[index].imageFile = f; nr[index].imageUrlPreview = URL.createObjectURL(f); setFormData({ ...formData, roomTypes: nr }); } }} />
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-            <button type="button" onClick={() => setFormData({ ...formData, roomTypes: [...formData.roomTypes!, { id: Math.random().toString(), name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }] })} className="text-sm font-bold text-indigo flex items-center gap-1 active:scale-95 self-start">
+            <button type="button" onClick={() => setFormData({ ...formData, roomTypes: [...formData.roomTypes!, { id: Math.random().toString(), name: "", totalRooms: 0, occupantsPerRoom: 0, pricePerYear: 0 }] })} className="text-sm font-bold text-[var(--color-accent)] flex items-center gap-1 active:scale-95 self-start">
               <Plus size={16} /> Add Room Type
             </button>
           </div>
@@ -809,47 +809,47 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
         {/* ── Step 3: Media ───────────────────────────────────────────────── */}
         {step === 3 && (
-          <div className="bg-white dark:bg-customDark p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Media Uploads</h2>
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">Media Uploads</h2>
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Compound Image *</label>
-              <div className="relative border-2 border-dashed border-indigo-light bg-white dark:bg-customDark rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
-                {formData.compoundImagePreview ? <img src={formData.compoundImagePreview} alt="Compound" className="w-full h-full object-cover" /> : <><UploadCloud size={24} className="text-indigo" /><span className="text-sm">Upload Compound Image</span></>}
+              <label className="text-base font-medium text-[var(--color-text-primary)]">Compound Image *</label>
+              <div className="relative border-2 border-dashed border-[var(--color-accent)]-light bg-[var(--color-surface)] rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                {formData.compoundImagePreview ? <img src={formData.compoundImagePreview} alt="Compound" className="w-full h-full object-cover" /> : <><UploadCloud size={24} className="text-[var(--color-accent)]" /><span className="text-sm">Upload Compound Image</span></>}
                 <input type="file" accept="image/*" title="Compound Image" required className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => { if (e.target.files?.[0]) { const f = e.target.files[0]; setFormData({ ...formData, compoundImageFile: f, compoundImagePreview: URL.createObjectURL(f) }); } }} />
               </div>
             </div>
             <div className="flex flex-col gap-1.5 mt-2">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">360 Virtual Tour Image (Optional)</label>
-              <div className="relative border-2 border-dashed border-indigo-light bg-white dark:bg-customDark rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
-                {formData.image360Preview ? <img src={formData.image360Preview} alt="360 Tour" className="w-full h-full object-cover" /> : <><UploadCloud size={24} className="text-indigo" /><span className="text-sm">Upload 360 Panorama</span></>}
+              <label className="text-base font-medium text-[var(--color-text-primary)]">360 Virtual Tour Image (Optional)</label>
+              <div className="relative border-2 border-dashed border-[var(--color-accent)]-light bg-[var(--color-surface)] rounded-xl h-32 flex flex-col items-center justify-center text-text-muted gap-2 cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden">
+                {formData.image360Preview ? <img src={formData.image360Preview} alt="360 Tour" className="w-full h-full object-cover" /> : <><UploadCloud size={24} className="text-[var(--color-accent)]" /><span className="text-sm">Upload 360 Panorama</span></>}
                 <input type="file" accept="image/*" title="360 Image" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => { if (e.target.files?.[0]) { const f = e.target.files[0]; setFormData({ ...formData, image360File: f, image360Preview: URL.createObjectURL(f) }); } }} />
               </div>
             </div>
             <div className="flex flex-col gap-1.5 mt-2">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Video Tour (YouTube/Vimeo URL) (Optional)</label>
-              <input type="url" value={formData.videoTour || ""} onChange={(e) => setFormData({ ...formData, videoTour: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none" placeholder="https://..." />
+              <label className="text-base font-medium text-[var(--color-text-primary)]">Video Tour (YouTube/Vimeo URL) (Optional)</label>
+              <input type="url" value={formData.videoTour || ""} onChange={(e) => setFormData({ ...formData, videoTour: e.target.value })} className="w-full border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none" placeholder="https://..." />
             </div>
           </div>
         )}
 
         {/* ── Step 4: Amenities & Policies ───────────────────────────────── */}
         {step === 4 && (
-          <div className="bg-white dark:bg-customDark p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Amenities & Policies</h2>
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl shadow-sm border-transparent border flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">Amenities & Policies</h2>
             <div className="flex flex-col gap-2 mb-4">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200 mb-1">Select Available Facilities</label>
+              <label className="text-base font-medium text-[var(--color-text-primary)] mb-1">Select Available Facilities</label>
               <div className="grid grid-cols-2 gap-3">
                 {["wifi", "generator", "water", "ac", "kitchen", "studyRoom", "security"].map((item) => (
-                  <label key={item} className="flex items-center gap-2 text-sm cursor-pointer border border-gray-100 dark:border-gray-800 rounded-lg p-3 hover:bg-white dark:bg-customDark transition-colors">
-                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as keyof ManagerPropertyForm["amenities"])} className="w-4 h-4 rounded text-indigo focus:ring-indigo" />
+                  <label key={item} className="flex items-center gap-2 text-sm cursor-pointer border border-[var(--color-border)] rounded-lg p-3 hover:bg-[var(--color-surface)] transition-colors">
+                    <input type="checkbox" checked={(formData.amenities as any)[item]} onChange={() => handleAmenitiesChange(item as keyof ManagerPropertyForm["amenities"])} className="w-4 h-4 rounded text-[var(--color-accent)] focus:ring-indigo" />
                     <span className="capitalize text-text-primary">{item.replace(/([A-Z])/g, " $1").trim()}</span>
                   </label>
                 ))}
               </div>
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-base font-medium text-gray-900 dark:text-gray-200">Policies & Rules</label>
-              <textarea value={formData.policies} onChange={(e) => setFormData({ ...formData, policies: e.target.value })} className="w-full border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2.5 text-sm bg-white dark:bg-customDark focus:border-indigo outline-none h-24 resize-none" placeholder="Guest policies, curfew timings..." />
+              <label className="text-base font-medium text-[var(--color-text-primary)]">Policies & Rules</label>
+              <textarea value={formData.policies} onChange={(e) => setFormData({ ...formData, policies: e.target.value })} className="w-full border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm bg-[var(--color-surface)] focus:border-[var(--color-accent)] outline-none h-24 resize-none" placeholder="Guest policies, curfew timings..." />
             </div>
           </div>
         )}
@@ -860,7 +860,7 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
             {step === 1 ? "Cancel" : "Back"}
           </button>
           {step < 4 ? (
-            <button type="button" onClick={handleNext} className="bg-indigo text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-indigo/90 active:scale-95 transition-all">Next</button>
+            <button type="button" onClick={handleNext} className="bg-[var(--color-accent)] text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-[var(--color-accent)]/90 active:scale-95 transition-all">Next</button>
           ) : (
             <button type="submit" className="bg-emerald-600 text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-emerald-700 active:scale-95 transition-all flex items-center gap-2">
               Publish <CheckCircle2 size={16} />

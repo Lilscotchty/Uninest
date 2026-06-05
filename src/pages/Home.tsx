@@ -91,7 +91,7 @@ export const Home: React.FC = () => {
       <div className="px-4 sm:px-6 lg:px-8 relative z-10 mb-4 mt-6 max-w-4xl mx-auto w-full">
         <button 
           onClick={() => navigate("/explore")}
-          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-gray-200 transition-transform hover:-translate-y-[1px] text-left"
+          className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-[var(--color-border)] transition-transform hover:-translate-y-[1px] text-left"
         >
           <MapPin size={22} className="text-text-primary" />
           <span className="text-base font-semibold text-text-muted flex-1">Where do you want to live?</span>
@@ -106,7 +106,7 @@ export const Home: React.FC = () => {
             onClick={() => setActiveFilter(f.id)}
             className={`flex flex-row items-center gap-1.5 shrink-0 px-4 py-2 rounded-full text-[0.82rem] font-medium transition-all shadow-[0_1px_4px_rgba(55,48,163,0.06)] border ${
               activeFilter === f.id 
-                ? 'bg-indigo text-white border-indigo shadow-[0_4px_12px_rgba(55,48,163,0.25)]' 
+                ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-[0_4px_12px_rgba(55,48,163,0.25)]' 
                 : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'
             }`}
           >
@@ -120,7 +120,7 @@ export const Home: React.FC = () => {
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
           <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Nearby Properties</h2>
-          <span className="text-sm font-semibold text-indigo cursor-pointer tracking-tight hover:underline">See all →</span>
+          <span className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
         <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 items-stretch">
@@ -145,7 +145,7 @@ export const Home: React.FC = () => {
         className="mx-4 sm:mx-5 mb-4 rounded-[18px] p-4 flex items-center justify-between relative overflow-hidden shadow-[0_6px_20px_rgba(55,48,163,0.25)]"
         style={{ background: 'linear-gradient(135deg, var(--color-indigo) 0%, #7c3aed 100%)' }}
       >
-        <div className="absolute -top-[30px] -right-[30px] w-[100px] h-[100px] rounded-full bg-white/10" />
+        <div className="absolute -top-[30px] -right-[30px] w-[100px] h-[100px] rounded-full bg-[var(--color-surface)]/10" />
         <div className="relative z-10">
           <p className="text-white/65 text-[0.55rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 First semester deal</p>
           <h3 className="text-white text-[0.91rem] font-bold leading-tight">15% off your first booking</h3>
@@ -173,7 +173,7 @@ export const Home: React.FC = () => {
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
                 <Video size={18} />
               </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-indigo" />
+              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-[var(--color-accent)]" />
             </div>
             <div>
               <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Virtual Tour</strong>
@@ -187,7 +187,7 @@ export const Home: React.FC = () => {
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
                 <Bell size={18} />
               </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-indigo" />
+              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-[var(--color-accent)]" />
             </div>
             <div>
               <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Price Alerts</strong>
@@ -215,7 +215,7 @@ export const Home: React.FC = () => {
                 <div className="p-[18px]">
                   <span className={`inline-block text-[0.7rem] font-bold px-[8px] py-[3px] rounded-[6px] mb-2 uppercase tracking-[0.4px] ${
                     feat.tagColor === 'amber' ? 'bg-amber-light text-amber-500' :
-                    feat.tagColor === 'indigo' ? 'bg-indigo-light text-indigo' :
+                    feat.tagColor === 'indigo' ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]' :
                     'bg-teal-light text-teal-600'
                   }`}>
                     {feat.tag}
@@ -240,7 +240,7 @@ export const Home: React.FC = () => {
           
           <div className="flex justify-center gap-[6px] mt-[12px] mb-[4px]">
             {featuredProperties.map((_, i) => (
-              <div key={i} className={`h-[7px] rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-[22px] bg-indigo' : 'w-[7px] bg-[#d1d5db]'}`} />
+              <div key={i} className={`h-[7px] rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-[22px] bg-[var(--color-accent)]' : 'w-[7px] bg-[#d1d5db]'}`} />
             ))}
           </div>
         </div>
@@ -253,7 +253,7 @@ export const Home: React.FC = () => {
         </div>
         <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border-transparent border shadow-card group">
           <div className="flex items-center gap-[12px] mb-[12px]">
-            <div className="w-[40px] h-[40px] rounded-full bg-indigo-light flex items-center justify-center font-bold text-[0.85rem] text-indigo shrink-0">
+            <div className="w-[40px] h-[40px] rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center font-bold text-[0.85rem] text-[var(--color-accent)] shrink-0">
               {testimonials[tIdx].init}
             </div>
             <div>
@@ -267,7 +267,7 @@ export const Home: React.FC = () => {
           <p className="text-[0.85rem] text-text-muted leading-[1.65] italic transition-all duration-300 min-h-[60px]">
             {testimonials[tIdx].body}
           </p>
-          <span className="inline-block mt-[10px] bg-indigo-light text-indigo text-[0.7rem] font-bold px-[9px] py-[3px] rounded-[6px]">
+          <span className="inline-block mt-[10px] bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.7rem] font-bold px-[9px] py-[3px] rounded-[6px]">
             Verified Tenant
           </span>
         </div>

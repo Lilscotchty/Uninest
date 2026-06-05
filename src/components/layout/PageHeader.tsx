@@ -66,13 +66,11 @@ const ActionButton: React.FC<{ action: HeaderAction }> = ({ action }) => {
       type="button"
       aria-label={action.label}
       onClick={action.onClick}
+      style={{ color: 'var(--color-text-secondary)' }}
       className={cn(
         "w-9 h-9 flex items-center justify-center rounded-xl",
-        "text-gray-500 dark:text-gray-400",
-        "hover:bg-gray-100 dark:hover:bg-gray-800",
         "active:scale-95 transition-all duration-150",
-        "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
-        "dark:focus:ring-offset-gray-900"
+        "focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2",
       )}
     >
       {/* Icons should be 22–24px, stroke-based */}
@@ -93,13 +91,11 @@ const SocialButton: React.FC<{
       target="_blank"
       rel="noopener noreferrer"
       aria-label={social.label}
+      style={{ backgroundColor: 'var(--color-text-primary)', color: 'var(--color-bg)' }}
       className={cn(
         "w-9 h-9 flex items-center justify-center rounded-xl",
-        // Filled dark background — matches VN's solid social icon treatment
-        "bg-gray-900 dark:bg-white",
-        "text-white dark:text-gray-900",
         "hover:opacity-80 active:scale-95 transition-all duration-150",
-        "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        "focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2"
       )}
     >
       <span className="w-[18px] h-[18px] flex items-center justify-center text-[18px]">
@@ -141,9 +137,10 @@ function TabBar({
         // Negative horizontal margin to break out of parent padding,
         // then re-add with px so first/last tabs sit flush with the title
         "-mx-4 px-4 sm:-mx-6 sm:px-6",
-        "border-b border-gray-100 dark:border-gray-800",
+        "border-b",
         "md:overflow-x-visible"
       )}
+      style={{ borderBottomColor: 'var(--color-border)' }}
       // Allow horizontal scroll with mouse wheel on desktop
       onWheel={(e) => {
         if (scrollRef.current) {
@@ -167,10 +164,10 @@ function TabBar({
               "transition-colors duration-150",
               "focus:outline-none",
               isActive
-                ? "text-gray-900 dark:text-white font-semibold"
-                : "text-gray-400 dark:text-gray-500 font-normal",
-              "hover:text-gray-700 dark:hover:text-gray-300"
+                ? "font-semibold"
+                : "font-normal",
             )}
+            style={{ color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)' }}
             aria-selected={isActive}
             role="tab"
           >
@@ -182,10 +179,10 @@ function TabBar({
                 className={cn(
                   "absolute bottom-0 left-1/2 -translate-x-1/2",
                   "h-[2.5px] rounded-full",
-                  "bg-indigo-600 dark:bg-indigo-400",
                   // Width matches the text — approximate with px-1 inset
                   "w-[calc(100%-16px)]"
                 )}
+                style={{ backgroundColor: 'var(--color-accent)' }}
                 aria-hidden
               />
             )}
@@ -222,17 +219,13 @@ export function PageHeader({
 
   return (
     <header
+      style={{ backgroundColor: 'var(--color-header-bg)', borderBottomColor: scrolled ? 'var(--color-border)' : 'transparent' }}
       className={cn(
         // Positioning
         sticky ? "sticky top-0 z-40" : "relative",
 
-        // Colours
-        "bg-white dark:bg-gray-900",
-
         // Scroll-triggered border
-        scrolled
-          ? "border-b border-gray-200 dark:border-gray-800 shadow-sm shadow-gray-100/50 dark:shadow-black/20"
-          : "border-b border-transparent",
+        scrolled ? "border-b shadow-sm" : "border-b border-transparent",
 
         // Spacing
         "px-4 sm:px-6",
@@ -251,9 +244,9 @@ export function PageHeader({
           {/* Title — bold, large, left-aligned */}
           {title ? (
             <h1
+              style={{ color: 'var(--color-text-primary)' }}
               className={cn(
                 "text-[26px] sm:text-[28px] lg:text-[30px] font-bold leading-tight tracking-tight",
-                "text-gray-900 dark:text-white",
                 // If no title, allow right content to take full width
                 hasRightContent ? "flex-1 min-w-0 mr-3" : "flex-1"
               )}

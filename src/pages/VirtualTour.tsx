@@ -19,7 +19,7 @@ export const VirtualTour: React.FC = () => {
         rightAction={
           <button 
             onClick={() => navigate("/student/dashboard")}
-            className="text-white hover:text-indigo-200 transition-colors"
+            className="text-white hover:text-[var(--color-accent)]-200 transition-colors"
           >
             <ChevronLeft size={24} /> Back
           </button>
@@ -42,11 +42,11 @@ export const VirtualTour: React.FC = () => {
                 <div className="relative h-[200px] w-full">
                   <img src={property.img} alt={property.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
-                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full border border-white/30 flex items-center justify-center text-white pl-1">
+                    <div className="w-14 h-14 bg-[var(--color-surface)]/20 backdrop-blur-md rounded-full border border-white/30 flex items-center justify-center text-white pl-1">
                       <Play size={24} fill="currentColor" />
                     </div>
                   </div>
-                  <div className="absolute top-3 left-3 bg-indigo text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
+                  <div className="absolute top-3 left-3 bg-[var(--color-accent)] text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
                     Featured
                   </div>
                 </div>
@@ -67,7 +67,7 @@ export const VirtualTour: React.FC = () => {
           <div className="p-4 flex justify-end">
             <button 
               onClick={() => setSelectedVideo(null)}
-              className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20"
+              className="w-10 h-10 bg-[var(--color-surface)]/10 rounded-full flex items-center justify-center text-white hover:bg-[var(--color-surface)]/20"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>

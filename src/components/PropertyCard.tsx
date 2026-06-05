@@ -26,9 +26,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           />
           <button 
             onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
-            className="absolute top-2 left-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm border-none rounded-full w-6 h-6 flex items-center justify-center cursor-pointer shadow-sm transition-transform duration-200 hover:scale-110 active:scale-95 z-20"
+            className="absolute top-2 left-2 bg-[var(--color-surface)]/80 backdrop-blur-sm border-none rounded-full w-6 h-6 flex items-center justify-center cursor-pointer shadow-sm transition-transform duration-200 hover:scale-110 active:scale-95 z-20"
+            style={{ backgroundColor: 'var(--color-overlay)' }}
           >
-            <Heart size={12} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-gray-500 dark:text-gray-300 fill-transparent'}`} />
+            <Heart size={12} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'fill-transparent'}`} style={{ color: isSaved ? undefined : 'var(--color-text-secondary)' }} />
           </button>
           <div className="absolute top-0 left-[-150%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-15deg] transition-[left] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] z-10 pointer-events-none group-hover:left-[200%]" />
         </div>
@@ -51,7 +52,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
             <div className="text-[16px] font-bold text-text-primary truncate">
               {property.price}
             </div>
-            <div className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[4px] tracking-wide uppercase shrink-0">
+            <div className="text-[10px] font-semibold px-2 py-0.5 rounded-[4px] tracking-wide uppercase shrink-0"
+              style={{ color: 'var(--color-success)', backgroundColor: 'var(--color-surface-2)' }}
+            >
               {property.avail.includes('Available') ? 'Available' : property.avail.replace('left', '').trim()}
             </div>
           </div>
@@ -85,7 +88,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
           className="absolute top-2.5 right-2.5 bg-card-bg/90 border-none rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer shadow-md transition-transform duration-200 hover:scale-115 active:scale-95"
         >
-          <Heart size={16} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-gray-300 fill-transparent'}`} />
+          <Heart size={16} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-[var(--color-text-disabled)] fill-transparent'}`} />
         </button>
       </div>
 
@@ -95,7 +98,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           <div className="text-[0.7rem] sm:text-[0.75rem] font-semibold text-text-primary flex items-center gap-1">
             <Star size={13} className="text-yellow-400 fill-yellow-400" /> {property.rating} <span className="text-text-primary text-xs ml-1">({property.reviews})</span>
           </div>
-          <div className="text-[0.6rem] sm:text-[0.68rem] bg-indigo-light text-indigo font-semibold px-2 py-0.5 rounded-[5px]">
+          <div className="text-[0.6rem] sm:text-[0.68rem] bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-semibold px-2 py-0.5 rounded-[5px]">
             {property.avail}
           </div>
         </div>
@@ -107,10 +110,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         <div className="flex gap-1.5 mb-[10px] flex-wrap">
            {property.tags.map((tag) => (
              <div key={tag} className="flex items-center justify-center gap-1 bg-app-bg rounded-[6px] px-[7px] py-[3px] text-[0.68rem] text-text-muted font-medium">
-               {tag === 'wifi' && <Wifi size={12} className="text-indigo" />}
-               {tag === 'sec' && <ShieldCheck size={12} className="text-indigo" />}
-               {tag === 'gen' && <Zap size={12} className="text-indigo" />}
-               {tag === 'ac' && <span className="text-[0.55rem] font-bold text-indigo">AC</span>}
+               {tag === 'wifi' && <Wifi size={12} className="text-[var(--color-accent)]" />}
+               {tag === 'sec' && <ShieldCheck size={12} className="text-[var(--color-accent)]" />}
+               {tag === 'gen' && <Zap size={12} className="text-[var(--color-accent)]" />}
+               {tag === 'ac' && <span className="text-[0.55rem] font-bold text-[var(--color-accent)]">AC</span>}
              </div>
            ))}
         </div>
@@ -126,7 +129,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
 
           <button 
             onClick={(e) => { e.stopPropagation(); onClick(); }}
-            className={`mt-2.5 sm:mt-3 flex justify-center items-center text-indigo border-[1.5px] border-indigo bg-transparent rounded-[10px] text-center cursor-pointer font-bold transition-colors duration-300 hover:bg-indigo-light w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
+            className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-accent)] border-[1.5px] border-[var(--color-accent)] bg-transparent rounded-[10px] text-center cursor-pointer font-bold transition-colors duration-300 hover:bg-[var(--color-accent-muted)] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
             View Details
           </button>
         </div>

@@ -48,7 +48,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
      }
   };
 
-  let borderClass = "border-border-subtle focus:border-indigo";
+  let borderClass = "border-border-subtle focus:border-[var(--color-accent)]";
   if (status === 'SUCCESS') borderClass = "border-green-500";
   if (status === 'ERROR') borderClass = "border-coral";
 
@@ -67,10 +67,10 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
             type="button"
             onClick={handleVerify}
             disabled={status === 'VERIFYING' || !address}
-            className="bg-indigo-light text-indigo font-bold whitespace-nowrap px-4 rounded-xl hover:bg-[#c7d2fe] transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-1.5"
+            className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-bold whitespace-nowrap px-4 rounded-xl hover:bg-[#c7d2fe] transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-1.5"
          >
            {status === 'VERIFYING' ? (
-              <span className="w-4 h-4 border-2 border-indigo border-t-transparent rounded-full animate-spin"></span>
+              <span className="w-4 h-4 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin"></span>
            ) : (
               <MapPin size={16} />
            )}
@@ -107,7 +107,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({ address, setAddres
             href={`https://www.google.com/maps?q=${locationData.lat},${locationData.lng}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full bg-indigo text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-[0.98] mt-1 hover:bg-indigo-dark"
+            className="w-full bg-[var(--color-accent)] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-[0.98] mt-1 hover:bg-[var(--color-accent)]-dark"
           >
             <MapPin size={16} />
             Open in Google Maps

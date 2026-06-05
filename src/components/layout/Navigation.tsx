@@ -34,7 +34,7 @@ export function Navigation() {
               to={item.path}
               className={({ isActive }) => cn(
                 "flex flex-col items-center gap-1 px-3 py-1 rounded-xl transition-colors",
-                isActive ? "text-indigo" : "text-text-muted"
+                isActive ? "text-[var(--color-accent)]" : "text-text-muted"
               )}
             >
               <item.icon className="w-5 h-5" />
@@ -48,7 +48,7 @@ export function Navigation() {
       <nav className="hidden md:flex lg:hidden fixed left-0 top-0 bottom-0 z-40 
                       w-18 flex-col items-center 
                       bg-card-bg border-r border-border-subtle py-4 gap-1">
-        <div className="mb-6 font-bold text-xl text-indigo flex items-center justify-center w-full h-12">
+        <div className="mb-6 font-bold text-xl text-[var(--color-accent)] flex items-center justify-center w-full h-12">
           U
         </div>
         {NAV_ITEMS.map(item => (
@@ -58,7 +58,7 @@ export function Navigation() {
             title={item.label}
             className={({ isActive }) => cn(
               "w-12 h-12 flex items-center justify-center rounded-xl transition-colors",
-              isActive ? "bg-indigo-light text-indigo" : "text-text-muted hover:bg-border-subtle"
+              isActive ? "bg-[var(--color-accent-muted)] text-[var(--color-accent)]" : "text-text-muted hover:bg-border-subtle"
             )}
           >
             <item.icon className="w-6 h-6" />
@@ -75,7 +75,7 @@ export function Navigation() {
       <nav className="hidden lg:flex fixed left-0 top-0 bottom-0 z-40 
                       w-60 flex-col 
                       bg-card-bg border-r border-border-subtle py-4 px-3">
-        <div className="mb-8 px-3 font-bold text-2xl text-indigo flex items-center text-left w-full h-12">
+        <div className="mb-8 px-3 font-bold text-2xl text-[var(--color-accent)] flex items-center text-left w-full h-12">
           <span className="font-bold tracking-widest">SKY<span style={{ color: '#e8b96a' }}>COBE</span></span>
         </div>
         <div className="flex-1 space-y-1">
@@ -86,7 +86,7 @@ export function Navigation() {
               className={({ isActive }) => cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-sm font-medium",
                 isActive 
-                  ? "bg-indigo-light text-indigo" 
+                  ? "bg-[var(--color-accent-muted)] text-[var(--color-accent)]" 
                   : "text-text-primary hover:bg-border-subtle"
               )}
             >

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SKYCOBE — Discover and book student properties near your university" />
     <title>SKYCOBE — Find Your Perfect Property</title>
+    <script>
+      (function () {
+        var stored = localStorage.getItem('skycobe_theme_mode') || 'system';
+        var resolved =
+          stored === 'dark'
+            ? 'dark'
+            : stored === 'light'
+            ? 'light'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        document.documentElement.setAttribute('data-theme', resolved);
+        if (resolved === 'dark') document.documentElement.classList.add('dark');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

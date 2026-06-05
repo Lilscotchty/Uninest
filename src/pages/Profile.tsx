@@ -1,11 +1,46 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useTheme, type ThemeMode } from '../context/ThemeContext';
 import { PageHeader } from '../components/layout/PageHeader';
-import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Maximize, Minimize, ScanLine, Settings } from 'lucide-react';
+import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings } from 'lucide-react';
+
+function ThemeRow() {
+  const { mode, resolved, setMode } = useTheme();
+
+  const next: Record<ThemeMode, ThemeMode> = {
+    light: 'dark', dark: 'system', system: 'light',
+  };
+
+  const icons: Record<ThemeMode, React.ReactNode> = { light: <Sun size={16} />, dark: <Moon size={16} />, system: <Monitor size={16} /> };
+  const labels: Record<ThemeMode, string> = { light: 'Light', dark: 'Dark', system: 'System' };
+
+  return (
+    <button
+      type="button"
+      onClick={() => setMode(next[mode])}
+      className="flex items-center justify-between w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group"
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)]/20 text-text-muted flex items-center justify-center shrink-0">
+          <span style={{ color: 'var(--color-accent)' }}>{icons[mode]}</span>
+        </div>
+        <span className="text-[0.9rem] font-semibold text-[var(--color-text-primary)]">
+          Appearance
+        </span>
+      </div>
+      <div className="flex items-center gap-1">
+        <span className="text-xs font-semibold" style={{ color: 'var(--color-text-secondary)' }}>
+          {labels[mode]}
+        </span>
+        <ChevronRight size={16} className="text-[var(--color-text-disabled)]" />
+      </div>
+    </button>
+  );
+}
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, theme, toggleTheme, isFullscreen, toggleFullscreen, user } = useAppContext();
+  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user } = useAppContext();
   const navigate = useNavigate();
 
   const handleAction = (action: string) => {
@@ -73,7 +108,7 @@ export const Profile: React.FC = () => {
             <div className="flex justify-between items-start mb-2">
               <div className="relative -mt-[48px]">
                 {/* Avatar */}
-                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-indigo/10">
+                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-[var(--color-accent)]/10">
                   <img 
                     src={user?.user_metadata?.avatar_url || "https://loremflickr.com/200/200/face,smiling?lock=300"} 
                     alt={fullName} 
@@ -91,7 +126,7 @@ export const Profile: React.FC = () => {
               {/* Edit Profile Button */}
               <button 
                 onClick={() => handleAction('Edit Profile')}
-                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-indigo hover:bg-indigo/5 flex items-center justify-center transition-colors"
+                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-[var(--color-accent)] hover:bg-[var(--color-accent)]/5 flex items-center justify-center transition-colors"
               >
                 <PenLine size={18} />
               </button>
@@ -104,7 +139,7 @@ export const Profile: React.FC = () => {
               <p className="text-[14px] text-text-primary/80 mt-0.5">{university}</p>
               <div className="flex flex-col mt-2 gap-1 text-[13px] text-text-muted leading-relaxed">
                 <span>{email}</span>
-                <span className="text-indigo font-medium hover:underline cursor-pointer transition-colors">54 connections</span>
+                <span className="text-[var(--color-accent)] font-medium hover:underline cursor-pointer transition-colors">54 connections</span>
               </div>
             </div>
           </div>
@@ -119,7 +154,7 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => navigate("/manager/dashboard")} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => navigate("/manager/dashboard")} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                   <FileText size={16} />
                 </div>
@@ -135,14 +170,14 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Account</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
-                <div className="w-8 h-8 rounded-full bg-indigo-light text-indigo flex items-center justify-center shrink-0">
+              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center shrink-0">
                   <User size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Personal Information</span>
-                <ChevronRight size={16} className="text-text-muted group-hover:text-indigo transition-colors" />
+                <ChevronRight size={16} className="text-text-muted group-hover:text-[var(--color-accent)] transition-colors" />
               </button>
-              <button onClick={() => handleAction('Payment Methods')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Payment Methods')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-teal-light text-teal flex items-center justify-center shrink-0">
                   <CreditCard size={16} />
                 </div>
@@ -158,28 +193,23 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Preferences</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Notifications')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Notifications')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-amber-light text-amber-glow flex items-center justify-center shrink-0">
                   <Bell size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Notifications</span>
                 <ChevronRight size={16} className="text-text-muted group-hover:text-amber-glow transition-colors" />
               </button>
-              <button onClick={() => handleAction('Privacy & Security')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
-                <div className="w-8 h-8 rounded-full bg-indigo-light text-indigo flex items-center justify-center shrink-0">
+              <button onClick={() => handleAction('Privacy & Security')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center shrink-0">
                   <Shield size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Privacy & Security</span>
-                <ChevronRight size={16} className="text-text-muted group-hover:text-indigo transition-colors" />
+                <ChevronRight size={16} className="text-text-muted group-hover:text-[var(--color-accent)] transition-colors" />
               </button>
-              <button onClick={() => toggleTheme()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
-                <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
-                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-                </div>
-                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
-              </button>
-              <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
-                <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
+              <ThemeRow />
+              <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)]/20 text-text-muted flex items-center justify-center shrink-0">
                   {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{isFullscreen ? 'Exit Full Screen' : 'Go Full Screen'}</span>
@@ -193,15 +223,15 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Support</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Help Center')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
+              <button onClick={() => handleAction('Help Center')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-[#fef3c7] text-[#d97706] flex items-center justify-center shrink-0">
                   <HelpCircle size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Help Center</span>
                 <ChevronRight size={16} className="text-text-muted group-hover:text-[#d97706] transition-colors" />
               </button>
-              <button onClick={() => handleAction('Terms & Policies')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-gray-100 group">
-                <div className="w-8 h-8 rounded-full bg-indigo-light/20 text-text-muted flex items-center justify-center shrink-0">
+              <button onClick={() => handleAction('Terms & Policies')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)]/20 text-text-muted flex items-center justify-center shrink-0">
                   <FileText size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Terms & Policies</span>
