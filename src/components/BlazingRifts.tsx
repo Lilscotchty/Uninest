@@ -166,10 +166,12 @@ float snoise(vec4 v){
 
 const createBlazingRifts = (container: HTMLDivElement) => {
   const mu = THREE.MathUtils;
+  let w = container.clientWidth || 1;
+  let h = container.clientHeight || 1;
   const gu = {
     time: {value: 0},
     timeDelta:  {value: 0},
-    aspect: {value: container.clientWidth / container.clientHeight}
+    aspect: {value: w / h}
   }
 
   const setColor = (g: any, color: any) => {
@@ -188,9 +190,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
       outputPass.material.onBeforeCompile = (shader: any) => {
         shader.uniforms.time = gu.time;
         shader.uniforms.aspect = gu.aspect;
-        shader.fragmentShader = `
-          \${shader.fragmentShader}
-        `.replace(
+        shader.fragmentShader = shader.fragmentShader.replace(
           `precision highp float;`,
           `
           #define S(a, b, c) smoothstep(a, b, c)
@@ -353,7 +353,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
               return decK * decK * decK + 1.;
             }
             
-            \${shader.vertexShader}
+            ${shader.vertexShader}
           `.replace(
             `#include <begin_vertex>`,
             `#include <begin_vertex>
@@ -372,7 +372,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           shader.fragmentShader = `
             varying float action;
             varying float vFinish;
-            \${shader.fragmentShader}
+            ${shader.fragmentShader}
           `.replace(
             `vec4 diffuseColor = vec4( diffuse, opacity );`,
             `
@@ -602,7 +602,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           attribute float geometryID;
           varying float vGID;
           varying vec3 vPos;
-          \${shader.vertexShader}
+          ${shader.vertexShader}
         `.replace(
           `#include <begin_vertex>`,
           `#include <begin_vertex>
@@ -619,7 +619,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
           uniform float time;
           varying float vGID;
           varying vec3 vPos;
-          \${noise4d}
+          ${noise4d}
           
           float sdRoundBox( vec3 p, vec3 b, float r ) {
             vec3 q = abs(p) - b + r;
@@ -641,7 +641,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
             }
             return v;
           }
-          \${shader.fragmentShader}
+          ${shader.fragmentShader}
         `.replace(
           `#include <opaque_fragment>`,
           `#include <opaque_fragment>
@@ -765,11 +765,17 @@ const createBlazingRifts = (container: HTMLDivElement) => {
   }
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
+  const camera = new THREE.PerspectiveCamera(45, (container.clientWidth || 1) / (container.clientHeight || 1), 1, 1000);
   camera.position.set(0, 0, 1).setLength(7);
   const renderer = new THREE.WebGLRenderer({antialias: true});
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio || 1);
+  renderer.setSize(container.clientWidth || 1, container.clientHeight || 1, false);
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0';
+  renderer.domElement.style.left = '0';
+  renderer.domElement.style.width = '100%';
+  renderer.domElement.style.height = '100%';
+  renderer.domElement.style.outline = 'none';
   container.appendChild(renderer.domElement);
 
   const postprocessing = new Postprocessing(renderer, scene, camera);
@@ -777,7 +783,7 @@ const createBlazingRifts = (container: HTMLDivElement) => {
   const resize = (w: number, h: number) => {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
+    renderer.setSize(w, h, false);
     postprocessing.setSize(w, h);
     gu.aspect.value = camera.aspect;
   };
@@ -846,24 +852,34 @@ export const BlazingRifts: React.FC<{ className?: string }> = ({ className = '' 
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const effect = createBlazingRifts(containerRef.current);
+    const container = containerRef.current;
+    
+    // Ensure container has at least some width/height so dimension is not 0
+    let w = container.clientWidth || 1;
+    let h = container.clientHeight || 1;
+    
+    let effect = createBlazingRifts(containerRef.current);
+    effect.resize(w, h);
 
-    const handleResize = () => {
-      if (containerRef.current) {
-        effect.resize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    const ro = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          effect.resize(width, height);
+        }
       }
-    };
-    window.addEventListener('resize', handleResize);
+    });
+    
+    ro.observe(container);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      ro.disconnect();
       effect.dispose();
     };
   }, []);
 
   return (
     <div className={`relative w-full h-full overflow-hidden bg-black ${className}`} ref={containerRef}>
-      {/* Remove the pointer-events-none from any child that blocks dragging the view! */}
       {/* We allow interacting with the 3D scene directly. */}
     </div>
   );
