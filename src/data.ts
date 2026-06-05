@@ -105,5 +105,25 @@ export const PROPERTIES: Property[] = [
       'https://images.pexels.com/photos/1374125/pexels-photo-1374125.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     panoramas: ['https://pannellum.org/images/milan.jpg']
+  },
+  {
+    id: 6,
+    name: 'Cosmic Edge Hostel',
+    loc: 'Outer Legon · 15 min to campus',
+    lat: 5.6200,
+    lng: -0.1750,
+    price: 'GH₵3,200',
+    priceNum: 3200,
+    rating: 4.9,
+    reviews: 312,
+    tags: ['wifi', 'sec'],
+    category: 'budget',
+    avail: '10 units',
+    img: 'https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=800',
+    images: [
+      'https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    panoramas: []
   }
 ];
