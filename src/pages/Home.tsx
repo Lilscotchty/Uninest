@@ -5,6 +5,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 import { PageHeader } from '../components/layout/PageHeader';
+import { RecentlyViewedStrip } from "../components/RecentlyViewedStrip";
 import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search, SlidersHorizontal } from 'lucide-react';
 
 
@@ -246,31 +247,9 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* TESTIMONIAL */}
-      <div className="mt-2 text-text-primary">
-        <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">What Students Say</h2>
-        </div>
-        <div className="mx-4 sm:mx-5 mb-[4px] bg-card-bg rounded-[18px] p-[18px] border-transparent border shadow-card group">
-          <div className="flex items-center gap-[12px] mb-[12px]">
-            <div className="w-[40px] h-[40px] rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center font-bold text-[0.85rem] text-[var(--color-accent)] shrink-0">
-              {testimonials[tIdx].init}
-            </div>
-            <div>
-              <strong className="block text-[0.88rem] font-semibold text-text-primary">{testimonials[tIdx].name}</strong>
-              <span className="text-[0.75rem] text-text-muted">{testimonials[tIdx].sub}</span>
-            </div>
-          </div>
-          <div className="flex gap-[2px] mb-[8px] text-[#fbbf24]">
-            {[1, 2, 3, 4, 5].map(s => <Star key={s} size={14} fill="currentColor" strokeWidth={0} />)}
-          </div>
-          <p className="text-[0.85rem] text-text-muted leading-[1.65] italic transition-all duration-300 min-h-[60px]">
-            {testimonials[tIdx].body}
-          </p>
-          <span className="inline-block mt-[10px] bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.7rem] font-bold px-[9px] py-[3px] rounded-[6px]">
-            Verified Tenant
-          </span>
-        </div>
+      {/* RECENTLY VIEWED */}
+      <div className="mt-4 pb-2">
+        <RecentlyViewedStrip />
       </div>
 
       {/* MAP VIEW */}

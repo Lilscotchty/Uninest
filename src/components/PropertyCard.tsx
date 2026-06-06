@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, Heart, Star, Wifi, ShieldCheck, Zap, MapPin } from 'lucide-react';
 import { Property } from '../types';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
 interface PropertyCardProps {
   property: Property;
@@ -11,10 +12,24 @@ interface PropertyCardProps {
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, onToggleSave, onClick, layout = 'responsive' }) => {
+  const { recordView } = useRecentlyViewed();
+
+  const handleCardClick = () => {
+    recordView({
+      id: property.id.toString(),
+      name: property.name,
+      image_url: property.img,
+      location: property.loc,
+      price: property.priceNum,
+      viewedAt: Date.now(),
+    });
+    onClick();
+  };
+
   if (layout === 'explore-list') {
     return (
       <div 
-        onClick={onClick}
+        onClick={handleCardClick}
         className="group flex w-full max-w-[400px] h-[100px] bg-card-bg border-transparent border rounded-[30px] overflow-hidden shadow-card transition-all duration-300 hover:shadow-float hover:-translate-y-1 active:scale-[0.98] cursor-pointer"
       >
         <div className="w-[125px] h-full shrink-0 relative overflow-hidden" style={{ clipPath: 'polygon(0 0, 100% 0, 82% 100%, 0 100%)' }}>
@@ -67,7 +82,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   
   return (
     <div 
-      onClick={onClick}
+      onClick={handleCardClick}
       className={`
         bg-card-bg border-transparent border shadow-card overflow-hidden flex cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] 
         ${isCompact ? 'w-[200px] min-w-[200px] flex-col rounded-[20px] shrink-0' : 'w-full flex-col sm:flex-row rounded-xl hover:shadow-md'}

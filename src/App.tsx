@@ -14,6 +14,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
 import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
+import RecentlyViewedPage from "./pages/RecentlyViewedPage";
 
 const AppContent: React.FC = () => {
   const { user } = useAppContext();
@@ -82,6 +83,8 @@ const AppContent: React.FC = () => {
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
 
         <Route path="/edit-profile" element={<EditProfile />} />
+        
+        <Route path="/recently-viewed" element={<RecentlyViewedPage />} />
 
         {/* Fallback */}
         <Route path="*" element={
