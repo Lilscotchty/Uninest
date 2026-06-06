@@ -143,7 +143,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           </div>
 
           <button 
-            onClick={(e) => { e.stopPropagation(); onClick(); }}
+            onClick={(e) => { e.stopPropagation(); handleCardClick(); }}
             className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-accent)] border-[1.5px] border-[var(--color-accent)] bg-transparent rounded-[10px] text-center cursor-pointer font-bold transition-colors duration-300 hover:bg-[var(--color-accent-muted)] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
             View Details
           </button>

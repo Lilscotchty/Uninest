@@ -51,7 +51,7 @@ export const Details: React.FC = () => {
   } = useAppContext();
   const navigate = useNavigate();
 
-  const property = properties.find((h) => h.id === selectedPropertyId) || properties[0];
+  const property = properties.find((h) => h.id?.toString() === selectedPropertyId?.toString()) || properties[0];
   const isSaved = savedProperties.includes(property.id);
 
   // Gallery State

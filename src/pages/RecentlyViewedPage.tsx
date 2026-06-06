@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Trash2, Clock } from "lucide-react";
 import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
-import { RecentlyViewedCard } from "../components/RecentlyViewedCard";
+import { useAppContext } from "../context/AppContext";
+import { PropertyCard } from "../components/PropertyCard";
 
 // Format relative time: "2 hours ago", "3 days ago"
 function timeAgo(timestamp: number): string {
@@ -40,6 +41,7 @@ function groupByDay(items: ReturnType<typeof useRecentlyViewed>["allItems"]) {
 export function RecentlyViewedPage() {
   const navigate                       = useNavigate();
   const { allItems, hasItems, clearHistory } = useRecentlyViewed();
+  const { properties, savedProperties, toggleSave, setSelectedPropertyId } = useAppContext();
 
   const groups = groupByDay(allItems);
 
@@ -83,21 +85,21 @@ export function RecentlyViewedPage() {
 
         {hasItems && (
           <button
-            type="button"
-            onClick={() => {
-              if (confirm("Clear your entire viewing history?")) clearHistory();
-            }}
-            aria-label="Clear history"
-            className={[
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg",
-              "text-xs font-medium text-red-500",
-              "border border-red-200 dark:border-red-900/50",
-              "hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors",
-            ].join(" ")}
-          >
-            <Trash2 size={13} />
-            Clear all
-          </button>
+             type="button"
+             onClick={() => {
+               if (confirm("Clear your entire viewing history?")) clearHistory();
+             }}
+             aria-label="Clear history"
+             className={[
+               "flex items-center gap-1.5 px-3 py-1.5 rounded-lg",
+               "text-xs font-medium text-red-500",
+               "border border-red-200 dark:border-red-900/50",
+               "hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors",
+             ].join(" ")}
+           >
+             <Trash2 size={13} />
+             Clear all
+           </button>
         )}
       </header>
 
@@ -105,30 +107,30 @@ export function RecentlyViewedPage() {
       {!hasItems && (
         <div className="flex flex-col items-center justify-center text-center py-24 px-6">
           <div
-            className={[
-              "w-16 h-16 rounded-2xl flex items-center justify-center mb-4",
-              "bg-gray-100 dark:bg-gray-800",
-            ].join(" ")}
-          >
-            <Clock size={28} className="text-gray-300 dark:text-gray-600" />
-          </div>
-          <h2 className="text-lg font-semibold text-text-primary dark:text-gray-300 mb-2">
-            No history yet
-          </h2>
-          <p className="text-sm text-text-secondary dark:text-gray-500 max-w-xs">
-            Properties you view will appear here so you can easily find them again.
-          </p>
-          <button
-            type="button"
-            onClick={() => navigate("/explore")}
-            className={[
-              "mt-6 px-5 py-2.5 rounded-xl text-sm font-semibold text-white",
-              "bg-primary",
-              "hover:bg-primary-hover transition-colors",
-            ].join(" ")}
-          >
-            Browse properties
-          </button>
+             className={[
+               "w-16 h-16 rounded-2xl flex items-center justify-center mb-4",
+               "bg-gray-100 dark:bg-gray-800",
+             ].join(" ")}
+           >
+             <Clock size={28} className="text-gray-300 dark:text-gray-600" />
+           </div>
+           <h2 className="text-lg font-semibold text-text-primary dark:text-gray-300 mb-2">
+             No history yet
+           </h2>
+           <p className="text-sm text-text-secondary dark:text-gray-500 max-w-xs">
+             Properties you view will appear here so you can easily find them again.
+           </p>
+           <button
+             type="button"
+             onClick={() => navigate("/explore")}
+             className={[
+               "mt-6 px-5 py-2.5 rounded-xl text-sm font-semibold text-white",
+               "bg-primary",
+               "hover:bg-primary-hover transition-colors",
+             ].join(" ")}
+           >
+             Browse properties
+           </button>
         </div>
       )}
 
@@ -150,31 +152,31 @@ export function RecentlyViewedPage() {
 
               {/* Responsive grid of cards */}
               <div
-                className={[
-                  "grid gap-4",
-                  // On mobile: 2 columns of 160px cards
-                  "grid-cols-2",
-                  // Tablet: 3 cols
-                  "sm:grid-cols-3",
-                  // Desktop: 4 cols
-                  "md:grid-cols-4",
-                  // Wide desktop: 5 cols
-                  "lg:grid-cols-5",
-                  "xl:grid-cols-6",
-                ].join(" ")}
-              >
-                {dayItems.map((item) => (
-                  <div key={item.id} className="flex flex-col gap-1.5 items-center w-full">
-                    <div className="w-full max-w-[160px]">
-                      <RecentlyViewedCard item={item} />
-                      {/* Time since viewed */}
-                      <span className="text-[10.px] text-text-secondary dark:text-gray-400 pl-1 mt-1 block">
-                        {timeAgo(item.viewedAt)}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                 className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+               >
+                 {dayItems.map((item) => {
+                   const property = properties.find(p => p.id?.toString() === item.id.toString());
+                   if (!property) return null;
+                   return (
+                     <div key={item.id} className="flex flex-col gap-1.5 w-full">
+                       <PropertyCard 
+                         property={property} 
+                         layout="responsive"
+                         isSaved={savedProperties.includes(property.id)}
+                         onToggleSave={toggleSave}
+                         onClick={() => {
+                           setSelectedPropertyId(property.id);
+                           navigate("/details");
+                         }} 
+                       />
+                       {/* Time since viewed */}
+                       <span className="text-[10px] text-text-secondary dark:text-gray-400 pl-1 mt-1 block">
+                         Viewed {timeAgo(item.viewedAt)}
+                       </span>
+                     </div>
+                   );
+                 })}
+               </div>
             </section>
           ))}
         </div>
