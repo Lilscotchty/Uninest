@@ -17,12 +17,12 @@ export function RecentlyViewedStrip() {
   return (
     <section className="w-full">
       {/* ── Section header ── */}
-      <div className="flex items-center justify-between mb-3 px-4 sm:px-6">
+      <div className="flex items-center justify-between px-4 sm:px-5 py-4 pb-3">
         <div>
-          <h2 className="text-[18px] font-bold text-gray-900 dark:text-white leading-tight">
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary leading-tight">
             Recently Viewed
           </h2>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+          <p className="text-[0.75rem] sm:text-xs text-text-muted mt-0.5">
             Pick up where you left off
           </p>
         </div>
@@ -47,22 +47,14 @@ export function RecentlyViewedStrip() {
       <div
         ref={ref}
         className={[
-          "flex gap-4 overflow-x-auto overflow-y-hidden",
-          // Break out of parent padding to allow edge-to-edge scroll
-          "-mx-4 px-4 sm:-mx-6 sm:px-6",
+          "flex gap-4 overflow-x-auto",
+          "px-4 sm:px-5",
           // Hide scrollbar
-          "scrollbar-hide",
-          "pb-[20px]",          // avoid cutting off card shadows at bottom
-          "pt-[10px]",          // avoid cutting off card shadows at top
+          "hide-scrollbar",
+          "pb-4",          // match other sections padding
+          "pt-2",          // match other sections padding
           "items-stretch"
         ].join(" ")}
-        // Desktop: scroll with mouse wheel horizontally
-        onWheel={(e) => {
-          if (ref.current) {
-            e.preventDefault();
-            ref.current.scrollLeft += e.deltaY;
-          }
-        }}
       >
         {stripItems.map((item) => (
           <RecentlyViewedCard key={item.id} item={item} />
