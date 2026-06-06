@@ -2,12 +2,10 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
-import { useAppContext } from "../context/AppContext";
-import { PropertyCard } from "./PropertyCard";
+import { RecentlyViewedCard } from "./RecentlyViewedCard";
 
 export function RecentlyViewedStrip() {
   const { stripItems, hasItems, allItems } = useRecentlyViewed();
-  const { properties, savedProperties, toggleSave, setSelectedPropertyId } = useAppContext();
   const navigate  = useNavigate();
   const ref       = useRef<HTMLDivElement>(null);
 
@@ -49,33 +47,26 @@ export function RecentlyViewedStrip() {
       <div
         ref={ref}
         className={[
-          "flex gap-4 overflow-x-auto",
+          "flex gap-4 overflow-x-auto overflow-y-hidden",
           // Break out of parent padding to allow edge-to-edge scroll
           "-mx-4 px-4 sm:-mx-6 sm:px-6",
           // Hide scrollbar
           "scrollbar-hide",
           "pb-[20px]",          // avoid cutting off card shadows at bottom
+          "pt-[10px]",          // avoid cutting off card shadows at top
           "items-stretch"
         ].join(" ")}
+        // Desktop: scroll with mouse wheel horizontally
+        onWheel={(e) => {
+          if (ref.current) {
+            e.preventDefault();
+            ref.current.scrollLeft += e.deltaY;
+          }
+        }}
       >
-        {stripItems.map((item) => {
-          const property = properties.find(p => p.id?.toString() === item.id.toString());
-          if (!property) return null;
-          
-          return (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="compact"
-            />
-          );
-        })}
+        {stripItems.map((item) => (
+          <RecentlyViewedCard key={item.id} item={item} />
+        ))}
 
         {/* ── "See more" end-cap card ── */}
         {hasMore && (
@@ -83,7 +74,7 @@ export function RecentlyViewedStrip() {
             type="button"
             onClick={() => navigate("/recently-viewed")}
             className={[
-              "flex-shrink-0 w-[200px] rounded-[20px]",
+              "flex-shrink-0 w-[160px] h-[120px] rounded-[14px]",
               "border border-dashed border-gray-300 dark:border-gray-600",
               "flex flex-col items-center justify-center gap-1",
               "text-gray-400 dark:text-gray-500",

@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Trash2, Clock } from "lucide-react";
 import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
-import { useAppContext } from "../context/AppContext";
-import { PropertyCard } from "../components/PropertyCard";
+import { RecentlyViewedCard } from "../components/RecentlyViewedCard";
 
 // Format relative time: "2 hours ago", "3 days ago"
 function timeAgo(timestamp: number): string {
@@ -41,7 +40,6 @@ function groupByDay(items: ReturnType<typeof useRecentlyViewed>["allItems"]) {
 export function RecentlyViewedPage() {
   const navigate                       = useNavigate();
   const { allItems, hasItems, clearHistory } = useRecentlyViewed();
-  const { properties, savedProperties, toggleSave, setSelectedPropertyId } = useAppContext();
 
   const groups = groupByDay(allItems);
 
@@ -152,31 +150,31 @@ export function RecentlyViewedPage() {
 
               {/* Responsive grid of cards */}
               <div
-                 className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-               >
-                 {dayItems.map((item) => {
-                   const property = properties.find(p => p.id?.toString() === item.id.toString());
-                   if (!property) return null;
-                   return (
-                     <div key={item.id} className="flex flex-col gap-1.5 w-full">
-                       <PropertyCard 
-                         property={property} 
-                         layout="responsive"
-                         isSaved={savedProperties.includes(property.id)}
-                         onToggleSave={toggleSave}
-                         onClick={() => {
-                           setSelectedPropertyId(property.id);
-                           navigate("/details");
-                         }} 
-                       />
-                       {/* Time since viewed */}
-                       <span className="text-[10px] text-text-secondary dark:text-gray-400 pl-1 mt-1 block">
-                         Viewed {timeAgo(item.viewedAt)}
-                       </span>
-                     </div>
-                   );
-                 })}
-               </div>
+                className={[
+                  "grid gap-4",
+                  // On mobile: 2 columns of 160px cards
+                  "grid-cols-2",
+                  // Tablet: 3 cols
+                  "sm:grid-cols-3",
+                  // Desktop: 4 cols
+                  "md:grid-cols-4",
+                  // Wide desktop: 5 cols
+                  "lg:grid-cols-5",
+                  "xl:grid-cols-6",
+                ].join(" ")}
+              >
+                {dayItems.map((item) => (
+                  <div key={item.id} className="flex flex-col gap-1.5 items-center w-full">
+                    <div className="w-full max-w-[160px]">
+                      <RecentlyViewedCard item={item} />
+                      {/* Time since viewed */}
+                      <span className="text-[10px] text-text-secondary dark:text-gray-400 pl-1 mt-1 block">
+                        {timeAgo(item.viewedAt)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </section>
           ))}
         </div>
