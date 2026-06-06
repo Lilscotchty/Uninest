@@ -48,12 +48,11 @@ export function RecentlyViewedStrip() {
         ref={ref}
         className={[
           "flex gap-4 overflow-x-auto",
-          "px-4 sm:px-5",
+          "px-4 sm:px-5 lg:px-8",
           // Hide scrollbar
           "hide-scrollbar",
-          "pb-4",          // match other sections padding
-          "pt-2",          // match other sections padding
-          "items-stretch"
+          "pb-4",
+          "pt-2"
         ].join(" ")}
       >
         {stripItems.map((item) => (

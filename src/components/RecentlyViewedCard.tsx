@@ -38,7 +38,7 @@ export function RecentlyViewedCard({ item }: Props) {
         "relative w-[160px] h-[120px]",
         "rounded-[14px] overflow-hidden",
         // Border
-        "border border-white/60",
+        "border border-black/5 dark:border-white/10",
         // Shadow
         "shadow-[0_4px_12px_rgba(0,0,0,0.08)]",
         // Hover
@@ -77,7 +77,7 @@ export function RecentlyViewedCard({ item }: Props) {
           // Blur
           "backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]",
           // Top edge highlight
-          "border-t border-white/25",
+          "border-t border-white/10",
           // Layout
           "flex flex-col justify-end",
           "p-2 box-border z-10",

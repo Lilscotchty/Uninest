@@ -168,7 +168,7 @@ export const Home: React.FC = () => {
           <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
-          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-zinc-100 shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
+          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-border-subtle shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
                onClick={() => navigate("/virtual-tour")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
@@ -182,7 +182,7 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-zinc-100 shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
+          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-border-subtle shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
                onClick={() => navigate("/price-alerts")}>
             <div className="flex justify-between items-start w-full">
               <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
