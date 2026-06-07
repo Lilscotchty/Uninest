@@ -167,33 +167,41 @@ export const Home: React.FC = () => {
         <div className="flex justify-between items-center py-4 pb-3">
           <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
-          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-border-subtle shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
-               onClick={() => navigate("/virtual-tour")}>
-            <div className="flex justify-between items-start w-full">
-              <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-amber-light text-amber-500">
-                <Video size={18} />
-              </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-[var(--color-accent)]" />
+        <div className="flex gap-4 pb-4">
+          <div 
+            onClick={() => navigate("/virtual-tour")}
+            className="relative overflow-hidden w-[120px] sm:w-[140px] flex-1 h-[120px] bg-[#1c1c1c] rounded-[24px] p-4 flex flex-col justify-end border-[1px] border-[rgba(255,255,255,0.08)] transition-transform duration-200 hover:-translate-y-1 cursor-pointer font-sans"
+          >
+            <div 
+              className="absolute w-[170px] h-[170px] blur-[35px] -bottom-[50px] -right-[50px] z-0 pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}
+            ></div>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-auto text-[#b45309] relative z-10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
             </div>
-            <div>
-              <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Virtual Tour</strong>
-              <span className="block text-[0.75rem] text-text-muted leading-tight">See units live</span>
+            <div className="relative z-10">
+              <h3 className="m-0 text-white text-[14px] font-semibold tracking-[-0.01em]">Virtual Tour</h3>
+              <p className="m-0 mt-1 text-[#9ca3af] text-[12px]">See units live</p>
             </div>
+            <div className="absolute top-[12px] right-[16px] text-white text-[20px] opacity-50 z-10 leading-none">›</div>
           </div>
 
-          <div className="bg-card-bg rounded-2xl sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-border-subtle shadow-sm cursor-pointer group transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col gap-3"
-               onClick={() => navigate("/price-alerts")}>
-            <div className="flex justify-between items-start w-full">
-              <div className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 bg-teal-light text-teal-600">
-                <Bell size={18} />
-              </div>
-              <ChevronRight size={14} className="text-slate-300 mt-1 transition-all group-hover:translate-x-1 group-hover:text-[var(--color-accent)]" />
+          <div 
+            onClick={() => navigate("/price-alerts")}
+            className="relative overflow-hidden w-[120px] sm:w-[140px] flex-1 h-[120px] bg-[#1c1c1c] rounded-[24px] p-4 flex flex-col justify-end border-[1px] border-[rgba(255,255,255,0.08)] transition-transform duration-200 hover:-translate-y-1 cursor-pointer font-sans"
+          >
+            <div 
+              className="absolute w-[170px] h-[170px] blur-[35px] -bottom-[50px] -right-[50px] z-0 pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%)" }}
+            ></div>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-auto text-[#047857] relative z-10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             </div>
-            <div>
-              <strong className="block text-[0.9rem] font-bold text-text-primary mb-1">Price Alerts</strong>
-              <span className="block text-[0.75rem] text-text-muted leading-tight">Get notified</span>
+            <div className="relative z-10">
+              <h3 className="m-0 text-white text-[14px] font-semibold tracking-[-0.01em]">Price Alerts</h3>
+              <p className="m-0 mt-1 text-[#9ca3af] text-[12px]">Get notified</p>
             </div>
+            <div className="absolute top-[12px] right-[16px] text-white text-[20px] opacity-50 z-10 leading-none">›</div>
           </div>
         </div>
       </div>
