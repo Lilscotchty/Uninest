@@ -8,6 +8,7 @@ import { Details } from './pages/Details';
 import { Saved } from './pages/Saved';
 import { Profile } from './pages/Profile';
 import { SignUp } from './pages/SignUp';
+import { Landing } from './pages/Landing';
 import { EditProfile } from './pages/EditProfile';
 import { Toast } from './components/Toast';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -25,15 +26,16 @@ const AppContent: React.FC = () => {
   useEffect(() => {
     if (user === undefined) return; // Wait for auth check
 
-    // If not user and trying to access protected UI (everything EXCEPT login/signup)
-    const publicPaths = ['/login', '/signup', '/'];
+    const publicPaths = ['/', '/login', '/signup'];
+    
+    // If not user and trying to access protected UI (everything EXCEPT landing/login/signup)
     if (user === null) {
       if (!publicPaths.includes(location.pathname)) {
         navigate('/login', { replace: true });
       }
     } else if (user) {
-      // If user is logged in, restrict access to login/signup
-      if (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/') {
+      // If user is logged in, restrict access to landing/login/signup
+      if (publicPaths.includes(location.pathname)) {
         // Find user role
         let role = user.user_metadata?.account_type;
         const storedRole = localStorage.getItem('signupRole');
@@ -67,6 +69,7 @@ const AppContent: React.FC = () => {
       <Toast />
       
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<SignUp />} />
         <Route path="/signup" element={<SignUp />} />
         
