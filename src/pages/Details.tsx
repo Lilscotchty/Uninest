@@ -256,7 +256,7 @@ export const Details: React.FC = () => {
         </div>
 
         <div className="flex justify-between items-start mb-2 gap-2">
-          <h1 className="font-fraunces text-[1.4rem] sm:text-[1.85rem] font-black text-black dark:text-white leading-[1.1] tracking-[-0.5px] break-words">
+          <h1 className="font-fraunces text-[1.4rem] sm:text-[1.85rem] font-black text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
             {property.name}
           </h1>
           <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
@@ -304,7 +304,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Host */}
-        <h2 className="font-montserrat text-[1.1rem] font-black text-black dark:text-white mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-black text-[var(--color-heading)] mb-4 tracking-tight">
           Listed by
         </h2>
         <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
@@ -339,7 +339,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Amenities */}
-        <h2 className="font-montserrat text-[1.1rem] font-black text-black dark:text-white mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-black text-[var(--color-heading)] mb-4 tracking-tight">
           What's Included
         </h2>
         <div className="grid grid-cols-2 gap-3 mb-8">
@@ -365,7 +365,7 @@ export const Details: React.FC = () => {
           })}
         </div>
 
-        <h2 className="font-montserrat text-[1.1rem] font-black text-black dark:text-white mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-black text-[var(--color-heading)] mb-4 tracking-tight">
           About this Property
         </h2>
         <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
@@ -379,7 +379,7 @@ export const Details: React.FC = () => {
         </button>
 
         {/* Room Options */}
-        <h2 className="font-montserrat text-[1.1rem] font-black text-black dark:text-white mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-black text-[var(--color-heading)] mb-4 tracking-tight">
           Room Options
         </h2>
         <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
@@ -411,7 +411,7 @@ export const Details: React.FC = () => {
             />
           </div>
           <div className="p-[18px]">
-            <h3 className="font-fraunces text-[1.1rem] font-black text-black dark:text-white mb-2.5">
+            <h3 className="font-fraunces text-[1.1rem] font-black text-[var(--color-heading)] mb-2.5">
               {selectedRoom.name}
             </h3>
             <div className="flex gap-3 flex-wrap mb-3.5">
@@ -444,7 +444,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Location  */}
-        <h2 className="font-montserrat text-[1.1rem] font-black text-black dark:text-white mb-4 tracking-tight">
+        <h2 className="font-montserrat text-[1.1rem] font-black text-[var(--color-heading)] mb-4 tracking-tight">
           Location
         </h2>
         <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
@@ -525,7 +525,7 @@ export const Details: React.FC = () => {
                <button onClick={() => setBookingModalOpen(false)} className="text-text-muted hover:text-text-primary p-2">✕</button>
             </div>
 
-            <h2 className="font-montserrat text-[1.1rem] md:text-xl font-black text-black dark:text-white mb-1">
+            <h2 className="font-montserrat text-[1.1rem] md:text-xl font-black text-[var(--color-heading)] mb-1">
               Request to Book
             </h2>
             <p className="text-[0.85rem] font-medium text-text-muted mb-6">

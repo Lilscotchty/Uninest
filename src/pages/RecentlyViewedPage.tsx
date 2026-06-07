@@ -70,7 +70,7 @@ export function RecentlyViewedPage() {
             <ArrowLeft size={20} />
           </button>
           <div>
-            <h1 className="text-xl font-black text-black dark:text-white leading-tight">
+            <h1 className="text-xl font-black text-[var(--color-heading)] leading-tight">
               Recently Viewed
             </h1>
             {hasItems && (
@@ -112,7 +112,7 @@ export function RecentlyViewedPage() {
            >
              <Clock size={28} className="text-gray-300 dark:text-gray-600" />
            </div>
-           <h2 className="text-lg font-black text-black dark:text-white mb-2">
+           <h2 className="text-lg font-black text-[var(--color-heading)] mb-2">
              No history yet
            </h2>
            <p className="text-sm text-text-secondary dark:text-gray-500 max-w-xs">

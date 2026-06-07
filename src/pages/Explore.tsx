@@ -337,7 +337,7 @@ export const Explore: React.FC = () => {
              }}
         >
           <div className="flex justify-between items-center px-1 mb-4">
-            <h2 className="font-montserrat text-[1.4rem] font-black text-black dark:text-white">Nearby Properties</h2>
+            <h2 className="font-montserrat text-[1.4rem] font-black text-[var(--color-heading)]">Nearby Properties</h2>
             <button className="flex items-center gap-1.5 bg-[var(--color-accent-muted)] text-[var(--color-accent)] px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-[var(--color-accent-muted)]/80">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
