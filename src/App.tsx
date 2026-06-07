@@ -24,6 +24,25 @@ const AppContent: React.FC = () => {
 
   // Middleware simulation for protecting routes
   useEffect(() => {
+    // Attempt auto-fullscreen on first user interaction (browser security requires a gesture)
+    const handleFirstInteraction = () => {
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      }
+    };
+
+    document.addEventListener('click', handleFirstInteraction, { once: true });
+    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
+  }, []);
+
+  useEffect(() => {
     if (user === undefined) return; // Wait for auth check
 
     const publicPaths = ['/', '/login', '/signup'];
