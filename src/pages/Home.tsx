@@ -120,7 +120,7 @@ export const Home: React.FC = () => {
       {/* NEARBY PROPERTIES */}
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Properties</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-black dark:text-white">Nearby Properties</h2>
           <span className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
@@ -165,7 +165,7 @@ export const Home: React.FC = () => {
       {/* QUICK ACTIONS */}
       <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
         <div className="flex justify-between items-center py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-black dark:text-white">Quick Actions</h2>
         </div>
         <div className="card-wrapper">
           <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
@@ -197,7 +197,7 @@ export const Home: React.FC = () => {
       {/* FEATURED CAROUSEL */}
       <div className="mt-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Featured Picks</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-black dark:text-white">Featured Picks</h2>
         </div>
         <div className="px-4 sm:px-5">
           <div className="flex gap-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar rounded-[20px] border border-border-subtle shadow-float scroll-smooth" ref={trackRef} onScroll={(e) => {
@@ -251,7 +251,7 @@ export const Home: React.FC = () => {
       {/* MAP VIEW */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Map View</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-black dark:text-white">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
           <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => navigate("/explore")}>
