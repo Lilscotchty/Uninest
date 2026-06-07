@@ -120,7 +120,7 @@ export const Home: React.FC = () => {
       {/* NEARBY PROPERTIES */}
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-          <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Nearby Properties</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Nearby Properties</h2>
           <span className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
@@ -165,7 +165,7 @@ export const Home: React.FC = () => {
       {/* QUICK ACTIONS */}
       <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
         <div className="flex justify-between items-center py-4 pb-3">
-          <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Quick Actions</h2>
+          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
         <div className="card-wrapper">
           <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
