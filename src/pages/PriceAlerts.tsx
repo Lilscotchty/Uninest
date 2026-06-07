@@ -5,7 +5,7 @@ import { useAppContext } from '../context/AppContext';
 import { PageHeader } from '../components/PageHeader';
 
 export const PriceAlerts: React.FC = () => {
-  const { setCurrentView, showToast } = useAppContext();
+  const { setCurrentView, showToast, user } = useAppContext();
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState([
     { id: 1, loc: 'Legon Campus', maxPrice: 4000, active: true },
@@ -56,8 +56,9 @@ export const PriceAlerts: React.FC = () => {
 
         {isAdding && (
           <div className="bg-card-bg rounded-[18px] border border-teal-200 p-4 mb-4 shadow-sm animate-in fade-in slide-in-from-top-2">
-            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3">
               <input 
+                 id="new-alert-area"
                  type="text" 
                  placeholder="Area/Property (e.g., East Legon)" 
                  className="w-full bg-app-bg border border-border-subtle rounded-xl px-3 py-2 text-[0.85rem] outline-none focus:border-teal" 
@@ -65,13 +66,40 @@ export const PriceAlerts: React.FC = () => {
               <div className="flex items-center gap-2">
                 <span className="text-[0.85rem] font-semibold text-text-muted">Max: GH₵</span>
                 <input 
+                  id="new-alert-price"
                   type="number" 
                   placeholder="3500" 
                   className="w-full max-w-[100px] bg-app-bg border border-border-subtle rounded-xl px-3 py-2 text-[0.85rem] outline-none focus:border-teal" 
                 />
               </div>
               <button 
-                onClick={() => { setIsAdding(false); showToast('Alert created perfectly!') }}
+                onClick={async () => {
+                  setIsAdding(false); 
+                  showToast('Alert created perfectly!');
+                  
+                  // Send Email Notification
+                  const userEmail = user?.email || "pb7552212@gmail.com";
+                  const areaInput = (document.getElementById('new-alert-area') as HTMLInputElement)?.value || 'Selected Area';
+                  const maxPriceInput = (document.getElementById('new-alert-price') as HTMLInputElement)?.value || '0';
+                  
+                  try {
+                    await fetch('/api/send-email', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        to: userEmail,
+                        subject: `Price Alert Active: ${areaInput}`,
+                        html: `<p>Hi there,</p>
+                        <p>We've successfully set up your price alert.</p>
+                        <p>You'll be the first to know when a property in <strong>${areaInput}</strong> drops below GH₵<strong>${maxPriceInput}</strong> / sem.</p>
+                        <p>Keep an eye on this inbox!</p>`
+                      })
+                    });
+                  } catch (e) {
+                    console.error("Email error:", e);
+                  }
+
+                }}
                 className="bg-teal text-white font-bold py-2.5 rounded-xl shadow-sm mt-2 text-[0.85rem] active:scale-[0.98]"
               >
                 Save Alert

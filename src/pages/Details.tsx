@@ -48,7 +48,14 @@ export const Details: React.FC = () => {
     savedProperties,
     toggleSave,
     properties,
+    user,
   } = useAppContext();
+
+  const [bookingForm, setBookingForm] = useState({
+    firstName: "",
+    lastName: "",
+    phone: ""
+  });
   const navigate = useNavigate();
 
   const property = properties.find((h) => h.id?.toString() === selectedPropertyId?.toString()) || properties[0];
@@ -540,6 +547,8 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Kwame"
+                  value={bookingForm.firstName}
+                  onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
                   className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
@@ -550,6 +559,8 @@ export const Details: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Owusu"
+                  value={bookingForm.lastName}
+                  onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
                   className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
@@ -561,6 +572,8 @@ export const Details: React.FC = () => {
               <input
                 type="tel"
                 placeholder="+233 5X XXX XXXX"
+                value={bookingForm.phone}
+                onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
                 className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
               />
             </div>
@@ -593,9 +606,50 @@ export const Details: React.FC = () => {
             </div>
 
             <button
-              onClick={() => {
+              onClick={async () => {
                 setBookingModalOpen(false);
                 showToast("Booking request sent! 🎉");
+
+                // Send email to the user
+                const userEmail = user?.email || "pb7552212@gmail.com";
+                const fullName = `${bookingForm.firstName} ${bookingForm.lastName}`.trim() || 'Student';
+                
+                try {
+                  // User confirmation email
+                  await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      to: userEmail,
+                      subject: `Booking Request Confirmation - ${property.name}`,
+                      html: `<p>Hi <strong>${fullName}</strong>,</p>
+                      <p>We've received your booking request for <strong>${property.name}</strong> (${selectedRoom.name}).</p>
+                      <p>The property manager will review your request and get back to you soon.</p>
+                      <p>Estimated Total: ${selectedRoom.price}/sem</p>`
+                    })
+                  });
+
+                  // Manager notification email
+                  const managerEmail = "pb7552212@gmail.com"; // Fallback to provided manager email
+                  await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      to: managerEmail,
+                      subject: `New Booking Request for ${property.name}`,
+                      html: `<p>Good day Manager,</p>
+                      <p>You have a new booking request for <strong>${property.name}</strong> (${selectedRoom.name}).</p>
+                      <p><strong>Student Details:</strong><br>
+                      Name: ${fullName}<br>
+                      Phone: ${bookingForm.phone}<br>
+                      Email: ${userEmail}</p>
+                      <p>Please review and follow up with the student.</p>`
+                    })
+                  });
+                } catch (e) {
+                  console.error("Failed to send booking emails", e);
+                }
+
                 setTimeout(() => navigate("/student/dashboard"), 1500);
               }}
               className="w-full bg-[var(--color-accent)] text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"

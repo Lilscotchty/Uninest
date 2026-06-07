@@ -268,6 +268,18 @@ export function SignUp() {
       } else {
         toast.success("Account created successfully!");
         showToast("Account created successfully!");
+        
+        // Send welcome email
+        fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: data.email,
+            subject: 'Welcome to SKYCOBE!',
+            html: `<p>Hi <strong>${data.fullName}</strong>,</p><p>Welcome to SKYCOBE! We're thrilled to have you as a ${role} on our platform.</p><p>Let's find or list your next perfect space.</p>`
+          })
+        }).catch(err => console.error("Email API Error:", err));
+
         navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     } catch (err: any) {
