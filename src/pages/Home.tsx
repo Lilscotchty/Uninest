@@ -163,45 +163,33 @@ export const Home: React.FC = () => {
       </div>
 
       {/* QUICK ACTIONS */}
-      <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full">
+      <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
         <div className="flex justify-between items-center py-4 pb-3">
           <h2 className="font-montserrat text-xl sm:text-2xl font-black tracking-tight text-text-primary">Quick Actions</h2>
         </div>
-        <div className="flex gap-4 pb-4">
-          <div 
-            onClick={() => navigate("/virtual-tour")}
-            className="relative overflow-hidden w-[120px] sm:w-[140px] flex-1 h-[120px] bg-[#1c1c1c] rounded-[24px] p-4 flex flex-col justify-end border-[1px] border-[rgba(255,255,255,0.08)] transition-transform duration-200 hover:-translate-y-1 cursor-pointer font-sans"
-          >
-            <div 
-              className="absolute w-[170px] h-[170px] blur-[35px] -bottom-[50px] -right-[50px] z-0 pointer-events-none"
-              style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}
-            ></div>
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-auto text-[#b45309] relative z-10">
+        <div className="card-wrapper">
+          <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
+            <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}></div>
+            <div className="icon-box" style={{ background: "transparent", color: "#b45309" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
             </div>
-            <div className="relative z-10">
-              <h3 className="m-0 text-white text-[14px] font-semibold tracking-[-0.01em]">Virtual Tour</h3>
-              <p className="m-0 mt-1 text-[#9ca3af] text-[12px]">See units live</p>
+            <div className="text-content">
+              <h3>Virtual Tour</h3>
+              <p>See units live</p>
             </div>
-            <div className="absolute top-[12px] right-[16px] text-white text-[20px] opacity-50 z-10 leading-none">›</div>
+            <div className="arrow">›</div>
           </div>
 
-          <div 
-            onClick={() => navigate("/price-alerts")}
-            className="relative overflow-hidden w-[120px] sm:w-[140px] flex-1 h-[120px] bg-[#1c1c1c] rounded-[24px] p-4 flex flex-col justify-end border-[1px] border-[rgba(255,255,255,0.08)] transition-transform duration-200 hover:-translate-y-1 cursor-pointer font-sans"
-          >
-            <div 
-              className="absolute w-[170px] h-[170px] blur-[35px] -bottom-[50px] -right-[50px] z-0 pointer-events-none"
-              style={{ background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%)" }}
-            ></div>
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-auto text-[#047857] relative z-10">
+          <div className="modern-card" onClick={() => navigate("/price-alerts")}>
+            <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%)" }}></div>
+            <div className="icon-box" style={{ background: "transparent", color: "#047857" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             </div>
-            <div className="relative z-10">
-              <h3 className="m-0 text-white text-[14px] font-semibold tracking-[-0.01em]">Price Alerts</h3>
-              <p className="m-0 mt-1 text-[#9ca3af] text-[12px]">Get notified</p>
+            <div className="text-content">
+              <h3>Price Alerts</h3>
+              <p>Get notified</p>
             </div>
-            <div className="absolute top-[12px] right-[16px] text-white text-[20px] opacity-50 z-10 leading-none">›</div>
+            <div className="arrow">›</div>
           </div>
         </div>
       </div>
