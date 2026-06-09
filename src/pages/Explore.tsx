@@ -17,9 +17,9 @@ const formatShortPrice = (num: number) => {
 const getCustomIcon = (img: string, priceNum?: number) => {
   const priceLabel = priceNum ? formatShortPrice(priceNum) : '';
   return new L.DivIcon({
-    className: 'custom-marker',
+    className: 'custom-marker-wrapper',
     html: `
-      <div style="position:relative;width:56px;height:56px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
+      <div class="marker-animated-inner" style="position:relative;width:56px;height:56px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
         <img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;filter:brightness(0.65);" />
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:50%;">
           <span style="color:white;font-weight:700;font-size:11px;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,0.9);letter-spacing:-0.2px;">${priceLabel}</span>

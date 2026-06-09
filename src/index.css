@@ -10,8 +10,14 @@
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-.custom-marker {
-  animation: markerSpawn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+.custom-marker-wrapper {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.marker-animated-inner {
+  animation: markerSpawn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: 50% 115%; /* Scale from the bottom tip point */
 }
 
 @theme {
