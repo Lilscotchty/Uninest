@@ -16,6 +16,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
 import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
+import { PropertyReviews } from './pages/PropertyReviews';
 import RecentlyViewedPage from "./pages/RecentlyViewedPage";
 
 const AppContent: React.FC = () => {
@@ -103,6 +104,9 @@ const AppContent: React.FC = () => {
         <Route path="/saved" element={<AppShell><Saved /></AppShell>} />
         <Route path="/profile" element={<AppShell><Profile /></AppShell>} />
         
+        {/* Review Routes */}
+        <Route path="/property/:propertyId/reviews" element={<PropertyReviews />} />
+        
         {/* Manager Routes */}
         <Route path="/manager/dashboard" element={<ManagerDashboard />} />
 
@@ -138,4 +142,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
