@@ -64,7 +64,7 @@ const DynamicMarkers = ({ properties, onPropertyClick, peekPropertyId }: { prope
     // Slight padding to map bounds to pre-compute slightly out of view if needed,
     // though just getting map bounds is usually fine.
     const bounds = map.getBounds();
-    const visibleProps = properties.filter(p => bounds.contains([p.lat, p.lng]));
+    const visibleProps = properties.filter(p => bounds.contains(L.latLng(p.lat, p.lng)));
 
     const shownIds: number[] = [];
     const usedBoxes: {x: number, y: number, w: number, h: number}[] = [];
@@ -107,6 +107,12 @@ const DynamicMarkers = ({ properties, onPropertyClick, peekPropertyId }: { prope
 
   useEffect(() => {
     calculateCollisions();
+    const timer = setTimeout(calculateCollisions, 100);
+    const timer2 = setTimeout(calculateCollisions, 500);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
   }, [calculateCollisions]);
 
   useMapEvents({
