@@ -262,7 +262,7 @@ export const Explore: React.FC = () => {
                  <Circle 
                    center={[h.lat, h.lng]}
                    radius={140}
-                   pathOptions={{ fillColor: '#2596be', color: 'transparent', fillOpacity: 0.15 }}
+                   pathOptions={{ fillColor: '#178053', color: 'transparent', fillOpacity: 0.15 }}
                  />
                  <Marker 
                    position={[h.lat, h.lng]} 

@@ -25,11 +25,11 @@
   /* ── Headings ─────────────────────────────────────────────────────────── */
   --color-heading:        #000000;
 
-  /* ── Brand accent (custom blue) ─────────────────── */
-  --color-accent:         #2596be;
-  --color-accent-hover:   #1d7a99;
-  --color-accent-muted:   rgba(37, 150, 190, 0.12);
-  --color-accent-text:    #2596be;
+  /* ── Brand accent (custom green) ─────────────────── */
+  --color-accent:         #178053;
+  --color-accent-hover:   #126441;
+  --color-accent-muted:   rgba(23, 128, 83, 0.12);
+  --color-accent-text:    #178053;
 
   /* ── Highlight (MTN-inspired amber — stat labels, badges, CTAs) ────────── */
   --color-highlight:      #f59e0b;
@@ -73,11 +73,11 @@
   /* ── Headings ─────────────────────────────────────────────────────────── */
   --color-heading:        #ffffff;
 
-  /* ── Brand accent (custom blue) ────────────────────────────────────────────── */
-  --color-accent:         #2596be;   /* custom blue */
-  --color-accent-hover:   #45aedb;
-  --color-accent-muted:   rgba(37, 150, 190, 0.15);
-  --color-accent-text:    #2596be;
+  /* ── Brand accent (custom green) ────────────────────────────────────────────── */
+  --color-accent:         #178053;   /* custom green */
+  --color-accent-hover:   #21a66c;
+  --color-accent-muted:   rgba(23, 128, 83, 0.15);
+  --color-accent-text:    #178053;
 
   /* ── Highlight (amber — MTN-inspired) ────────────────────────────────── */
   --color-highlight:      #fbbf24;
