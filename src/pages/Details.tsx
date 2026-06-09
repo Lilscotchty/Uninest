@@ -66,7 +66,7 @@ export const Details: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [descExpanded, setDescExpanded] = useState(false);
-  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living. The units are fully tiled, spacious, and recently renovated with fresh interiors.\n\nEach unit comes with an in-built wardrobe, study desk, and fan. The compound is gated and guarded around the clock. Utility bills (water) are included in the semester fee, making budgeting simple and stress-free.`;
+  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living.[...]
 
   const [activeRoomMode, setActiveRoomMode] = useState<
     "single" | "double" | "quad"
@@ -189,7 +189,7 @@ export const Details: React.FC = () => {
           {(property.images || []).map((src, i) => (
             <div
               key={i}
-              className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+              className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1"[...]
               onClick={() =>
                 trackRef.current?.scrollTo({
                   left: i * (trackRef.current?.clientWidth || 0),
@@ -208,7 +208,7 @@ export const Details: React.FC = () => {
             return (
               <div
                 key={`pano-thumb-${j}`}
-                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outlin[...]
                 onClick={() =>
                   trackRef.current?.scrollTo({
                     left: i * (trackRef.current?.clientWidth || 0),
@@ -225,7 +225,7 @@ export const Details: React.FC = () => {
           }) : (
             <div
                 key="pano-thumb-fallback"
-                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline ou[...]
                 onClick={() =>
                   trackRef.current?.scrollTo({
                     left: (property.images?.length || 0) * (trackRef.current?.clientWidth || 0),
@@ -310,12 +310,21 @@ export const Details: React.FC = () => {
           </div>
         </div>
 
+        {/* View Reviews Button */}
+        <button
+          onClick={() => navigate(`/property/${property.id}/reviews`)}
+          className="w-full mb-6 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-[16px] font-bold text-[0.95rem] flex items-center justify-center gap-2 hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm"
+        >
+          <MessageCircle size={18} />
+          View Reviews ({property.reviews})
+        </button>
+
         {/* Host */}
         <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
           Listed by
         </h2>
         <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
-          <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[1.2rem]">
+          <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-cen[...]
             C
           </div>
           <div className="flex-1 min-w-0 pr-1">
@@ -332,13 +341,13 @@ export const Details: React.FC = () => {
           <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
                 <a
                   href="tel:+233"
-                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent)] hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent[...]
                 >
                   <Phone size={16} />
                 </a>
                 <a
                   href="https://wa.me/233"
-                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:[...]
                 >
                   <MessageCircle size={20} />
                 </a>
@@ -392,19 +401,19 @@ export const Details: React.FC = () => {
         <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
           <button
             onClick={() => setActiveRoomMode("single")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg[...]
           >
             Single
           </button>
           <button
             onClick={() => setActiveRoomMode("double")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg[...]
           >
             Double
           </button>
           <button
             onClick={() => setActiveRoomMode("quad")}
-            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[[...]
           >
             Quad
           </button>
@@ -454,7 +463,7 @@ export const Details: React.FC = () => {
         <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
           Location
         </h2>
-        <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
+        <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow[...]
           <div className="absolute inset-0 bg-transparent z-10" />
           <div
             className={`w-full h-full transition-all group-hover:opacity-90`}
@@ -478,12 +487,12 @@ export const Details: React.FC = () => {
         </a>
         <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
           <MapPin size={14} className="text-[var(--color-accent)]" />{" "}
-          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-[var(--color-accent)]">Open in Google Maps</a>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-[var(--color-accent[...]
         </p>
       </div>
 
       {/* BOTTOM BAR / DESKTOP SIDEBAR */}
-      <div className="fixed md:sticky bottom-0 md:top-24 left-0 w-full md:w-auto bg-card-bg/95 md:bg-card-bg backdrop-blur-md px-4 sm:px-6 md:p-6 py-3 border-t md:border border-transparent md:border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-card z-[100] flex justify-between md:flex-col items-center md:items-stretch gap-3 pb-8 md:pb-6 md:col-span-1 md:rounded-2xl md:h-fit">
+      <div className="fixed md:sticky bottom-0 md:top-24 left-0 w-full md:w-auto bg-card-bg/95 md:bg-card-bg backdrop-blur-md px-4 sm:px-6 md:p-6 py-3 border-t md:border border-transparent md:bor[...]
         <div className="flex-1 min-w-0 md:text-center shrink-0">
           <div className="text-[1.1rem] sm:text-[1.2rem] md:text-3xl font-bold text-text-primary leading-[1.1]">
             {selectedRoom.price}
@@ -496,14 +505,14 @@ export const Details: React.FC = () => {
                 : "4"}{" "}
             in a unit / sem
           </div>
-          <div className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-center gap-1 truncate max-w-full md:mt-2 md:w-full">
+          <div className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-[...]
             <Tag size={12} className="shrink-0" /> Code DWELL15
           </div>
         </div>
         <div className="flex md:flex-col gap-2 shrink-0 md:mt-4">
           <button
             onClick={() => setBookingModalOpen(true)}
-            className="bg-[var(--color-accent)] text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] flex-1 w-full"
+            className="bg-[var(--color-accent)] text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] f[...]
           >
             Request Booking
           </button>
@@ -512,7 +521,7 @@ export const Details: React.FC = () => {
               navigator.clipboard.writeText(window.location.href);
               showToast("Link copied!");
             }}
-            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[var(--color-accent-muted)]/20 transition-colors gap-2"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:[...]
           >
             <ArrowUpFromLine size={16} /> <span className="hidden md:inline font-bold">Share Link</span>
           </button>
@@ -522,7 +531,7 @@ export const Details: React.FC = () => {
       {/* BOOKING MODAL */}
       {bookingModalOpen && (
         <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end md:items-center justify-center">
-          <div className="w-full max-w-[400px] md:max-w-[500px] max-h-[85vh] overflow-y-auto hide-scrollbar bg-card-bg rounded-t-[32px] md:rounded-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom md:slide-in-from-bottom-8 md:fade-in">
+          <div className="w-full max-w-[400px] md:max-w-[500px] max-h-[85vh] overflow-y-auto hide-scrollbar bg-card-bg rounded-t-[32px] md:rounded-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-[...]
             <div
               className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-6 shadow-sm cursor-pointer hover:bg-slate-400 md:hidden"
               onClick={() => setBookingModalOpen(false)}
@@ -549,7 +558,7 @@ export const Details: React.FC = () => {
                   placeholder="Kwame"
                   value={bookingForm.firstName}
                   onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
-                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] fo[...]
                 />
               </div>
               <div>
@@ -561,7 +570,7 @@ export const Details: React.FC = () => {
                   placeholder="Owusu"
                   value={bookingForm.lastName}
                   onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
-                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] fo[...]
                 />
               </div>
             </div>
@@ -574,7 +583,7 @@ export const Details: React.FC = () => {
                 placeholder="+233 5X XXX XXXX"
                 value={bookingForm.phone}
                 onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focu[...]
               />
             </div>
             <div className="mb-4">
@@ -584,7 +593,7 @@ export const Details: React.FC = () => {
               <select
                 value={activeRoomMode}
                 onChange={(e) => setActiveRoomMode(e.target.value as any)}
-                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focu[...]
               >
                 <option value="single">
                   Single Unit – {rooms.single.price}/sem
