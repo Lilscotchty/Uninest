@@ -34,7 +34,7 @@ import { PROPERTIES } from "../data";
 
 const mapIcon = L.divIcon({
   className: "",
-  html: `<div style="background:#3730a3;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(55,48,163,0.4);"></div>`,
+  html: `<div style="background:#3ecf8e;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(62,207,142,0.4);"></div>`,
   iconSize: [14, 14],
   iconAnchor: [7, 7],
 });

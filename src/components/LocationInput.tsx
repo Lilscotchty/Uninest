@@ -5,7 +5,7 @@ import { MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useLocationVerification, LocationData } from '../hooks/useLocationVerification';
 
 const customMarkerIcon = new L.DivIcon({
-  html: `<div style="width: 20px; height: 20px; background-color: #3730a3; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>`,
+  html: `<div style="width: 20px; height: 20px; background-color: #3ecf8e; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>`,
   className: '',
   iconSize: [20, 20],
   iconAnchor: [10, 10],

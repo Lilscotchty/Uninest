@@ -5,21 +5,6 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@keyframes markerSpawn {
-  0% { transform: scale(0.6) translateY(10px); opacity: 0; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-.custom-marker-wrapper {
-  background: transparent !important;
-  border: 0 !important;
-}
-
-.marker-animated-inner {
-  animation: markerSpawn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  transform-origin: 50% 115%; /* Scale from the bottom tip point */
-}
-
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   
@@ -49,18 +34,21 @@
 
   /* Preserving specific color aliases in case they are used as bg-indigo etc. */
   --color-indigo: var(--color-accent);
-  --color-indigo-dark: #1c2042;
+  --color-indigo-dark: var(--color-accent-hover);
   --color-indigo-light: var(--color-accent-muted);
-  --color-indigo-mid: #28376e;
+  --color-indigo-mid: var(--color-accent-hover);
   --color-amber: #d97706;
   --color-amber-light: var(--amber-light, #fef3c7);
   --color-amber-glow: #f97316;
   --color-coral: #e11d48;
   --color-coral-light: var(--coral-light, #ffe4e6);
-  --color-teal: #0d9488;
-  --color-teal-light: var(--teal-light, #ccfbf1);
-  --color-green: var(--color-success);
-  --color-green-light: var(--green-light, #dcfce7);
+  --color-teal: var(--color-accent);
+  --color-teal-light: var(--color-accent-muted);
+  --color-teal-50: var(--color-accent-muted);
+  --color-teal-200: var(--color-border);
+  --color-teal-600: var(--color-accent);
+  --color-green: var(--color-accent);
+  --color-green-light: var(--color-accent-muted);
   --color-app-bg: var(--color-bg);
   --color-card-bg: var(--color-card-bg);
   
