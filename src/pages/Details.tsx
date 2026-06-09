@@ -454,8 +454,29 @@ export const Details: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* --- ADD THE MISSING BOTTOM REQUEST BAR HERE --- */}
+        <div className="fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 md:pb-4 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)] md:rounded-b-2xl">
+          <div>
+            <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
+              {property.price.split(',')[0]}K
+            </strong>
+            <span className="block text-[0.7rem] text-text-muted font-bold uppercase tracking-[0.5px]">
+              Total Price
+            </span>
+          </div>
+          <button
+            onClick={() => setBookingModalOpen(true)}
+            className="px-8 py-3.5 bg-[var(--color-accent)] text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
+          >
+            Request Room
+          </button>
+        </div>
+        {/* --- END OF REQUEST BAR --- */}
+
       </div>
     </div>
   );
 };
+
 
