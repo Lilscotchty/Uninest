@@ -68,7 +68,20 @@ export const Profile: React.FC = () => {
 
   return (
     <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
-      <PageHeader />
+      <PageHeader 
+        actions={[
+          {
+            icon: <ScanLine size={22} strokeWidth={1.8} />,
+            label: "Scan",
+            onClick: () => showToast('Scan action triggered'),
+          },
+          {
+            icon: <Settings size={22} strokeWidth={1.8} />,
+            label: "Settings",
+            onClick: () => showToast('Settings action triggered'),
+          },
+        ]}
+      />
 
       <div className="flex-1 w-full px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar mt-4 max-w-3xl mx-auto relative pt-0">
         
@@ -82,6 +95,12 @@ export const Profile: React.FC = () => {
               className="w-full h-full object-cover" 
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
+            <button 
+              onClick={() => handleAction('Edit Cover Photo')}
+              className="absolute top-3 right-3 w-8 h-8 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+            >
+              <PenLine size={14} className="stroke-[2.5]" />
+            </button>
           </div>
 
           <div className="px-5 pb-5 relative z-10">
@@ -120,6 +139,7 @@ export const Profile: React.FC = () => {
               <p className="text-[14px] text-text-primary/80 mt-0.5">{university}</p>
               <div className="flex flex-col mt-2 gap-1 text-[13px] text-text-muted leading-relaxed">
                 <span>{email}</span>
+                <span className="text-[var(--color-accent)] font-medium hover:underline cursor-pointer transition-colors">54 connections</span>
               </div>
             </div>
           </div>
@@ -150,12 +170,19 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Account</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+              <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center shrink-0">
                   <User size={16} />
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Personal Information</span>
                 <ChevronRight size={16} className="text-text-muted group-hover:text-[var(--color-accent)] transition-colors" />
+              </button>
+              <button onClick={() => handleAction('Payment Methods')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-teal-light text-teal flex items-center justify-center shrink-0">
+                  <CreditCard size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Payment Methods</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-teal transition-colors" />
               </button>
             </div>
           </div>
@@ -166,12 +193,49 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Preferences</span>
             </div>
             <div className="flex flex-col">
+              <button onClick={() => handleAction('Notifications')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-amber-light text-amber-glow flex items-center justify-center shrink-0">
+                  <Bell size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Notifications</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-amber-glow transition-colors" />
+              </button>
+              <button onClick={() => handleAction('Privacy & Security')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center shrink-0">
+                  <Shield size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Privacy & Security</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-[var(--color-accent)] transition-colors" />
+              </button>
               <ThemeRow />
               <button onClick={() => toggleFullscreen()} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)]/20 text-text-muted flex items-center justify-center shrink-0">
                   {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
                 </div>
                 <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">{isFullscreen ? 'Exit Full Screen' : 'Go Full Screen'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Support Group */}
+          <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border overflow-hidden">
+            <div className="px-5 py-3 border-b border-border-subtle bg-app-bg/50">
+              <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Support</span>
+            </div>
+            <div className="flex flex-col">
+              <button onClick={() => handleAction('Help Center')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[#fef3c7] text-[#d97706] flex items-center justify-center shrink-0">
+                  <HelpCircle size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Help Center</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-[#d97706] transition-colors" />
+              </button>
+              <button onClick={() => handleAction('Terms & Policies')} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)]/20 text-text-muted flex items-center justify-center shrink-0">
+                  <FileText size={16} />
+                </div>
+                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Terms & Policies</span>
+                <ChevronRight size={16} className="text-text-muted group-hover:text-text-muted transition-colors" />
               </button>
             </div>
           </div>

@@ -74,6 +74,18 @@ export const Home: React.FC = () => {
     <div className="flex-1 w-full hide-scrollbar relative scroll-smooth flex flex-col pt-0">
       <PageHeader 
         title="Explore"
+        actions={[
+          { icon: <Search size={22} strokeWidth={1.8} />, label: "Search", onClick: () => navigate("/explore") },
+          { icon: <SlidersHorizontal size={22} strokeWidth={1.8} />, label: "Filter", onClick: () => {} }
+        ]}
+        tabs={[
+          { id: 'all', label: 'All' },
+          { id: 'nearby', label: 'Nearby' },
+          { id: 'featured', label: 'Featured' },
+          { id: 'new', label: 'New Listings' }
+        ]}
+        activeTab="all"
+        onTabChange={() => {}}
       />
 
       {/* SEARCH BAR UNDER HEADER */}
@@ -109,7 +121,7 @@ export const Home: React.FC = () => {
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
           <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
-          <span onClick={() => navigate("/explore")} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
+          <span className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
         <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
