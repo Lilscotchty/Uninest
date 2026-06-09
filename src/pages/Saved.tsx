@@ -28,19 +28,6 @@ export const Saved: React.FC = () => {
    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
       <PageHeader 
         title="Saved" 
-        tabs={[
-          { id: 'properties', label: 'Properties' },
-          { id: 'searches', label: 'Searches' }
-        ]}
-        activeTab={activeHeaderTab}
-        onTabChange={setActiveHeaderTab}
-        actions={[
-          {
-            icon: <SortAsc size={22} strokeWidth={1.8} />,
-            label: "Sort",
-            onClick: () => showToast('Sort options')
-          }
-        ]}
       />
 
 
