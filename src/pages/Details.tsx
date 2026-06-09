@@ -441,7 +441,7 @@ export const Details: React.FC = () => {
                   <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
                 </div>
               </div>
-              <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
+                 <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
                 <div>
                   <strong className="block text-[1.1rem] text-text-primary leading-none">
                     {selectedRoom.price}
@@ -450,12 +450,20 @@ export const Details: React.FC = () => {
                     per semester
                   </span>
                 </div>
+                {/* NEW CHECKOUT BUTTON */}
+                <button
+                  onClick={() => setBookingModalOpen(true)}
+                  className="px-5 py-2 bg-[var(--color-accent)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform" >
+              
+                  Checkout
+                </button>
               </div>
+
             </div>
           </div>
         </div>
 
-        {/* --- ADD THE MISSING BOTTOM REQUEST BAR HERE --- */}
+                {/* --- ADD THE MISSING BOTTOM REQUEST BAR HERE --- */}
         <div className="fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 md:pb-4 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)] md:rounded-b-2xl">
           <div>
             <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
@@ -475,8 +483,67 @@ export const Details: React.FC = () => {
         {/* --- END OF REQUEST BAR --- */}
 
       </div>
+
+      {/* --- NEW BOOKING MODAL --- */}
+      {bookingModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-app-bg w-full max-w-md rounded-[24px] p-6 shadow-xl relative animate-in fade-in zoom-in duration-200">
+            <button
+              onClick={() => setBookingModalOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 transition-colors"
+            >
+              ✕
+            </button>
+            <h2 className="text-[1.3rem] font-bold text-[var(--color-heading)] mb-2">Request Room</h2>
+            <p className="text-[0.9rem] text-text-muted mb-6">Fill out your details to secure your {selectedRoom.name}.</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">First Name</label>
+                <input 
+                  type="text" 
+                  value={bookingForm.firstName}
+                  onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
+                  placeholder="Enter first name"
+                />
+              </div>
+              <div>
+                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Last Name</label>
+                <input 
+                  type="text" 
+                  value={bookingForm.lastName}
+                  onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
+                  placeholder="Enter last name"
+                />
+              </div>
+              <div>
+                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Phone Number</label>
+                <input 
+                  type="tel" 
+                  value={bookingForm.phone}
+                  onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              
+              <button 
+                onClick={() => {
+                  showToast("Room requested successfully!");
+                  setBookingModalOpen(false);
+                }}
+                className="w-full py-3.5 bg-[var(--color-accent)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:opacity-90 transition-opacity mt-4"
+              >
+                Submit Request
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* --- END OF BOOKING MODAL --- */}
+
     </div>
   );
 };
-
-
