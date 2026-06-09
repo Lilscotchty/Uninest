@@ -5,6 +5,7 @@ import { AppShell } from './components/layout/AppShell';
 import { Home } from './pages/Home';
 import { Explore } from './pages/Explore';
 import { Details } from './pages/Details';
+import { SeeAll } from './pages/SeeAll';
 import { Saved } from './pages/Saved';
 import { Profile } from './pages/Profile';
 import { SignUp } from './pages/SignUp';
@@ -95,6 +96,7 @@ const AppContent: React.FC = () => {
         {/* Student Routes */}
         <Route path="/student/dashboard" element={<AppShell><Home /></AppShell>} />
         <Route path="/explore" element={<AppShell><Explore /></AppShell>} />
+        <Route path="/see-all/:type" element={<AppShell><SeeAll /></AppShell>} />
         <Route path="/details" element={<Details />} />
         <Route path="/virtual-tour" element={<VirtualTour />} />
         <Route path="/price-alerts" element={<PriceAlerts />} />

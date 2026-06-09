@@ -21,6 +21,7 @@ const FILTERS = [
 export const Home: React.FC = () => {
   const { activeFilter, setActiveFilter, setCurrentView, savedProperties, toggleSave, showToast, setSelectedPropertyId, setExploreSearchQuery, properties } = useAppContext();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('all');
   
   // Featured Picks auto-sliding carousel (like index.html)
   const trackRef = useRef<HTMLDivElement>(null);
@@ -84,12 +85,14 @@ export const Home: React.FC = () => {
           { id: 'featured', label: 'Featured' },
           { id: 'new', label: 'New Listings' }
         ]}
-        activeTab="all"
-        onTabChange={() => {}}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
       />
 
-      {/* SEARCH BAR UNDER HEADER */}
-      <div className="px-4 sm:px-6 lg:px-8 relative z-10 mb-4 mt-6 max-w-4xl mx-auto w-full">
+      {activeTab === 'all' && (
+        <>
+          {/* SEARCH BAR UNDER HEADER */}
+          <div className="px-4 sm:px-6 lg:px-8 relative z-10 mb-4 mt-6 max-w-4xl mx-auto w-full">
         <button 
           onClick={() => navigate("/explore")}
           className="w-full bg-card-bg rounded-2xl p-4 flex items-center gap-3 shadow-float border border-[var(--color-border)] transition-transform hover:-translate-y-[1px] text-left"
@@ -121,7 +124,7 @@ export const Home: React.FC = () => {
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
           <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
-          <span className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
+          <span onClick={() => navigate('/see-all/nearby')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
         <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
@@ -198,6 +201,7 @@ export const Home: React.FC = () => {
       <div className="mt-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
           <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
+          <span onClick={() => navigate('/see-all/featured')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         <div className="px-4 sm:px-5">
           <div className="flex gap-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar rounded-[20px] border border-border-subtle shadow-float scroll-smooth" ref={trackRef} onScroll={(e) => {
@@ -265,6 +269,62 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+      )}
+
+      {activeTab === 'nearby' && (
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
+          {properties.map(property => (
+            <PropertyCard 
+              key={property.id} 
+              property={property} 
+              isSaved={savedProperties.includes(property.id)}
+              onToggleSave={toggleSave}
+              onClick={() => {
+                setSelectedPropertyId(property.id);
+                navigate("/details");
+              }} 
+              layout="compact"
+            />
+          ))}
+        </div>
+      )}
+
+      {activeTab === 'featured' && (
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
+          {properties.filter(p => ['1', '2', '3'].includes(p.id.toString())).map(property => (
+            <PropertyCard 
+              key={property.id} 
+              property={property} 
+              isSaved={savedProperties.includes(property.id)}
+              onToggleSave={toggleSave}
+              onClick={() => {
+                setSelectedPropertyId(property.id);
+                navigate("/details");
+              }} 
+              layout="compact"
+            />
+          ))}
+        </div>
+      )}
+
+      {activeTab === 'new' && (
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
+          {[...properties].reverse().map(property => (
+            <PropertyCard 
+              key={property.id} 
+              property={property} 
+              isSaved={savedProperties.includes(property.id)}
+              onToggleSave={toggleSave}
+              onClick={() => {
+                setSelectedPropertyId(property.id);
+                navigate("/details");
+              }} 
+              layout="compact"
+            />
+          ))}
+        </div>
+      )}
 
     </div>
   );
