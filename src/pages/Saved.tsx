@@ -70,7 +70,7 @@ export const Saved: React.FC = () => {
             <div className="w-20 h-20 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
-            <h2 className="font-montserrat text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved properties yet</h2>
+            <h2 className="text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved properties yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => navigate("/explore")}
@@ -101,7 +101,7 @@ export const Saved: React.FC = () => {
                   <Bookmark size={18} fill="currentColor" />
                 </button>
                 
-                <div className="absolute bottom-3.5 left-3.5 bg-slate-900/85 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl font-fraunces text-[1.25rem] font-bold flex flex-col leading-none shadow-sm z-10">
+                <div className="absolute bottom-3.5 left-3.5 bg-slate-900/85 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl text-[1.25rem] font-bold flex flex-col leading-none shadow-sm z-10">
                   {h.price}
                   <span className="font-sans text-[0.65rem] font-semibold opacity-80 mt-1 tracking-wide uppercase">Per Semester</span>
                 </div>
@@ -109,7 +109,7 @@ export const Saved: React.FC = () => {
 
               <div className="pt-3.5 px-1.5">
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-fraunces text-[1.1rem] font-bold text-text-primary mr-2.5 leading-tight">{h.name}</h3>
+                  <h3 className="text-[1.1rem] font-bold text-text-primary mr-2.5 leading-tight">{h.name}</h3>
                   <div className="text-[0.85rem] font-bold text-text-primary flex items-center gap-1 pt-0.5 shrink-0">
                     <Star size={13} fill="#fbbf24" stroke="none" /> {h.rating}
                   </div>

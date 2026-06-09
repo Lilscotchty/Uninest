@@ -187,7 +187,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         
         <div className="mt-auto pt-2">
           <div className="text-[0.65rem] sm:text-[0.7rem] text-text-muted">
-            <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem] font-fraunces' : 'text-xl sm:text-2xl'}`}>{property.price}</strong>/sem
+            <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem]' : 'text-xl sm:text-2xl'}`}>{property.price}</strong>/sem
           </div>
           
           <div className="text-[0.65rem] sm:text-[0.72rem] text-teal font-semibold mt-[2px] sm:mt-[3px] flex items-center gap-1">

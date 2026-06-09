@@ -33,7 +33,7 @@ export const VirtualTour: React.FC = () => {
             <div className="w-16 h-16 bg-amber-light text-amber-500 rounded-[20px] flex items-center justify-center mx-auto mb-4">
               <Video size={32} />
             </div>
-            <h2 className="font-montserrat text-2xl font-bold text-text-primary mb-2">Explore Look-Alikes</h2>
+            <h2 className="text-2xl font-bold text-text-primary mb-2">Explore Look-Alikes</h2>
             <p className="text-sm text-text-muted">Experience video walkthroughs of top-rated student properties before making a decision.</p>
           </div>
 

@@ -34,19 +34,9 @@ type SignUpData = z.infer<typeof signUpSchema>;
 function CircuitDivider() {
   return (
     <div className="flex items-center gap-3 my-6">
-      <svg className="flex-1 h-px" viewBox="0 0 100 1" preserveAspectRatio="none">
-        <line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#334155" strokeWidth="1" />
-        <circle cx="85" cy="0.5" r="2" fill="#334155" />
-        <circle cx="93" cy="0.5" r="1.2" fill="#334155" />
-        <circle cx="99" cy="0.5" r="0.8" fill="#334155" />
-      </svg>
-      <span className="text-[#64748b] text-sm font-medium px-2">or</span>
-      <svg className="flex-1 h-px" viewBox="0 0 100 1" preserveAspectRatio="none">
-        <circle cx="1" cy="0.5" r="0.8" fill="#334155" />
-        <circle cx="7" cy="0.5" r="1.2" fill="#334155" />
-        <circle cx="15" cy="0.5" r="2" fill="#334155" />
-        <line x1="20" y1="0.5" x2="100" y2="0.5" stroke="#334155" strokeWidth="1" />
-      </svg>
+      <div className="flex-1 h-px bg-[var(--color-border)]"></div>
+      <span className="text-[var(--color-text-secondary)] text-sm font-medium px-2">or</span>
+      <div className="flex-1 h-px bg-[var(--color-border)]"></div>
     </div>
   );
 }
@@ -55,47 +45,26 @@ function CircuitDivider() {
 function SkyCobeLogo() {
   return (
     <div className="flex flex-col items-center mb-6">
-      {/* Hexagonal logo mark */}
+      {/* Outer glow ring */}
       <div className="relative mb-5">
-        {/* Outer glow ring */}
         <div
-          className="absolute inset-0 rounded-[22px]"
-          style={{
-            background: "radial-gradient(ellipse at 50% 30%, rgba(192,132,60,0.35) 0%, transparent 70%)",
-            transform: "scale(1.4)",
-            filter: "blur(12px)",
-          }}
-        />
-        <div
-          className="w-[88px] h-[88px] rounded-[22px] flex items-center justify-center relative justify-center overflow-hidden"
-          style={{
-            background: "linear-gradient(145deg, #1e2936 0%, #111827 60%, #0f1720 100%)",
-            border: "1px solid rgba(192,132,60,0.4)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 1px rgba(0,0,0,0.5)",
-          }}
+          className="w-[88px] h-[88px] rounded-[22px] flex items-center justify-center relative overflow-hidden bg-[var(--color-surface)] border border-[var(--color-accent-muted)] shadow-sm"
         >
           {/* Concentric square rings */}
           {[72, 60, 48].map((size, i) => (
             <div
               key={i}
-              className="absolute rounded-[14px] border"
+              className="absolute rounded-[14px] border border-[var(--color-accent-muted)]"
               style={{
                 width: size,
                 height: size,
-                borderColor: `rgba(192,132,60,${0.15 + i * 0.08})`,
+                opacity: 0.5 + i * 0.2
               }}
             />
           ))}
           {/* S lettermark */}
           <span
-            className="relative z-10 text-3xl font-black tracking-tighter"
-            style={{
-              fontFamily: "'Georgia', serif",
-              color: "transparent",
-              backgroundImage: "linear-gradient(160deg, #e8b96a 0%, #c0843c 50%, #8b5e2a 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-            }}
+            className="relative z-10 text-4xl font-black tracking-tighter text-[var(--color-accent)]"
           >
             S
           </span>
@@ -103,15 +72,9 @@ function SkyCobeLogo() {
       </div>
 
       <h1
-        className="text-2xl font-bold tracking-wide"
-        style={{
-          color: "transparent",
-          backgroundImage: "linear-gradient(90deg, #e0c080 0%, #ffffff 50%, #c8a060 100%)",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-        }}
+        className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]"
       >
-        Welcome to <span style={{ color: "#e8b96a" }}>SKYCOBE</span>
+        Welcome to <span className="text-[var(--color-accent)]">SKYCOBE</span>
       </h1>
     </div>
   );
@@ -124,12 +87,7 @@ function SocialBtn({ icon, label, ...props }: { icon: React.ReactNode; label: st
       {...props}
       type="button"
       aria-label={label}
-      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-      style={{
-        background: "linear-gradient(145deg, #1e2936, #111827)",
-        border: "1px solid rgba(100,116,139,0.3)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-      }}
+      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm"
     >
       <span className="text-lg">{icon}</span>
     </button>
@@ -154,18 +112,17 @@ function AuthInput({
   return (
     <div className="mb-4 text-left">
       <div
-        className="flex items-center gap-3 px-4 h-[52px] rounded-xl relative"
+        className="flex items-center gap-3 px-4 h-[52px] rounded-xl relative bg-[var(--color-surface)] border transition-all"
         style={{
-          background: "rgba(15,23,36,0.8)",
-          border: `1px solid ${error ? "rgba(239,68,68,0.6)" : "rgba(100,116,139,0.3)"}`,
+          borderColor: error ? "var(--color-error)" : "var(--color-border)",
         }}
       >
-        <span className="text-[#64748b] flex-shrink-0">{icon}</span>
+        <span className="text-[var(--color-text-secondary)] flex-shrink-0">{icon}</span>
         <input
           {...rest}
           type={type}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-white placeholder-[#4a5568] text-[16px] outline-none"
+          className="flex-1 bg-transparent text-[var(--color-text-primary)] placeholder-[var(--color-text-disabled)] text-[16px] outline-none"
           style={{ fontSize: 16 }}
         />
         {trailing && <span className="flex-shrink-0">{trailing}</span>}
@@ -181,12 +138,7 @@ function PrimaryBtn({ children, loading, className = "", ...rest }: { children: 
     <button
       {...rest}
       disabled={loading || rest.disabled}
-      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer ${className}`}
-      style={{
-        background: "linear-gradient(135deg, #c0843c 0%, #8b5e2a 100%)",
-        color: "#fff",
-        boxShadow: "0 4px 20px rgba(192,132,60,0.3)",
-      }}
+      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer bg-[var(--color-accent)] text-white shadow-sm ${className}`}
     >
       {loading ? (
         <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -321,35 +273,11 @@ export function SignUp() {
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #0a0f1a 0%, #0d1525 40%, #111827 100%)",
-      }}
+      className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden bg-[var(--color-bg)] text-[var(--color-text-primary)]"
     >
-      {/* Ambient background glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at 50% 0%, rgba(192,132,60,0.08) 0%, transparent 70%)",
-        }}
-      />
-      {/* Circuit board texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
-
       {/* Card */}
       <div
-        className="relative w-full max-w-sm mx-4 px-7 py-8 rounded-3xl z-10"
-        style={{
-          background: "rgba(10,15,26,0.85)",
-          border: "1px solid rgba(100,116,139,0.2)",
-          backdropFilter: "blur(20px)",
-          boxShadow: "0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
-        }}
+        className="relative w-full max-w-sm mx-4 px-7 py-8 rounded-3xl z-10 bg-[var(--color-card-bg)] border border-[var(--color-border)] shadow-float"
       >
         {/* Back button — only on signup */}
         <AnimatePresence>
@@ -363,7 +291,7 @@ export function SignUp() {
               style={{ border: "1px solid rgba(100,116,139,0.3)", background: "rgba(15,23,36,0.8)" }}
               aria-label="Back to sign in"
             >
-              <ArrowLeft size={16} className="text-[#94a3b8]" />
+              <ArrowLeft size={16} className="text-[var(--color-text-secondary)]" />
             </motion.button>
           )}
         </AnimatePresence>
@@ -380,7 +308,7 @@ export function SignUp() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-center text-[#64748b] text-sm mb-5 tracking-wide">Sign in with</p>
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-5 tracking-wide">Sign in with</p>
 
               {/* Google primary */}
               <button
@@ -433,21 +361,21 @@ export function SignUp() {
                 </PrimaryBtn>
               </form>
 
-              <p className="text-center text-[11px] text-[#475569] mt-4 leading-relaxed">
+              <p className="text-center text-[11px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
                 By signing in, you agree to our{" "}
-                <a href="#" className="text-[#c0843c] hover:underline">Terms of Use</a>
+                <a href="#" className="text-[var(--color-accent)] hover:underline">Terms of Use</a>
                 {", "}
-                <a href="#" className="text-[#c0843c] hover:underline">Privacy Policy</a>
+                <a href="#" className="text-[var(--color-accent)] hover:underline">Privacy Policy</a>
                 {", and "}
-                <a href="#" className="text-[#c0843c] hover:underline">Cookies Policy</a>.
+                <a href="#" className="text-[var(--color-accent)] hover:underline">Cookies Policy</a>.
               </p>
 
-              <p className="text-center text-[#64748b] text-sm mt-4">
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mt-4">
                 Don't have an account?{" "}
                 <button
                   type="button"
                   onClick={() => setMode("signup")}
-                  className="text-[#e8b96a] font-medium hover:underline cursor-pointer"
+                  className="text-[var(--color-accent)] font-medium hover:underline cursor-pointer"
                 >
                   [Sign up]
                 </button>
@@ -464,7 +392,7 @@ export function SignUp() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-center text-[#64748b] text-sm mb-5 tracking-wide">Create your account</p>
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-5 tracking-wide">Create your account</p>
 
               <form onSubmit={signUpForm.handleSubmit(onSignUp)} className="space-y-0">
                 <AuthInput
@@ -512,19 +440,19 @@ export function SignUp() {
                 </div>
               </form>
 
-              <p className="text-center text-[11px] text-[#475569] mt-4 leading-relaxed">
+              <p className="text-center text-[11px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
                 By creating an account, you agree to our{" "}
-                <a href="#" className="text-[#c0843c] hover:underline">Terms of Use</a>
+                <a href="#" className="text-[var(--color-accent)] hover:underline">Terms of Use</a>
                 {" and "}
-                <a href="#" className="text-[#c0843c] hover:underline">Privacy Policy</a>.
+                <a href="#" className="text-[var(--color-accent)] hover:underline">Privacy Policy</a>.
               </p>
 
-              <p className="text-center text-[#64748b] text-sm mt-4">
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mt-4">
                 Already have an account?{" "}
                 <button
                   type="button"
                   onClick={() => setMode("signin")}
-                  className="text-[#e8b96a] font-medium hover:underline cursor-pointer"
+                  className="text-[var(--color-accent)] font-medium hover:underline cursor-pointer"
                 >
                   [Sign in]
                 </button>

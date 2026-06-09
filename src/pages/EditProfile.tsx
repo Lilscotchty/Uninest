@@ -144,7 +144,7 @@ export const EditProfile: React.FC = () => {
                 <ChevronLeft size={24} />
               </button>
             )}
-            <h1 className="font-montserrat text-xl md:text-2xl font-bold text-text-primary ml-2">
+            <h1 className="text-xl md:text-2xl font-bold text-text-primary ml-2">
               {isCompleting ? 'Complete Profile' : 'Personal Info'}
             </h1>
           </div>

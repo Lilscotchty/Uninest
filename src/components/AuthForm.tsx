@@ -162,7 +162,7 @@ export function AuthForm({ type }: AuthFormProps) {
   return (
     <div className="w-full flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-right-4 duration-300">
       <div className="mb-6">
-        <h2 className="font-montserrat text-2xl font-bold text-[var(--color-text-primary)]">
+        <h2 className="text-[1.4rem] sm:text-[1.6rem] font-bold tracking-tight text-[var(--color-heading)]">
           {isLogin ? 'Welcome Back' : 'Create Account'}
         </h2>
         <p className="text-[var(--color-text-secondary)] text-[0.85rem] mt-1">
@@ -257,9 +257,7 @@ export function AuthForm({ type }: AuthFormProps) {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] mt-2 flex justify-center items-center ${
-            role === 'manager' ? 'bg-[#14b8a6] shadow-[#14b8a6]/25 hover:bg-[#0d9488]' : 'bg-[#6366f1] shadow-[#6366f1]/25 hover:bg-[#4f46e5]'
-          } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+          className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] mt-2 flex justify-center items-center bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -273,14 +271,14 @@ export function AuthForm({ type }: AuthFormProps) {
         {isLogin ? (
           <p className="text-[var(--color-text-secondary)] text-sm font-medium">
             Don't have an account?{' '}
-            <button onClick={() => navigate(`/signup?role=${role}`)} className="text-[#6366f1] font-bold hover:underline">
+            <button onClick={() => navigate(`/signup?role=${role}`)} className="text-[var(--color-accent)] font-bold hover:underline">
               Sign up
             </button>
           </p>
         ) : (
           <p className="text-[var(--color-text-secondary)] text-sm font-medium">
             Already have an account?{' '}
-            <button onClick={() => navigate(`/login?role=${role}`)} className="text-[#6366f1] font-bold hover:underline">
+            <button onClick={() => navigate(`/login?role=${role}`)} className="text-[var(--color-accent)] font-bold hover:underline">
               Sign in
             </button>
           </p>

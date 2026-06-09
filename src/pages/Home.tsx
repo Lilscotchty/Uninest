@@ -123,7 +123,7 @@ export const Home: React.FC = () => {
       {/* NEARBY PROPERTIES */}
       <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
+          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
           <span onClick={() => navigate('/see-all/nearby')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         
@@ -168,7 +168,7 @@ export const Home: React.FC = () => {
       {/* QUICK ACTIONS */}
       <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
         <div className="flex justify-between items-center py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
+          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
         </div>
         <div className="card-wrapper">
           <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
@@ -200,7 +200,7 @@ export const Home: React.FC = () => {
       {/* FEATURED CAROUSEL */}
       <div className="mt-2">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
+          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
           <span onClick={() => navigate('/see-all/featured')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
         </div>
         <div className="px-4 sm:px-5">
@@ -221,7 +221,7 @@ export const Home: React.FC = () => {
                   }`}>
                     {feat.tag}
                   </span>
-                  <h3 className="font-fraunces text-[1.1rem] font-bold text-text-primary mb-[4px]">{feat.name}</h3>
+                  <h3 className="text-[1.1rem] font-bold text-text-primary mb-[4px]">{feat.name}</h3>
                   <p className="text-[0.85rem] text-text-muted leading-[1.6] mb-[14px] line-clamp-2">
                     {feat.desc}
                   </p>
@@ -255,7 +255,7 @@ export const Home: React.FC = () => {
       {/* MAP VIEW */}
       <div className="mt-2 text-text-primary">
         <div className="flex justify-between items-center px-4 sm:px-5 py-4 pb-3">
-          <h2 className="font-montserrat text-[0.9rem] sm:text-[1.1rem] font-black tracking-tight text-[var(--color-heading)]">Map View</h2>
+          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
           <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => navigate("/explore")}>
