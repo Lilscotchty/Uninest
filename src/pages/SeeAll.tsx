@@ -45,7 +45,7 @@ export const SeeAll: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="compact"
+              layout="full-width-clean"
             />
           ))}
         </div>

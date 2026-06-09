@@ -284,7 +284,7 @@ export const Home: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="compact"
+              layout="full-width-clean"
             />
           ))}
         </div>
@@ -302,7 +302,7 @@ export const Home: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="compact"
+              layout="full-width-clean"
             />
           ))}
         </div>
@@ -320,7 +320,7 @@ export const Home: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="compact"
+              layout="full-width-clean"
             />
           ))}
         </div>
