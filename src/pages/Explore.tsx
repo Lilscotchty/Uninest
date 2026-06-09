@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useRef, useEffect } from 'react';
-import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { MapContainer, TileLayer, Circle, Marker, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { motion, useAnimation, PanInfo } from 'motion/react';
 import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers } from 'lucide-react';
@@ -52,6 +52,92 @@ const MapUpdater = ({ center, isVisible }: { center: [number, number] | null, is
     }
   }, [isVisible, map]);
   return null;
+};
+
+const DynamicMarkers = ({ properties, onPropertyClick, peekPropertyId }: { properties: any[], onPropertyClick: (id: number) => void, peekPropertyId: number | null }) => {
+  const map = useMap();
+  const [visiblePropertyIds, setVisiblePropertyIds] = useState<number[]>([]);
+
+  const calculateCollisions = useCallback(() => {
+    if (!map) return;
+    
+    // Slight padding to map bounds to pre-compute slightly out of view if needed,
+    // though just getting map bounds is usually fine.
+    const bounds = map.getBounds();
+    const visibleProps = properties.filter(p => bounds.contains([p.lat, p.lng]));
+
+    const shownIds: number[] = [];
+    const usedBoxes: {x: number, y: number, w: number, h: number}[] = [];
+
+    // Prioritize properties (e.g., sort by rating)
+    const sortedProps = [...visibleProps].sort((a, b) => {
+      if (a.id === peekPropertyId) return -1;
+      if (b.id === peekPropertyId) return 1;
+      return (b.rating || 0) - (a.rating || 0);
+    });
+
+    sortedProps.forEach((p) => {
+      const pt = map.latLngToLayerPoint([p.lat, p.lng]);
+      
+      // The icon size is 56x64, anchor is 28,64
+      // We can add a small margin to cluster them better
+      const pBox = {
+        x: pt.x - 30, // 28 + 2 padding
+        y: pt.y - 66, // 64 + 2 padding
+        w: 60,
+        h: 70
+      };
+
+      // Check collision
+      const isColliding = usedBoxes.some(box => {
+        return !(pBox.x + pBox.w < box.x || 
+                 pBox.x > box.x + box.w || 
+                 pBox.y + pBox.h < box.y || 
+                 pBox.y > box.y + box.h);
+      });
+
+      if (!isColliding) {
+        usedBoxes.push(pBox);
+        shownIds.push(p.id);
+      }
+    });
+
+    setVisiblePropertyIds(shownIds);
+  }, [map, properties, peekPropertyId]);
+
+  useEffect(() => {
+    calculateCollisions();
+  }, [calculateCollisions]);
+
+  useMapEvents({
+    moveend: calculateCollisions,
+    zoomend: calculateCollisions,
+    resize: calculateCollisions,
+  });
+
+  return (
+    <>
+      {properties.map(h => {
+        const isVisible = visiblePropertyIds.includes(h.id);
+        if (!isVisible) return null;
+
+        return (
+          <React.Fragment key={h.id}>
+             <Circle 
+               center={[h.lat, h.lng]}
+               radius={140}
+               pathOptions={{ fillColor: '#3730a3', color: 'transparent', fillOpacity: 0.08 }}
+             />
+             <Marker 
+               position={[h.lat, h.lng]} 
+               icon={getCustomIcon(h.img, h.priceNum)} 
+               eventHandlers={{ click: () => onPropertyClick(h.id) }}
+             />
+          </React.Fragment>
+        );
+      })}
+    </>
+  );
 };
 
 export const Explore: React.FC = () => {
@@ -255,25 +341,14 @@ export const Explore: React.FC = () => {
           />
           <MapUpdater center={peekProperty ? [peekProperty.lat, peekProperty.lng] : null} isVisible={currentView === 'explore'} />
           
-          {filteredProperties.map(h => {
-             return (
-               <React.Fragment key={h.id}>
-                 <Circle 
-                   center={[h.lat, h.lng]}
-                   radius={140}
-                   pathOptions={{ fillColor: '#3730a3', color: 'transparent', fillOpacity: 0.08 }}
-                 />
-                 <Marker 
-                   position={[h.lat, h.lng]} 
-                   icon={getCustomIcon(h.img, h.priceNum)} 
-                   eventHandlers={{ click: () => { 
-                     setPeekPropertyId(h.id); 
-                     snapTo('peek'); // hide drawer to bottom
-                   } }}
-                 />
-               </React.Fragment>
-             );
-          })}
+          <DynamicMarkers 
+            properties={filteredProperties} 
+            peekPropertyId={peekPropertyId}
+            onPropertyClick={(id) => { 
+              setPeekPropertyId(id); 
+              snapTo('peek'); // hide drawer to bottom
+            }} 
+          />
         </MapContainer>
       </div>
 
