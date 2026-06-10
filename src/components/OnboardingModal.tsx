@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Check, Sparkles, GraduationCap, Building, Hotel, Home } from 'lucide-react';
+import { ArrowRight, Check, GraduationCap, Building, Hotel, Home } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAppContext } from '../context/AppContext';
 import {
@@ -76,10 +76,7 @@ export function OnboardingModal() {
         className="w-full max-w-md bg-[var(--color-card-bg)] rounded-[24px] border border-[var(--color-border)] shadow-float p-6 sm:p-8 m-auto relative"
       >
         {/* Header */}
-        <div className="mb-8 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-5 border border-[var(--color-accent)]/20 shadow-sm text-[var(--color-accent)]">
-            <Sparkles size={26} strokeWidth={2} />
-          </div>
+        <div className="mb-8 text-center pt-2">
           <h1 className="text-[1.35rem] sm:text-2xl font-bold text-[var(--color-heading)] tracking-tight">
             How will you use SKYCOBE?
           </h1>
