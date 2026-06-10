@@ -392,7 +392,24 @@ export function SignUp() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-5 tracking-wide">Create your account</p>
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-5 tracking-wide">Sign up with</p>
+
+              {/* Google primary */}
+              <button
+                type="button"
+                onClick={handleGoogleAuth}
+                className="w-full h-[52px] rounded-xl flex items-center justify-center gap-3 mb-3 font-medium text-white text-[15px] transition-all hover:opacity-90 active:scale-[0.98] cursor-pointer"
+                style={{
+                  background: "rgba(15,23,36,0.8)",
+                  border: "1px solid rgba(59,130,246,0.5)",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,0.1)",
+                }}
+              >
+                <FcGoogle size={22} />
+                Continue with Google
+              </button>
+
+              <CircuitDivider />
 
               <form onSubmit={signUpForm.handleSubmit(onSignUp)} className="space-y-0">
                 <AuthInput
