@@ -46,3 +46,28 @@ insert into storage.buckets (id, name, public) values ('hostel-media', 'hostel-m
 
 CREATE POLICY "Give public read access to hostel media" ON storage.objects FOR SELECT USING (bucket_id = 'hostel-media');
 CREATE POLICY "Allow authenticated uploads to hostel media" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'hostel-media');
+
+-- Create table for Property Reviews
+CREATE TABLE property_reviews (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  property_id uuid REFERENCES hostels(id) ON DELETE CASCADE,
+  user_id uuid REFERENCES profiles(id) ON DELETE SET NULL,
+  rating integer NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  title text NOT NULL,
+  content text NOT NULL,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  reviewer_profile_visible boolean DEFAULT true,
+  is_verified_tenant boolean DEFAULT false,
+  disclosure_status text DEFAULT 'standard',
+  disclosure_text text,
+  aspects jsonb DEFAULT '{}'::jsonb,
+  helpful_count integer DEFAULT 0,
+  unhelpful_count integer DEFAULT 0
+);
+
+-- Enable RLS
+ALTER TABLE property_reviews ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read access on property_reviews" ON property_reviews FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated insert on property_reviews" ON property_reviews FOR INSERT WITH CHECK (true);
+
