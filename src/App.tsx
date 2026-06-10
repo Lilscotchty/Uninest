@@ -16,6 +16,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
 import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
+import { PropertyReviews } from './pages/PropertyReviews';
 import RecentlyViewedPage from "./pages/RecentlyViewedPage";
 import { OwnerGuard } from './components/guards/RoleGuard';
 import { NotAuthorisedPage } from './pages/NotAuthorisedPage';
@@ -83,6 +84,7 @@ const AppContent: React.FC = () => {
         <Route path="/explore" element={<AppShell><Explore /></AppShell>} />
         <Route path="/see-all/:type" element={<AppShell><SeeAll /></AppShell>} />
         <Route path="/details" element={<Details />} />
+        <Route path="/property/:propertyId/reviews" element={<PropertyReviews />} />
         <Route path="/virtual-tour" element={<VirtualTour />} />
         <Route path="/price-alerts" element={<PriceAlerts />} />
         <Route path="/saved" element={<AppShell><Saved /></AppShell>} />
