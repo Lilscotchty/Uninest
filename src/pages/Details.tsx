@@ -66,7 +66,7 @@ export const Details: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [descExpanded, setDescExpanded] = useState(false);
-  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living.`;
+  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living. The units are fully tiled, spacious, and recently renovated with fresh interiors.\n\nEach unit comes with an in-built wardrobe, study desk, and fan. The compound is gated and guarded around the clock. Utility bills (water) are included in the semester fee, making budgeting simple and stress-free.`;
 
   const [activeRoomMode, setActiveRoomMode] = useState<
     "single" | "double" | "quad"
@@ -111,85 +111,104 @@ export const Details: React.FC = () => {
   const selectedRoom = rooms[activeRoomMode];
 
   return (
-    <div className="flex-1 w-full bg-slate-100 relative flex flex-col md:overflow-y-auto">
-      <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
-        {/* GALLERY */}
-        <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
-          <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
+    <div className="flex-1 w-full bg-slate-100  relative flex flex-col md:overflow-y-auto">
+    <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
+      {/* GALLERY */}
+      <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
+        <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
+          <button
+            onClick={() => navigate("/student/dashboard")}
+            className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <div className="flex gap-2.5 items-center">
             <button
-              onClick={() => navigate("/student/dashboard")}
+              onClick={() => toggleSave(property.id)}
               className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
             >
-              <ChevronLeft size={20} />
+              {isSaved ? (
+                <Heart strokeWidth={2.5} className="text-coral" />
+              ) : (
+                <Heart strokeWidth={2.5} fill="none" color="currentColor" />
+              )}
             </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                showToast("Link copied!");
+              }}
+              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            >
+              <ArrowUpFromLine size={18} />
+            </button>
+          </div>
+        </div>
 
-            <div className="flex gap-2.5 items-center">
-              <button
-                onClick={() => toggleSave(property.id)}
-                className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-              >
-                {isSaved ? (
-                  <Heart strokeWidth={2.5} className="text-coral" />
-                ) : (
-                  <Heart strokeWidth={2.5} fill="none" color="currentColor" />
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  showToast("Link copied!");
-                }}
-                className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-              >
-                <ArrowUpFromLine size={18} />
-              </button>
+        <div
+          className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
+          ref={trackRef}
+          onScroll={(e) => {
+            const track = e.currentTarget;
+            if (track.clientWidth > 0)
+              setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
+          }}
+        >
+          {(property.images || []).map((src, i) => (
+            <div key={i} className="min-w-full h-full snap-start relative">
+              <img src={src} className="w-full h-full object-cover" />
             </div>
-          </div>
-
-          <div
-            className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
-            ref={trackRef}
-            onScroll={(e) => {
-              const track = e.currentTarget;
-              if (track.clientWidth > 0)
-                setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
-            }}
-          >
-            {(property.images || []).map((src, i) => (
-              <div key={i} className="min-w-full h-full snap-start relative">
-                <img src={src} className="w-full h-full object-cover" />
+          ))}
+          {/* 360 Slide */}
+          {property.panoramas && property.panoramas.length > 0 ? (
+             property.panoramas.map((pano, i) => (
+              <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
+                  <Pannellum
+                    width="100%"
+                    height="100%"
+                    image={pano}
+                    pitch={10}
+                    yaw={180}
+                    hfov={110}
+                    autoLoad={false}
+                  />
               </div>
-            ))}
-            {/* 360 Slide */}
-            {property.panoramas && property.panoramas.length > 0 ? (
-               property.panoramas.map((pano, i) => (
-                <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
-                    <Pannellum
-                      width="100%"
-                      height="100%"
-                      image={pano}
-                      pitch={10}
-                      yaw={180}
-                      hfov={110}
-                      autoLoad={false}
-                    />
-                </div>
-              ))
-            ) : (
-              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
-                  <BlazingRifts />
-              </div>
-            )}
-          </div>
+            ))
+          ) : (
+            <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
+                <BlazingRifts />
+            </div>
+          )}
+        </div>
 
-          {/* Gradient Overlay */}
-          <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
+        {/* Gradient Overlay */}
+        <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
 
-          <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
-            {(property.images || []).map((src, i) => (
+        <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
+          {(property.images || []).map((src, i) => (
+            <div
+              key={i}
+              className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+              onClick={() =>
+                trackRef.current?.scrollTo({
+                  left: i * (trackRef.current?.clientWidth || 0),
+                  behavior: "smooth",
+                })
+              }
+            >
+              <img
+                src={src}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+          {property.panoramas && property.panoramas.length > 0 ? property.panoramas.map((pano, j) => {
+            const i = (property.images?.length || 0) + j;
+            return (
               <div
-                key={i}
-                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
+                key={`pano-thumb-${j}`}
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
                 onClick={() =>
                   trackRef.current?.scrollTo({
                     left: i * (trackRef.current?.clientWidth || 0),
@@ -197,353 +216,450 @@ export const Details: React.FC = () => {
                   })
                 }
               >
-                <img
-                  src={src}
-                  className="w-full h-full object-cover"
-                />
+                <img src={pano} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
+                  <Video size={14} />
+                </div>
               </div>
-            ))}
-            {property.panoramas && property.panoramas.length > 0 ? property.panoramas.map((pano, j) => {
-              const i = (property.images?.length || 0) + j;
-              return (
-                <div
-                  key={`pano-thumb-${j}`}
-                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
-                  onClick={() =>
-                    trackRef.current?.scrollTo({
-                      left: i * (trackRef.current?.clientWidth || 0),
-                      behavior: "smooth",
-                    })
-                  }
-                >
-                  <img src={pano} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-                    <Video size={14} />
-                  </div>
+            );
+          }) : (
+            <div
+                key="pano-thumb-fallback"
+                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60"}`}
+                onClick={() =>
+                  trackRef.current?.scrollTo({
+                    left: (property.images?.length || 0) * (trackRef.current?.clientWidth || 0),
+                    behavior: "smooth",
+                  })
+                }
+              >
+                <div className="w-full h-full bg-slate-900 border border-slate-700 flex items-center justify-center text-white">
+                  <Video size={14} className="opacity-50" />
                 </div>
-              );
-            }) : (
-              <div
-                  key="pano-thumb-fallback"
-                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
-                  onClick={() =>
-                    trackRef.current?.scrollTo({
-                      left: (property.images?.length || 0) * (trackRef.current?.clientWidth || 0),
-                      behavior: "smooth",
-                    })
-                  }
-                >
-                  <div className="w-full h-full bg-slate-900 border border-slate-700 flex items-center justify-center text-white">
-                    <Video size={14} className="opacity-50" />
-                  </div>
-                </div>
-            )}
-          </div>
-
-          <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-            {currentImg + 1} / {(property.images?.length || 0) + Math.max((property.panoramas?.length || 0), 1)}
-          </div>
+              </div>
+          )}
         </div>
 
-        {/* SHEET */}
-        <div className="bg-app-bg -mt-8 relative z-[5] rounded-t-[32px] pt-6 px-6 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] pb-10">
-          <div className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-5" />
-
-          {/* Tags */}
-          <div className="flex gap-2 mb-4 flex-wrap">
-            <span className="bg-teal-light text-teal text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] flex items-center gap-1">
-              <ShieldCheck size={12} /> Verified
-            </span>
-            <span className="bg-green-light text-green-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] border border-green-200">
-              Rooms Available
-            </span>
-            <span className="bg-amber-light text-amber-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px]">
-              🔥 Popular Pick
-            </span>
-          </div>
-
-          <div className="flex justify-between items-start mb-2 gap-2">
-            <h1 className="text-[1.4rem] sm:text-[1.85rem] font-bold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
-              {property.name}
-            </h1>
-            <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
-              <Star size={14} className="fill-amber-400 text-amber-400" />
-              <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
-                {property.rating}
-              </strong>
-              <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted">
-                ({property.reviews})
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
-            <MapPin size={14} className="text-[var(--color-accent)] shrink-0" />
-            <span>{property.loc}</span>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
-                {property.price.split(",")[0]}K
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Per Sem
-              </span>
-            </div>
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
-                {property.reviews}
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Reviews
-              </span>
-            </div>
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
-                3 min
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Campus
-              </span>
-            </div>
-          </div>
-
-          {/* View Reviews Button */}
-          <button
-            onClick={() => navigate(`/property/${property.id}/reviews`)}
-            className="w-full mb-6 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-[16px] font-bold text-[0.95rem] flex items-center justify-center gap-2 hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm"
-          >
-            <MessageCircle size={18} />
-            View Reviews ({property.reviews})
-          </button>
-
-          {/* Host */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
-            Listed by
-          </h2>
-          <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
-            <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-lg">
-              C
-            </div>
-            <div className="flex-1 min-w-0 pr-1">
-              <strong className="block text-[0.85rem] sm:text-[0.95rem] font-bold text-text-primary truncate">
-                Mr. Carter
-              </strong>
-              <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted font-medium flex items-center gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
-                <ShieldCheck size={12} className="text-teal shrink-0" /> Verified Landlord
-              </span>
-              <div className="inline-block mt-0.5 sm:mt-1 bg-teal-50 text-teal-600 text-[0.6rem] sm:text-[0.65rem] font-bold px-2 py-0.5 rounded-[5px] uppercase tracking-wide">
-                In 1 hr
-              </div>
-            </div>
-            <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
-                  <a
-                    href="tel:+233"
-                    className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent)] hover:text-white"
-                  >
-                    <Phone size={16} />
-                  </a>
-                  <a
-                    href="https://wa.me/233"
-                    className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white"
-                  >
-                    <MessageCircle size={20} />
-                  </a>
-            </div>
-          </div>
-
-          {/* Amenities */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
-            What's Included
-          </h2>
-          <div className="grid grid-cols-2 gap-3 mb-8">
-            {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
-              const label = am.toLowerCase();
-              let Icon = Wifi;
-              let color = "text-[var(--color-accent)]";
-              if (label.includes("ac")) { Icon = Snowflake; color = "text-blue-400"; }
-              else if (label.includes("security") || label.includes("sec")) { Icon = ShieldCheck; color = "text-emerald-500"; }
-              else if (label.includes("gen")) { Icon = PlugZap; color = "text-amber-500"; }
-              else if (label.includes("study")) { Icon = BookOpen; color = "text-pink-500"; }
-              else if (label.includes("water") || label.includes("piped")) { Icon = Droplet; color = "text-cyan-500"; }
-              else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = Coffee; color = "text-orange-500"; }
-              
-              return (
-                <div key={i} className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-                  <Icon className={`${color} text-base`} />
-                  <span className="text-[0.85rem] font-bold text-text-primary">
-                    {am}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
-            About this Property
-          </h2>
-          <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
-            {descExpanded ? fullDesc : fullDesc.slice(0, 200) + "..."}
-          </p>
-          <button
-            onClick={() => setDescExpanded(!descExpanded)}
-            className="text-[var(--color-accent)] font-bold text-[0.85rem] mb-8"
-          >
-            {descExpanded ? "Show less ↑" : "Read more →"}
-          </button>
-
-          {/* Room Options */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
-            Room Options
-          </h2>
-          <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
-            <button
-              onClick={() => setActiveRoomMode("single")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Single
-            </button>
-            <button
-              onClick={() => setActiveRoomMode("double")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Double
-            </button>
-            <button
-              onClick={() => setActiveRoomMode("quad")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Quad
-            </button>
-          </div>
-
-          <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
-            <div className="h-[160px]">
-              <img
-                src={selectedRoom.img}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-[18px]">
-              <h3 className="text-[1.1rem] font-bold text-[var(--color-heading)] mb-2.5">
-                {selectedRoom.name}
-              </h3>
-              <div className="flex gap-3 flex-wrap mb-3.5">
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Ruler size={14} className="text-[var(--color-accent)]" /> {selectedRoom.size}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <User size={14} className="text-[var(--color-accent)]" /> {selectedRoom.occ}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
-                </div>
-              </div>
-                 <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
-                <div>
-                  <strong className="block text-[1.1rem] text-text-primary leading-none">
-                    {selectedRoom.price}
-                  </strong>
-                  <span className="block text-[0.75rem] text-text-muted font-medium mt-1">
-                    per semester
-                  </span>
-                </div>
-                {/* NEW CHECKOUT BUTTON */}
-                <button
-                  onClick={() => setBookingModalOpen(true)}
-                  className="px-5 py-2 bg-[var(--color-accent)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform" >
-              
-                  Checkout
-                </button>
-              </div>
-
-            </div>
-          </div>
+        <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
+          {currentImg + 1} / {(property.images?.length || 0) + Math.max((property.panoramas?.length || 0), 1)}
         </div>
-
-                {/* --- ADD THE MISSING BOTTOM REQUEST BAR HERE --- */}
-        <div className="fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 md:pb-4 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)] md:rounded-b-2xl">
-          <div>
-            <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-              {property.price.split(',')[0]}K
-            </strong>
-            <span className="block text-[0.7rem] text-text-muted font-bold uppercase tracking-[0.5px]">
-              Total Price
-            </span>
-          </div>
-          <button
-            onClick={() => setBookingModalOpen(true)}
-            className="px-8 py-3.5 bg-[var(--color-accent)] text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
-          >
-            Request Room
-          </button>
-        </div>
-        {/* --- END OF REQUEST BAR --- */}
-
       </div>
 
-      {/* --- NEW BOOKING MODAL --- */}
-      {bookingModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-app-bg w-full max-w-md rounded-[24px] p-6 shadow-xl relative animate-in fade-in zoom-in duration-200">
-            <button
-              onClick={() => setBookingModalOpen(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 transition-colors"
-            >
-              ✕
-            </button>
-            <h2 className="text-[1.3rem] font-bold text-[var(--color-heading)] mb-2">Request Room</h2>
-            <p className="text-[0.9rem] text-text-muted mb-6">Fill out your details to secure your {selectedRoom.name}.</p>
+      {/* SHEET */}
+      <div className="bg-app-bg -mt-8 relative z-[5] rounded-t-[32px] pt-6 px-6 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] pb-10">
+        <div className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-5" />
+
+        {/* Tags */}
+        <div className="flex gap-2 mb-4 flex-wrap">
+          <span className="bg-teal-light text-teal text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] flex items-center gap-1">
+            <ShieldCheck size={12} /> Verified
+          </span>
+          <span className="bg-green-light text-green-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] border border-green-200">
+            Rooms Available
+          </span>
+          <span className="bg-amber-light text-amber-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px]">
+            🔥 Popular Pick
+          </span>
+        </div>
+
+        <div className="flex justify-between items-start mb-2 gap-2">
+          <h1 className="text-[1.4rem] sm:text-[1.85rem] font-bold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
+            {property.name}
+          </h1>
+          <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
+            <Star size={14} className="fill-amber-400 text-amber-400" />
+            <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
+              {property.rating}
+            </strong>
+            <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted">
+              ({property.reviews})
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
+          <MapPin size={14} className="text-[var(--color-accent)] shrink-0" />
+          <span>{property.loc}</span>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
+          <div className="text-center py-2 sm:py-2.5">
+            <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              {property.price.split(",")[0]}K
+            </strong>
+            <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
+              Per Sem
+            </span>
+          </div>
+          <div className="text-center py-2 sm:py-2.5">
+            <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              {property.reviews}
+            </strong>
+            <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
+              Reviews
+            </span>
+          </div>
+          <div className="text-center py-2 sm:py-2.5">
+            <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              3 min
+            </strong>
+            <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
+              Campus
+            </span>
+          </div>
+        </div>
+
+        {/* Host */}
+        <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          Listed by
+        </h2>
+        <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
+          <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[1.2rem]">
+            C
+          </div>
+          <div className="flex-1 min-w-0 pr-1">
+            <strong className="block text-[0.85rem] sm:text-[0.95rem] font-bold text-text-primary truncate">
+              Mr. Carter
+            </strong>
+            <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted font-medium flex items-center gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
+              <ShieldCheck size={12} className="text-teal shrink-0" /> Verified Landlord
+            </span>
+            <div className="inline-block mt-0.5 sm:mt-1 bg-teal-50 text-teal-600 text-[0.6rem] sm:text-[0.65rem] font-bold px-2 py-0.5 rounded-[5px] uppercase tracking-wide">
+              In 1 hr
+            </div>
+          </div>
+          <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
+                <a
+                  href="tel:+233"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent)] hover:text-white hover:-translate-y-0.5"
+                >
+                  <Phone size={16} />
+                </a>
+                <a
+                  href="https://wa.me/233"
+                  className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white hover:-translate-y-0.5"
+                >
+                  <MessageCircle size={20} />
+                </a>
+          </div>
+        </div>
+
+        {/* Amenities */}
+        <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          What's Included
+        </h2>
+        <div className="grid grid-cols-2 gap-3 mb-8">
+          {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
+            const label = am.toLowerCase();
+            let Icon = Wifi;
+            let color = "text-[var(--color-accent)]";
+            if (label.includes("ac")) { Icon = Snowflake; color = "text-blue-400"; }
+            else if (label.includes("security") || label.includes("sec")) { Icon = ShieldCheck; color = "text-emerald-500"; }
+            else if (label.includes("gen")) { Icon = PlugZap; color = "text-amber-500"; }
+            else if (label.includes("study")) { Icon = BookOpen; color = "text-pink-500"; }
+            else if (label.includes("water") || label.includes("piped")) { Icon = Droplet; color = "text-cyan-500"; }
+            else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = Coffee; color = "text-orange-500"; }
             
-            <div className="space-y-4">
+            return (
+              <div key={i} className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
+                <Icon className={`${color} text-base`} />
+                <span className="text-[0.85rem] font-bold text-text-primary">
+                  {am}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          About this Property
+        </h2>
+        <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
+          {descExpanded ? fullDesc : fullDesc.slice(0, 200) + "..."}
+        </p>
+        <button
+          onClick={() => setDescExpanded(!descExpanded)}
+          className="text-[var(--color-accent)] font-bold text-[0.85rem] mb-8"
+        >
+          {descExpanded ? "Show less ↑" : "Read more →"}
+        </button>
+
+        {/* Room Options */}
+        <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          Room Options
+        </h2>
+        <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
+          <button
+            onClick={() => setActiveRoomMode("single")}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+          >
+            Single
+          </button>
+          <button
+            onClick={() => setActiveRoomMode("double")}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+          >
+            Double
+          </button>
+          <button
+            onClick={() => setActiveRoomMode("quad")}
+            className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)]-dark text-white shadow-sm" : "bg-[var(--color-accent-muted)]/20 text-text-muted hover:bg-slate-200"}`}
+          >
+            Quad
+          </button>
+        </div>
+
+        <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
+          <div className="h-[160px]">
+            <img
+              src={selectedRoom.img}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="p-[18px]">
+            <h3 className="text-[1.1rem] font-bold text-[var(--color-heading)] mb-2.5">
+              {selectedRoom.name}
+            </h3>
+            <div className="flex gap-3 flex-wrap mb-3.5">
+              <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                <Ruler size={14} className="text-[var(--color-accent)]" /> {selectedRoom.size}
+              </div>
+              <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                <User size={14} className="text-[var(--color-accent)]" /> {selectedRoom.occ}
+              </div>
+              <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
+              </div>
+            </div>
+            <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
               <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">First Name</label>
-                <input 
-                  type="text" 
+                <strong className="block text-[1.1rem] text-text-primary leading-none">
+                  {selectedRoom.price}
+                </strong>
+                <span className="block text-[0.75rem] text-text-muted font-medium mt-1">
+                  per semester
+                </span>
+              </div>
+              <span
+                className={`text-[0.7rem] font-bold px-[10px] py-[5px] rounded-[8px] uppercase tracking-[0.3px] ${selectedRoom.availClass}`}
+              >
+                {selectedRoom.avail}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Location  */}
+        <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          Location
+        </h2>
+        <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="relative h-[220px] rounded-[20px] overflow-hidden border border-border-subtle shadow-sm mb-3 block cursor-pointer group">
+          <div className="absolute inset-0 bg-transparent z-10" />
+          <div
+            className={`w-full h-full transition-all group-hover:opacity-90`}
+          >
+            <MapContainer
+              center={[property.lat, property.lng]}
+              zoom={15}
+              className="w-full h-full !z-0"
+              style={{ zIndex: 0 }}
+              zoomControl={false}
+              dragging={false}
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                attribution="© OpenStreetMap"
+              />
+              <Marker position={[property.lat, property.lng]} icon={mapIcon} />
+            </MapContainer>
+          </div>
+        </a>
+        <p className="text-[0.8rem] text-text-muted font-medium flex items-center gap-2 pb-10">
+          <MapPin size={14} className="text-[var(--color-accent)]" />{" "}
+          <a href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-[var(--color-accent)]">Open in Google Maps</a>
+        </p>
+      </div>
+
+      {/* BOTTOM BAR / DESKTOP SIDEBAR */}
+      <div className="fixed md:sticky bottom-0 md:top-24 left-0 w-full md:w-auto bg-card-bg/95 md:bg-card-bg backdrop-blur-md px-4 sm:px-6 md:p-6 py-3 border-t md:border border-transparent md:border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-card z-[100] flex justify-between md:flex-col items-center md:items-stretch gap-3 pb-8 md:pb-6 md:col-span-1 md:rounded-2xl md:h-fit">
+        <div className="flex-1 min-w-0 md:text-center shrink-0">
+          <div className="text-[1.1rem] sm:text-[1.2rem] md:text-3xl font-bold text-text-primary leading-[1.1]">
+            {selectedRoom.price}
+          </div>
+          <div className="text-[0.65rem] sm:text-[0.75rem] md:text-sm text-text-muted font-medium mt-0.5 mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
+            {activeRoomMode === "single"
+              ? "1"
+              : activeRoomMode === "double"
+                ? "2"
+                : "4"}{" "}
+            in a unit / sem
+          </div>
+          <div className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] text-[0.65rem] sm:text-[0.75rem] md:text-sm font-bold px-2 py-1 rounded-[6px] inline-flex items-center justify-center gap-1 truncate max-w-full md:mt-2 md:w-full">
+            <Tag size={12} className="shrink-0" /> Code DWELL15
+          </div>
+        </div>
+        <div className="flex md:flex-col gap-2 shrink-0 md:mt-4">
+          <button
+            onClick={() => setBookingModalOpen(true)}
+            className="bg-[var(--color-accent)] text-white font-bold h-10 sm:h-12 md:h-14 px-4 sm:px-6 rounded-[12px] sm:rounded-[14px] shadow-float active:scale-95 text-[0.9rem] sm:text-[1rem] flex-1 w-full"
+          >
+            Request Booking
+          </button>
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              showToast("Link copied!");
+            }}
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-full md:h-12 rounded-[12px] sm:rounded-[14px] bg-app-bg border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[var(--color-accent-muted)]/20 transition-colors gap-2"
+          >
+            <ArrowUpFromLine size={16} /> <span className="hidden md:inline font-bold">Share Link</span>
+          </button>
+        </div>
+      </div>
+
+      {/* BOOKING MODAL */}
+      {bookingModalOpen && (
+        <div className="fixed inset-0 z-[1000] bg-[#0f0e2e]/60 backdrop-blur-sm flex items-end md:items-center justify-center">
+          <div className="w-full max-w-[400px] md:max-w-[500px] max-h-[85vh] overflow-y-auto hide-scrollbar bg-card-bg rounded-t-[32px] md:rounded-[32px] pt-6 px-5 sm:px-6 pb-10 animate-in slide-in-from-bottom md:slide-in-from-bottom-8 md:fade-in">
+            <div
+              className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-6 shadow-sm cursor-pointer hover:bg-slate-400 md:hidden"
+              onClick={() => setBookingModalOpen(false)}
+            />
+            
+            <div className="hidden md:flex justify-end -mt-2 -mr-2 mb-4">
+               <button onClick={() => setBookingModalOpen(false)} className="text-text-muted hover:text-text-primary p-2">✕</button>
+            </div>
+
+            <h2 className="text-[1.1rem] md:text-xl font-bold text-[var(--color-heading)] mb-1">
+              Request to Book
+            </h2>
+            <p className="text-[0.85rem] font-medium text-text-muted mb-6">
+              {property.name} · {selectedRoom.name}
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div>
+                <label className="block text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.5px] mb-2">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Kwame"
                   value={bookingForm.firstName}
                   onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter first name"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
               <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Last Name</label>
-                <input 
-                  type="text" 
+                <label className="block text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.5px] mb-2">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Owusu"
                   value={bookingForm.lastName}
                   onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter last name"
+                  className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
                 />
               </div>
-              <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Phone Number</label>
-                <input 
-                  type="tel" 
-                  value={bookingForm.phone}
-                  onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter phone number"
-                />
-              </div>
-              
-              <button 
-                onClick={() => {
-                  showToast("Room requested successfully!");
-                  setBookingModalOpen(false);
-                }}
-                className="w-full py-3.5 bg-[var(--color-accent)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:opacity-90 transition-opacity mt-4"
-              >
-                Submit Request
-              </button>
             </div>
+            <div className="mb-4">
+              <label className="block text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.5px] mb-2">
+                Phone / WhatsApp
+              </label>
+              <input
+                type="tel"
+                placeholder="+233 5X XXX XXXX"
+                value={bookingForm.phone}
+                onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.5px] mb-2">
+                Room Type
+              </label>
+              <select
+                value={activeRoomMode}
+                onChange={(e) => setActiveRoomMode(e.target.value as any)}
+                className="w-full bg-app-bg border border-border-subtle rounded-[14px] px-4 py-3.5 text-[0.9rem] font-medium text-text-primary outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-indigo-light"
+              >
+                <option value="single">
+                  Single Unit – {rooms.single.price}/sem
+                </option>
+                <option value="double">
+                  Double Unit – {rooms.double.price}/sem
+                </option>
+                <option value="quad">Quad Unit – {rooms.quad.price}/sem</option>
+              </select>
+            </div>
+
+            <div className="bg-app-bg border border-border-subtle rounded-[16px] p-[18px] flex justify-between items-center mb-6">
+              <span className="text-[0.85rem] font-semibold text-text-muted">
+                Estimated Total
+              </span>
+              <strong className="text-[1.4rem] font-bold text-text-primary">
+                {selectedRoom.price}
+              </strong>
+            </div>
+
+            <button
+              onClick={async () => {
+                setBookingModalOpen(false);
+                showToast("Booking request sent! 🎉");
+
+                // Send email to the user
+                const userEmail = user?.email || "pb7552212@gmail.com";
+                const fullName = `${bookingForm.firstName} ${bookingForm.lastName}`.trim() || 'Student';
+                
+                try {
+                  // User confirmation email
+                  await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      to: userEmail,
+                      subject: `Booking Request Confirmation - ${property.name}`,
+                      html: `<p>Hi <strong>${fullName}</strong>,</p>
+                      <p>We've received your booking request for <strong>${property.name}</strong> (${selectedRoom.name}).</p>
+                      <p>The property manager will review your request and get back to you soon.</p>
+                      <p>Estimated Total: ${selectedRoom.price}/sem</p>`
+                    })
+                  });
+
+                  // Manager notification email
+                  const managerEmail = "pb7552212@gmail.com"; // Fallback to provided manager email
+                  await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      to: managerEmail,
+                      subject: `New Booking Request for ${property.name}`,
+                      html: `<p>Good day Manager,</p>
+                      <p>You have a new booking request for <strong>${property.name}</strong> (${selectedRoom.name}).</p>
+                      <p><strong>Student Details:</strong><br>
+                      Name: ${fullName}<br>
+                      Phone: ${bookingForm.phone}<br>
+                      Email: ${userEmail}</p>
+                      <p>Please review and follow up with the student.</p>`
+                    })
+                  });
+                } catch (e) {
+                  console.error("Failed to send booking emails", e);
+                }
+
+                setTimeout(() => navigate("/student/dashboard"), 1500);
+              }}
+              className="w-full bg-[var(--color-accent)] text-white font-bold py-4 rounded-[16px] shadow-float active:scale-95 transition-transform flex items-center justify-center gap-2"
+            >
+              Confirm Request {`->`}
+            </button>
           </div>
         </div>
       )}
-      {/* --- END OF BOOKING MODAL --- */}
-
+      </div>
     </div>
   );
 };

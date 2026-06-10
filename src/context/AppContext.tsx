@@ -2,6 +2,8 @@ import { supabase } from "../lib/supabase";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { AppState, ViewState, Property } from '../types';
 import { PROPERTIES as INITIAL_PROPERTIES } from '../data';
+import type { UserProfile, UserRole } from '../types/roles';
+import { isOwner } from '../types/roles';
 
 interface AppContextType extends AppState, ViewState {
   properties: Property[];
@@ -21,6 +23,16 @@ interface AppContextType extends AppState, ViewState {
   user: any;
   toggleFullscreen: () => void;
   exitFullscreen: () => void;
+  
+  // Auth additions
+  profile: UserProfile | null;
+  profileLoading: boolean;
+  updateRole: (role: UserRole, ownerType?: string) => Promise<void>;
+  refreshProfile: () => Promise<void>;
+  isOwner: boolean;
+  isStudent: boolean;
+  isAccommodationOwner: boolean;
+  isPropertyOwnerUser: boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -34,19 +46,64 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [selectedPropertyId, setSelectedPropertyId] = useState<number | string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  
   const [user, setUser] = useState<any | null | undefined>(undefined);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profileLoading, setProfileLoading] = useState(true);
+
+  const fetchProfile = async (userId: string) => {
+    setProfileLoading(true);
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    if (!error && data) setProfile(data as UserProfile);
+    setProfileLoading(false);
+  };
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) fetchProfile(session.user.id);
+      else setProfileLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) fetchProfile(session.user.id);
+      else {
+        setProfile(null);
+        setProfileLoading(false);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const updateRole = async (role: UserRole, ownerType?: string) => {
+    if (!user) return;
+    const update: Partial<UserProfile> = {
+      role,
+      owner_type: ownerType as UserProfile['owner_type'] ?? null,
+      updated_at: new Date().toISOString(),
+    };
+    const { error } = await supabase
+      .from('profiles')
+      .update(update)
+      .eq('id', user.id);
+    if (error) throw error;
+    setProfile(prev => prev ? { ...prev, ...update } as UserProfile : null);
+  };
+
+  const refreshProfile = async () => {
+    if (user) await fetchProfile(user.id);
+  };
+
+  const isOwnerUser = isOwner(profile?.role);
+  const isStudentUser = profile?.role === 'student';
+  const isAccommodationOwner = profile?.role === 'accommodation_owner';
+  const isPropertyOwnerUser = profile?.role === 'property_owner';
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -69,6 +126,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             videoTour: h.video_url,
             price: h.rooms && h.rooms.length > 0 ? `GH₵${h.rooms[0].price}` : "GH₵5,000",
             priceNum: h.rooms && h.rooms.length > 0 ? h.rooms[0].price : 5000,
+            pricing_tag: h.rooms && h.rooms.length > 0 && h.rooms[0].pricing_tag ? h.rooms[0].pricing_tag : '/sem',
             rating: 0.0,
             reviews: 0,
             tags: h.amenities ? h.amenities.slice(0, 3) : [],
@@ -175,6 +233,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         toggleFullscreen,
         user,
         exitFullscreen,
+        profile,
+        profileLoading,
+        updateRole,
+        refreshProfile,
+        isOwner: isOwnerUser,
+        isStudent: isStudentUser,
+        isAccommodationOwner,
+        isPropertyOwnerUser,
       }}
     >
       {children}

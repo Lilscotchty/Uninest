@@ -2,6 +2,7 @@ import React from 'react';
 import { Check, Heart, Star, Wifi, ShieldCheck, Zap, MapPin } from 'lucide-react';
 import { Property } from '../types';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
+import { formatPrice } from '../lib/formatPrice';
 
 interface PropertyCardProps {
   property: Property;
@@ -65,7 +66,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
           </div>
           <div className="flex justify-between items-center mt-auto w-full">
             <div className="text-[16px] font-bold text-text-primary truncate">
-              {property.price}
+              {formatPrice(property.priceNum, property.pricing_tag || '/sem')}
             </div>
             <div className="text-[10px] font-semibold px-2 py-0.5 rounded-[4px] tracking-wide uppercase shrink-0"
               style={{ color: 'var(--color-success)', backgroundColor: 'var(--color-surface-2)' }}
@@ -111,8 +112,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
             <div className="flex justify-between items-start gap-4">
               <h3 className="font-semibold text-[1.15rem] leading-tight text-text-primary truncate transition-colors group-hover:text-[var(--color-accent)]">{property.name}</h3>
               <div className="text-[1.05rem] font-bold text-text-primary shrink-0">
-                {property.price}
-                <span className="text-[0.65rem] text-text-muted/80 block text-right tracking-wide uppercase font-semibold -mt-0.5">Per Sem</span>
+                {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
+                <span className="text-[0.65rem] text-text-muted/80 block text-right tracking-wide uppercase font-semibold -mt-0.5">Per {property.pricing_tag ? property.pricing_tag.replace('/', '') : 'sem'}</span>
               </div>
             </div>
             <div className="flex justify-between items-center text-text-muted mt-0.5">
@@ -187,7 +188,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         
         <div className="mt-auto pt-2">
           <div className="text-[0.65rem] sm:text-[0.7rem] text-text-muted">
-            <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem]' : 'text-xl sm:text-2xl'}`}>{property.price}</strong>/sem
+            <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem]' : 'text-xl sm:text-2xl'}`}>
+              {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
+            </strong>{property.pricing_tag || '/sem'}
           </div>
           
           <div className="text-[0.65rem] sm:text-[0.72rem] text-teal font-semibold mt-[2px] sm:mt-[3px] flex items-center gap-1">

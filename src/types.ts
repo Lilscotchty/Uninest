@@ -21,6 +21,7 @@ export interface Property {
   videoTour?: string;
   dbId?: string;
   manager_id?: string;
+  pricing_tag?: string;
 }
 
 export interface AppState {

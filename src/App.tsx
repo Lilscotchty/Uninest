@@ -16,11 +16,13 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
 import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
-import { PropertyReviews } from './pages/PropertyReviews';
 import RecentlyViewedPage from "./pages/RecentlyViewedPage";
+import { OwnerGuard } from './components/guards/RoleGuard';
+import { NotAuthorisedPage } from './pages/NotAuthorisedPage';
+import { OnboardingModal } from './components/OnboardingModal';
 
 const AppContent: React.FC = () => {
-  const { user } = useAppContext();
+  const { user, profile } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -57,44 +59,26 @@ const AppContent: React.FC = () => {
     } else if (user) {
       // If user is logged in, restrict access to landing/login/signup
       if (publicPaths.includes(location.pathname)) {
-        // Find user role
-        let role = user.user_metadata?.account_type;
-        const storedRole = localStorage.getItem('signupRole');
-        
-        if (storedRole && (!role || role !== storedRole)) {
-            role = storedRole;
-            // Best effort update
-            import('./lib/supabase').then(({ supabase }) => {
-                supabase.auth.updateUser({ data: { account_type: role } });
-                supabase.from('profiles').update({ account_type: role }).eq('id', user.id).then();
-            });
-            localStorage.removeItem('signupRole');
-        }
+        // Fallback for new role system + legacy
+        const role = profile?.role || user.user_metadata?.account_type || 'student';
+        const isManager = role === 'manager' || role === 'accommodation_owner' || role === 'property_owner';
 
-        role = role || 'student';
-
-        // Check if required profile information is missing
-        const isMissingInfo = !user.user_metadata?.phone || (role === 'student' && (!user.user_metadata?.university || !user.user_metadata?.level));
-
-        if (isMissingInfo) {
-           navigate('/edit-profile?complete=true', { replace: true });
-        } else {
-           navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
-        }
+        navigate(isManager ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     }
-  }, [user, location.pathname, navigate]);
+  }, [user, profile, location.pathname, navigate]);
 
   return (
     <div className={`w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] flex flex-col font-sans`}>
       <Toast />
+      <OnboardingModal />
       
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<SignUp />} />
         <Route path="/signup" element={<SignUp />} />
         
-        {/* Student Routes */}
+        {/* General Routes */}
         <Route path="/student/dashboard" element={<AppShell><Home /></AppShell>} />
         <Route path="/explore" element={<AppShell><Explore /></AppShell>} />
         <Route path="/see-all/:type" element={<AppShell><SeeAll /></AppShell>} />
@@ -104,15 +88,16 @@ const AppContent: React.FC = () => {
         <Route path="/saved" element={<AppShell><Saved /></AppShell>} />
         <Route path="/profile" element={<AppShell><Profile /></AppShell>} />
         
-        {/* Review Routes */}
-        <Route path="/property/:propertyId/reviews" element={<PropertyReviews />} />
-        
         {/* Manager Routes */}
-        <Route path="/manager/dashboard" element={<ManagerDashboard />} />
+        <Route path="/manager/dashboard" element={
+          <OwnerGuard>
+            <ManagerDashboard />
+          </OwnerGuard>
+        } />
 
         <Route path="/edit-profile" element={<EditProfile />} />
-        
         <Route path="/recently-viewed" element={<RecentlyViewedPage />} />
+        <Route path="/not-authorised" element={<NotAuthorisedPage />} />
 
         {/* Fallback */}
         <Route path="*" element={
@@ -121,7 +106,7 @@ const AppContent: React.FC = () => {
               <div className="w-8 h-8 border-4 border-[var(--color-accent)]/30 border-t-indigo rounded-full animate-spin" />
             </div>
           ) : user ? (
-            <Navigate to={user.user_metadata?.account_type === 'manager' ? '/manager/dashboard' : '/student/dashboard'} replace /> 
+            <Navigate to={(profile?.role === 'accommodation_owner' || profile?.role === 'property_owner' || user.user_metadata?.account_type === 'manager') ? '/manager/dashboard' : '/student/dashboard'} replace /> 
           ) : (
             <Navigate to="/login" replace />
           )
@@ -142,3 +127,4 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
