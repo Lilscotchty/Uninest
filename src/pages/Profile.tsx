@@ -3,6 +3,7 @@ import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { useTheme, type ThemeMode } from '../context/ThemeContext';
 import { PageHeader } from '../components/layout/PageHeader';
+import { OpportunitiesSection } from '../components/opportunities/OpportunitiesSection';
 import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings } from 'lucide-react';
 
 function ThemeRow() {
@@ -144,6 +145,9 @@ export const Profile: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Opportunities Feature */}
+        {role === 'Student' && <OpportunitiesSection />}
 
         {/* Settings & Preferences */}
         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-[100ms]">
