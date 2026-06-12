@@ -123,8 +123,62 @@ export const Opportunities: React.FC = () => {
         )}
       </div>
 
+      {/* Loading Skeletons */}
+      {isLoading && (
+        <div className="absolute inset-0 z-[20] bg-app-bg flex flex-col md:flex-row pointer-events-none">
+          {/* List View Skeleton (Desktop) */}
+          <div className="hidden md:flex flex-col w-[40%] lg:w-[35%] h-full p-4 border-r border-border-subtle bg-card-bg shrink-0">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full animate-pulse bg-slate-200"></div>
+              <div className="flex-1 h-11 rounded-xl animate-pulse bg-slate-200"></div>
+            </div>
+            <div className="flex gap-2 mb-6 overflow-hidden">
+               {[1, 2, 3].map(i => <div key={i} className="w-20 h-8 rounded-full animate-pulse bg-slate-200"></div>)}
+            </div>
+            <div className="space-y-4 flex-1 overflow-hidden">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="w-full h-[140px] animate-pulse bg-slate-200 rounded-[20px]"></div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Map View Skeleton */}
+          <div className="flex-1 h-full relative bg-[#e5e5e5] overflow-hidden">
+            {/* Map UI Elements Skeletons */}
+            <div className="absolute top-4 left-4 right-4 md:hidden flex justify-between">
+               <div className="w-11 h-11 rounded-full animate-pulse bg-slate-300"></div>
+               <div className="w-32 h-11 rounded-full animate-pulse bg-slate-300"></div>
+            </div>
+            
+            {/* Map marker skeletons */}
+            {[...Array(8)].map((_, i) => (
+              <div 
+                key={i} 
+                className="absolute w-10 h-10 bg-slate-400/40 rounded-full animate-ping"
+                style={{
+                  top: `${15 + Math.random() * 70}%`,
+                  left: `${15 + Math.random() * 70}%`,
+                  animationDuration: `${1.5 + Math.random()}s`
+                }}
+              ></div>
+            ))}
+            
+            {/* List View Skeleton (Mobile bottom drawer) */}
+            <div className="md:hidden absolute bottom-0 left-0 w-full h-[50vh] bg-app-bg rounded-t-[32px] p-5 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+              <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-6 animate-pulse"></div>
+              <div className="h-6 w-40 animate-pulse bg-slate-200 rounded-md mb-6"></div>
+              <div className="space-y-4 overflow-hidden">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="w-full h-[120px] animate-pulse bg-slate-200 rounded-[20px]"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* No Results Fallback Overlay */}
-      {location && filteredCompanies.length === 0 && (
+      {!isLoading && location && filteredCompanies.length === 0 && (
         <div className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none p-4">
           <div className="bg-white/95 backdrop-blur-md shadow-xl rounded-2xl p-6 text-center animate-in fade-in duration-500 pointer-events-auto max-w-sm w-full border border-slate-100">
             <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
