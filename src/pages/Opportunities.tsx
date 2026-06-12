@@ -58,99 +58,115 @@ export const Opportunities: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-app-bg">
-      <PageHeader 
-        title="Opportunities Hub" 
-        actions={[{
-          label: "Back",
-          icon: <ChevronLeft />,
-          onClick: () => navigate(-1)
-        }]}
-      />
+    <div className="relative w-full flex-1 min-h-[100dvh] overflow-hidden bg-app-bg">
+      {/* Map Background */}
+      <div className="absolute inset-0 z-0">
+        <OpportunitiesMap 
+          companies={filteredCompanies} 
+          location={location} 
+          onCompanySelect={setSelectedCompany} 
+        />
+      </div>
 
-      <div className="flex-1 flex flex-col relative w-full h-full overflow-hidden">
+      {/* Floating Header */}
+      <div className="absolute top-0 left-0 w-full z-10 p-4 sm:p-5 flex flex-col pointer-events-none">
+        <div className="flex items-start justify-between w-full mb-4">
+          <button 
+            onClick={() => navigate(-1)}
+            className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
+          >
+            <ChevronLeft size={24} strokeWidth={2.5} />
+          </button>
+          
+          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
+            <button 
+              onClick={() => setShowLocationPrompt(true)}
+              className="w-full bg-[var(--color-surface)]/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center justify-center gap-2 border border-black/5 h-full text-text-primary text-[0.9rem] font-bold hover:bg-slate-50 transition-colors"
+            >
+               <Target size={18} className="text-[var(--color-accent)]" /> 
+               {location ? location.value : 'Set Your Location'}
+            </button>
+          </div>
+        </div>
+
+        {/* Sector Filters overlay */}
         {location && (
-          <SectorFilterBar 
-            selectedSector={selectedSector} 
-            onSelect={(sector) => {
-              setSelectedSector(sector);
-              setSelectedCompany(null);
-            }} 
-          />
+          <div className="pointer-events-auto mb-2">
+            <SectorFilterBar 
+              selectedSector={selectedSector} 
+              onSelect={(sector) => {
+                setSelectedSector(sector);
+                setSelectedCompany(null);
+              }} 
+            />
+          </div>
         )}
 
-        {location ? (
-          <div className="flex-1 relative flex flex-col h-full bg-app-bg px-4 pb-20 pt-4">
-            <div className="absolute top-6 right-6 z-10">
-              <button 
-                onClick={() => setShowLocationPrompt(true)}
-                className="bg-white/90 backdrop-blur-sm shadow-sm border border-slate-200 text-text-primary text-[0.75rem] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:bg-slate-50 transition-colors"
-              >
-                <Target size={12} /> {location.value}
-              </button>
-            </div>
-
-            {filteredCompanies.length > 0 ? (
-              <>
-                <div className="absolute top-6 left-6 z-10">
-                  <div className="bg-white/90 backdrop-blur-sm shadow-sm border border-slate-200 text-slate-800 text-[0.75rem] font-bold px-3 py-1.5 rounded-full">
-                    {filteredCompanies.length} result{filteredCompanies.length === 1 ? '' : 's'}
-                  </div>
-                </div>
-                <div className="flex-1 w-full h-full pb-[10px]">
-                  <OpportunitiesMap 
-                    companies={filteredCompanies} 
-                    location={location} 
-                    onCompanySelect={setSelectedCompany} 
-                  />
-                </div>
-                {selectedCompany && (
-                  <CompanyPopupCard 
-                    company={selectedCompany}
-                    onCall={handleCall}
-                    onWebsite={handleWebsite}
-                    onDirections={handleDirections}
-                    onBookmark={() => showToast(`${selectedCompany.name} added to bookmarks!`)}
-                    onDismiss={() => setSelectedCompany(null)}
-                  />
-                )}
-              </>
-            ) : (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-300">
-                  <Search size={28} />
-                </div>
-                <h4 className="text-lg font-bold text-text-primary mb-2">No companies found</h4>
-                <p className="text-[0.9rem] text-text-muted max-w-sm mb-6">
-                  We didn't find any companies for "{selectedSector !== 'all' ? selectedSector : 'this sector'}" in {location.resolvedCity || location.value}.
-                </p>
-                <button 
-                  onClick={() => setShowLocationPrompt(true)}
-                  className="px-6 py-2.5 bg-card-bg border border-border-subtle text-text-primary font-bold text-[0.85rem] rounded-[16px] hover:bg-slate-100 transition-colors"
-                >
-                  Try a different location
-                </button>
-              </div>
-            )}
+        {/* Result Badge */}
+        {location && filteredCompanies.length > 0 && (
+          <div className="inline-flex items-center gap-1.5 bg-card-bg/90 backdrop-blur rounded-full px-3 py-1.5 self-start shadow-[0_2px_10px_rgba(0,0,0,0.1)] pointer-events-none transition-all">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
+            <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-[var(--color-accent)]">{filteredCompanies.length} result{filteredCompanies.length === 1 ? '' : 's'} found</span>
           </div>
-        ) : null}
-
-        {showLocationPrompt && (
-          <LocationInputModal 
-            onSave={(loc) => {
-              setLocation(loc);
-              setShowLocationPrompt(false);
-            }}
-            onDismiss={() => {
-              // Only allow dismiss if a location has already been set
-              if (location) {
-                setShowLocationPrompt(false);
-              }
-            }}
-          />
         )}
       </div>
 
+      {/* No Results Fallback Overlay */}
+      {location && filteredCompanies.length === 0 && (
+        <div className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none p-4">
+          <div className="bg-white/95 backdrop-blur-md shadow-xl rounded-2xl p-6 text-center animate-in fade-in duration-500 pointer-events-auto max-w-sm w-full border border-slate-100">
+            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
+              <Search size={28} />
+            </div>
+            <h4 className="text-lg font-bold text-text-primary mb-2">No companies found</h4>
+            <p className="text-[0.9rem] text-text-muted max-w-sm mb-6">
+              We didn't find any companies for "{selectedSector !== 'all' ? selectedSector : 'this sector'}" in {location.resolvedCity || location.value}.
+            </p>
+            <button 
+              onClick={() => setShowLocationPrompt(true)}
+              className="px-6 py-2.5 bg-[#1c1c1e] text-white font-bold text-[0.85rem] rounded-full hover:bg-black transition-colors w-full"
+            >
+              Try a different location
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Company Map Card Popup */}
+      {selectedCompany && (
+        <div className="absolute left-4 right-4 z-[1050] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] flex justify-center opacity-100 translate-y-[-20px] bottom-0 pointer-events-auto">
+          <div className="relative w-full max-w-[400px]">
+            <button 
+              className="absolute top-2 right-2 text-slate-400 hover:text-slate-700 bg-[var(--color-surface)]/80 backdrop-blur-sm rounded-full p-1 z-30 shadow-sm"
+              onClick={() => setSelectedCompany(null)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <CompanyPopupCard 
+              company={selectedCompany}
+              onCall={handleCall}
+              onWebsite={handleWebsite}
+              onDirections={handleDirections}
+              onBookmark={() => showToast(`${selectedCompany.name} added to bookmarks!`)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Location Modal */}
+      {showLocationPrompt && (
+        <LocationInputModal 
+          onSave={(loc) => {
+            setLocation(loc);
+            setShowLocationPrompt(false);
+          }}
+          onDismiss={() => {
+            if (location) {
+              setShowLocationPrompt(false);
+            }
+          }}
+        />
+      )}
       <Toast />
     </div>
   );

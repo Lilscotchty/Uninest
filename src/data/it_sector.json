@@ -1,0 +1,5630 @@
+[{
+  "phone": "+233 20 081 5259",
+  "categoryName": "Corporate office",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": null,
+  "street": "J.K Owusu Plaza, Accra - Cape Coast Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Audax%20Consult&query_place_id=ChIJNylHSte93w8RH4E_m5BSG8s",
+  "title": "Audax Consult",
+  "location": {
+    "lat": 5.5508184,
+    "lng": -0.3316326
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "https://www.linkedin.com/redir/redirect?url=http://www.eyakofkaisen.com&urlhash=aXGg&trk=about_website_",
+  "phone": "+233 54 864 1442",
+  "categoryName": "Corporate office",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Unnamed Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Eyakof-Kaisen%20%26%20Associates&query_place_id=ChIJWeoXeYq93w8Rrh9iBR21FPw",
+  "title": "Eyakof-Kaisen & Associates",
+  "location": {
+    "lat": 5.523387,
+    "lng": -0.354797
+  },
+  "totalScore": null
+},
+{
+  "website": "http://enspirefx.com/",
+  "phone": "+233 55 091 9202",
+  "categoryName": "Website designer",
+  "reviewsCount": 30,
+  "countryCode": "GH",
+  "city": "Ngleshi Amanfro",
+  "street": "Amanfrom: Iron City, Ga South",
+  "url": "https://www.google.com/maps/search/?api=1&query=EnspireFX%20Websites%20Ltd&query_place_id=ChIJR2f0AhS73w8Rfqp_GWcSfPA",
+  "title": "EnspireFX Websites Ltd",
+  "location": {
+    "lat": 5.5311852,
+    "lng": -0.4092427
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.hacagh.com/",
+  "phone": "+233 30 298 3394",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=H%20%26%20A%20Chartered%20Accountants&query_place_id=ChIJBTZ3J5yX3w8RB9WN4cye_-k",
+  "title": "H & A Chartered Accountants",
+  "location": {
+    "lat": 5.5449433,
+    "lng": -0.2573631
+  },
+  "totalScore": 4.7
+},
+{
+  "phone": "",
+  "categoryName": "General store",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": null,
+  "street": "34 B Senchi St., Airport Res. Area, Ghana",
+  "url": "https://www.google.com/maps/search/?api=1&query=Gt%20Accounting%20Associates&query_place_id=ChIJY-1E9yyj3w8RbJBRpJi7nzo",
+  "title": "Gt Accounting Associates",
+  "location": {
+    "lat": 5.5911727,
+    "lng": -0.3198147
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.bakertillygh.com/",
+  "phone": "+233 30 225 2372",
+  "categoryName": "Accountant",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Nyanyo Ln",
+  "url": "https://www.google.com/maps/search/?api=1&query=Baker%20Tilly%20Andah%20%2B%20Andah&query_place_id=ChIJgbZcPnOa3w8RCpS4sGxN1qQ",
+  "title": "Baker Tilly Andah + Andah",
+  "location": {
+    "lat": 5.5699702,
+    "lng": -0.2021221
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.bnagh.com/",
+  "phone": "+233 30 225 3568",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 32,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "C720/3 KORLE OBUADE STREET, 1ST CRESCENT LINK, OFF Okukuseku St, Asylum Down, Accra. GA-027-8127",
+  "url": "https://www.google.com/maps/search/?api=1&query=BNA%20CHARTERED%20ACCOUNTANTS&query_place_id=ChIJzeLExg2a3w8R-auFlkYl6q4",
+  "title": "BNA CHARTERED ACCOUNTANTS",
+  "location": {
+    "lat": 5.5691375,
+    "lng": -0.202941
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "General store",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Scg Consulting, Ghana",
+  "url": "https://www.google.com/maps/search/?api=1&query=Scg%20Consulting&query_place_id=ChIJ6aSpikej3w8R5PSDAxOw5Uk",
+  "title": "Scg Consulting",
+  "location": {
+    "lat": 5.5911727,
+    "lng": -0.3198147
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.eakassociates.com/",
+  "phone": "+233 54 012 6560",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=EAK%20%26%20Associates&query_place_id=ChIJBZj0cIKZ3w8RA746PR9RRzU",
+  "title": "EAK & Associates",
+  "location": {
+    "lat": 5.6371243,
+    "lng": -0.237416
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.crowe.com/gh",
+  "phone": "+233 30 224 3952",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 15,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Crowe%20Veritas&query_place_id=ChIJWZxORYeZ3w8RLt3-jF2vY-M",
+  "title": "Crowe Veritas",
+  "location": {
+    "lat": 5.5978851,
+    "lng": -0.2249511
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "https://elixiraudits.com/",
+  "phone": "",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 21,
+  "countryCode": "GH",
+  "city": "Airport West",
+  "street": "1 Alex Nortey Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=Elixir%20Audits%20(Chartered%20Accountants)&query_place_id=ChIJQYt2QgCH3w8Ru2aGyqD_Qzc",
+  "title": "Elixir Audits (Chartered Accountants)",
+  "location": {
+    "lat": 5.6166211,
+    "lng": -0.1906042
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.prymage.com/",
+  "phone": "+233 24 111 2221",
+  "categoryName": "Software company",
+  "reviewsCount": 1108,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GA - 591 - 0785, Fetu St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Prymage%20Consultancy%20Ltd&query_place_id=ChIJtRZfEz2Y3w8RZSaExGDkvTU",
+  "title": "Prymage Consultancy Ltd",
+  "location": {
+    "lat": 5.5745262,
+    "lng": -0.2779706
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "https://www.assurancehubconsult.com/",
+  "phone": "+233 36 219 5346",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "House No. 704/14 62 Forest Avenue, George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=AssuranceHub%20Consult(Chartered%20Accountants)&query_place_id=ChIJSd7Oz3KZ3w8RKMz_I6qzqBI",
+  "title": "AssuranceHub Consult(Chartered Accountants)",
+  "location": {
+    "lat": 5.6165556,
+    "lng": -0.1991056
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://sw-cpaconsult.com/",
+  "phone": "+233 24 492 5047",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Achimota neoplan",
+  "url": "https://www.google.com/maps/search/?api=1&query=SW-CPA%20Consult&query_place_id=ChIJcwSclXp9CUwRqQIoJMj64ZA",
+  "title": "SW-CPA Consult",
+  "location": {
+    "lat": 5.6247902,
+    "lng": -0.2341499
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 33,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "58 Nsawam Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=JPCann%20Associates%20Limited&query_place_id=ChIJ0TDbvxma3w8REqfw6yIFSrY",
+  "title": "JPCann Associates Limited",
+  "location": {
+    "lat": 5.5790317,
+    "lng": -0.2164298
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "http://www.oakchartered.com/",
+  "phone": "+233 30 273 2548",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "18 Ghana Airways Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=MGI%20O.A.K%20Chartered%20Accountants%20Ghana&query_place_id=ChIJv1lG6f6a3w8RO9Er2ODqh8Q",
+  "title": "MGI O.A.K Chartered Accountants Ghana",
+  "location": {
+    "lat": 5.6001143,
+    "lng": -0.1838333
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://www.bdo.com.gh/",
+  "phone": "+233 54 013 0724",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 14,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Advantage Place, 23 Mayor Road Ridge West 8th Floor, Mayor Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=BDO%20GHANA&query_place_id=ChIJMYn_726a3w8RJluFGlDA5_g",
+  "title": "BDO GHANA",
+  "location": {
+    "lat": 5.5610557,
+    "lng": -0.2010667
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.kancagh.com/",
+  "phone": "+233 24 475 3693",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "07 Oroko Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Kan%20Chartered%20Accountants%20(KanCA)&query_place_id=ChIJIbllRWmb3w8RjpO7qSzKPpo",
+  "title": "Kan Chartered Accountants (KanCA)",
+  "location": {
+    "lat": 5.5743851,
+    "lng": -0.2072179
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 30 232 8405",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Ngleshi Amanfro",
+  "street": "GHQP+X7R",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20Savings%20And%20Loans%20Ltd%20(Amanfrom%20Business%20Center%20)&query_place_id=ChIJR1C4euC63w8RsAosPptYfpY",
+  "title": "Asa Savings And Loans Ltd (Amanfrom Business Center )",
+  "location": {
+    "lat": 5.5399789,
+    "lng": -0.4143517
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 232 8405",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Kasoa",
+  "street": "GHXJ+Q56",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20Savings%20And%20Loans%20Ltd%20(Kasoa%20Business%20Center)&query_place_id=ChIJeUMP9tq63w8R_QdVnJ3eMPs",
+  "title": "Asa Savings And Loans Ltd (Kasoa Business Center)",
+  "location": {
+    "lat": 5.5494133,
+    "lng": -0.4196193
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 30 232 8405",
+  "categoryName": "Bank",
+  "reviewsCount": 35,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPHM+H64, South Basis Junction, Dr. Busia Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=ASA%20Savings%20and%20Loans&query_place_id=ChIJb6XLnjaY3w8RdXaGWXSiStY",
+  "title": "ASA Savings and Loans",
+  "location": {
+    "lat": 5.5788837,
+    "lng": -0.2669356
+  },
+  "totalScore": 4.4
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Kwashieman",
+  "street": "HPXF+3GJ, Lake Bankim St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20SAvings%20and%20Loans&query_place_id=ChIJHfmeeJuZ3w8R6KeufK0kE9E",
+  "title": "Asa SAvings and Loans",
+  "location": {
+    "lat": 5.5977223,
+    "lng": -0.2762329
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.sc.com/gh",
+  "phone": "+233 30 263 3393",
+  "categoryName": "Bank",
+  "reviewsCount": 30,
+  "countryCode": "GH",
+  "city": null,
+  "street": "N1 Inside West Hills Mall Ga South",
+  "url": "https://www.google.com/maps/search/?api=1&query=Standard%20Chartered%20Bank%20Westhills&query_place_id=ChIJ56Xljty83w8RRwzNi76CXH4",
+  "title": "Standard Chartered Bank Westhills",
+  "location": {
+    "lat": 5.5446146,
+    "lng": -0.3442733
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "+233 24 421 1890",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Nii Okaiman West",
+  "street": "Kwashiman, SowutuomOfankor Main Road, GPS Address: GC006-5047, NiiKudzi Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ashong%20Nkrumah%20%26%20Associates&query_place_id=ChIJg3dMa1OZ3w8RcC71gQnbTCg",
+  "title": "Ashong Nkrumah & Associates",
+  "location": {
+    "lat": 5.6192344,
+    "lng": -0.2675267
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://www.jkoacc.com/",
+  "phone": "+233 30 707 1220",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1 Asiko Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=JKO%20Accounting%20service&query_place_id=ChIJc3JjUwfHaK8RLVYMqZ-uhS0",
+  "title": "JKO Accounting service",
+  "location": {
+    "lat": 5.6432982,
+    "lng": -0.2487481
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://pjapartners.com/",
+  "phone": "+233 24 487 6594",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Nii Okaiman West",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=PJA%20%26%20PARTNERS&query_place_id=ChIJuYjwHiCZ3w8RrgiJUe-KPpE",
+  "title": "PJA & PARTNERS",
+  "location": {
+    "lat": 5.624903,
+    "lng": -0.2610165
+  },
+  "totalScore": 4.2
+},
+{
+  "website": "https://gogoeassociates.com/",
+  "phone": "+233 26 463 0467",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "93 Asoredanho, Dansoman Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Gogoe%20%26%20Associates&query_place_id=ChIJh8jokuCZ3w8RS7fD1yYiruY",
+  "title": "Gogoe & Associates",
+  "location": {
+    "lat": 5.5710327,
+    "lng": -0.2553034
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 24 546 9301",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Eduardo Mohdlana Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Lan%20Business%20Consult&query_place_id=ChIJiZihf0CX3w8R7R3AyTm7myc",
+  "title": "Lan Business Consult",
+  "location": {
+    "lat": 5.5405715,
+    "lng": -0.2391005
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 24 598 9932",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kasoa CP Junction, Office of Idyllic Business Consult",
+  "url": "https://www.google.com/maps/search/?api=1&query=Association%20of%20Accountants%20Ghana&query_place_id=ChIJe-IwEM-Z3w8R9MXtGcQ2jPs",
+  "title": "Association of Accountants Ghana",
+  "location": {
+    "lat": 5.575979,
+    "lng": -0.2544111
+  },
+  "totalScore": 3
+},
+{
+  "website": "http://owireduyeboahconsult.org/",
+  "phone": "+233 24 466 8786",
+  "categoryName": "Financial audit",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Owiredu%20Yeboah%20Consult&query_place_id=ChIJI4L7RYOX3w8RAlXNFlWwDMk",
+  "title": "Owiredu Yeboah Consult",
+  "location": {
+    "lat": 5.5518687,
+    "lng": -0.265812
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 24 428 8517",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Greater",
+  "street": "Behind Radio Gold, , Latebiokoshie - Accra",
+  "url": "https://www.google.com/maps/search/?api=1&query=Omega%20Accounting%20Services&query_place_id=ChIJQXbUk-CX3w8Rwn1P327-5Zs",
+  "title": "Omega Accounting Services",
+  "location": {
+    "lat": 5.5532782,
+    "lng": -0.24014
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Nii Okaiman West",
+  "street": "Main Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Brucet%20Associates&query_place_id=ChIJuQNW8h2Z3w8Rrq6s0n18Y1E",
+  "title": "Brucet Associates",
+  "location": {
+    "lat": 5.6183267,
+    "lng": -0.2614782
+  },
+  "totalScore": null
+},
+{
+  "website": "http://aykassociates.com/",
+  "phone": "+233 30 397 8894",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "162 Dr. Busia Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=AYK%20Associates&query_place_id=ChIJL_EA_jSY3w8Rx6_Qw4OXo7s",
+  "title": "AYK Associates",
+  "location": {
+    "lat": 5.5800368,
+    "lng": -0.2640643
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 20 856 4992",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Sowutoum",
+  "street": "Behind St Paul Methodist Church, 8 Ural River St",
+  "url": "https://www.google.com/maps/search/?api=1&query=I.B.K%20Consult&query_place_id=ChIJq049bHWZ3w8RzKUxcKWuFnI",
+  "title": "I.B.K Consult",
+  "location": {
+    "lat": 5.6193784,
+    "lng": -0.275779
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Ghana%20Savings%20%26%20Loans%20Ltd.&query_place_id=ChIJL14RCqmZ3w8RCXoaNSOyies",
+  "title": "Advans Ghana Savings & Loans Ltd.",
+  "location": {
+    "lat": 5.6010074,
+    "lng": -0.2558975
+  },
+  "totalScore": 4.9
+},
+{
+  "phone": "+233 30 220 0905",
+  "categoryName": "Bank",
+  "reviewsCount": 9,
+  "countryCode": "GH",
+  "city": "Akweteyman",
+  "street": "JQ56+F8M",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bayport%20Savings%20and%20Loans&query_place_id=ChIJSxPuCHSZ3w8Rt5DesmH37aQ",
+  "title": "Bayport Savings and Loans",
+  "location": {
+    "lat": 5.6087128,
+    "lng": -0.2392162
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 224 1768",
+  "categoryName": "Savings bank",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Kwashieman",
+  "street": "HPRJ+627",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Access%20Savings%20And%20Loans&query_place_id=ChIJO2jRUE6Y3w8RDutFfaOiqFo",
+  "title": "Global Access Savings And Loans",
+  "location": {
+    "lat": 5.5905474,
+    "lng": -0.2699536
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQ53+893, George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20And%20Loans&query_place_id=ChIJ6Qt7kguZ3w8RqcEQHHBpWBM",
+  "title": "Equity Savings And Loans",
+  "location": {
+    "lat": 5.6082607,
+    "lng": -0.2465795
+  },
+  "totalScore": 3
+},
+{
+  "website": "http://www.bestpointgh.com/",
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 30,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPMP+2FJ",
+  "url": "https://www.google.com/maps/search/?api=1&query=Best%20Point%20Savings%20%26%20Loan%20-%20Odorkor%20Branch&query_place_id=ChIJ-7gUfTWY3w8RFkzcFO9fwU8",
+  "title": "Best Point Savings & Loan - Odorkor Branch",
+  "location": {
+    "lat": 5.5825892,
+    "lng": -0.2638523
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.bestpointgh.com/",
+  "phone": "+233 30 393 2993",
+  "categoryName": "Bank",
+  "reviewsCount": 44,
+  "countryCode": "GH",
+  "city": "Achimota",
+  "street": "Old Peace Fm Building Mile 7",
+  "url": "https://www.google.com/maps/search/?api=1&query=Best%20Point%20Savings%20%26%20Loans&query_place_id=ChIJR5ZWn0iZ3w8RnW58-Vi_pjI",
+  "title": "Best Point Savings & Loans",
+  "location": {
+    "lat": 5.6353822,
+    "lng": -0.2397824
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 30 396 8076",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPFF+WGF, Winneba Rd, Mpamprom",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bond%20Savings%20%26%20Loans&query_place_id=ChIJGRrsfzyY3w8RbUE-oymUc2M",
+  "title": "Bond Savings & Loans",
+  "location": {
+    "lat": 5.5748239,
+    "lng": -0.2762068
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HP9W+XM7",
+  "url": "https://www.google.com/maps/search/?api=1&query=Capital%20line%20savings%20and%20loans&query_place_id=ChIJZzPiPtGZ3w8RNhiQmlH1Cl4",
+  "title": "Capital line savings and loans",
+  "location": {
+    "lat": 5.5699159,
+    "lng": -0.2533251
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Kwashieman",
+  "street": "HPVJ+2H3",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adehyeman%20Savings%20and%20Loans%20Kwashieman%20Branch&query_place_id=ChIJI5dqTMuZ3w8RY6y0ACYj4dI",
+  "title": "Adehyeman Savings and Loans Kwashieman Branch",
+  "location": {
+    "lat": 5.5925193,
+    "lng": -0.2685841
+  },
+  "totalScore": 1
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Achimota",
+  "street": "Mile 7",
+  "url": "https://www.google.com/maps/search/?api=1&query=Sinapi%20Aba%20Savings%20%26%20Loans-Mile%207%20Branch&query_place_id=ChIJa5fPJgCZ3w8Rv73YPfVlPcQ",
+  "title": "Sinapi Aba Savings & Loans-Mile 7 Branch",
+  "location": {
+    "lat": 5.6344987,
+    "lng": -0.2415975
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 224 1768",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Lapaz",
+  "street": "JP4X+5Q6",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Access%20and%20Loans&query_place_id=ChIJ0TqbTgiZ3w8Rayqv2SQDe84",
+  "title": "Global Access and Loans",
+  "location": {
+    "lat": 5.6054165,
+    "lng": -0.2506043
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 27 292 9444",
+  "categoryName": "Loan agency",
+  "reviewsCount": 10,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JP3R+VH7, Race Course St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Quick%20Credit%20Tabora%20Branch&query_place_id=ChIJqxgctLiZ3w8RO56VwxHmaDw",
+  "title": "Quick Credit Tabora Branch",
+  "location": {
+    "lat": 5.6046603,
+    "lng": -0.2585893
+  },
+  "totalScore": 4.8
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQP6+42G Best Point bank, N6",
+  "url": "https://www.google.com/maps/search/?api=1&query=Best%20Point%20Bank%20mile7%20branch&query_place_id=ChIJ_7oS3N-Z3w8R3cSQClX1fyQ",
+  "title": "Best Point Bank mile7 branch",
+  "location": {
+    "lat": 5.6353097,
+    "lng": -0.2399157
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "https://www.mcaghana.com/",
+  "phone": "+233 23 106 9444",
+  "categoryName": "Association / Organization",
+  "reviewsCount": 46,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Oko Armah St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Micro-Credit%20Association%20Ghana%20(MCAG%20House)&query_place_id=ChIJP1SmYV6X3w8RREBE5JTJkmg",
+  "title": "Micro-Credit Association Ghana (MCAG House)",
+  "location": {
+    "lat": 5.5854802,
+    "lng": -0.2602826
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "https://www.fidelitybank.com.gh/",
+  "phone": "+233 57 799 9674",
+  "categoryName": "Bank",
+  "reviewsCount": 25,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQR6+H7W",
+  "url": "https://www.google.com/maps/search/?api=1&query=Fidelity%20Bank%20-%20Dome&query_place_id=ChIJsyl86kuZ3w8RlGnSWKJO89U",
+  "title": "Fidelity Bank - Dome",
+  "location": {
+    "lat": 5.6414375,
+    "lng": -0.2393125
+  },
+  "totalScore": 3.6
+},
+{
+  "website": "http://www.bpmicrofinance.com/",
+  "phone": "+233 54 743 9086",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Lapaz",
+  "street": "JQ52+3XF, George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=Boston%20Premier%20Microfinance%20Lapaz%20Branch&query_place_id=ChIJVdKDYQmZ3w8Rl7ak0rB-4xk",
+  "title": "Boston Premier Microfinance Lapaz Branch",
+  "location": {
+    "lat": 5.6076892,
+    "lng": -0.2475839
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 222 4454",
+  "categoryName": "Credit union",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQF4+5PH",
+  "url": "https://www.google.com/maps/search/?api=1&query=Accra%20Academy%20Co-operative%20Credit%20Union%20Ltd&query_place_id=ChIJl8cWHeiZ3w8RpOZziQssJ40",
+  "title": "Accra Academy Co-operative Credit Union Ltd",
+  "location": {
+    "lat": 5.5729359,
+    "lng": -0.2431342
+  },
+  "totalScore": 4.4
+},
+{
+  "website": "https://palmcash.net/",
+  "phone": "+233 30 398 2204",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Mile 7",
+  "street": "T Junction",
+  "url": "https://www.google.com/maps/search/?api=1&query=Palm%20Cash&query_place_id=ChIJX3bWA9aZ3w8RIuMbT3WBSj0",
+  "title": "Palm Cash",
+  "location": {
+    "lat": 5.6282357,
+    "lng": -0.2511135
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ65+GH9, Kwasheman St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Sinapi%20Aba&query_place_id=ChIJXfmGgV-X3w8RMaMWNJBpBGw",
+  "title": "Sinapi Aba",
+  "location": {
+    "lat": 5.5612875,
+    "lng": -0.2410234
+  },
+  "totalScore": 3.4
+},
+{
+  "phone": "",
+  "categoryName": "Investment bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPJX+872",
+  "url": "https://www.google.com/maps/search/?api=1&query=ABii%20National%20Darkuman%20Branch&query_place_id=ChIJiR6bxceZ3w8Rcf5TGbwJQ6U",
+  "title": "ABii National Darkuman Branch",
+  "location": {
+    "lat": 5.5807575,
+    "lng": -0.2518561
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.principalcapital.com.gh/",
+  "phone": "+233 30 252 8741",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Health link road -200 metres away from puma filling station, House No. 46 Anum Tessa Avenue Adjiringanor",
+  "url": "https://www.google.com/maps/search/?api=1&query=PRINCIPAL%20CAPITAL%20MICROFINANCE%20LIMITED&query_place_id=ChIJh5cKd3yb3w8Rxn-259dYgKo",
+  "title": "PRINCIPAL CAPITAL MICROFINANCE LIMITED",
+  "location": {
+    "lat": 5.6455716,
+    "lng": -0.144469
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://rapidlinkgh.com/",
+  "phone": "+233 30 254 9271",
+  "categoryName": "Financial institution",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Madina",
+  "street": "Madina taxi rank",
+  "url": "https://www.google.com/maps/search/?api=1&query=Rapidlink%20Microfinance&query_place_id=ChIJww1E4tub3w8R2Q1X9w4CvKI",
+  "title": "Rapidlink Microfinance",
+  "location": {
+    "lat": 5.6775125,
+    "lng": -0.1645091
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 393 3698",
+  "categoryName": "Bank",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Poultry Farm Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Leverage%20Micro%20Finance%20Ltd&query_place_id=ChIJ-xPHeymY3w8RNkWql8DOEbU",
+  "title": "Leverage Micro Finance Ltd",
+  "location": {
+    "lat": 5.5646489,
+    "lng": -0.2670476
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 27 872 3837",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "PX43+CX9, Opposite Check Point Spot, Lebanon - Zenu Main Road, Ashaiman",
+  "url": "https://www.google.com/maps/search/?api=1&query=FWF%20Microfinance%20limited&query_place_id=ChIJJ_voXbGB3w8RAkWdvvk1Lx4",
+  "title": "FWF Microfinance limited",
+  "location": {
+    "lat": 5.7060375,
+    "lng": -0.0450205
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 30 296 2311",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "4 Nyadji Cr",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nectar%20Micro-Finance%20Limited%2C%20Accra&query_place_id=ChIJ52ropHOa3w8RJYgBeG-k04s",
+  "title": "Nectar Micro-Finance Limited, Accra",
+  "location": {
+    "lat": 5.5687033,
+    "lng": -0.2028592
+  },
+  "totalScore": 3.7
+},
+{
+  "website": "http://www.kingsbancapital.com/",
+  "phone": "+233 59 736 1919",
+  "categoryName": "Financial institution",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "021, 4878 Al-Waleed bin Talal Highway",
+  "url": "https://www.google.com/maps/search/?api=1&query=Kingsban%20Capital%20Microfinance%20Limited&query_place_id=ChIJYayAerKb3w8RYaL_4XnOpjU",
+  "title": "Kingsban Capital Microfinance Limited",
+  "location": {
+    "lat": 5.5922445,
+    "lng": -0.1955071
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 55 963 9638",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JVCG+FJ6, Market High St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Shield%20Microfinance&query_place_id=ChIJA63Twe2E3w8Rmi-e3WzmWf4",
+  "title": "Shield Microfinance",
+  "location": {
+    "lat": 5.6205038,
+    "lng": -0.1233697
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.albrimgroup.com/",
+  "phone": "+233 30 279 8585",
+  "categoryName": "Financial institution",
+  "reviewsCount": 10,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR4M+GFP",
+  "url": "https://www.google.com/maps/search/?api=1&query=Albrim%20Microfinance&query_place_id=ChIJS-uI4wuQ3w8RQC5ueXPGR5U",
+  "title": "Albrim Microfinance",
+  "location": {
+    "lat": 5.5563429,
+    "lng": -0.1662816
+  },
+  "totalScore": 1.8
+},
+{
+  "phone": "+233 54 409 5931",
+  "categoryName": "Government economic program",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRPJ+CMC, Third Circular Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Micro%20Finance%20and%20Small%20Loans&query_place_id=ChIJNUw6d-qa3w8RYGMK1wW9258",
+  "title": "Micro Finance and Small Loans",
+  "location": {
+    "lat": 5.5860606,
+    "lng": -0.1683664
+  },
+  "totalScore": 3.7
+},
+{
+  "website": "https://www.dcimicrofinance.com.gh/",
+  "phone": "+233 30 223 0010",
+  "categoryName": "Financial institution",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Mango Tree Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=DCI%20MICROFINANCE&query_place_id=ChIJYWztmXSa3w8RZSOSuXIzrlM",
+  "title": "DCI MICROFINANCE",
+  "location": {
+    "lat": 5.5664719,
+    "lng": -0.2043806
+  },
+  "totalScore": 3.5
+},
+{
+  "website": "https://ghamfin.org/",
+  "phone": "+233 20 180 3677",
+  "categoryName": "Association / Organization",
+  "reviewsCount": 44,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "MQQF+5MV",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ghamfin%20House&query_place_id=ChIJN4IC33-e3w8RFCkjIlqhJ20",
+  "title": "Ghamfin House",
+  "location": {
+    "lat": 5.6879937,
+    "lng": -0.2258142
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.success4people.com/",
+  "phone": "+233 30 268 1059",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ring Road Central",
+  "url": "https://www.google.com/maps/search/?api=1&query=Success%20For%20People%20Micro%20Finance&query_place_id=ChIJdX7etgia3w8RDQn9DTnvDnw",
+  "title": "Success For People Micro Finance",
+  "location": {
+    "lat": 5.57089,
+    "lng": -0.2116434
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.kartsconsultgh.com/",
+  "phone": "+233 24 418 0279",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "J.K Owusu Plaza (EcoBank Building) On the Accra Cape Coast Rd, Opposite Star Oil, Weija",
+  "url": "https://www.google.com/maps/search/?api=1&query=Karts%20Consult%20Chartered%20Accountants%20%26%20Tax%20Practitioners&query_place_id=ChIJxVdTQVi93w8RiKA-EeuHamM",
+  "title": "Karts Consult Chartered Accountants & Tax Practitioners",
+  "location": {
+    "lat": 5.5508185,
+    "lng": -0.3316325
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://wa.me/233249780391",
+  "phone": "+233 24 414 6350",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Weija",
+  "street": "GS-0643-2218",
+  "url": "https://www.google.com/maps/search/?api=1&query=E3%20FINANCE%20AND%20CONSULTING&query_place_id=ChIJMeo10A6j3w8R8k_1GTO2m_Y",
+  "title": "E3 FINANCE AND CONSULTING",
+  "location": {
+    "lat": 5.5666385,
+    "lng": -0.3334578
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://kipkount.tiiny.site/",
+  "phone": "+233 59 925 3533",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 11,
+  "countryCode": null,
+  "city": null,
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=KIPKOUNT%20BUSINESS&query_place_id=ChIJi_GEjGQZ1AsR2vRFCRjbn3k",
+  "title": "KIPKOUNT BUSINESS",
+  "location": {
+    "lat": 5.5383634,
+    "lng": -0.2725124
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 24 096 4510",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Sunny Coast Junction, Weija",
+  "url": "https://www.google.com/maps/search/?api=1&query=Aberdeen%20Ventures&query_place_id=ChIJifURR6G93w8RmCSyzC4LvFY",
+  "title": "Aberdeen Ventures",
+  "location": {
+    "lat": 5.5581617,
+    "lng": -0.3459615
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.pistisaudit.com/",
+  "phone": "+233 54 453 1434",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 121,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "H/No. 9 PISTIS And Associates Street, Off Ecowas Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=PISTIS%20And%20Associates&query_place_id=ChIJX4UBcfOc3w8RxpXbKeTpMvQ",
+  "title": "PISTIS And Associates",
+  "location": {
+    "lat": 5.6883062,
+    "lng": -0.1815907
+  },
+  "totalScore": 4.7
+},
+{
+  "phone": "+233 24 613 1916",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Top Town Last Stop, CX 201, pearl st Ngleshie Amafrom",
+  "url": "https://www.google.com/maps/search/?api=1&query=jkr%20consult&query_place_id=ChIJCTTlm5ml3w8RVln2iZbw-CA",
+  "title": "jkr consult",
+  "location": {
+    "lat": 5.568822,
+    "lng": -0.4055452
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.jsmorlu.com.gh/",
+  "phone": "+233 30 252 8977",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Lagos Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=JS%20Morlu%20Ghana&query_place_id=ChIJVTJYx9uD3w8Rjq9V6Qh6sHg",
+  "title": "JS Morlu Ghana",
+  "location": {
+    "lat": 5.6349842,
+    "lng": -0.172514
+  },
+  "totalScore": 4.6
+},
+{
+  "website": "http://www.pacgroupinc.com/",
+  "phone": "+233 20 057 2924",
+  "categoryName": "Construction company",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Mile 11",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=PAC%20GROUP%20GH&query_place_id=ChIJYWFxIpq93w8RBVY4tg213jo",
+  "title": "PAC GROUP GH",
+  "location": {
+    "lat": 5.5287055,
+    "lng": -0.3416689
+  },
+  "totalScore": 4.4
+},
+{
+  "website": "http://www.pkfghana.com/",
+  "phone": "+233 30 222 1216",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ8R+68F, Farrar Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=PKF%20Ghana&query_place_id=ChIJ18GoPwma3w8RVWgi2Gdedlw",
+  "title": "PKF Ghana",
+  "location": {
+    "lat": 5.5655515,
+    "lng": -0.209189
+  },
+  "totalScore": 3.7
+},
+{
+  "website": "https://transcendgh.com/",
+  "phone": "+233 30 263 3220",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Mövenpick Ambassador Hotel, 9th Floor Emporium Building, Independence Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Transcend%20Chartered%20Accountants&query_place_id=ChIJnVit_w6b3w8RZou4qWu8eoA",
+  "title": "Transcend Chartered Accountants",
+  "location": {
+    "lat": 5.5541046,
+    "lng": -0.202753
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 277 1372",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "2nd Floor, Trinity House, Ring Road East, Ring way",
+  "url": "https://www.google.com/maps/search/?api=1&query=Morrison%20%26%20Associates%20Chartered%20Accountants%2C%20Tax%20and%20Management%20Consultants&query_place_id=ChIJtxTqe4ea3w8RX43OMXCPqr0",
+  "title": "Morrison & Associates Chartered Accountants, Tax and Management Consultants",
+  "location": {
+    "lat": 5.5690352,
+    "lng": -0.1856373
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 24 438 8881",
+  "categoryName": "Property management company",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Honeyberry St, Sunny Coast Junction, New Weija",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bilesda%20Ventures&query_place_id=ChIJGyYGMB6j3w8RZZINxnCkpX8",
+  "title": "Bilesda Ventures",
+  "location": {
+    "lat": 5.5577369,
+    "lng": -0.3460983
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.refconconsult.com/",
+  "phone": "+233 24 715 4259",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=REFCON%20Consult%20Ltd&query_place_id=ChIJ22cXi6eX3w8RUVAledsTAmM",
+  "title": "REFCON Consult Ltd",
+  "location": {
+    "lat": 5.5427477,
+    "lng": -0.2565425
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.pure2a.com/",
+  "phone": "",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Atiwiredu Street, Off Awoshie-Lapaz Highway, Opposite Been-To Complex GA-556-5359",
+  "url": "https://www.google.com/maps/search/?api=1&query=PURE%202A%20%26%20ASSOCIATES%20(CHARTERED%20ACCOUNTANTS)&query_place_id=ChIJ6R1-h6OZ3w8R9ouArSCkzJE",
+  "title": "PURE 2A & ASSOCIATES (CHARTERED ACCOUNTANTS)",
+  "location": {
+    "lat": 5.5868337,
+    "lng": -0.2714929
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 26 974 7795",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "control",
+  "street": "49 otisahele street, bubiashie-control Kaneshie",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ekol%20Bis%20Saarks%20consultancy%20services&query_place_id=ChIJwbw5ML-Z3w8REvKzMVya-0w",
+  "title": "Ekol Bis Saarks consultancy services",
+  "location": {
+    "lat": 5.5755389,
+    "lng": -0.2412394
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 27 020 2861",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "163 Race Course St",
+  "url": "https://www.google.com/maps/search/?api=1&query=WORDSHEET&query_place_id=ChIJabZ3bcmZ3w8R-gU-mXHaYoI",
+  "title": "WORDSHEET",
+  "location": {
+    "lat": 5.6064597,
+    "lng": -0.2605189
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 20 776 0778",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Supreme%20Professional%20Services&query_place_id=ChIJ9SOHex-Z3w8RGJYpD6V82Gw",
+  "title": "Supreme Professional Services",
+  "location": {
+    "lat": 5.5644606,
+    "lng": -0.2498643
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 24 955 1814",
+  "categoryName": "Auditor",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Sowutoum",
+  "street": "9 Tano Close",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ashan%20Associates%20Chartered%20Accountants&query_place_id=ChIJi-1P_zSZ3w8RfGwj7yCcd-Q",
+  "title": "Ashan Associates Chartered Accountants",
+  "location": {
+    "lat": 5.6139969,
+    "lng": -0.2750094
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://www.mgaconsultingltd.com/",
+  "phone": "+233 24 378 4721",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 32,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Achimota Petroleum, 16 22nd St",
+  "url": "https://www.google.com/maps/search/?api=1&query=MGA%20Consulting%20Ghana%20Limited%2C%20Head%20Office&query_place_id=ChIJY2QcvQeZ3w8RsDA_LApN7ao",
+  "title": "MGA Consulting Ghana Limited, Head Office",
+  "location": {
+    "lat": 5.6210568,
+    "lng": -0.2498253
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "+233 27 740 4701",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kojo Owusu Hse, Behind Star Oil, Old Weija Barrier, Accra",
+  "url": "https://www.google.com/maps/search/?api=1&query=HM%20Accounting%20Consulting%20Ltd.&query_place_id=ChIJYy8ivmmb3w8RjVSVgztxhiI",
+  "title": "HM Accounting Consulting Ltd.",
+  "location": {
+    "lat": 5.6037379,
+    "lng": -0.1869579
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 24 254 0973",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Sowutoum",
+  "street": "JPFF+M99",
+  "url": "https://www.google.com/maps/search/?api=1&query=OSK%20Empire&query_place_id=ChIJWTzLawCZ3w8Rz9QMZUr8Hv0",
+  "title": "OSK Empire",
+  "location": {
+    "lat": 5.6241625,
+    "lng": -0.2765156
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.kartsconsultgh.com/",
+  "phone": "+233 24 418 0279",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Awoshie",
+  "street": "Main Awoshie Ablekumah Road, Barnyard opposite Victory Bible Church",
+  "url": "https://www.google.com/maps/search/?api=1&query=Karts%20Consult%20Chartered%20Accountants%20%26%20Tax%20Practitioners&query_place_id=ChIJB5PqGX6Z3w8RY7DLqgWPAnI",
+  "title": "Karts Consult Chartered Accountants & Tax Practitioners",
+  "location": {
+    "lat": 5.5852597,
+    "lng": -0.2767011
+  },
+  "totalScore": null
+},
+{
+  "website": "http://duke-williams.com/",
+  "phone": "+233 24 122 2221",
+  "categoryName": "Accounting school",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Anyaa School Junction, Anyaa-Awoshie Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Duke%20Williams%20Ltd%2C%20Ghana&query_place_id=ChIJG2zniRWX3w8RIil7dxHju5Q",
+  "title": "Duke Williams Ltd, Ghana",
+  "location": {
+    "lat": 5.6022559,
+    "lng": -0.2945887
+  },
+  "totalScore": 4.2
+},
+{
+  "website": "http://www.casystem.net/",
+  "phone": "+233 55 611 6182",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "school park, Kwashieman school park Kwashieman",
+  "url": "https://www.google.com/maps/search/?api=1&query=Stable%20Accounting%20Limited&query_place_id=ChIJlwJEFJqZ3w8R7HuJBXGaLig",
+  "title": "Stable Accounting Limited",
+  "location": {
+    "lat": 5.5898517,
+    "lng": -0.2687567
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 24 457 5359",
+  "categoryName": "Auditor",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Conk%20Consult&query_place_id=ChIJpXcD5uqZ3w8Ryz51UBNqc08",
+  "title": "Conk Consult",
+  "location": {
+    "lat": 5.5804557,
+    "lng": -0.2633237
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 54 123 5271",
+  "categoryName": "Corporate office",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Link",
+  "street": "Hse No, 1 Adole Abla Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adroit%20Bureau%20Ltd.%20(Accra%20Office)&query_place_id=ChIJ7WHE7-6X3w8Rm1u_yWm9E4o",
+  "title": "Adroit Bureau Ltd. (Accra Office)",
+  "location": {
+    "lat": 5.5503807,
+    "lng": -0.2639627
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GPRM+2F9, 2nd Exhibition St",
+  "url": "https://www.google.com/maps/search/?api=1&query=B.A.K%20Consult%20Services%20Ltd&query_place_id=ChIJJX4zlimX3w8RPEePN92UtsE",
+  "title": "B.A.K Consult Services Ltd",
+  "location": {
+    "lat": 5.5400295,
+    "lng": -0.2662682
+  },
+  "totalScore": null
+},
+{
+  "website": "https://nhyirapremium.com/",
+  "phone": "",
+  "categoryName": "Educational institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Darkuman Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nhyira%20Premium%20Organisation&query_place_id=ChIJv6ogQlqZ3w8RenSd6gNYIr8",
+  "title": "Nhyira Premium Organisation",
+  "location": {
+    "lat": 5.5898123,
+    "lng": -0.2515327
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://hiregh.com/",
+  "phone": "+233 59 471 9404",
+  "categoryName": "Executive search firm",
+  "reviewsCount": 508,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "PoBox NB17,, Nii Boi Man,",
+  "url": "https://www.google.com/maps/search/?api=1&query=HIREghana&query_place_id=ChIJQwylrgiZ3w8RGJijmLMShoo",
+  "title": "HIREghana",
+  "location": {
+    "lat": 5.6085903,
+    "lng": -0.2522953
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "https://a-ebusinessconsult.com/",
+  "phone": "+233 54 108 5295",
+  "categoryName": "Consultant",
+  "reviewsCount": 14,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Darkuman Junction Opp. Total Filling Station, Dr. Busia Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=A%20%26%20E%20Business%20Consult&query_place_id=ChIJV9w-dF1tDawR_4Gvqa-6HjM",
+  "title": "A & E Business Consult",
+  "location": {
+    "lat": 5.5727324,
+    "lng": -0.2651111
+  },
+  "totalScore": 4.9
+},
+{
+  "phone": "+233 20 987 6702",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HP7W+553, 2nd Dansoman Link",
+  "url": "https://www.google.com/maps/search/?api=1&query=Dex-Fin%20Consult&query_place_id=ChIJ8QALgXGZ3w8R4Y-u7rdraqY",
+  "title": "Dex-Fin Consult",
+  "location": {
+    "lat": 5.5628753,
+    "lng": -0.2545869
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 56 033 2631",
+  "categoryName": "Consultant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Osabiede St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Danwus%20Consulting%20%C2%AE&query_place_id=ChIJBadFwmKZ3w8Ru0VsipcWzQM",
+  "title": "Danwus Consulting ®",
+  "location": {
+    "lat": 5.5670801,
+    "lng": -0.2404727
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 20 091 7132",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GCMA Street, Anyaa-Awoshie Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Godal%20consult&query_place_id=ChIJLXJttJmZ3w8Rb6ujqiKX0X0",
+  "title": "Godal consult",
+  "location": {
+    "lat": 5.61151,
+    "lng": -0.2850843
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 55 916 1855",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Sowutoum",
+  "street": "GC-005-4889, AR31 University Dr",
+  "url": "https://www.google.com/maps/search/?api=1&query=Mayjay%20Consult&query_place_id=ChIJ_T3FfACZ3w8RqfEyrhIihrs",
+  "title": "Mayjay Consult",
+  "location": {
+    "lat": 5.6254073,
+    "lng": -0.2763076
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.linkpointalliance.com/",
+  "phone": "+233 24 311 3660",
+  "categoryName": "Financial consultant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1 Asiko Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=LinkPoint%20Alliance%20Consult&query_place_id=ChIJo2GOYWyZ3w8RR05xU4kHP4Q",
+  "title": "LinkPoint Alliance Consult",
+  "location": {
+    "lat": 5.6432982,
+    "lng": -0.2487481
+  },
+  "totalScore": null
+},
+{
+  "website": "https://habadaminvestments.com/",
+  "phone": "+233 30 242 3146",
+  "categoryName": "Home goods store",
+  "reviewsCount": 17,
+  "countryCode": "GH",
+  "city": "Achimota",
+  "street": "2nd Street Justice A. Brobbey Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Chrisbill%20Group%20of%20Companies&query_place_id=ChIJy69Nz42Z3w8RVt5MEDhl53o",
+  "title": "Chrisbill Group of Companies",
+  "location": {
+    "lat": 5.6283047,
+    "lng": -0.242346
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 20 456 3411",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "A133/11 Kpakpo, Kwaku Moffat St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Accenta%20Consulting&query_place_id=ChIJDz3MZ0uX3w8RgxF8hLzZE0A",
+  "title": "Accenta Consulting",
+  "location": {
+    "lat": 5.5458644,
+    "lng": -0.2566769
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 291 4873",
+  "categoryName": "Business center",
+  "reviewsCount": 16,
+  "countryCode": "GH",
+  "city": "Sowutoum",
+  "street": "YouSort Street, Israel first-curve, Accra YouSort Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=YouSort&query_place_id=ChIJlWKC6fyZ3w8R4eXVBZI0YOA",
+  "title": "YouSort",
+  "location": {
+    "lat": 5.6285876,
+    "lng": -0.272503
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "+233 24 052 5921",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPPJ+JMF, Korley Kojo Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Annilota%20marie%20and%20associates&query_place_id=ChIJY3BYpuiZ3w8RYsothECaxXI",
+  "title": "Annilota marie and associates",
+  "location": {
+    "lat": 5.5887597,
+    "lng": -0.2665392
+  },
+  "totalScore": null
+},
+{
+  "website": "https://mikgold-associates.my.canva.site/",
+  "phone": "+233 20 748 6436",
+  "categoryName": "Cost accounting service",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Osuown St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Mikgold%20%26%20Associates%20Ltd&query_place_id=ChIJIaLe2HmZ3w8RZGn77EPM5Mc",
+  "title": "Mikgold & Associates Ltd",
+  "location": {
+    "lat": 5.6003435,
+    "lng": -0.2487711
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 59 321 9664",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ablekuma newtown, Abease Road, GC-143-0252",
+  "url": "https://www.google.com/maps/search/?api=1&query=PAGGN%20CONSULT&query_place_id=ChIJ5-oGU2uj3w8RoRo2Ro-oHfQ",
+  "title": "PAGGN CONSULT",
+  "location": {
+    "lat": 5.6317379,
+    "lng": -0.3143443
+  },
+  "totalScore": null
+},
+{
+  "website": "https://chat.whatsapp.com/EetoaDuNDf72qSjpYYa1Ix",
+  "phone": "+233 54 673 8172",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "nmenmete road, Mount Zion St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Target%20Professional%20Consult%20and%20Publications&query_place_id=ChIJbVuFLqSZ3w8RPRxnRdSWhUo",
+  "title": "Target Professional Consult and Publications",
+  "location": {
+    "lat": 5.5656312,
+    "lng": -0.2423215
+  },
+  "totalScore": 3
+},
+{
+  "website": "http://hacagh.com/",
+  "phone": "+233 30 298 3394",
+  "categoryName": "Legal services",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Saka Allotey Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=H%26A%20Law%20Consult&query_place_id=ChIJUQHOEPOX3w8RsfsLbTHU2BQ",
+  "title": "H&A Law Consult",
+  "location": {
+    "lat": 5.5449368,
+    "lng": -0.2573632
+  },
+  "totalScore": 4
+},
+{
+  "website": "http://globalsecuresolutions.com/",
+  "phone": "+233 24 333 5025",
+  "categoryName": "Computer security service",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Achimota",
+  "street": "Mile 7 Mile, 7 Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Secure%20Solutions%20Ghana%20Limited&query_place_id=ChIJ0y-Q_pqa3w8RP9qAoQEDBKk",
+  "title": "Global Secure Solutions Ghana Limited",
+  "location": {
+    "lat": 5.6341658,
+    "lng": -0.2404313
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.pistisaudit.com/",
+  "phone": "+233 54 453 1434",
+  "categoryName": "General store",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Hospital, Plot No. C3 Avenue D, Opposite North Legon",
+  "url": "https://www.google.com/maps/search/?api=1&query=Pistis%20And%20Associates&query_place_id=ChIJaUhpmnij3w8RoGBoAQ9bNYw",
+  "title": "Pistis And Associates",
+  "location": {
+    "lat": 5.5911727,
+    "lng": -0.3198147
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 26 219 5874",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Nii Okaiman Street, Race Course St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Dynatos%20Companion%20Consult&query_place_id=ChIJ-ywWUQCZ3w8R3f_rjgjS_Qc",
+  "title": "Dynatos Companion Consult",
+  "location": {
+    "lat": 5.6058755,
+    "lng": -0.2600254
+  },
+  "totalScore": null
+},
+{
+  "website": "https://tdkghana.net/",
+  "phone": "+233 24 460 8400",
+  "categoryName": "Software company",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Dr. Busia Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=TDK%20Technologies%20%26%20Information%20Services&query_place_id=ChIJs5YDvVGZ3w8RAwQkd4ctBQ8",
+  "title": "TDK Technologies & Information Services",
+  "location": {
+    "lat": 5.5755449,
+    "lng": -0.2523285
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 222 7576",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Lapaz",
+  "street": "463-4129, 14 Jen St",
+  "url": "https://www.google.com/maps/search/?api=1&query=De-Genesis%20Global%20Consulting%20Ltd&query_place_id=ChIJfyna2CCb3w8Rsx9unsc5C_Q",
+  "title": "De-Genesis Global Consulting Ltd",
+  "location": {
+    "lat": 5.6081654,
+    "lng": -0.2542018
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://onespheresolutions.com/",
+  "phone": "+233 25 743 3875",
+  "categoryName": "Business management consultant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "204 King Takie Tawiah Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=One%20Sphere%20Solutions&query_place_id=ChIJufQ0MgCZ3w8RcWK2ln5GYPY",
+  "title": "One Sphere Solutions",
+  "location": {
+    "lat": 5.6404687,
+    "lng": -0.2504505
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.veloxbs.com/",
+  "phone": "+233 55 443 1444",
+  "categoryName": "Software company",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Kwashieman",
+  "street": "Ecobank",
+  "url": "https://www.google.com/maps/search/?api=1&query=VeloxBS&query_place_id=ChIJBded20yZ3w8RXrDVHYOpHqM",
+  "title": "VeloxBS",
+  "location": {
+    "lat": 5.5902364,
+    "lng": -0.2702192
+  },
+  "totalScore": 4
+},
+{
+  "website": "http://www.idsconsultingservices.com/",
+  "phone": "+233 54 073 6713",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "No. 5 St Elizabeth School Lane, Westlands Blvd",
+  "url": "https://www.google.com/maps/search/?api=1&query=IDS%20Consulting%20Ghana%20Limited&query_place_id=ChIJiZeA0fWb3w8RoXks_zXvN9Y",
+  "title": "IDS Consulting Ghana Limited",
+  "location": {
+    "lat": 5.6602319,
+    "lng": -0.207535
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.deloitte.com.gh/",
+  "phone": "+233 30 397 4873",
+  "categoryName": "Corporate office",
+  "reviewsCount": 138,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Plot No. 71, The Deloitte Place, Off George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=Deloitte%20Ghana&query_place_id=ChIJTe1j9Ayb3w8Rz-ORWWOFxss",
+  "title": "Deloitte Ghana",
+  "location": {
+    "lat": 5.6223532,
+    "lng": -0.1809536
+  },
+  "totalScore": 4.6
+},
+{
+  "website": "http://www.abstracus.com/",
+  "phone": "+233 30 708 6199",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "One Airport Square, 8th Floor, Airport City",
+  "url": "https://www.google.com/maps/search/?api=1&query=Abstracus%20Chartered%20Accountants&query_place_id=ChIJO4XRL-Oa3w8R-ZP5YSRHNn0",
+  "title": "Abstracus Chartered Accountants",
+  "location": {
+    "lat": 5.600469,
+    "lng": -0.177135
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.aaadamsgh.com/",
+  "phone": "+233 24 768 9878",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Lord temple street",
+  "url": "https://www.google.com/maps/search/?api=1&query=AA%20Adams%20Chartered%20Accountants&query_place_id=ChIJxw-8PXab3w8Rqt00OwKLd9k",
+  "title": "AA Adams Chartered Accountants",
+  "location": {
+    "lat": 5.6080006,
+    "lng": -0.1940651
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://baitandtackleghana.net/",
+  "phone": "+233 55 968 1151",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 29,
+  "countryCode": "GH",
+  "city": "Madina",
+  "street": "Westland Blvd Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bait%20%26%20Tackle%20Ghana&query_place_id=ChIJs5JO_ISd3w8RZfwCkAf28js",
+  "title": "Bait & Tackle Ghana",
+  "location": {
+    "lat": 5.6679307,
+    "lng": -0.1661991
+  },
+  "totalScore": 4.9
+},
+{
+  "website": "http://www.ey.com/gh/en/home",
+  "phone": "+233 30 277 2001",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 26,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "60 Rangoon Lane",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ernst%20and%20Young%20Ghana&query_place_id=ChIJ8xU3N_6a3w8RfbIp9rvhA3o",
+  "title": "Ernst and Young Ghana",
+  "location": {
+    "lat": 5.572782,
+    "lng": -0.181376
+  },
+  "totalScore": 4.6
+},
+{
+  "website": "https://careerhubgh.com/",
+  "phone": "+233 24 075 8529",
+  "categoryName": "Human resource consulting",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "6 Ataa Moi Ln",
+  "url": "https://www.google.com/maps/search/?api=1&query=Careerhubgh%20HR%20Consulting%20%26%20Career%20Coaching%20Services&query_place_id=ChIJtT9kNF2X3w8RXGUDfcklCRc",
+  "title": "Careerhubgh HR Consulting & Career Coaching Services",
+  "location": {
+    "lat": 5.5532379,
+    "lng": -0.2616698
+  },
+  "totalScore": 4.9
+},
+{
+  "website": "http://www.unitedactuaries.com/",
+  "phone": "+233 26 661 7617",
+  "categoryName": "Consultant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "The Page Center, A314/2, Block 235, Sakaman GA-581-2634",
+  "url": "https://www.google.com/maps/search/?api=1&query=UNITED%20Actuaries%20%26%20Consultants&query_place_id=ChIJsZ640bGZ3w8RCzie95-Kcqg",
+  "title": "UNITED Actuaries & Consultants",
+  "location": {
+    "lat": 5.5767713,
+    "lng": -0.2730633
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 24 049 9738",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": null,
+  "city": null,
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=BETA%20Accounting%20Services&query_place_id=ChIJn2xcON573w8RVENgaG296eA",
+  "title": "BETA Accounting Services",
+  "location": {
+    "lat": 5.801905,
+    "lng": -0.1394969
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.certiport.com/",
+  "phone": "+233 54 818 4503",
+  "categoryName": "Computer training school",
+  "reviewsCount": 93,
+  "countryCode": "GH",
+  "city": "Lapaz",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=E-Heights%20Educational%20Center&query_place_id=ChIJMcl1-hKZ3w8RnBkB__3uDlI",
+  "title": "E-Heights Educational Center",
+  "location": {
+    "lat": 5.6071496,
+    "lng": -0.249163
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://gits.com.gh/",
+  "phone": "+233 50 005 5015",
+  "categoryName": "Computer consultant",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Nadra Plaza, 608A Nii Adote Kojo St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Information%20Technology%20Solutions%20Limited&query_place_id=ChIJvazlGtmZ3w8Rd10h2L81KQ0",
+  "title": "Global Information Technology Solutions Limited",
+  "location": {
+    "lat": 5.564836,
+    "lng": -0.2495794
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 50 476 5160",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": null,
+  "city": null,
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Mikkonys%20Accounting%20Services&query_place_id=ChIJxfZfjL6HY0gRcJFfHVVhPd4",
+  "title": "Mikkonys Accounting Services",
+  "location": {
+    "lat": 5.5912087,
+    "lng": -0.1797294
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.wgghana.com/",
+  "phone": "+233 20 181 3106",
+  "categoryName": "Software company",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "24th Street, New Achimota",
+  "url": "https://www.google.com/maps/search/?api=1&query=Waltergates%20Ghana%20Limited&query_place_id=ChIJ7TDWs6eX3w8RscJi0igILRE",
+  "title": "Waltergates Ghana Limited",
+  "location": {
+    "lat": 5.6223873,
+    "lng": -0.251994
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 20 782 0418",
+  "categoryName": "Business management consultant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Mile 7 Roundabout",
+  "url": "https://www.google.com/maps/search/?api=1&query=Oankem%20Business%20Lab&query_place_id=ChIJgxlXbIWR3w8Rcgm2k573iJ8",
+  "title": "Oankem Business Lab",
+  "location": {
+    "lat": 5.6354084,
+    "lng": -0.2398542
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 24 499 5873",
+  "categoryName": "Software company",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Weija",
+  "street": "16th Innocent Sampah Street, New",
+  "url": "https://www.google.com/maps/search/?api=1&query=Kunimdi%20Consult&query_place_id=ChIJWaONVYC93w8RTDuTXVCuj8g",
+  "title": "Kunimdi Consult",
+  "location": {
+    "lat": 5.5441738,
+    "lng": -0.3182742
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.g-marcvarietyconsulting.com/",
+  "phone": "+233 26 238 2914",
+  "categoryName": "Consultant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": null,
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=G-Marc%20Variety%20Consulting&query_place_id=ChIJGT4AmXu93w8RFAYRJK1gu-k",
+  "title": "G-Marc Variety Consulting",
+  "location": {
+    "lat": 5.5465623,
+    "lng": -0.3440594
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.nileeconsult.com/",
+  "phone": "+233 54 510 4448",
+  "categoryName": "Consultant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Guggisberg Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nilee%20Consult&query_place_id=ChIJl8JVCXaX3w8R7yneM7XEzF0",
+  "title": "Nilee Consult",
+  "location": {
+    "lat": 5.5354732,
+    "lng": -0.2456852
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.kodecentury.com/",
+  "phone": "+233 24 373 1831",
+  "categoryName": "Computer software store",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Lane 9, Anyaa-Awoshie Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=KodeCentury%20Technologies&query_place_id=ChIJyYjpc3Wi3w8RG79erFj4l7E",
+  "title": "KodeCentury Technologies",
+  "location": {
+    "lat": 5.6047455,
+    "lng": -0.2936869
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "+233 30 224 1512",
+  "categoryName": "Corporate office",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Somuah%20Information%20Systems%20(sisco)&query_place_id=ChIJkRQOb1WX3w8RrwSj675-oQE",
+  "title": "Somuah Information Systems (sisco)",
+  "location": {
+    "lat": 5.5594583,
+    "lng": -0.244769
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://ravesoftsolutions.com/",
+  "phone": "+233 30 234 2943",
+  "categoryName": "Software company",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Awoshie",
+  "street": "Abrantie Bus Stop, House of David",
+  "url": "https://www.google.com/maps/search/?api=1&query=RaveSoft%20Digital%20Solutions%20Ltd&query_place_id=ChIJZ9MNxt6Z3w8RKPIDiRlPZxE",
+  "title": "RaveSoft Digital Solutions Ltd",
+  "location": {
+    "lat": 5.5882823,
+    "lng": -0.2820176
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 20 822 4112",
+  "categoryName": "Real estate agency",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQP2+RMW",
+  "url": "https://www.google.com/maps/search/?api=1&query=Johntech%20Housing%20Ltd&query_place_id=ChIJXWON_uqb3w8R1ly3QlA8uww",
+  "title": "Johntech Housing Ltd",
+  "location": {
+    "lat": 5.6371052,
+    "lng": -0.2483041
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.shieldsoft.net/",
+  "phone": "+233 27 180 6114",
+  "categoryName": "Computer support and services",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Kwashieman",
+  "street": "HPRH+3W6, Last Floor Ecobank Building",
+  "url": "https://www.google.com/maps/search/?api=1&query=Shieldsoft&query_place_id=ChIJVf4xwZSZ3w8R0JT0CDACRYY",
+  "title": "Shieldsoft",
+  "location": {
+    "lat": 5.5901684,
+    "lng": -0.2702497
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 55 762 9679",
+  "categoryName": "Business to business service",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "NIC",
+  "street": "JPC3+78G, Anyaa-Awoshie Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Aya%20consult&query_place_id=ChIJleYhBV2Z3w8RovGfAJh6Ks4",
+  "title": "Aya consult",
+  "location": {
+    "lat": 5.6206798,
+    "lng": -0.2966696
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Business management consultant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Near The Wells Lounge, Opposite Kpogas Furniture, Kaneshie Highway",
+  "url": "https://www.google.com/maps/search/?api=1&query=Index%20Research%20%26%20Management%20Consult&query_place_id=ChIJORenZY-Z3w8RsltTkcwPp3M",
+  "title": "Index Research & Management Consult",
+  "location": {
+    "lat": 5.5796265,
+    "lng": -0.2591923
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.ubuntucapitalgh.com/",
+  "phone": "+233 30 700 1796",
+  "categoryName": "Corporate office",
+  "reviewsCount": 14,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "b13 1st Freetown Link",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ubuntu%20Capital%20Microfinance%20Limited&query_place_id=ChIJ7Q04sDqb3w8RZikcy67BLw4",
+  "title": "Ubuntu Capital Microfinance Limited",
+  "location": {
+    "lat": 5.6382598,
+    "lng": -0.1767435
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.imlfinance.com/",
+  "phone": "+233 30 220 1863",
+  "categoryName": "Financial institution",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "2 Watson Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Innovative%20Microfinance%20Ltd%20Headquarters&query_place_id=ChIJ20e-QAqa3w8RAQzNhlaJO_c",
+  "title": "Innovative Microfinance Ltd Headquarters",
+  "location": {
+    "lat": 5.5633443,
+    "lng": -0.2091505
+  },
+  "totalScore": 4.6
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQJJ+99F",
+  "url": "https://www.google.com/maps/search/?api=1&query=Needs%20Microfinance&query_place_id=ChIJTSYADuSb3w8RvV1BCBeFzGg",
+  "title": "Needs Microfinance",
+  "location": {
+    "lat": 5.6309462,
+    "lng": -0.2190725
+  },
+  "totalScore": 4.7
+},
+{
+  "website": "https://yatikgroup.com/",
+  "phone": "+233 24 851 0673",
+  "categoryName": "Financial institution",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HP4X+MR6",
+  "url": "https://www.google.com/maps/search/?api=1&query=Yatik%20microcredit&query_place_id=ChIJrZSOMkyX3w8R7tGrSeU57jM",
+  "title": "Yatik microcredit",
+  "location": {
+    "lat": 5.5566853,
+    "lng": -0.2504523
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.infinitycapitalgh.com/",
+  "phone": "+233 30 296 4372",
+  "categoryName": "Financial institution",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "round about, 23 Samora Machel Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Infinity%20Capital%20Micro-Credit%20Ltd&query_place_id=ChIJgeIXHGua3w8RVOHAcem08tY",
+  "title": "Infinity Capital Micro-Credit Ltd",
+  "location": {
+    "lat": 5.5675469,
+    "lng": -0.2062016
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 224 4718",
+  "categoryName": "Bank",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRG2+HH7",
+  "url": "https://www.google.com/maps/search/?api=1&query=Kenstep%20Microfinance&query_place_id=ChIJtV7CIG-a3w8RI4BU--nLu70",
+  "title": "Kenstep Microfinance",
+  "location": {
+    "lat": 5.5764048,
+    "lng": -0.1985717
+  },
+  "totalScore": 4.1
+},
+{
+  "phone": "+233 30 220 1602",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kaneshie Maket",
+  "url": "https://www.google.com/maps/search/?api=1&query=Westlake%20Capital%20Microfinance&query_place_id=ChIJIwC0OOOZ3w8RDNcefVMoyfY",
+  "title": "Westlake Capital Microfinance",
+  "location": {
+    "lat": 5.5655576,
+    "lng": -0.2347087
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "217 Oblogo Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=FastTrack%20Microfinance%20(Head%20Office)&query_place_id=ChIJ3Rl3g6KX3w8R2-kD_XXw4U4",
+  "title": "FastTrack Microfinance (Head Office)",
+  "location": {
+    "lat": 5.5585436,
+    "lng": -0.2614294
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://payflexghana.com/",
+  "phone": "+233 30 277 3766",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR59+W7W, Mission St",
+  "url": "https://www.google.com/maps/search/?api=1&query=PayFlex%20Microfinance%20Company%20Limited&query_place_id=ChIJya1sRc-R3w8RrQiWH2JyOJc",
+  "title": "PayFlex Microfinance Company Limited",
+  "location": {
+    "lat": 5.5598627,
+    "lng": -0.1818091
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://hopepresby.org/hmplus-microfinance-company-ltd/",
+  "phone": "+233 30 340 5311",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Sakumono",
+  "street": "JWCQ+X76",
+  "url": "https://www.google.com/maps/search/?api=1&query=HM%20Plus%20Micro%20Finance%20Limited&query_place_id=ChIJZ2mOYZaG3w8RGkeXreWg5rQ",
+  "title": "HM Plus Micro Finance Limited",
+  "location": {
+    "lat": 5.6224029,
+    "lng": -0.061847
+  },
+  "totalScore": 4.8
+},
+{
+  "phone": "+233 30 243 2961",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "14 Ato Ahwoi Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Medi%20Ghana%20micro%20finance&query_place_id=ChIJC9CV_Aic3w8RMHpNV0OuXLQ",
+  "title": "Medi Ghana micro finance",
+  "location": {
+    "lat": 5.6489527,
+    "lng": -0.212979
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 9,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JP4W+QCM, George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=West%20One%20Microfinance&query_place_id=ChIJs6RYcwiZ3w8RBCwA0iZMzs4",
+  "title": "West One Microfinance",
+  "location": {
+    "lat": 5.6069735,
+    "lng": -0.2539492
+  },
+  "totalScore": 4.2
+},
+{
+  "website": "https://primebondmc.com/",
+  "phone": "+233 30 234 2961",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GC-068, 3751 AWOSHIE-POKUASE HWY",
+  "url": "https://www.google.com/maps/search/?api=1&query=PRIMEBOND%20MICRO-CREDIT&query_place_id=ChIJY8A_-XuZ3w8RApR2DF9DL4A",
+  "title": "PRIMEBOND MICRO-CREDIT",
+  "location": {
+    "lat": 5.6183871,
+    "lng": -0.2950569
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "https://www.srfcredit.com/",
+  "phone": "+233 30 226 0584",
+  "categoryName": "Financial institution",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=SRF%20Micro%20Credit&query_place_id=ChIJZe1Fdi6Z3w8R5ftMAtW1_68",
+  "title": "SRF Micro Credit",
+  "location": {
+    "lat": 5.606647,
+    "lng": -0.2481209
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 220 1703",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQ3F+4V7",
+  "url": "https://www.google.com/maps/search/?api=1&query=Express%20Capital%20Microfinance%20-%20Tesano%20Branch&query_place_id=ChIJV69JEYCZ3w8RXwH63yj4dTU",
+  "title": "Express Capital Microfinance - Tesano Branch",
+  "location": {
+    "lat": 5.6027915,
+    "lng": -0.2253203
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "http://www.impactcapitalmfi.com/company-profile/",
+  "phone": "+233 57 076 8040",
+  "categoryName": "Corporate office",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Sakumono",
+  "street": "5°37'52.6, N 0°03'48 9th St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Impact%20Capital%20Microfinance&query_place_id=ChIJd59YbbuG3w8R1MBivnmGc58",
+  "title": "Impact Capital Microfinance",
+  "location": {
+    "lat": 5.6313188,
+    "lng": -0.0635766
+  },
+  "totalScore": 3.6
+},
+{
+  "website": "http://www.bluehorizonmoney.com/",
+  "phone": "+233 50 607 9875",
+  "categoryName": "Bank",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "PLOT NO 25 GOIL SERVICE STATION NEAR COCA COLA ROUNDABOUT",
+  "url": "https://www.google.com/maps/search/?api=1&query=BLUE%20HORIZON%20MICROCREDIT&query_place_id=ChIJSUuhYYCE3w8RprLjXIspFyw",
+  "title": "BLUE HORIZON MICROCREDIT",
+  "location": {
+    "lat": 5.6432058,
+    "lng": -0.1135174
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 396 7332",
+  "categoryName": "Savings bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "38 Swaniker St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Brac%20Ghana%20Savings%20and%20Loans%20Ltd&query_place_id=ChIJg1gIaIqb3w8RLYeh8q6nddQ",
+  "title": "Brac Ghana Savings and Loans Ltd",
+  "location": {
+    "lat": 5.612801,
+    "lng": -0.2211229
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 57 766 9356",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWQ+HJ4",
+  "url": "https://www.google.com/maps/search/?api=1&query=Diamond%20Capital%20Microfinance%20Ltd.&query_place_id=ChIJJ6c8-7uQ3w8RZIeLs6EKl5M",
+  "title": "Diamond Capital Microfinance Ltd.",
+  "location": {
+    "lat": 5.5463906,
+    "lng": -0.2109148
+  },
+  "totalScore": 2
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR4P+V84",
+  "url": "https://www.google.com/maps/search/?api=1&query=Galaxy%20Microfinance&query_place_id=ChIJ4Wzm7wuQ3w8RqOT5oUcDcQM",
+  "title": "Galaxy Microfinance",
+  "location": {
+    "lat": 5.5571468,
+    "lng": -0.1641873
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 233 3660",
+  "categoryName": "Corporate office",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JP3R+2R6",
+  "url": "https://www.google.com/maps/search/?api=1&query=Universal%20Microfinance%20Limitrd&query_place_id=ChIJiaoVFqqZ3w8R-xzyJ_Wm6wQ",
+  "title": "Universal Microfinance Limitrd",
+  "location": {
+    "lat": 5.6025488,
+    "lng": -0.2579923
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 223 1634",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "25 Royalt Castle Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Connect%20Capital%20Micro-Finance&query_place_id=ChIJVw9csRaa3w8R4Hgcd_MAjSw",
+  "title": "Connect Capital Micro-Finance",
+  "location": {
+    "lat": 5.5777969,
+    "lng": -0.2112207
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://billsmicrocredit.com/",
+  "phone": "+233 59 692 0833",
+  "categoryName": "Loan agency",
+  "reviewsCount": 135,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Citizen Kofi Building, Ring Road East, Danquah Circle",
+  "url": "https://www.google.com/maps/search/?api=1&query=BILLS%20MICRO-CREDIT%20LTD&query_place_id=ChIJL37ruwib3w8RZ9Gjk9Kg0Mk",
+  "title": "BILLS MICRO-CREDIT LTD",
+  "location": {
+    "lat": 5.5645642,
+    "lng": -0.177471
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "C88/5 Hill Crescent Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=The%20Mint%20Microfinance%20Limited&query_place_id=ChIJf0stT2ya3w8R22Jcs8bbYEU",
+  "title": "The Mint Microfinance Limited",
+  "location": {
+    "lat": 5.575376,
+    "lng": -0.2025362
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "+233 30 222 0693",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ5P+5X7, Kwame Nkrumah Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Eazy%20Capital%20Microfiance&query_place_id=ChIJHyyGjKaQ3w8RRqBp-btZup8",
+  "title": "Eazy Capital Microfiance",
+  "location": {
+    "lat": 5.5579005,
+    "lng": -0.212587
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 394 0720",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "DEDE AWULA STREET",
+  "url": "https://www.google.com/maps/search/?api=1&query=CEDI%20CAPITAL%20MICROFINANCE%20LTD&query_place_id=ChIJ5X98H5SR3w8Rt38NQpmsJo0",
+  "title": "CEDI CAPITAL MICROFINANCE LTD",
+  "location": {
+    "lat": 5.5561036,
+    "lng": -0.2111442
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 26 889 3707",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Guggisberg Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Perfect%20Micro-Credit%20Services&query_place_id=ChIJS-Fv8cKX3w8RYQnTEBAiYUs",
+  "title": "Perfect Micro-Credit Services",
+  "location": {
+    "lat": 5.5354454,
+    "lng": -0.2479429
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 396 7694",
+  "categoryName": "Financial institution",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "dome",
+  "street": "PMB KD 59, Kanda - Accra, Inside Dome Market Near Micabi Pharmacy, Dome-Accra",
+  "url": "https://www.google.com/maps/search/?api=1&query=Gem%20Capital%20Microfinance&query_place_id=ChIJ1b0q9EyZ3w8Rkv7xaM9hrL4",
+  "title": "Gem Capital Microfinance",
+  "location": {
+    "lat": 5.643287,
+    "lng": -0.237076
+  },
+  "totalScore": 3.6
+},
+{
+  "phone": "+233 57 226 0455",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JWG6+Q27, Above Spintex Kitchen",
+  "url": "https://www.google.com/maps/search/?api=1&query=G-Life%20Microfinance%20Limited&query_place_id=ChIJr0NJthWE3w8R11gcFnoHdHs",
+  "title": "G-Life Microfinance Limited",
+  "location": {
+    "lat": 5.6269193,
+    "lng": -0.0899506
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 220 1711",
+  "categoryName": "Savings bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "369 Okai Mensah Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Delta%20Microfinance&query_place_id=ChIJ3zqdNwyR3w8RAkZNMTJZQwY",
+  "title": "Delta Microfinance",
+  "location": {
+    "lat": 5.5565896,
+    "lng": -0.2115761
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "+233 57 226 0454",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "J2W2+77P",
+  "url": "https://www.google.com/maps/search/?api=1&query=G-Life%20Microfinance%2C%20Tema%20Comm.%201%20Branch&query_place_id=ChIJAdDmsqp4IBAR0K3HT36PkPE",
+  "title": "G-Life Microfinance, Tema Comm. 1 Branch",
+  "location": {
+    "lat": 5.6457001,
+    "lng": 0.0007081
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 30 224 4859",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRP3+Q56, Al-Waleed bin Talal Highway",
+  "url": "https://www.google.com/maps/search/?api=1&query=Dunia%20Microfinance&query_place_id=ChIJF6SYUEOa3w8RetrBie3jIFg",
+  "title": "Dunia Microfinance",
+  "location": {
+    "lat": 5.586918,
+    "lng": -0.1970971
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 26 226 4001",
+  "categoryName": "Corporate office",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQXC+F5V",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ghana%20Association%20of%20Microfinance%20Companies&query_place_id=ChIJJ5V5-YOZ3w8R0wtEvoBy2QQ",
+  "title": "Ghana Association of Microfinance Companies",
+  "location": {
+    "lat": 5.5987405,
+    "lng": -0.2295819
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "8 Wawa Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Trust%20Microfinance&query_place_id=ChIJMYBTgxOa3w8RjykGTLGApUY",
+  "title": "Trust Microfinance",
+  "location": {
+    "lat": 5.5772616,
+    "lng": -0.2073424
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 340 0569",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JWGF+XHM",
+  "url": "https://www.google.com/maps/search/?api=1&query=CAGL%20MICROFINANCE%20SERVICES%20LIMITED&query_place_id=ChIJWXxBSx6E3w8RKbi87o6qZJw",
+  "title": "CAGL MICROFINANCE SERVICES LIMITED",
+  "location": {
+    "lat": 5.6274602,
+    "lng": -0.0760812
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQHV+FWX",
+  "url": "https://www.google.com/maps/search/?api=1&query=Afro%20Arab%20Microfinance&query_place_id=ChIJHQjKQ2ua3w8R9QfF6k_lNek",
+  "title": "Afro Arab Microfinance",
+  "location": {
+    "lat": 5.5787303,
+    "lng": -0.2051544
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 57 761 9418",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JRRP+W67, La-Bawaleshi Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Credo%20Micro-Credit%20Services&query_place_id=ChIJPSksdb-b3w8RRRDyRoJ5tCA",
+  "title": "Credo Micro-Credit Services",
+  "location": {
+    "lat": 5.6422934,
+    "lng": -0.1644545
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.letshego.com/ghana",
+  "phone": "+233 30 220 8333",
+  "categoryName": "Financial institution",
+  "reviewsCount": 27,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "2nd Floor, Allied Heights, Ground Floor &",
+  "url": "https://www.google.com/maps/search/?api=1&query=Letshego%20Ghana%20Savings%20and%20Loans&query_place_id=ChIJG-B_XyWb3w8RJiHwp3nL7q4",
+  "title": "Letshego Ghana Savings and Loans",
+  "location": {
+    "lat": 5.6085453,
+    "lng": -0.2101942
+  },
+  "totalScore": 3.3
+},
+{
+  "website": "https://www.solisfinance.com/",
+  "phone": "+233 59 957 7963",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "9 Ouagadougou Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Solis%20Finance&query_place_id=ChIJiUyef6Gb3w8R5Kb04ip5Tjw",
+  "title": "Solis Finance",
+  "location": {
+    "lat": 5.6404226,
+    "lng": -0.175133
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://bpmicrofinance.com/",
+  "phone": "+233 30 263 1066",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ79+44F",
+  "url": "https://www.google.com/maps/search/?api=1&query=Boston%20Premier%20Microfinance%20Kaneshie%20Branch&query_place_id=ChIJ62Ntbf2Z3w8RIvkjXTpvO1I",
+  "title": "Boston Premier Microfinance Kaneshie Branch",
+  "location": {
+    "lat": 5.5628133,
+    "lng": -0.2322076
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 20 274 1191",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQQV+332, New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Ocean%20Capital%20Microfinance%20Limited&query_place_id=ChIJXbxyMj-a3w8Rss7x_5Dr2R8",
+  "title": "Ocean Capital Microfinance Limited",
+  "location": {
+    "lat": 5.5876469,
+    "lng": -0.2073716
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.talentmicrofinance.com/",
+  "phone": "+233 30 224 6429",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ8M+CW2",
+  "url": "https://www.google.com/maps/search/?api=1&query=Talent%20Microfinance%20Services%20Ltd.&query_place_id=ChIJmbHMHQaa3w8RLvl6JiaKCLc",
+  "title": "Talent Microfinance Services Ltd.",
+  "location": {
+    "lat": 5.5660135,
+    "lng": -0.2152325
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQVM+47Q, Alajo St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Options%20Micro%20Finance%20Limited&query_place_id=ChIJlYxKeyWa3w8RpCqMSqhxE7o",
+  "title": "Options Micro Finance Limited",
+  "location": {
+    "lat": 5.592843,
+    "lng": -0.2167683
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRFV+6Q4",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adipa%20Micro%20Finance&query_place_id=ChIJRQ8Mw7Ga3w8Rd1YXde4VLwk",
+  "title": "Adipa Micro Finance",
+  "location": {
+    "lat": 5.5730079,
+    "lng": -0.1555541
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 20 257 2775",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPMG+FCG",
+  "url": "https://www.google.com/maps/search/?api=1&query=U-SAVE%20MICROFINANCE&query_place_id=ChIJp24vdEeY3w8Ryr4K9DG7388",
+  "title": "U-SAVE MICROFINANCE",
+  "location": {
+    "lat": 5.583682,
+    "lng": -0.2739223
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://directgh.com/",
+  "phone": "+233 30 396 9555",
+  "categoryName": "Financial institution",
+  "reviewsCount": 18,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JRC4+H4Q, Adamafio link",
+  "url": "https://www.google.com/maps/search/?api=1&query=Direct%20Savings%20and%20Loans%20Corporate%20Office&query_place_id=ChIJz4ZqBaOb3w8Rh3SpWszlEwc",
+  "title": "Direct Savings and Loans Corporate Office",
+  "location": {
+    "lat": 5.6214664,
+    "lng": -0.1946548
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JRRQ+VJW, La-Bawaleshi Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Credence%20Microcredit%20HQ&query_place_id=ChIJJ6Py0Cyb3w8Rgcs4ic0E1SA",
+  "title": "Credence Microcredit HQ",
+  "location": {
+    "lat": 5.6422369,
+    "lng": -0.1609257
+  },
+  "totalScore": null
+},
+{
+  "website": "http://bidvestghana.com/",
+  "phone": "+233 50 507 8246",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Abeka Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bidvest%20Ghana&query_place_id=ChIJ1T-HNxGa3w8RlyyoFwK27pk",
+  "title": "Bidvest Ghana",
+  "location": {
+    "lat": 5.5982891,
+    "lng": -0.2305077
+  },
+  "totalScore": 3.3
+},
+{
+  "website": "http://infinitycapitalgh.com/",
+  "phone": "+91 302964372",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GroundGround floor , Nima Branch Near Ghana Revenue Authority, 55 Hill St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Infinty%20Capital&query_place_id=ChIJ0xc30Nla1w8RiZqOloPXkxo",
+  "title": "Infinty Capital",
+  "location": {
+    "lat": 5.5778378,
+    "lng": -0.1995874
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 277 9414",
+  "categoryName": "Investment bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "33 Labone Cres",
+  "url": "https://www.google.com/maps/search/?api=1&query=CashBack%20Capital%20Microfinance&query_place_id=ChIJrwABH5ma3w8RvbDwfH2cxWk",
+  "title": "CashBack Capital Microfinance",
+  "location": {
+    "lat": 5.5693023,
+    "lng": -0.1711378
+  },
+  "totalScore": 1
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HPRX+94J, Darkuman Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nationwide%20Microfinance%20Ltd&query_place_id=ChIJP-omhLqZ3w8RNUZ7QTZZN8I",
+  "title": "Nationwide Microfinance Ltd",
+  "location": {
+    "lat": 5.5909617,
+    "lng": -0.2522207
+  },
+  "totalScore": 3.5
+},
+{
+  "phone": "+233 30 296 5689",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GZ-079-2143",
+  "url": "https://www.google.com/maps/search/?api=1&query=Extra%20Micro-Credit%20Services&query_place_id=ChIJs04WtZaF3w8R9nuEGj3G17E",
+  "title": "Extra Micro-Credit Services",
+  "location": {
+    "lat": 5.5907204,
+    "lng": -0.1157708
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 243 2961",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1 boulevard street westland",
+  "url": "https://www.google.com/maps/search/?api=1&query=Medi%20Ghana%20Micro%20Finance%20Limited&query_place_id=ChIJz506yeOb3w8RC-0VlmT1_bs",
+  "title": "Medi Ghana Micro Finance Limited",
+  "location": {
+    "lat": 5.6310086,
+    "lng": -0.2217241
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Savings bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ3Q+XPQ, Graphic Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=SHEEDY%20MICROFINANCE%20LTD&query_place_id=ChIJE2AzDaSQ3w8R_a2vFihh7xw",
+  "title": "SHEEDY MICROFINANCE LTD",
+  "location": {
+    "lat": 5.5549651,
+    "lng": -0.2106301
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GPHV+QWP",
+  "url": "https://www.google.com/maps/search/?api=1&query=Alpha%20Royal%20Micro%20Finance%20Limited&query_place_id=ChIJF_bGnAWX3w8REYuIYfFMrls",
+  "title": "Alpha Royal Micro Finance Limited",
+  "location": {
+    "lat": 5.5294718,
+    "lng": -0.2551708
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.masloc.gov.gh/",
+  "phone": "+233 30 278 2528",
+  "categoryName": "Corporate office",
+  "reviewsCount": 34,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "29 Third Circular Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Masloc%20Head%20office&query_place_id=ChIJ3ziNr1-b3w8R-xg-Cr3lEmY",
+  "title": "Masloc Head office",
+  "location": {
+    "lat": 5.5859925,
+    "lng": -0.1682873
+  },
+  "totalScore": 4.4
+},
+{
+  "website": "http://www.afroarabgroup.com/",
+  "phone": "+233 30 225 2529",
+  "categoryName": "Corporate office",
+  "reviewsCount": 38,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Afro-Arab%20Group%20of%20Companies&query_place_id=ChIJdc9YQWua3w8RgGILhsIzk08",
+  "title": "Afro-Arab Group of Companies",
+  "location": {
+    "lat": 5.5784377,
+    "lng": -0.2047789
+  },
+  "totalScore": 4.2
+},
+{
+  "website": "http://equityfocusltd.com/",
+  "phone": "+233 30 268 4128",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWQ+J7C",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Focus%20Microfinance%20Limited&query_place_id=ChIJczVpxLuQ3w8RcyvPiJs06J0",
+  "title": "Equity Focus Microfinance Limited",
+  "location": {
+    "lat": 5.5465664,
+    "lng": -0.2118441
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.diamondcapital.com.gh/",
+  "phone": "",
+  "categoryName": "Corporate office",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JWH5+V7F",
+  "url": "https://www.google.com/maps/search/?api=1&query=DCI%20Microfinance&query_place_id=ChIJMWx1nBSE3w8RzeVdbR1nrlw",
+  "title": "DCI Microfinance",
+  "location": {
+    "lat": 5.6296917,
+    "lng": -0.0918288
+  },
+  "totalScore": 3
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Lapaz",
+  "street": "JQ55+8JH, George W. Bush Hwy",
+  "url": "https://www.google.com/maps/search/?api=1&query=JITA%20microfinance&query_place_id=ChIJ1zORhHSZ3w8RXS81ZwDxcMU",
+  "title": "JITA microfinance",
+  "location": {
+    "lat": 5.6083074,
+    "lng": -0.2408824
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 26 641 4506",
+  "categoryName": "Corporate office",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "4 N Liberia Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Silver%20Trust%20Micro%20Finance&query_place_id=ChIJNx2F4qOQ3w8RuPbHHL3mJ4Q",
+  "title": "Silver Trust Micro Finance",
+  "location": {
+    "lat": 5.556423,
+    "lng": -0.2096992
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 224 1995",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ9X+P97",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adom%20SIKA%20Micro%20Finance%20Limited&query_place_id=ChIJNSZ-0nOa3w8R7k9xVZENE9c",
+  "title": "Adom SIKA Micro Finance Limited",
+  "location": {
+    "lat": 5.5692779,
+    "lng": -0.2015664
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Corporate office",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Mallam",
+  "street": "Unnamed Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Universal%20Microfinance%20-%20Head%20Office&query_place_id=ChIJqQ0yCCGZ3w8Rf-UwGXcGV8o",
+  "title": "Universal Microfinance - Head Office",
+  "location": {
+    "lat": 5.5733886,
+    "lng": -0.2838777
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 30 232 0699",
+  "categoryName": "Corporate office",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "6 Mahogany Cl",
+  "url": "https://www.google.com/maps/search/?api=1&query=Initiative%20Development%20Ghana%20FNGO%20(%20ID%20Ghana%20FNGO%20)&query_place_id=ChIJ9ZfMayiY3w8Rx696hwUzjaM",
+  "title": "Initiative Development Ghana FNGO ( ID Ghana FNGO )",
+  "location": {
+    "lat": 5.532427,
+    "lng": -0.2613893
+  },
+  "totalScore": 4.7
+},
+{
+  "phone": "+233 27 750 6509",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR48+P6G, 1st Kuku Crescent",
+  "url": "https://www.google.com/maps/search/?api=1&query=Legacy%20Capital%20Savings%20and%20Loans%2C%20Head%20Office&query_place_id=ChIJ99tWgX6Q3w8RgOomU7CBzBs",
+  "title": "Legacy Capital Savings and Loans, Head Office",
+  "location": {
+    "lat": 5.5568006,
+    "lng": -0.1844299
+  },
+  "totalScore": 3.2
+},
+{
+  "website": "http://www.ankasaloans.com/",
+  "phone": "+233 24 157 0322",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=ANKASA%20MICRO-CREDIT%20SERVICES&query_place_id=ChIJJwc8mZ2F3w8REoI76iRH0HI",
+  "title": "ANKASA MICRO-CREDIT SERVICES",
+  "location": {
+    "lat": 5.6301065,
+    "lng": -0.1449554
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "K32 Oyanka St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Central%20Micro%20Finance%20Ltd&query_place_id=ChIJNzLzlFeX3w8Rosmg_GpNBDU",
+  "title": "Central Micro Finance Ltd",
+  "location": {
+    "lat": 5.5602333,
+    "lng": -0.2328936
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.tigerforcegroup.org/",
+  "phone": "+233 24 438 0003",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR78+6F9",
+  "url": "https://www.google.com/maps/search/?api=1&query=TIGER%20FORCE%20MICROFINANCE&query_place_id=ChIJp18en7yb3w8RiABzIsCvNwc",
+  "title": "TIGER FORCE MICROFINANCE",
+  "location": {
+    "lat": 5.5630397,
+    "lng": -0.1837618
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 276 7911",
+  "categoryName": "Bank",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRX4+CP8, Olusegun Obasanjo Wy",
+  "url": "https://www.google.com/maps/search/?api=1&query=Commerz%20Savings%20And%20Loans%20Limited&query_place_id=ChIJeYfH2FOa3w8RHtgKalH_x8I",
+  "title": "Commerz Savings And Loans Limited",
+  "location": {
+    "lat": 5.5985431,
+    "lng": -0.1931586
+  },
+  "totalScore": 4.1
+},
+{
+  "website": "http://www.abiinational.net/",
+  "phone": "+233 57 770 9000",
+  "categoryName": "Financial institution",
+  "reviewsCount": 16,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Nsawam Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=ABii%20National%20Savings%20And%20Loans%20(Head%20Office)&query_place_id=ChIJldbOmxma3w8RasYQbL07dzw",
+  "title": "ABii National Savings And Loans (Head Office)",
+  "location": {
+    "lat": 5.5652716,
+    "lng": -0.2142877
+  },
+  "totalScore": 4.1
+},
+{
+  "phone": "+233 30 341 3614",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JWCH+W5F",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Access%20Savings%20and%20Loans&query_place_id=ChIJzYN3Ap-G3w8RLnrGGFTyEkU",
+  "title": "Global Access Savings and Loans",
+  "location": {
+    "lat": 5.6223083,
+    "lng": -0.0720869
+  },
+  "totalScore": 4.7
+},
+{
+  "website": "http://www.bestpointgh.com/",
+  "phone": "+233 30 393 2990",
+  "categoryName": "Bank",
+  "reviewsCount": 20,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1102 New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=BestPoint%20Savings%20and%20Loan&query_place_id=ChIJlZK41hWa3w8Rlxrn-bsFeJs",
+  "title": "BestPoint Savings and Loan",
+  "location": {
+    "lat": 5.5803471,
+    "lng": -0.2101129
+  },
+  "totalScore": 4.7
+},
+{
+  "phone": "+233 54 431 4705",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR88+5X3, Nyemitei Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bond%20Savings%20%26%20Loans%20Ltd.&query_place_id=ChIJvcnpZoGa3w8RPUkPfUeE2Sc",
+  "title": "Bond Savings & Loans Ltd.",
+  "location": {
+    "lat": 5.5653993,
+    "lng": -0.1825644
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://equitygh.com/",
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 9,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Museru Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20%26%20Loans&query_place_id=ChIJHXmMMmyb3w8Rj6CMC1YxQtM",
+  "title": "Equity Savings & Loans",
+  "location": {
+    "lat": 5.6333312,
+    "lng": -0.1732358
+  },
+  "totalScore": 3.4
+},
+{
+  "website": "http://www.directgh.com/",
+  "phone": "+233 30 396 9550",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "UTC, 1st Floor, Menaba House Knutsford avenue",
+  "url": "https://www.google.com/maps/search/?api=1&query=Direct%20Savings%20and%20Loans%20-%20Accra%20Branch&query_place_id=ChIJrbuLxzWb3w8RKzMdmX06Kd4",
+  "title": "Direct Savings and Loans - Accra Branch",
+  "location": {
+    "lat": 5.6037379,
+    "lng": -0.1869579
+  },
+  "totalScore": 3.8
+},
+{
+  "website": "https://affinityghana.com/",
+  "phone": "+233 30 278 8788",
+  "categoryName": "Financial institution",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ringway Estates, 6 Asafoatse Ankaa Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Affinity%20Ghana%20Savings%20and%20Loans%20Limited%20-%20HQ&query_place_id=ChIJZWghv8mb3w8RFE6Ee_YEEGE",
+  "title": "Affinity Ghana Savings and Loans Limited - HQ",
+  "location": {
+    "lat": 5.5650412,
+    "lng": -0.1883005
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "https://directgh.com/",
+  "phone": "+233 30 321 7328",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWQ+9HV, Zongo Ln",
+  "url": "https://www.google.com/maps/search/?api=1&query=Direct%20Savings%20and%20Loans%20-%20Accra%20Branch&query_place_id=ChIJs5jv4ruQ3w8RKMzlIv0nIjI",
+  "title": "Direct Savings and Loans - Accra Branch",
+  "location": {
+    "lat": 5.5459824,
+    "lng": -0.2110634
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.bayportghana.com/",
+  "phone": "+233 30 274 5454",
+  "categoryName": "Bank",
+  "reviewsCount": 48,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "22 Nii Nortei Nyanchi St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bayport%20Savings%20%26%20Loans(HQ)&query_place_id=ChIJ3T0gGqeb3w8Rqqr1YqwqXaM",
+  "title": "Bayport Savings & Loans(HQ)",
+  "location": {
+    "lat": 5.6177346,
+    "lng": -0.1888818
+  },
+  "totalScore": 3.4
+},
+{
+  "phone": "+233 30 225 2076",
+  "categoryName": "Company",
+  "reviewsCount": 58,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQHM+CC8, Faanofa Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adehyeman%20Savings%20And%20Loans%20Limited&query_place_id=ChIJZ3qJlBma3w8RDLxmzoNU_u4",
+  "title": "Adehyeman Savings And Loans Limited",
+  "location": {
+    "lat": 5.5785285,
+    "lng": -0.2164087
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "+233 30 709 9863",
+  "categoryName": "Financial institution",
+  "reviewsCount": 23,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JRHH+9C9",
+  "url": "https://www.google.com/maps/search/?api=1&query=Midland%20Savings%20%26%20Loans&query_place_id=ChIJzwxBuWub3w8R2mscJ7ZNOfg",
+  "title": "Midland Savings & Loans",
+  "location": {
+    "lat": 5.6284225,
+    "lng": -0.1713862
+  },
+  "totalScore": 1.5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Road",
+  "street": "HQHQ+JG9",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20and%20Loans%20Ltd&query_place_id=ChIJgSmtvRaa3w8RxXS2204CZxw",
+  "title": "Equity Savings and Loans Ltd",
+  "location": {
+    "lat": 5.5790477,
+    "lng": -0.2111539
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://www.advansghana.com/",
+  "phone": "+233 30 708 4522",
+  "categoryName": "Financial institution",
+  "reviewsCount": 38,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Former Oxford Cinema Building, Behind Mallam Atta Market, Accra Newtown GA-069-4634, 1115 New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Savings%20and%20Loans-%20Newtown%20Branch&query_place_id=ChIJNQhcvhWa3w8R8zDtsfcw_Bw",
+  "title": "Advans Savings and Loans- Newtown Branch",
+  "location": {
+    "lat": 5.5812204,
+    "lng": -0.2090989
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.utrakgh.com/",
+  "phone": "+233 20 511 5501",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQHQ+8F8",
+  "url": "https://www.google.com/maps/search/?api=1&query=UTRAK%20Savings%20and%20Loans%20Limited&query_place_id=ChIJie4QuRaa3w8R7TF7cpGLoY8",
+  "title": "UTRAK Savings and Loans Limited",
+  "location": {
+    "lat": 5.5782999,
+    "lng": -0.2112994
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 241 9424",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQQP+8FH",
+  "url": "https://www.google.com/maps/search/?api=1&query=Jins%20Savings%20And%20Loans&query_place_id=ChIJSyCm8_Cb3w8RUX0wmnIjsw8",
+  "title": "Jins Savings And Loans",
+  "location": {
+    "lat": 5.6383209,
+    "lng": -0.2137552
+  },
+  "totalScore": 2.7
+},
+{
+  "phone": "+233 30 222 3826",
+  "categoryName": "Loan agency",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQ4F+H75",
+  "url": "https://www.google.com/maps/search/?api=1&query=Goldenlink%20Savings%20And%20Loans&query_place_id=ChIJtQPgVH6Z3w8RosGXEGBeEL0",
+  "title": "Goldenlink Savings And Loans",
+  "location": {
+    "lat": 5.6063854,
+    "lng": -0.2267691
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.panafricansl.com/",
+  "phone": "+233 30 221 3977",
+  "categoryName": "Financial institution",
+  "reviewsCount": 18,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "19 Mayor Road, Ridge West",
+  "url": "https://www.google.com/maps/search/?api=1&query=Pan-African%20Savings%20%26%20Loans&query_place_id=ChIJteHrymaR3w8RUR3y7EXZypk",
+  "title": "Pan-African Savings & Loans",
+  "location": {
+    "lat": 5.5603986,
+    "lng": -0.2024069
+  },
+  "totalScore": 4.2
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQRW+V52, Kotobabi Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20Savings%20And%20Loans%20Ltd&query_place_id=ChIJL3IV6kea3w8R4DJ00aDC8eo",
+  "title": "Asa Savings And Loans Ltd",
+  "location": {
+    "lat": 5.5921447,
+    "lng": -0.2046085
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQXR+XWC, Kojo Thompson Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Pacific%20Savings%20%26%20Loans%20Ltd.&query_place_id=ChIJzfn4Ib2Q3w8R6-trMDDCfEs",
+  "title": "Pacific Savings & Loans Ltd.",
+  "location": {
+    "lat": 5.5499393,
+    "lng": -0.2077398
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "28 Faanofa Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Union%20Savings%20And%20Loans&query_place_id=ChIJsdrKxRCa3w8R5Fl5UNktjs8",
+  "title": "Union Savings And Loans",
+  "location": {
+    "lat": 5.5765912,
+    "lng": -0.2135131
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Taifa",
+  "street": "JQV6+4J7, St Johns - Dome - Kwabenya - Brekusu Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Union%20Savings%20And%20Loans&query_place_id=ChIJEW3SeEyZ3w8RfgNdFtlwhBg",
+  "title": "Union Savings And Loans",
+  "location": {
+    "lat": 5.6427929,
+    "lng": -0.2384638
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ88+9G4, Akwashong Boi St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20%26%20Loans&query_place_id=ChIJrdxmtPyZ3w8RLdQjOgAIYpk",
+  "title": "Equity Savings & Loans",
+  "location": {
+    "lat": 5.5658788,
+    "lng": -0.2336788
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "460 Nii Abose St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Pacific%20Savings%20%26%20Loans%20Ltd&query_place_id=ChIJZaQFcViX3w8RZngWn_G2bXw",
+  "title": "Pacific Savings & Loans Ltd",
+  "location": {
+    "lat": 5.5609286,
+    "lng": -0.2351313
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 240 6920",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR79+V6Q",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Savings%20%26%20Loans%20-%20Osu%20Branch&query_place_id=ChIJAdKM0IOa3w8RiJNyCTZXcIQ",
+  "title": "Global Savings & Loans - Osu Branch",
+  "location": {
+    "lat": 5.5647151,
+    "lng": -0.1819007
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "165 Nima Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Pan-African%20Savings%20%26%20Loans&query_place_id=ChIJaQ3cA1Ga3w8RbZFWLJbZaAY",
+  "title": "Pan-African Savings & Loans",
+  "location": {
+    "lat": 5.5960419,
+    "lng": -0.1938344
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=First%20Ghana%20Savings%20%26%20Loans%20Limited&query_place_id=ChIJ-YA1WQSa3w8RNMG8cZDUEWM",
+  "title": "First Ghana Savings & Loans Limited",
+  "location": {
+    "lat": 5.5693183,
+    "lng": -0.2183013
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Corporate office",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "H, 15 Olusegun Obasanjo Wy",
+  "url": "https://www.google.com/maps/search/?api=1&query=ASA%20Savings%20and%20Loans%2C%20Head%20Office%20(New)&query_place_id=ChIJ7Qy6fwCb3w8RKBwp_aQculg",
+  "title": "ASA Savings and Loans, Head Office (New)",
+  "location": {
+    "lat": 5.6014846,
+    "lng": -0.1988636
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 397 1098",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQV6+4G7, St Johns Dome Brekusu",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bond%20Savings%20%26%20Loans&query_place_id=ChIJ6S7UhkuZ3w8Ro6XgRz0Ffz8",
+  "title": "Bond Savings & Loans",
+  "location": {
+    "lat": 5.6427797,
+    "lng": -0.2387066
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQJR+65V, New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=First%20African%20Savings%20%26%20Loans%20Ltd.&query_place_id=ChIJsagBzxWa3w8RhMOWOVPCQgA",
+  "title": "First African Savings & Loans Ltd.",
+  "location": {
+    "lat": 5.5806089,
+    "lng": -0.2095839
+  },
+  "totalScore": 1
+},
+{
+  "phone": "+233 30 320 5550",
+  "categoryName": "Bank",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "JXGR+W25, Bond House, Meridian Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bond%20Savings%20%26%20Loans%20Limited&query_place_id=ChIJ_8pUJkOH3w8RgLAOIPz_b-M",
+  "title": "Bond Savings & Loans Limited",
+  "location": {
+    "lat": 5.6272503,
+    "lng": -0.0098974
+  },
+  "totalScore": 3.6
+},
+{
+  "phone": "+233 28 981 0310",
+  "categoryName": "Currency exchange service",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JR37+F6V, Accra, Tesano",
+  "url": "https://www.google.com/maps/search/?api=1&query=AE%20Savings%20and%20Loans&query_place_id=ChIJL1T7kFGb3w8Rpi5UEPVU76Y",
+  "title": "AE Savings and Loans",
+  "location": {
+    "lat": 5.6037379,
+    "lng": -0.1869579
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 57 773 7826",
+  "categoryName": "Financial institution",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GA-105-4130, Adjaben Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=SIC%20Life%20Savings%20%26%20Loans&query_place_id=ChIJgTXKvaOQ3w8RyjU9hC3Ne04",
+  "title": "SIC Life Savings & Loans",
+  "location": {
+    "lat": 5.554159,
+    "lng": -0.209245
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "+233 30 220 1718",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQ2F+VVR",
+  "url": "https://www.google.com/maps/search/?api=1&query=Direct%20Savings%20And%20Loan%20Tesano%20Branch&query_place_id=ChIJFcqDa4CZ3w8RUofIHoUxi9o",
+  "title": "Direct Savings And Loan Tesano Branch",
+  "location": {
+    "lat": 5.6022399,
+    "lng": -0.2253565
+  },
+  "totalScore": 3.3
+},
+{
+  "phone": "+233 27 750 8773",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HR4G+QJJ",
+  "url": "https://www.google.com/maps/search/?api=1&query=Legacy%20Capital%20Savings%20and%20Loans&query_place_id=ChIJvz3kp3aQ3w8R3qONhMFceq8",
+  "title": "Legacy Capital Savings and Loans",
+  "location": {
+    "lat": 5.5569661,
+    "lng": -0.1734988
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 393 2160",
+  "categoryName": "Bank",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRFJ+RMP",
+  "url": "https://www.google.com/maps/search/?api=1&query=The%20Seed%20Funds%20Savings%20and%20Loans%20Ltd.&query_place_id=ChIJf7MEe72a3w8R9pSR5-yQHiQ",
+  "title": "The Seed Funds Savings and Loans Ltd.",
+  "location": {
+    "lat": 5.5745766,
+    "lng": -0.1682952
+  },
+  "totalScore": 4.2
+},
+{
+  "phone": "+233 30 321 7328",
+  "categoryName": "Financial institution",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "JXVX+737",
+  "url": "https://www.google.com/maps/search/?api=1&query=Direct%20Savings%20and%20Loans%20-%20Tema%20Branch&query_place_id=ChIJATQOmr-H3w8RwoGKWRI0EKU",
+  "title": "Direct Savings and Loans - Tema Branch",
+  "location": {
+    "lat": 5.6431661,
+    "lng": -0.0023314
+  },
+  "totalScore": 3
+},
+{
+  "phone": "+233 32 222 4660",
+  "categoryName": "Bank",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQX8+J8J, Lomoko link",
+  "url": "https://www.google.com/maps/search/?api=1&query=Express%20savings%20and%20loans%20head%20Office&query_place_id=ChIJW2JgpZyZ3w8RNOpi3KbHy3E",
+  "title": "Express savings and loans head Office",
+  "location": {
+    "lat": 5.5990884,
+    "lng": -0.2342345
+  },
+  "totalScore": 2.6
+},
+{
+  "phone": "+233 30 393 8729",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JQ8X+GHH, Sir Emmanuel Quist Street",
+  "url": "https://www.google.com/maps/search/?api=1&query=Firstrust%20Savings%20and%20Loans%20Ltd.&query_place_id=ChIJOcFjJbqb3w8RRJvHAc0b084",
+  "title": "Firstrust Savings and Loans Ltd.",
+  "location": {
+    "lat": 5.6163161,
+    "lng": -0.2010174
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "https://www.izweghana.com/?utm_source=google-location&utm_medium=organic&utm_campaign=google-maps",
+  "phone": "+233 30 290 1966",
+  "categoryName": "Loan agency",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Near Homeland Stores, HQCR+977, Ring Road Central, Ghana, Elizabeth House Building, Ring Road Central",
+  "url": "https://www.google.com/maps/search/?api=1&query=Izwe%20Savings%20%26%20Loans%20Ring%20Road&query_place_id=ChIJUdqPXKKb3w8RVr0iKwmEeoE",
+  "title": "Izwe Savings & Loans Ring Road",
+  "location": {
+    "lat": 5.5708899,
+    "lng": -0.2093002
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Savings bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQVR+35P",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20%26%20Loans&query_place_id=ChIJb5GlJL-Q3w8RoNl-0N8kDhY",
+  "title": "Equity Savings & Loans",
+  "location": {
+    "lat": 5.5427057,
+    "lng": -0.2095439
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.abiinational.net/",
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRQ3+J94",
+  "url": "https://www.google.com/maps/search/?api=1&query=ABii%20National%20Savings%20%26%20Loans%20Mamobi%20Branch&query_place_id=ChIJE_RrtESa3w8Rthuu_XV0cFY",
+  "title": "ABii National Savings & Loans Mamobi Branch",
+  "location": {
+    "lat": 5.5890009,
+    "lng": -0.1965415
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 54 077 3191",
+  "categoryName": "Store",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Garden Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Surfside%20Savings%20%26%20Loans&query_place_id=ChIJi2GVmWmX3w8R6K16lqtNfZ8",
+  "title": "Surfside Savings & Loans",
+  "location": {
+    "lat": 5.641946,
+    "lng": -0.1519592
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 220 8383",
+  "categoryName": "Bank",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ8V+2MM",
+  "url": "https://www.google.com/maps/search/?api=1&query=Golden%20Pride%20Savings%20%26%20Loans%20Ltd.(Head%20Office)&query_place_id=ChIJxQruMgua3w8R8DIeSlrXuiM",
+  "title": "Golden Pride Savings & Loans Ltd.(Head Office)",
+  "location": {
+    "lat": 5.5650769,
+    "lng": -0.2058162
+  },
+  "totalScore": 3
+},
+{
+  "website": "https://advansghana.com/",
+  "phone": "+233 30 708 4522",
+  "categoryName": "Financial institution",
+  "reviewsCount": 10,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "G7-314-1649, Near the Takoradi Station, Eduardo Mohdlana Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Savings%20and%20Loans%20-%20Kaneshie%20Branch&query_place_id=ChIJuYVFNuKZ3w8R1MljpBxi-EU",
+  "title": "Advans Savings and Loans - Kaneshie Branch",
+  "location": {
+    "lat": 5.5629647,
+    "lng": -0.2379851
+  },
+  "totalScore": 3.9
+},
+{
+  "phone": "",
+  "categoryName": "Savings bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ5C+G5F",
+  "url": "https://www.google.com/maps/search/?api=1&query=Best%20Point%20Savings%20And%20Loans&query_place_id=ChIJpzeLhlaX3w8R1dzqIFEyylc",
+  "title": "Best Point Savings And Loans",
+  "location": {
+    "lat": 5.5588102,
+    "lng": -0.229583
+  },
+  "totalScore": 3
+},
+{
+  "website": "https://www.izweghana.com/?utm_source=google-location&utm_medium=organic&utm_campaign=google-maps",
+  "phone": "+233 30 220 8222",
+  "categoryName": "Loan agency",
+  "reviewsCount": 49,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRX6+CVC, 12 Patrice Lumumba St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Izwe%20Savings%20%26%20Loans%20Head%20Office&query_place_id=ChIJ4UnLWg6a3w8RpeGAqrNdvT4",
+  "title": "Izwe Savings & Loans Head Office",
+  "location": {
+    "lat": 5.5985625,
+    "lng": -0.1878125
+  },
+  "totalScore": 3.3
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Achimota",
+  "street": "JQJ7+J2W",
+  "url": "https://www.google.com/maps/search/?api=1&query=Unicredit%20Savings%20And%20Loans%20Achimota%20Branch&query_place_id=ChIJjUFNP0SZ3w8RHvfVE9_3KD4",
+  "title": "Unicredit Savings And Loans Achimota Branch",
+  "location": {
+    "lat": 5.6316068,
+    "lng": -0.2374178
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 266 8781",
+  "categoryName": "Savings bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWQ+5MF, Derby Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Express%20Savings%20and%20Loans&query_place_id=ChIJAdIGUbmQ3w8Ryy-B1vCO1Cc",
+  "title": "Express Savings and Loans",
+  "location": {
+    "lat": 5.5454436,
+    "lng": -0.2108158
+  },
+  "totalScore": 1
+},
+{
+  "website": "http://www.izweghana.com/",
+  "phone": "+233 50 922 3026",
+  "categoryName": "Loan agency",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "Right wing, JXQX+G3Q Tema, Ghana Ground Floor, Krakue Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Izwe%20Savings%20%26%20Loans%20Tema&query_place_id=ChIJrXIcM3aH3w8RWeYK6_8YBBY",
+  "title": "Izwe Savings & Loans Tema",
+  "location": {
+    "lat": 5.6385987,
+    "lng": 0.0024141
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Savings bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ4R+39P",
+  "url": "https://www.google.com/maps/search/?api=1&query=First%20Ghana%20Savings%20and%20Loans%20Tudu&query_place_id=ChIJl4nXxqOQ3w8RDV7ua-V2C0Q",
+  "title": "First Ghana Savings and Loans Tudu",
+  "location": {
+    "lat": 5.5552236,
+    "lng": -0.2090437
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Taifa",
+  "street": "JQW7+635",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adehyeman%20Saving%20and%20Loans&query_place_id=ChIJJRgEykyZ3w8RQMEVsVC8D30",
+  "title": "Adehyeman Saving and Loans",
+  "location": {
+    "lat": 5.6455161,
+    "lng": -0.2372775
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "+233 50 129 0678",
+  "categoryName": "Savings bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "National Investment Bank Tema Main Meridian",
+  "url": "https://www.google.com/maps/search/?api=1&query=SIC%20Life%20Savings%20and%20Loans&query_place_id=ChIJATjw7kSH3w8RDmorLt1nA3M",
+  "title": "SIC Life Savings and Loans",
+  "location": {
+    "lat": 5.6364301,
+    "lng": -0.0051002
+  },
+  "totalScore": 1
+},
+{
+  "website": "https://progressghana.com/",
+  "phone": "+233 50 167 8289",
+  "categoryName": "Financial institution",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Suite 401, Zion Hse.No.7 Nii Yemoh Avenue, Boundary Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Progress%20Savings%20and%20Loans%20Ltd.&query_place_id=ChIJt0vfiPOb3w8RHFDkRmsrwxA",
+  "title": "Progress Savings and Loans Ltd.",
+  "location": {
+    "lat": 5.6285049,
+    "lng": -0.1715044
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQQV+933, New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Progress%20Savings%20%26%20Loans%20Newtown%20Branch&query_place_id=ChIJKZhazjia3w8R1VCh5itdK_Q",
+  "title": "Progress Savings & Loans Newtown Branch",
+  "location": {
+    "lat": 5.5883951,
+    "lng": -0.2073394
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 293 7419",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "J2P2+P3J, Unnamed Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Legacy%20Capital%20Savings%20and%20Loans-%20Tema%20branch&query_place_id=ChIJLeQmIah4IBARJL6lYWN5fTs",
+  "title": "Legacy Capital Savings and Loans- Tema branch",
+  "location": {
+    "lat": 5.6368389,
+    "lng": 0.0001541
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 393 7537",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JW4C+5PC",
+  "url": "https://www.google.com/maps/search/?api=1&query=FirsTrust%20Savings%20%26%20Loans%2C%20Nungua%20Branch&query_place_id=ChIJ9bxHEyuE3w8R7aQ9H4I-cew",
+  "title": "FirsTrust Savings & Loans, Nungua Branch",
+  "location": {
+    "lat": 5.6054397,
+    "lng": -0.0782383
+  },
+  "totalScore": null
+},
+{
+  "website": "https://advansghana.com/",
+  "phone": "+233 30 708 4522",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "G6-002-8761, Labadi - Nungua Beach Road, Cold store bus stop, Accra - Tema Beach Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Savings%20and%20Loans%20-%20Nungua%20Branch&query_place_id=ChIJJWR1rmaF3w8RFwkfoRcyp5Q",
+  "title": "Advans Savings and Loans - Nungua Branch",
+  "location": {
+    "lat": 5.5960831,
+    "lng": -0.0859007
+  },
+  "totalScore": null
+},
+{
+  "website": "https://advansghana.com/",
+  "phone": "+233 30 708 4522",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Opposite FIO Enterprise (Unilever Depot), Chief, 142-6702 Nii Brimah Cl",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Savings%20and%20Loans%20-%20Okaishie%20Branch&query_place_id=ChIJ6bXYZHyR3w8RvoSb96WDsxM",
+  "title": "Advans Savings and Loans - Okaishie Branch",
+  "location": {
+    "lat": 5.5481851,
+    "lng": -0.2080684
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 50 125 7475",
+  "categoryName": "Bank",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWQ+GCP",
+  "url": "https://www.google.com/maps/search/?api=1&query=MultiCredit%20Savings%20and%20Loans&query_place_id=ChIJe2xW5ruQ3w8RRRegY7NlUIs",
+  "title": "MultiCredit Savings and Loans",
+  "location": {
+    "lat": 5.5463305,
+    "lng": -0.2114261
+  },
+  "totalScore": 3.8
+},
+{
+  "website": "https://www.advansghana.com/",
+  "phone": "+233 30 705 4522",
+  "categoryName": "Financial institution",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Adjacent Adormens Efo School between Makola No 2 Lorry Station and Railway, Shwuo Rd., GA-104-9063",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Savings%20and%20Loans%20-%20Agbogloshie%20Branch&query_place_id=ChIJWQTIYeqR3w8R4Xc51KNnWUU",
+  "title": "Advans Savings and Loans - Agbogloshie Branch",
+  "location": {
+    "lat": 5.550647,
+    "lng": -0.2157314
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "51 Kojo Thompson Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Sinapi%20Aba%20Savings%20%26%20Loans&query_place_id=ChIJJVSMOqOQ3w8RCkimxCsvmBM",
+  "title": "Sinapi Aba Savings & Loans",
+  "location": {
+    "lat": 5.5517614,
+    "lng": -0.2083647
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 43,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRHV+QV2, Giffard Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=SERVICE%20INTEGRITY%20SAVINGS%20%26%20LOAN%20(%20SIS%26L%20)&query_place_id=ChIJJyN_67aa3w8R0UEmHsWRbFM",
+  "title": "SERVICE INTEGRITY SAVINGS & LOAN ( SIS&L )",
+  "location": {
+    "lat": 5.5793936,
+    "lng": -0.1553565
+  },
+  "totalScore": 3.8
+},
+{
+  "website": "https://www.omnibsic.com.gh/",
+  "phone": "+233 30 708 6000",
+  "categoryName": "Bank",
+  "reviewsCount": 52,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Atlantic Tower",
+  "url": "https://www.google.com/maps/search/?api=1&query=OmniBSIC%20Bank%20Ghana%20Ltd%20-%20Head%20office&query_place_id=ChIJacbU28ub3w8RwYQ2LZDfDkc",
+  "title": "OmniBSIC Bank Ghana Ltd - Head office",
+  "location": {
+    "lat": 5.6027131,
+    "lng": -0.1778419
+  },
+  "totalScore": 4.1
+},
+{
+  "website": "https://www.izweghana.com/",
+  "phone": "+233 30 290 8414",
+  "categoryName": "Loan agency",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ground Floor, HRX2+CM4, Kotobabi",
+  "url": "https://www.google.com/maps/search/?api=1&query=Izwe%20Savings%20%26%20Loans%20Kotobabi%20branch&query_place_id=ChIJNSQDCtqb3w8RBzBYRGBdHa4",
+  "title": "Izwe Savings & Loans Kotobabi branch",
+  "location": {
+    "lat": 5.5985625,
+    "lng": -0.1983125
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 261 0000",
+  "categoryName": "Bank",
+  "reviewsCount": 33,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQVR+258, Kwame Nkrumah Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Opportunity%20International%20Head%20Office&query_place_id=ChIJC81-O7-Q3w8RARnl_Dy_PaU",
+  "title": "Opportunity International Head Office",
+  "location": {
+    "lat": 5.5425383,
+    "lng": -0.2095563
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 24 620 5987",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "J2P5+W27, Ghacem road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Golden%20Pride%20Savings%20%26%20Loans%20Tema&query_place_id=ChIJy7s3eEh5IBARDfy3MIj0Hx0",
+  "title": "Golden Pride Savings & Loans Tema",
+  "location": {
+    "lat": 5.6372854,
+    "lng": 0.0075405
+  },
+  "totalScore": null
+},
+{
+  "website": "https://affinityghana.com/",
+  "phone": "+233 30 278 8788",
+  "categoryName": "Financial institution",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "700 Mission St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Affinity%20Ghana%20Savings%20and%20Loans%20Limited%20-%20Osu%20Branch&query_place_id=ChIJHXRw8nyR3w8Rekxych2pmp8",
+  "title": "Affinity Ghana Savings and Loans Limited - Osu Branch",
+  "location": {
+    "lat": 5.5598555,
+    "lng": -0.1818403
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://www.bestpointgh.com/",
+  "phone": "+233 30 393 2990",
+  "categoryName": "Financial institution",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQWV+39M",
+  "url": "https://www.google.com/maps/search/?api=1&query=Best%20Point%20Savings%20%26%20Loans%20-%20SIC%20Life%20Mall%20Branch&query_place_id=ChIJ31AAEr6Q3w8RjIsUx0lURe8",
+  "title": "Best Point Savings & Loans - SIC Life Mall Branch",
+  "location": {
+    "lat": 5.5452209,
+    "lng": -0.206586
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "",
+  "categoryName": "Corporate office",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ66+WM2, Eduardo Mohdlana Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Abii%20National%20Savings%20and%20Loans%2FCITA%20office&query_place_id=ChIJnztnTfmZ3w8R1uXTo1qz52g",
+  "title": "Abii National Savings and Loans/CITA office",
+  "location": {
+    "lat": 5.5622637,
+    "lng": -0.238368
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "http://www.omnibsic.com.gh/",
+  "phone": "+233 30 708 6000",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Manet junction, Spintex Road, opposite Metalex",
+  "url": "https://www.google.com/maps/search/?api=1&query=OmniBSIC%20Bank%20-%20Spintex%20Manet%20Branch&query_place_id=ChIJwXn0f4-a3w8RNc-fbhEfLt8",
+  "title": "OmniBSIC Bank - Spintex Manet Branch",
+  "location": {
+    "lat": 5.6380903,
+    "lng": -0.1259722
+  },
+  "totalScore": 2
+},
+{
+  "phone": "+233 26 300 3160",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Taifa",
+  "street": "JQV6+XX4",
+  "url": "https://www.google.com/maps/search/?api=1&query=Opportunity%20International%20Dome%20Branch&query_place_id=ChIJ_zwbuUyZ3w8RrMKcSmCW1Tc",
+  "title": "Opportunity International Dome Branch",
+  "location": {
+    "lat": 5.6448798,
+    "lng": -0.237537
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GQXW+27Q, Independence Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adehyeman%20Saving%20And%20Loans%20Limited&query_place_id=ChIJib6jOJaQ3w8Rlqz94L_4ulQ",
+  "title": "Adehyeman Saving And Loans Limited",
+  "location": {
+    "lat": 5.5475753,
+    "lng": -0.2042793
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 261 0000",
+  "categoryName": "Bank",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQFM+68M",
+  "url": "https://www.google.com/maps/search/?api=1&query=Opportunity%20International%20Circle%20Branch&query_place_id=ChIJu9ZRxBqa3w8Ru5b2lO46054",
+  "title": "Opportunity International Circle Branch",
+  "location": {
+    "lat": 5.5730907,
+    "lng": -0.2167091
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HVHR+535",
+  "url": "https://www.google.com/maps/search/?api=1&query=Advans%20Ghana&query_place_id=ChIJdcyNfZ6F3w8RR2ZAMnhZnOA",
+  "title": "Advans Ghana",
+  "location": {
+    "lat": 5.5778982,
+    "lng": -0.1097597
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.firstnationalbank.com.gh/",
+  "phone": "+233 54 587 7299",
+  "categoryName": "Financial institution",
+  "reviewsCount": 70,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JR8F+W8P, 1 Kofi Annan St",
+  "url": "https://www.google.com/maps/search/?api=1&query=GHL%20Bank&query_place_id=ChIJz39dtRGb3w8RsY0QU-JWeuU",
+  "title": "GHL Bank",
+  "location": {
+    "lat": 5.6168056,
+    "lng": -0.1765389
+  },
+  "totalScore": 4.4
+},
+{
+  "website": "https://www.bayportghana.com/contacts/",
+  "phone": "+233 30 702 0128",
+  "categoryName": "Financial institution",
+  "reviewsCount": 12,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "22 Nii Nortei Nyanchi St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bayport%20Ghana&query_place_id=ChIJ_5oAHbCb3w8RUiVU7CeVdG4",
+  "title": "Bayport Ghana",
+  "location": {
+    "lat": 5.6131505,
+    "lng": -0.1964784
+  },
+  "totalScore": 3.3
+},
+{
+  "website": "http://www.facebook.com/Adepa.Adiepena",
+  "phone": "+233 26 519 7393",
+  "categoryName": "Savings bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JWFG+QWW",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adepa%20Adiepena&query_place_id=ChIJXblTgZ-G3w8RTkmZePm_-uM",
+  "title": "Adepa Adiepena",
+  "location": {
+    "lat": 5.6244865,
+    "lng": -0.0726721
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "",
+  "categoryName": "Investment bank",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1107 New Town Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=ABii%20National%20Mallam%20Atta%20Branch&query_place_id=ChIJ8Qu1wxWa3w8Ra740RZ-kmcg",
+  "title": "ABii National Mallam Atta Branch",
+  "location": {
+    "lat": 5.5807902,
+    "lng": -0.2096793
+  },
+  "totalScore": 4.8
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ6X+QV6, Mayor Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=GN%20Bank%20-%20Ridge%20Branch&query_place_id=ChIJp2DoHHaa3w8R6gZYFHUt-hE",
+  "title": "GN Bank - Ridge Branch",
+  "location": {
+    "lat": 5.5619043,
+    "lng": -0.200356
+  },
+  "totalScore": 3.5
+},
+{
+  "website": "http://www.dalexswift.com/",
+  "phone": "+233 54 147 7405",
+  "categoryName": "Financial institution",
+  "reviewsCount": 30,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ8R+75Q, Momotse Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Dalex%20SWIFT%20Office&query_place_id=ChIJkTHS6wua3w8RSws2ExsILu8",
+  "title": "Dalex SWIFT Office",
+  "location": {
+    "lat": 5.5657162,
+    "lng": -0.2095285
+  },
+  "totalScore": 3.7
+},
+{
+  "phone": "+233 26 509 2006",
+  "categoryName": "Loan agency",
+  "reviewsCount": 67,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HRF4+CX2, Ring Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=QWIK%20LOAN%20GHANA&query_place_id=ChIJNRsrxryb3w8RVA9dQMBsVl8",
+  "title": "QWIK LOAN GHANA",
+  "location": {
+    "lat": 5.5735238,
+    "lng": -0.1926174
+  },
+  "totalScore": 4.1
+},
+{
+  "website": "http://www.gcbbank.com.gh/",
+  "phone": "+233 30 201 6966",
+  "categoryName": "Bank",
+  "reviewsCount": 15,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "80 Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=GCB%20Bank&query_place_id=ChIJgfOmYLqE3w8RDJK8g7PGzQc",
+  "title": "GCB Bank",
+  "location": {
+    "lat": 5.6326353,
+    "lng": -0.1397566
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 55 379 4244",
+  "categoryName": "Corporate office",
+  "reviewsCount": 64,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ8Q+GP9",
+  "url": "https://www.google.com/maps/search/?api=1&query=Dalex%20Finance%20and%20Leasing%20Company.%20Head%20Office&query_place_id=ChIJDxxcVwma3w8RNPa-RlbWbmU",
+  "title": "Dalex Finance and Leasing Company. Head Office",
+  "location": {
+    "lat": 5.5662963,
+    "lng": -0.2106303
+  },
+  "totalScore": 4.1
+},
+{
+  "phone": "+233 30 220 8600",
+  "categoryName": "Bank",
+  "reviewsCount": 67,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQCR+QVP, Ring Road Central",
+  "url": "https://www.google.com/maps/search/?api=1&query=Soci%C3%A9t%C3%A9%20G%C3%A9n%C3%A9rale%20Ghana%20Head%20Office&query_place_id=ChIJs-ebfg2a3w8RQ_uDXVkkONQ",
+  "title": "Société Générale Ghana Head Office",
+  "location": {
+    "lat": 5.5719698,
+    "lng": -0.207784
+  },
+  "totalScore": 4
+},
+{
+  "website": "http://www.agricbank.com/",
+  "phone": "+233 30 221 0210",
+  "categoryName": "Bank",
+  "reviewsCount": 47,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "37 Independence Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Agricultural%20Development%20Bank%20-%20Head%20Office&query_place_id=ChIJo52AYZmQ3w8ReDpuKj8E12k",
+  "title": "Agricultural Development Bank - Head Office",
+  "location": {
+    "lat": 5.5547431,
+    "lng": -0.2014104
+  },
+  "totalScore": 3.4
+},
+{
+  "phone": "+233 30 267 5237",
+  "categoryName": "Money transfer service",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Inside Pan African Savings & Loans, William Tubman Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=MoneyGram&query_place_id=ChIJUVMwSHeR3w8Rjbj-xVXcgm0",
+  "title": "MoneyGram",
+  "location": {
+    "lat": 5.5604214,
+    "lng": -0.20241
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.bog.gov.gh/",
+  "phone": "+233 30 266 6174",
+  "categoryName": "Central bank",
+  "reviewsCount": 67,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "42 Castle Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Bank%20of%20Ghana&query_place_id=ChIJ9Qms1b-Q3w8R7zp-W2KbLi8",
+  "title": "Bank of Ghana",
+  "location": {
+    "lat": 5.5602063,
+    "lng": -0.1992746
+  },
+  "totalScore": 4.2
+},
+{
+  "phone": "+233 50 397 5769",
+  "categoryName": "Auditor",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "N 47 Nmati Abonase St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Makers%20and%20Partners&query_place_id=ChIJWdS419KF3w8RSq6wndgC5r8",
+  "title": "Makers and Partners",
+  "location": {
+    "lat": 5.5734975,
+    "lng": -0.1414349
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://home.kpmg.com/gh/en/home.html",
+  "phone": "+233 30 277 0454",
+  "categoryName": "Financial audit",
+  "reviewsCount": 36,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "KPMG, Marlin House, 13 Yiyiwa Dr",
+  "url": "https://www.google.com/maps/search/?api=1&query=KPMG&query_place_id=ChIJ___v-86b3w8RtlnBXWgDBIw",
+  "title": "KPMG",
+  "location": {
+    "lat": 5.6111554,
+    "lng": -0.2124796
+  },
+  "totalScore": 4.4
+},
+{
+  "phone": "+233 50 538 1506",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "GD 172-1634",
+  "url": "https://www.google.com/maps/search/?api=1&query=180%20Degrees%20Consultancy&query_place_id=ChIJPQS7p2mb3w8RjaB1F_sdjRY",
+  "title": "180 Degrees Consultancy",
+  "location": {
+    "lat": 5.6037379,
+    "lng": -0.1869579
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://ftcadmond.org/",
+  "phone": "+233 26 584 4133",
+  "categoryName": "Auditor",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Independence Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=FT%20Cadmond%20%26%20Associates&query_place_id=ChIJJdXY8Tmb3w8R6eOA-HUzXmQ",
+  "title": "FT Cadmond & Associates",
+  "location": {
+    "lat": 5.5653472,
+    "lng": -0.193444
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.enacghana.com/",
+  "phone": "+233 24 434 4041",
+  "categoryName": "Auditor",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kofi Aniefi Street Sixth house on the left",
+  "url": "https://www.google.com/maps/search/?api=1&query=Eddie%20Nikoi%20Accounting%20Consultancy&query_place_id=ChIJ_bQig4Ka3w8RBt6BM4c6yr8",
+  "title": "Eddie Nikoi Accounting Consultancy",
+  "location": {
+    "lat": 5.5621067,
+    "lng": -0.1801087
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://lobbanhyde.com/",
+  "phone": "+233 30 266 3421",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Bannerman Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Lobban%20Hyde&query_place_id=ChIJeRyuVcaQ3w8RsRzrRHCpxRM",
+  "title": "Lobban Hyde",
+  "location": {
+    "lat": 5.535138,
+    "lng": -0.210819
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 30 226 5323",
+  "categoryName": "Accountant",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Feo Oyeo Link",
+  "url": "https://www.google.com/maps/search/?api=1&query=AccounTrust%20Ghana%20Limited&query_place_id=ChIJm4tQZh2a3w8RYETxOTGbL_o",
+  "title": "AccounTrust Ghana Limited",
+  "location": {
+    "lat": 5.573886,
+    "lng": -0.224321
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.pwc.com/gh",
+  "phone": "+233 30 276 1500",
+  "categoryName": "Auditor",
+  "reviewsCount": 20,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "A4 Rangoon Lane, Cantonment City PMB CT42",
+  "url": "https://www.google.com/maps/search/?api=1&query=PwC&query_place_id=ChIJhZPK7-Ka3w8Rrbjynp5QWQ0",
+  "title": "PwC",
+  "location": {
+    "lat": 5.5727648,
+    "lng": -0.1800295
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://www.beta-associates.com/",
+  "phone": "+233 24 579 7718",
+  "categoryName": "Financial audit",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "near Entrance Pharmaceutical, Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=BETA%20%26%20Associates&query_place_id=ChIJQ8u4CuWF3w8RbCcToDJnyRU",
+  "title": "BETA & Associates",
+  "location": {
+    "lat": 5.6388721,
+    "lng": -0.1274929
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://www.bstsandassociates.com/",
+  "phone": "+233 54 265 7948",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 6,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Tsuianna Plaza, No 7 Oshimpa Lake",
+  "url": "https://www.google.com/maps/search/?api=1&query=BSTS%20%26%20ASSOCIATES&query_place_id=ChIJZ8B3emOZ3w8Ru4r_m-u0uaI",
+  "title": "BSTS & ASSOCIATES",
+  "location": {
+    "lat": 5.5897869,
+    "lng": -0.2319646
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://makerhybrand.com/",
+  "phone": "+233 24 942 5113",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Second Floor, B, A. Mensah House, Dadeban Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Maker%20Hybrand&query_place_id=ChIJ7ULQ3cSb3w8RbsEfH81jR0k",
+  "title": "Maker Hybrand",
+  "location": {
+    "lat": 5.5736785,
+    "lng": -0.2237489
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 28 501 1170",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "BCB Legacy House, 44 Nii Amugi St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nexia%20Debrah%20%26%20Co&query_place_id=ChIJOaWlZUyj3w8R1ghVzkImv1I",
+  "title": "Nexia Debrah & Co",
+  "location": {
+    "lat": 5.5624818,
+    "lng": -0.2083381
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.icagh.org/",
+  "phone": "+233 27 780 1422",
+  "categoryName": "Accounting school",
+  "reviewsCount": 115,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=Institute%20of%20Chartered%20Accountants%2C%20Ghana%20(ICAG)&query_place_id=ChIJKzHx_2Cb3w8RnM3aIp1lXUQ",
+  "title": "Institute of Chartered Accountants, Ghana (ICAG)",
+  "location": {
+    "lat": 5.6431343,
+    "lng": -0.1704809
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "https://kkgo.com.gh/",
+  "phone": "+233 30 396 9020",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "High Tension Link, Santana Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=KKGO&query_place_id=ChIJ1xPUz06b3w8RDOo-gA3XSyU",
+  "title": "KKGO",
+  "location": {
+    "lat": 5.606899,
+    "lng": -0.2156057
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.thenobleandnoble.com/",
+  "phone": "+233 24 828 8729",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1st Floor, Bantech House",
+  "url": "https://www.google.com/maps/search/?api=1&query=Noble%20%26%20Noble&query_place_id=ChIJW9H9202F3w8Rkx7Ilv6bPWk",
+  "title": "Noble & Noble",
+  "location": {
+    "lat": 5.5738873,
+    "lng": -0.1450954
+  },
+  "totalScore": 4.7
+},
+{
+  "website": "http://ad-associatesgh.com/index.php",
+  "phone": "+233 30 223 8181",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "3rd Cres",
+  "url": "https://www.google.com/maps/search/?api=1&query=A.%20D.%20%26%20Associates&query_place_id=ChIJUZMHrnOa3w8RPaM70wScYms",
+  "title": "A. D. & Associates",
+  "location": {
+    "lat": 5.5691809,
+    "lng": -0.2028618
+  },
+  "totalScore": 4.5
+},
+{
+  "website": "https://boatengoffei.net/",
+  "phone": "+233 30 250 9039",
+  "categoryName": "Corporate office",
+  "reviewsCount": 20,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "7 Bissau Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Boateng%2C%20Offei%20and%20Co&query_place_id=ChIJFTgfl2ib3w8Rx0BEeqCPd1k",
+  "title": "Boateng, Offei and Co",
+  "location": {
+    "lat": 5.634113,
+    "lng": -0.1715378
+  },
+  "totalScore": 4.6
+},
+{
+  "website": "https://factsandfiguresgh.com/",
+  "phone": "+233 20 910 0976",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JRPH+559, Lagos Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Facts%20%26%20Figures%20Accountants%2C%20Ghana&query_place_id=ChIJRed79cyd3w8RqHlZ9_vYQgQ",
+  "title": "Facts & Figures Accountants, Ghana",
+  "location": {
+    "lat": 5.6353876,
+    "lng": -0.1719685
+  },
+  "totalScore": 4.5
+},
+{
+  "phone": "+233 30 279 8584",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Tetteh Kwei St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Eddie%20Nikoi%20Accounting%20Consultancy&query_place_id=ChIJz9cBHrGb3w8RptPLpZ86grM",
+  "title": "Eddie Nikoi Accounting Consultancy",
+  "location": {
+    "lat": 5.6141143,
+    "lng": -0.1966652
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "",
+  "categoryName": "Financial institution",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "M22F+XQ8",
+  "url": "https://www.google.com/maps/search/?api=1&query=Opportunity%20International%20Savings%20and%20Loans%20Tema%20New%20Town%20Branch&query_place_id=ChIJPTrlPzF_IBARAmJaS4HSRUk",
+  "title": "Opportunity International Savings and Loans Tema New Town Branch",
+  "location": {
+    "lat": 5.6524217,
+    "lng": 0.024445
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 254 1449",
+  "categoryName": "Financial institution",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "MXQC+F43",
+  "url": "https://www.google.com/maps/search/?api=1&query=Equity%20Savings%20%26%20Loans%2C%20Ashaiman&query_place_id=ChIJxbhBxVeA3w8Rkpc6589H0Yg",
+  "title": "Equity Savings & Loans, Ashaiman",
+  "location": {
+    "lat": 5.6886272,
+    "lng": -0.0296902
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "JXXV+2FP",
+  "url": "https://www.google.com/maps/search/?api=1&query=Opportunity%20International%20Savings%20and%20Loans%20Tema%20Main&query_place_id=ChIJPwW_wqyA3w8Rlft9Rx830Xc",
+  "title": "Opportunity International Savings and Loans Tema Main",
+  "location": {
+    "lat": 5.647595,
+    "lng": -0.0063071
+  },
+  "totalScore": 3.9
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "MXQF+V49",
+  "url": "https://www.google.com/maps/search/?api=1&query=FirsTrust%20Savings%20and%20Loans&query_place_id=ChIJ3Tc5OliA3w8RVEUFkAdeiW4",
+  "title": "FirsTrust Savings and Loans",
+  "location": {
+    "lat": 5.6896727,
+    "lng": -0.0271455
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 232 8405",
+  "categoryName": "Bank",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Amrahia",
+  "street": "PRVW+978",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20savings%20and%20loan%20ltd&query_place_id=ChIJ02xwK_F33w8RZSGJOgHyUao",
+  "title": "Asa savings and loan ltd",
+  "location": {
+    "lat": 5.7434112,
+    "lng": -0.1542944
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "MX2X+HRC",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20Savings%20And%20Loans%20Ltd%20Comm.%201%20Business%20Center&query_place_id=ChIJ_407-qmA3w8RjcHTwJ9Z12U",
+  "title": "Asa Savings And Loans Ltd Comm. 1 Business Center",
+  "location": {
+    "lat": 5.651438,
+    "lng": -0.0004793
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Savings bank",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Danfa",
+  "street": "QR8G+55M",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asa%20Savings%20and%20Loans&query_place_id=ChIJlXE5eSh33w8RWT4uUun-xXU",
+  "title": "Asa Savings and Loans",
+  "location": {
+    "lat": 5.7656634,
+    "lng": -0.1753189
+  },
+  "totalScore": null
+},
+{
+  "phone": "",
+  "categoryName": "Bank",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "MXH5+JP2, Ashaiman Klagon Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=ABII%20NATIONAL%20SAVINGS%20%26%20LOANS&query_place_id=ChIJW7pgEwOB3w8Rv9gnC8Aeh2k",
+  "title": "ABII NATIONAL SAVINGS & LOANS",
+  "location": {
+    "lat": 5.6790113,
+    "lng": -0.0407449
+  },
+  "totalScore": 4.3
+},
+{
+  "phone": "+233 50 152 5837",
+  "categoryName": "Bank",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Tema",
+  "street": "MXWM+PP3",
+  "url": "https://www.google.com/maps/search/?api=1&query=Express%20Savings%20%26%20Loans&query_place_id=ChIJy3HiRWaA3w8R7jP_mTTRQWY",
+  "title": "Express Savings & Loans",
+  "location": {
+    "lat": 5.6967509,
+    "lng": -0.0156916
+  },
+  "totalScore": 3.8
+},
+{
+  "phone": "+233 50 668 1263",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "9th floor, Movenpick Ambassador Hotel",
+  "url": "https://www.google.com/maps/search/?api=1&query=Von%20Aulock%20Partnerschaft%20Ghana&query_place_id=ChIJy0f1OMKX3w8Rq_6dv6Xsm5g",
+  "title": "Von Aulock Partnerschaft Ghana",
+  "location": {
+    "lat": 5.5545211,
+    "lng": -0.2024555
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://zenithtaxaccounting.com/",
+  "phone": "+233 50 294 4066",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 7,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Third Dade Walk",
+  "url": "https://www.google.com/maps/search/?api=1&query=Zenith%20Tax%20and%20Accounting%20Ghana%20Ltd&query_place_id=ChIJeQm99LWb3w8RzTFLeCWIBa0",
+  "title": "Zenith Tax and Accounting Ghana Ltd",
+  "location": {
+    "lat": 5.5755402,
+    "lng": -0.1728048
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://mkapartnersgh.com/",
+  "phone": "+233 20 538 7982",
+  "categoryName": "Consultant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Regus - Roman Ridge, 5 S Ridge Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=MKA%20Partners&query_place_id=ChIJAQDA9lOa3w8Rbj0z0_uPlGI",
+  "title": "MKA Partners",
+  "location": {
+    "lat": 5.5993643,
+    "lng": -0.1918698
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.mjbgh.com/",
+  "phone": "+233 30 224 7228",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "14 Goodwill Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=MENSAH%20JB%20%26%20ASSOCIATES&query_place_id=ChIJB4RvfG-b3w8R0WFaX44rGIM",
+  "title": "MENSAH JB & ASSOCIATES",
+  "location": {
+    "lat": 5.5781056,
+    "lng": -0.2133915
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://sarssonaccounting.com/",
+  "phone": "+233 53 320 9923",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 4,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Official St",
+  "url": "https://www.google.com/maps/search/?api=1&query=Sarsson%20Accounting%20Services&query_place_id=ChIJfWtjyaeQ3w8R_EUi_oJa9iU",
+  "title": "Sarsson Accounting Services",
+  "location": {
+    "lat": 5.558093,
+    "lng": -0.2157853
+  },
+  "totalScore": 3.5
+},
+{
+  "phone": "+233 55 758 6898",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 61,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "4 Sapele Loop",
+  "url": "https://www.google.com/maps/search/?api=1&query=Fainajs%20Express%20Ltd&query_place_id=ChIJJd5t3fCb3w8RMPAkCT4Fr0I",
+  "title": "Fainajs Express Ltd",
+  "location": {
+    "lat": 5.5746281,
+    "lng": -0.207967
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 272 8245",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Accra - Tema Beach Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=ARG%20Chartered%20Accountant&query_place_id=ChIJm41dGFSE3w8Rf2BH0_j-L4U",
+  "title": "ARG Chartered Accountant",
+  "location": {
+    "lat": 5.5953298,
+    "lng": -0.0873924
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 396 1140",
+  "categoryName": "Consultant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "BOX GP 22862, #44/46 TESANO COMMERCIAL PLAZA, Abeka Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=NCS%20GHANA%20LIMITED&query_place_id=ChIJ50jvxByZ3w8RfMgF--tjelc",
+  "title": "NCS GHANA LIMITED",
+  "location": {
+    "lat": 5.598347,
+    "lng": -0.2321671
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.nyansa-africa.com/",
+  "phone": "+233 30 276 8921",
+  "categoryName": "Business management consultant",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "7 Swaniker Link",
+  "url": "https://www.google.com/maps/search/?api=1&query=Nyansa%20Advisory&query_place_id=ChIJ8_HVzpma3w8RvquY9bPAkIU",
+  "title": "Nyansa Advisory",
+  "location": {
+    "lat": 5.6095892,
+    "lng": -0.2176995
+  },
+  "totalScore": 4
+},
+{
+  "website": "http://kandaaccountingservices.com/",
+  "phone": "",
+  "categoryName": "Auditor",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JVHX+4RW",
+  "url": "https://www.google.com/maps/search/?api=1&query=K%20%26%20A%20Accounting%20Services&query_place_id=ChIJZzoryPCF3w8RHGc5jaADJjA",
+  "title": "K & A Accounting Services",
+  "location": {
+    "lat": 5.6278629,
+    "lng": -0.1004357
+  },
+  "totalScore": 4
+},
+{
+  "website": "http://www.ikernafrica.com/",
+  "phone": "+233 30 296 4703",
+  "categoryName": "Corporate office",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "6 Lilongwe Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=IKERN&query_place_id=ChIJU29coXqb3w8RhTJR08BQmsc",
+  "title": "IKERN",
+  "location": {
+    "lat": 5.6312076,
+    "lng": -0.1675836
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 20 692 1210",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Orgle Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=asamoa%20bonsu%20%26%20co&query_place_id=ChIJdeFLUlOZ3w8RKP7SUxyEYrk",
+  "title": "asamoa bonsu & co",
+  "location": {
+    "lat": 5.5790858,
+    "lng": -0.231815
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.issifualico.com/",
+  "phone": "+233 30 222 8826",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "7 Sapele Loop",
+  "url": "https://www.google.com/maps/search/?api=1&query=ISSIFU%20ALI%20%26%20CO.&query_place_id=ChIJeaHK7eyb3w8ReeeO7erftV0",
+  "title": "ISSIFU ALI & CO.",
+  "location": {
+    "lat": 5.5750057,
+    "lng": -0.2076457
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.virtualpointassociates.com/",
+  "phone": "+233 30 281 7993",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "PMB CT 369",
+  "url": "https://www.google.com/maps/search/?api=1&query=Virtual%20Point%20Associates&query_place_id=ChIJi1aCnLkQxQ8RavHTJLKv-qA",
+  "title": "Virtual Point Associates",
+  "location": {
+    "lat": 5.6299804,
+    "lng": -0.0927981
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 298 6170",
+  "categoryName": "Corporate office",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Okpoi Gonno, O'Reilly Senior High School, Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=FSI%20CHARTERED%20ACCOUNTANT%20%26%20FINANCIAL%20ADVISORY&query_place_id=ChIJV5i0BhOF3w8Rsq0natIVWwc",
+  "title": "FSI CHARTERED ACCOUNTANT & FINANCIAL ADVISORY",
+  "location": {
+    "lat": 5.6267266,
+    "lng": -0.1161498
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 224 5779",
+  "categoryName": "Corporate office",
+  "reviewsCount": 19,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQQ8+FVW, Oshimpa St",
+  "url": "https://www.google.com/maps/search/?api=1&query=CFY%20Partners&query_place_id=ChIJzYwDE46Z3w8RRHGyvXjAEug",
+  "title": "CFY Partners",
+  "location": {
+    "lat": 5.5887412,
+    "lng": -0.2327905
+  },
+  "totalScore": 4.2
+},
+{
+  "phone": "+233 24 205 8833",
+  "categoryName": "Auditor",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kojo Thompson Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=anane%20mantey%20%26%20co%2C%20chartered%20accountants&query_place_id=ChIJ6cMPrLqR3w8RV6l8h6qeGcA",
+  "title": "anane mantey & co, chartered accountants",
+  "location": {
+    "lat": 5.5522189,
+    "lng": -0.2087593
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.ekobconsultgh.com/",
+  "phone": "+233 20 812 0011",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ankamafio St",
+  "url": "https://www.google.com/maps/search/?api=1&query=E-Kob%20Consulting%20Ltd.&query_place_id=ChIJlc81Eq6b3w8RML11zvMPldQ",
+  "title": "E-Kob Consulting Ltd.",
+  "location": {
+    "lat": 5.5619088,
+    "lng": -0.1636476
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://francenorman.com/",
+  "phone": "+233 24 717 7232",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Number 23B AMA ABREFI LOOP, LINDSAY PARK ESTATE, ACHIMOTA, 3 Golf Hills St",
+  "url": "https://www.google.com/maps/search/?api=1&query=France%20Norman%20%26%20Associates&query_place_id=ChIJr44TcbCZ3w8R4KwwQlFtUgc",
+  "title": "France Norman & Associates",
+  "location": {
+    "lat": 5.6239998,
+    "lng": -0.2278626
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.audit.gov.gh/",
+  "phone": "+233 30 266 4928",
+  "categoryName": "Government office",
+  "reviewsCount": 25,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ministries Block O, Liberia Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Audit%20Service&query_place_id=ChIJNaQfjJqQ3w8RohU4R0Vxufw",
+  "title": "Audit Service",
+  "location": {
+    "lat": 5.552274,
+    "lng": -0.1984601
+  },
+  "totalScore": 4.3
+},
+{
+  "website": "http://jonadgh.com/",
+  "phone": "+233 30 243 2792",
+  "categoryName": "Accountant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": null,
+  "url": "https://www.google.com/maps/search/?api=1&query=KDK%20%26%20Associates%3A%20Chartered%20Accountants&query_place_id=ChIJbVnXmmGZ3w8R4Aj2A3QCXpI",
+  "title": "KDK & Associates: Chartered Accountants",
+  "location": {
+    "lat": 5.6201795,
+    "lng": -0.2263929
+  },
+  "totalScore": 4
+},
+{
+  "phone": "+233 24 515 7709",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "JW46+3WP",
+  "url": "https://www.google.com/maps/search/?api=1&query=DESSEL%20AiS%20CONSULTING&query_place_id=ChIJdVEFMoSF3w8RAKPTQMKYnJY",
+  "title": "DESSEL AiS CONSULTING",
+  "location": {
+    "lat": 5.6052405,
+    "lng": -0.0876214
+  },
+  "totalScore": 4.8
+},
+{
+  "website": "http://millahandassociates.com/",
+  "phone": "+233 30 290 8008",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "A. Plot, Takyi Plaza, Annex, 40 Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Millah%20%26%20Associates&query_place_id=ChIJ4aFiubyE3w8RxClt1MLoxdU",
+  "title": "Millah & Associates",
+  "location": {
+    "lat": 5.634464,
+    "lng": -0.1346275
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://wtsnobisfields.com/",
+  "phone": "+233 30 250 0107",
+  "categoryName": "Law firm",
+  "reviewsCount": 101,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "1st Mensah Wood St",
+  "url": "https://www.google.com/maps/search/?api=1&query=WTS%20Nobisfields%20(WTS%20Ghana)&query_place_id=ChIJlRkxZVmb3w8RWwhrccTQXUk",
+  "title": "WTS Nobisfields (WTS Ghana)",
+  "location": {
+    "lat": 5.6373394,
+    "lng": -0.1608912
+  },
+  "totalScore": 4.9
+},
+{
+  "website": "http://aapghana.com/",
+  "phone": "+233 30 222 2614",
+  "categoryName": "Corporate office",
+  "reviewsCount": 5,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "88 Kwame Nkrumah Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Asafu%20Adjaye%20%26%20Partners%20(Chartered%20Accountants)&query_place_id=ChIJv3aDSR-R3w8Ry4P50syed78",
+  "title": "Asafu Adjaye & Partners (Chartered Accountants)",
+  "location": {
+    "lat": 5.5580382,
+    "lng": -0.2122809
+  },
+  "totalScore": 4
+},
+{
+  "phone": "",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "L027, 3 Mango Tree Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Adom%20Boafo%20%26%20Associates&query_place_id=ChIJVRD5xnOa3w8Rkblwul0lLUo",
+  "title": "Adom Boafo & Associates",
+  "location": {
+    "lat": 5.57117,
+    "lng": -0.2009867
+  },
+  "totalScore": 5
+},
+{
+  "phone": "",
+  "categoryName": "Auditor",
+  "reviewsCount": 2,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Os 3010, Accra Glemin Hse, Osu La Crescent",
+  "url": "https://www.google.com/maps/search/?api=1&query=Global%20Auditors&query_place_id=ChIJoTOYUneR3w8RrM9Qhbj1LMg",
+  "title": "Global Auditors",
+  "location": {
+    "lat": 5.5496366,
+    "lng": -0.188182
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.johnkay.net/",
+  "phone": "+233 30 223 5406",
+  "categoryName": "Certified public accountant",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Farrar Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=John%20Kay%20%26%20Co&query_place_id=ChIJhf8iYImb3w8Rz3Vu9h9UONU",
+  "title": "John Kay & Co",
+  "location": {
+    "lat": 5.5651605,
+    "lng": -0.2065244
+  },
+  "totalScore": null
+},
+{
+  "website": "http://www.gh.andersen.com/",
+  "phone": "+233 55 971 9424",
+  "categoryName": "Corporate office",
+  "reviewsCount": 11,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "One Airport Square, Airport Bypass Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Andersen%20Ghana%20(formerly%20LIMA%20Partners)&query_place_id=ChIJr2bMqoOa3w8RJaXhZ46PCME",
+  "title": "Andersen Ghana (formerly LIMA Partners)",
+  "location": {
+    "lat": 5.600375,
+    "lng": -0.1773851
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://horizonassoc.com/",
+  "phone": "+233 55 788 9532",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Kitson Mills Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=Horizon%20Associates&query_place_id=ChIJa9iDjA2X3w8RGSbpQ8g_ov4",
+  "title": "Horizon Associates",
+  "location": {
+    "lat": 5.5308339,
+    "lng": -0.2335592
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://abcoffie.com/",
+  "phone": "+233 24 888 7053",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Aggrey St",
+  "url": "https://www.google.com/maps/search/?api=1&query=A.%20B%20Coffie%20(Chartered%20Accountants)&query_place_id=ChIJ_-hPU82b3w8RtriClq3W0jk",
+  "title": "A. B Coffie (Chartered Accountants)",
+  "location": {
+    "lat": 5.6378953,
+    "lng": -0.2125778
+  },
+  "totalScore": null
+},
+{
+  "website": "https://www.iaa.gov.gh/",
+  "phone": "+233 36 219 6941",
+  "categoryName": "Government office",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Tumu Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Internal%20Audit%20Agency&query_place_id=ChIJJ0hEeJeR3w8Ry4NJU1MQOnE",
+  "title": "Internal Audit Agency",
+  "location": {
+    "lat": 5.5846372,
+    "lng": -0.1899283
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.precisionconsultgh.com/",
+  "phone": "+233 24 655 0342",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Independence Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=Precision%20Consult&query_place_id=ChIJvVqlalWR3w8RcZwcEcDyRbU",
+  "title": "Precision Consult",
+  "location": {
+    "lat": 5.5537629,
+    "lng": -0.202892
+  },
+  "totalScore": 5
+},
+{
+  "website": "https://cflglobalpartners.org/",
+  "phone": "+233 30 398 1889",
+  "categoryName": "Financial consultant",
+  "reviewsCount": 3,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Keta Close",
+  "url": "https://www.google.com/maps/search/?api=1&query=CFL%20Global%20Partners&query_place_id=ChIJ09gRc3Ob3w8REeBq1jZbeik",
+  "title": "CFL Global Partners",
+  "location": {
+    "lat": 5.5753541,
+    "lng": -0.20155
+  },
+  "totalScore": 5
+},
+{
+  "website": "http://www.saemertech.com/",
+  "phone": "+233 55 363 6000",
+  "categoryName": "Software company",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Ring Road",
+  "url": "https://www.google.com/maps/search/?api=1&query=Accounting%20Software%20in%20Ghana-Saemer%20Technologies%20Ltd&query_place_id=ChIJH0WLfnyb3w8RCcClSrh-p2I",
+  "title": "Accounting Software in Ghana-Saemer Technologies Ltd",
+  "location": {
+    "lat": 5.5761026,
+    "lng": -0.2132989
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 30 223 2655",
+  "categoryName": "Chartered accountant",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "C904 GEOMAN HOUSE, 15 Olusegun Obasanjo Wy",
+  "url": "https://www.google.com/maps/search/?api=1&query=UHY%20Godwinson&query_place_id=ChIJnb0BCU2a3w8RvkssQH-bfuE",
+  "title": "UHY Godwinson",
+  "location": {
+    "lat": 5.6012656,
+    "lng": -0.1979412
+  },
+  "totalScore": 5
+},
+{
+  "phone": "+233 20 867 0333",
+  "categoryName": "Accounting firm",
+  "reviewsCount": null,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Opposite Texpo Market, Green Street Avenue, Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=EAS%20ACCOUNTING%20CONSULTANCY%20SERVICES&query_place_id=ChIJNSZfWjqF3w8R_NEo0fFHyNg",
+  "title": "EAS ACCOUNTING CONSULTANCY SERVICES",
+  "location": {
+    "lat": 5.6261525,
+    "lng": -0.0789789
+  },
+  "totalScore": null
+},
+{
+  "phone": "+233 30 226 3171",
+  "categoryName": "Corporate office",
+  "reviewsCount": 13,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "HQ7P+2MC, Tackie Tawiah Ave",
+  "url": "https://www.google.com/maps/search/?api=1&query=ObjectConsult%20Ltd&query_place_id=ChIJ-SkVOgia3w8RI6ylZCYtkoM",
+  "title": "ObjectConsult Ltd",
+  "location": {
+    "lat": 5.562566,
+    "lng": -0.2133476
+  },
+  "totalScore": 4
+},
+{
+  "website": "https://kapghana.com/",
+  "phone": "+233 30 223 6392",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 8,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "H 9, Off Kanfla Cl",
+  "url": "https://www.google.com/maps/search/?api=1&query=KAP%20Chartered%20Accountants&query_place_id=ChIJo-etp5eb3w8RpakNPKlIeYA",
+  "title": "KAP Chartered Accountants",
+  "location": {
+    "lat": 5.5704919,
+    "lng": -0.2094052
+  },
+  "totalScore": 4.9
+},
+{
+  "phone": "+233 59 756 0940",
+  "categoryName": "Accounting firm",
+  "reviewsCount": 1,
+  "countryCode": "GH",
+  "city": "Accra",
+  "street": "Spintex Rd",
+  "url": "https://www.google.com/maps/search/?api=1&query=WondaBrain%20Solutions&query_place_id=ChIJM7dOncCF3w8RMkdjNOM-jqw",
+  "title": "WondaBrain Solutions",
+  "location": {
+    "lat": 5.6418358,
+    "lng": -0.1118619
+  },
+  "totalScore": 5
+}]

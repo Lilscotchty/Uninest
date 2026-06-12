@@ -51,7 +51,7 @@ export const OpportunitiesMap: React.FC<OpportunitiesMapProps> = ({
   const centerLng = location?.resolvedLng || -0.1870;
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] z-0 rounded-[20px] overflow-hidden border border-border-subtle shadow-sm my-4">
+    <div className="absolute inset-0 z-0">
       <MapContainer 
         center={[centerLat, centerLng]} 
         zoom={13} 

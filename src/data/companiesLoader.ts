@@ -1,7 +1,41 @@
-import type { Company, CompanySector } from '../types/opportunities';
-import companiesData from './companies.json';
+import type { Company, CompanySector, OpportunityType } from '../types/opportunities';
 
-export const companies: Company[] = companiesData as Company[];
+import itData from './it_sector.json';
+import buildData from './construction.json';
+import elecData from './electrical.json';
+import lawData from './law_firm.json';
+import medData from './medicine.json';
+import travelData from './travel_and_tour.json';
+
+// Utility to transform raw JSON data into Company array
+function transformData(rawData: any[], sector: CompanySector): Company[] {
+  return rawData.map((item: any, index: number) => ({
+    id: `${sector}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+    name: item.title || 'Unknown Company',
+    sector,
+    category: item.categoryName || sector,
+    street: item.street || undefined,
+    city: item.city || undefined,
+    country: item.countryCode || 'GH',
+    phone: item.phone || undefined,
+    website: item.website || undefined,
+    googleMapsUrl: item.url || undefined,
+    rating: item.totalScore || undefined,
+    reviewsCount: item.reviewsCount || undefined,
+    lat: item.location?.lat,
+    lng: item.location?.lng,
+    opportunityTypes: ['attachment', 'internship', 'job'] as OpportunityType[],
+  }));
+}
+
+export const companies: Company[] = [
+  ...transformData(itData, 'technology'),
+  ...transformData(buildData, 'construction'),
+  ...transformData(elecData, 'electrical'),
+  ...transformData(lawData, 'legal'),
+  ...transformData(medData, 'healthcare'),
+  ...transformData(travelData, 'tourism'),
+];
 
 const CITY_ALIASES: Record<string, string[]> = {
   'Accra': ['Accra', 'Tema', 'Madina', 'Spintex', 'Cantonments', 'Osu', 
