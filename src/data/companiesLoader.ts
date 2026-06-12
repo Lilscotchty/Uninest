@@ -1,54 +1,48 @@
-import type { Company, CompanySector, OpportunityType } from '../types/opportunities';
+import { supabase } from '../lib/supabase';
+import type { Company, CompanySector } from '../types/opportunities';
 
-import itData from './it_sector.json';
-import buildData from './construction.json';
-import elecData from './electrical.json';
-import lawData from './law_firm.json';
-import medData from './medicine.json';
-import travelData from './travel_and_tour.json';
-
-// Utility to transform raw JSON data into Company array
-function transformData(rawData: any[], sector: CompanySector): Company[] {
-  return rawData.map((item: any, index: number) => ({
-    id: `${sector}-${index}-${Math.random().toString(36).substr(2, 9)}`,
-    name: item.title || 'Unknown Company',
-    sector,
-    category: item.categoryName || sector,
-    street: item.street || undefined,
-    city: item.city || undefined,
-    country: item.countryCode || 'GH',
-    phone: item.phone || undefined,
-    website: item.website || undefined,
-    googleMapsUrl: item.url || undefined,
-    rating: item.totalScore || undefined,
-    reviewsCount: item.reviewsCount || undefined,
-    lat: item.location?.lat,
-    lng: item.location?.lng,
-    opportunityTypes: ['attachment', 'internship', 'job'] as OpportunityType[],
-  }));
-}
-
-export const companies: Company[] = [
-  ...transformData(itData, 'technology'),
-  ...transformData(buildData, 'construction'),
-  ...transformData(elecData, 'electrical'),
-  ...transformData(lawData, 'legal'),
-  ...transformData(medData, 'healthcare'),
-  ...transformData(travelData, 'tourism'),
-];
-
-const CITY_ALIASES: Record<string, string[]> = {
+export const CITY_ALIASES: Record<string, string[]> = {
   'Accra': ['Accra', 'Tema', 'Madina', 'Spintex', 'Cantonments', 'Osu', 
             'Labone', 'Haatso', 'Achimota', 'Taifa', 'Adenta', 'Kwabenya', 'Lashibi'],
   'Kumasi': ['Kumasi', 'Adum', 'Nhyiaeso', 'Suame'],
   'Takoradi': ['Takoradi', 'Sekondi', 'Effia'],
 };
 
-export function filterCompaniesByProximity(
-  companiesList: Company[],
+export async function fetchAndFilterCompaniesByProximity(
   studentCity: string,
   studentSector?: CompanySector | 'all'
-): Company[] {
+): Promise<Company[]> {
+  let query = supabase.from('companies').select('*');
+  
+  if (studentSector && studentSector !== 'all') {
+    query = query.eq('sector', studentSector);
+  }
+  
+  const { data, error } = await query;
+  if (error || !data) {
+    console.error('Error fetching companies:', error);
+    return [];
+  }
+
+  // Transform db records to Company type
+  const companiesList: Company[] = data.map((item: any) => ({
+    id: item.id,
+    name: item.name,
+    sector: item.sector as CompanySector,
+    category: item.category,
+    street: item.street,
+    city: item.city,
+    country: item.country,
+    phone: item.phone,
+    website: item.website,
+    googleMapsUrl: item.google_maps_url,
+    rating: item.rating,
+    reviewsCount: item.reviews_count,
+    lat: item.lat,
+    lng: item.lng,
+    opportunityTypes: item.opportunity_types,
+  }));
+
   const nearbyAreas = Object.entries(CITY_ALIASES)
     .find(([key]) => key.toLowerCase() === studentCity.toLowerCase())?.[1] 
     ?? [studentCity];
@@ -58,7 +52,6 @@ export function filterCompaniesByProximity(
       c.city?.toLowerCase().includes(area.toLowerCase()) ||
       c.street?.toLowerCase().includes(area.toLowerCase())
     ))
-    .filter(c => !studentSector || studentSector === 'all' || c.sector === studentSector)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 }
 

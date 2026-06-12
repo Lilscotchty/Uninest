@@ -6,7 +6,7 @@ import { LocationInputModal } from '../components/opportunities/LocationInputMod
 import { SectorFilterBar } from '../components/opportunities/SectorFilterBar';
 import { OpportunitiesMap } from '../components/opportunities/OpportunitiesMap';
 import { CompanyPopupCard } from '../components/opportunities/CompanyPopupCard';
-import { companies, filterCompaniesByProximity, getSectorForField } from '../data/companiesLoader';
+import { fetchAndFilterCompaniesByProximity, getSectorForField } from '../data/companiesLoader';
 import type { Company, CompanySector, StudentLocation } from '../types/opportunities';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Toast } from '../components/Toast';
@@ -38,11 +38,23 @@ export const Opportunities: React.FC = () => {
     }
   }, [location, selectedSector, user?.user_metadata?.programme]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    if (location && location.resolvedCity) {
-      const results = filterCompaniesByProximity(companies, location.resolvedCity, selectedSector);
-      setFilteredCompanies(results);
+    async function loadCompanies() {
+      if (location && location.resolvedCity) {
+        setIsLoading(true);
+        try {
+          const results = await fetchAndFilterCompaniesByProximity(location.resolvedCity, selectedSector);
+          setFilteredCompanies(results);
+        } catch (err) {
+          console.error("Failed to load companies", err);
+        } finally {
+          setIsLoading(false);
+        }
+      }
     }
+    loadCompanies();
   }, [location, selectedSector]);
 
   const handleCall = (phone: string) => {

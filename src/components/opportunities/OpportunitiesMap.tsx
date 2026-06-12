@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import type { Company, CompanySector, StudentLocation } from '../../types/opportunities';
 
@@ -28,6 +29,16 @@ const getSectorIcon = (sector: CompanySector) => {
   });
 };
 
+const createClusterCustomIcon = function (cluster: any) {
+  return new L.DivIcon({
+    html: `<div style="background-color: #1c1c1e; color: white; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-weight: 700; font-size: 14px; font-family: var(--font-sans); transform: scale(1); transition: transform 0.2s;">
+      ${cluster.getChildCount()}
+    </div>`,
+    className: 'custom-marker-cluster',
+    iconSize: L.point(40, 40, true),
+  });
+};
+
 const MapUpdater = ({ center }: { center: [number, number] | null }) => {
   const map = useMap();
   useEffect(() => {
@@ -51,7 +62,7 @@ export const OpportunitiesMap: React.FC<OpportunitiesMapProps> = ({
   const centerLng = location?.resolvedLng || -0.1870;
 
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0 bg-[#e5e5e5]">
       <MapContainer 
         center={[centerLat, centerLng]} 
         zoom={13} 
@@ -66,19 +77,27 @@ export const OpportunitiesMap: React.FC<OpportunitiesMapProps> = ({
         />
         <MapUpdater center={location ? [location.resolvedLat || centerLat, location.resolvedLng || centerLng] : null} />
         
-        {companies.map(company => {
-           if (!company.lat || !company.lng) return null;
-           return (
-             <Marker 
-               key={company.id}
-               position={[company.lat, company.lng]} 
-               icon={getSectorIcon(company.sector)} 
-               eventHandlers={{ click: () => { 
-                 onCompanySelect(company);
-               } }}
-             />
-           );
-        })}
+        <MarkerClusterGroup
+          chunkedLoading
+          iconCreateFunction={createClusterCustomIcon}
+          maxClusterRadius={50}
+          showCoverageOnHover={false}
+          spiderfyOnMaxZoom={true}
+        >
+          {companies.map(company => {
+             if (!company.lat || !company.lng) return null;
+             return (
+               <Marker 
+                 key={company.id}
+                 position={[company.lat, company.lng]} 
+                 icon={getSectorIcon(company.sector)} 
+                 eventHandlers={{ click: () => { 
+                   onCompanySelect(company);
+                 } }}
+               />
+             );
+          })}
+        </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
