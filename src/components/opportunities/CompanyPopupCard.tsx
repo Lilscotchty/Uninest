@@ -92,7 +92,7 @@ export const CompanyPopupCard: React.FC<CompanyPopupProps> = ({
               onClick={() => onDirections(company.googleMapsUrl!)}
               className="px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 font-bold text-[0.85rem] rounded-[12px] flex items-center justify-center gap-2 hover:bg-blue-100 transition-colors"
             >
-              <Navigation size={14} /> Dir
+              <Navigation size={14} /> Google Maps
             </button>
           )}
           <button
