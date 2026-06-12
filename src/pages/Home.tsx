@@ -6,7 +6,7 @@ import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 import { PageHeader } from '../components/layout/PageHeader';
 import { RecentlyViewedStrip } from "../components/RecentlyViewedStrip";
-import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search, SlidersHorizontal } from 'lucide-react';
+import { MapPin, ChevronRight, Video, Bell, Scale, UserPlus, Grip, DoorClosed, Users, School, Tag, Wifi, Star, Search, SlidersHorizontal, Compass, Heart } from 'lucide-react';
 
 
 const FILTERS = [
@@ -18,6 +18,8 @@ const FILTERS = [
   { id: 'wifi', label: 'Wi-Fi', icon: <Wifi size={14} /> },
 ];
 
+import { OpportunitiesSection } from '../components/opportunities/OpportunitiesSection';
+
 export const Home: React.FC = () => {
   const { activeFilter, setActiveFilter, setCurrentView, savedProperties, toggleSave, showToast, setSelectedPropertyId, setExploreSearchQuery, properties } = useAppContext();
   const navigate = useNavigate();
@@ -26,33 +28,33 @@ export const Home: React.FC = () => {
   // Featured Picks auto-sliding carousel (like index.html)
   const trackRef = useRef<HTMLDivElement>(null);
   const [currentFeatured, setCurrentFeatured] = useState(0);
-  const featuredProperties = [
+  const featuredOpportunities = [
     {
-      id: 1,
-      img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tag: '🔥 Trending',
+      id: "tech-hq",
+      img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800&auto=format&fit=crop',
+      tag: '🔥 Hot Tech Role',
       tagColor: 'amber',
-      name: 'Evandy Property',
-      desc: 'Shared study spaces, rooftop lounge, and weekly social events. Built for students who want more than just a unit.',
-      action: 'Explore Property →'
+      name: 'Tech Haven Industries',
+      desc: 'Looking for eager minds in software development and marketing. Great mentorship and hybrid work environment.',
+      action: 'Explore Opportunity →'
     },
     {
-      id: 3,
-      img: 'https://loremflickr.com/600/400/bedroom?lock=101',
-      tag: '⭐ Premium',
+      id: "law-firm",
+      img: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop',
+      tag: '⭐ Premium Attachment',
       tagColor: 'indigo',
-      name: 'Pentagon Annex',
-      desc: 'Executive single suites with en-suite bathrooms. For students who won\'t compromise on comfort and privacy.',
-      action: 'Explore Luxury →'
+      name: 'Equitable Chambers',
+      desc: 'Top-tier corporate law firm offering comprehensive legal clerkships and attachments for final-year students.',
+      action: 'View Listing →'
     },
     {
-      id: 2,
-      img: 'https://loremflickr.com/600/400/bedroom?lock=102',
-      tag: '📍 Best Location',
+      id: "med-center",
+      img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop',
+      tag: '📍 Clinical Placements',
       tagColor: 'teal',
-      name: 'Bani Property',
-      desc: 'Exactly 2 minutes from the main gate, with 24/7 security, steady electricity, and free Wi-Fi included.',
-      action: 'See Location →'
+      name: 'City Health Medical Center',
+      desc: 'Hands-on clinical internships and rotations. State-of-the-art facilities with experienced medical supervisors.',
+      action: 'See Details →'
     }
   ];
 
@@ -81,9 +83,7 @@ export const Home: React.FC = () => {
         ]}
         tabs={[
           { id: 'all', label: 'All' },
-          { id: 'nearby', label: 'Nearby' },
-          { id: 'featured', label: 'Featured' },
-          { id: 'new', label: 'New Listings' }
+          { id: 'featured', label: 'Featured' }
         ]}
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -120,48 +120,26 @@ export const Home: React.FC = () => {
         ))}
       </div>
 
-      {/* NEARBY PROPERTIES */}
-      <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full">
-        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
-          <span onClick={() => navigate('/see-all/nearby')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:underline">See all →</span>
-        </div>
-        
-        <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
-          {properties.map((property) => (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="compact"
-            />
-          ))}
-        </div>
+      {/* OPPORTUNITIES HUB CTA */}
+      <div className="px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full mb-6">
+        <OpportunitiesSection />
       </div>
 
       {/* PROMO BANNER */}
       <div 
-        className="mx-4 sm:mx-5 mb-4 rounded-[18px] p-4 flex items-center justify-between relative overflow-hidden shadow-[0_6px_20px_rgba(55,48,163,0.25)]"
+        className="mx-4 sm:mx-5 mb-4 rounded-[18px] p-4 flex items-center justify-between relative overflow-hidden shadow-[0_6px_20px_rgba(55,48,163,0.25)] cursor-pointer"
         style={{ background: 'linear-gradient(135deg, var(--color-indigo) 0%, #7c3aed 100%)' }}
+        onClick={() => navigate('/opportunities')}
       >
         <div className="absolute -top-[30px] -right-[30px] w-[100px] h-[100px] rounded-full bg-[var(--color-surface)]/10" />
         <div className="relative z-10">
-          <p className="text-white/65 text-[0.55rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 First semester deal</p>
-          <h3 className="text-white text-[0.91rem] font-bold leading-tight">15% off your first booking</h3>
+          <p className="text-white/65 text-[0.55rem] uppercase tracking-[0.5px] font-medium mb-1">🎓 Spring Placements</p>
+          <h3 className="text-white text-[0.91rem] font-bold leading-tight">Find top tech attachments</h3>
         </div>
         <button 
-          onClick={() => {
-            navigator.clipboard.writeText('DWELL15');
-            showToast('Promo code DWELL15 copied!');
-          }}
           className="relative z-10 bg-amber-glow text-white border-none rounded-[10px] px-4 py-2 text-[0.82rem] font-bold shadow-sm whitespace-nowrap active:scale-95 transition-transform"
         >
-          Claim now
+          View Roles
         </button>
       </div>
 
@@ -171,26 +149,26 @@ export const Home: React.FC = () => {
           <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
         </div>
         <div className="card-wrapper">
-          <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
-            <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}></div>
-            <div className="icon-box" style={{ background: "transparent", color: "#b45309" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+          <div className="modern-card" onClick={() => navigate("/opportunities")}>
+            <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)" }}></div>
+            <div className="icon-box" style={{ background: "transparent", color: "#2563eb" }}>
+              <Compass size={20} className="stroke-[2.5px]" />
             </div>
             <div className="text-content">
-              <h3>Virtual Tour</h3>
-              <p>See units live</p>
+              <h3>Explore Hub</h3>
+              <p>Find placements</p>
             </div>
             <div className="arrow">›</div>
           </div>
 
-          <div className="modern-card" onClick={() => navigate("/price-alerts")}>
-            <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%)" }}></div>
-            <div className="icon-box" style={{ background: "transparent", color: "#047857" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <div className="modern-card" onClick={() => navigate("/saved")}>
+             <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%)" }}></div>
+            <div className="icon-box" style={{ background: "transparent", color: "#059669" }}>
+              <Heart size={20} className="stroke-[2.5px]" />
             </div>
             <div className="text-content">
-              <h3>Price Alerts</h3>
-              <p>Get notified</p>
+              <h3>Saved Roles</h3>
+              <p>View bookmarked</p>
             </div>
             <div className="arrow">›</div>
           </div>
@@ -210,7 +188,7 @@ export const Home: React.FC = () => {
             const idx = Math.round(track.scrollLeft / track.clientWidth);
             setCurrentFeatured(idx);
           }}>
-            {featuredProperties.map((feat, i) => (
+            {featuredOpportunities.map((feat, i) => (
               <div key={i} className="min-w-full snap-start bg-card-bg rounded-[20px] overflow-hidden">
                 <img src={feat.img} alt={feat.name} className="w-full h-[170px] object-cover" />
                 <div className="p-[18px]">
@@ -227,8 +205,7 @@ export const Home: React.FC = () => {
                   </p>
                   <button 
                     onClick={() => {
-                      setSelectedPropertyId(feat.id);
-                      navigate("/details");
+                      navigate(`/opportunities?company=${feat.id}`);
                     }}
                     className="bg-amber-glow text-white border-none rounded-[12px] px-[20px] py-[10px] text-[0.88rem] font-bold cursor-pointer transition-colors shadow-[0_4px_14px_rgba(245,158,11,0.3)] hover:bg-[#d97706] active:scale-95"
                   >
@@ -240,7 +217,7 @@ export const Home: React.FC = () => {
           </div>
           
           <div className="flex justify-center gap-[6px] mt-[12px] mb-[4px]">
-            {featuredProperties.map((_, i) => (
+            {featuredOpportunities.map((_, i) => (
               <div key={i} className={`h-[7px] rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-[22px] bg-[var(--color-accent)]' : 'w-[7px] bg-[#d1d5db]'}`} />
             ))}
           </div>
@@ -258,7 +235,7 @@ export const Home: React.FC = () => {
           <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Map View</h2>
         </div>
         <div className="px-4 sm:px-5 pb-6">
-          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => navigate("/explore")}>
+          <div className="h-[200px] rounded-[18px] overflow-hidden border border-border-subtle shadow-card relative cursor-pointer z-0 isolate" onClick={() => navigate("/opportunities")}>
               <MapContainer center={[5.6506, -0.1870]} zoom={14} className="w-full h-full !z-0" zoomControl={false} dragging={false} style={{ zIndex: 0 }}>
                 <TileLayer
                    url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
@@ -272,56 +249,28 @@ export const Home: React.FC = () => {
       </>
       )}
 
-      {activeTab === 'nearby' && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
-          {properties.map(property => (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="full-width-clean"
-            />
-          ))}
-        </div>
-      )}
-
       {activeTab === 'featured' && (
         <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
-          {properties.filter(p => ['1', '2', '3'].includes(p.id.toString())).map(property => (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="full-width-clean"
-            />
-          ))}
-        </div>
-      )}
-
-      {activeTab === 'new' && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-20">
-          {[...properties].reverse().map(property => (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="full-width-clean"
-            />
+          {featuredOpportunities.map(feat => (
+            <div key={feat.id} className="w-full bg-card-bg rounded-[20px] overflow-hidden shadow-sm border border-border-subtle cursor-pointer" onClick={() => navigate(`/opportunities?company=${feat.id}`)}>
+               <img src={feat.img} alt={feat.name} className="w-full h-[170px] object-cover" />
+               <div className="p-[18px]">
+                 <span className={`inline-block text-[0.7rem] font-bold px-[8px] py-[3px] rounded-[6px] mb-2 uppercase tracking-[0.4px] ${
+                   feat.tagColor === 'amber' ? 'bg-amber-light text-amber-500' :
+                   feat.tagColor === 'indigo' ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]' :
+                   'bg-teal-light text-teal-600'
+                 }`}>
+                   {feat.tag}
+                 </span>
+                 <h3 className="text-[1.1rem] font-bold text-text-primary mb-[4px]">{feat.name}</h3>
+                 <p className="text-[0.85rem] text-text-muted leading-[1.6] mb-[14px] line-clamp-2">
+                   {feat.desc}
+                 </p>
+                 <button className="bg-amber-glow text-white border-none rounded-[12px] px-[20px] py-[10px] text-[0.88rem] font-bold shadow-sm w-full">
+                   {feat.action}
+                 </button>
+               </div>
+            </div>
           ))}
         </div>
       )}

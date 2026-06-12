@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 
 export interface RecentlyViewedItem {
-  id: string;           // hostel.id (uuid)
-  name: string;         // hostel.name
-  image_url: string;    // hostel.image_url
-  location: string;     // hostel.location
-  price: number;        // cheapest room price (numeric)
+  id: string;           // company.id
+  name: string;         // company.name
+  image_url?: string;   // company.imageUrl
+  location: string;     // company.city or street
+  sector: string;       // company.sector
+  category?: string;    // company.category
   viewedAt: number;     // Date.now() timestamp
 }
 

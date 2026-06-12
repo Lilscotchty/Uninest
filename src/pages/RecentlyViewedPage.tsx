@@ -75,7 +75,7 @@ export function RecentlyViewedPage() {
             </h1>
             {hasItems && (
               <p className="text-xs text-text-secondary dark:text-gray-400">
-                {allItems.length} {allItems.length === 1 ? "property" : "properties"}
+                {allItems.length} {allItems.length === 1 ? "opportunity" : "opportunities"}
               </p>
             )}
           </div>
@@ -116,18 +116,18 @@ export function RecentlyViewedPage() {
              No history yet
            </h2>
            <p className="text-sm text-text-secondary dark:text-gray-500 max-w-xs">
-             Properties you view will appear here so you can easily find them again.
+             Opportunities you view will appear here so you can easily find them again.
            </p>
            <button
              type="button"
-             onClick={() => navigate("/explore")}
+             onClick={() => navigate("/opportunities")}
              className={[
                "mt-6 px-5 py-2.5 rounded-xl text-sm font-semibold text-white",
-               "bg-primary",
-               "hover:bg-primary-hover transition-colors",
+               "bg-[var(--color-accent)]",
+               "hover:opacity-90 transition-opacity",
              ].join(" ")}
            >
-             Browse properties
+             Browse opportunities
            </button>
         </div>
       )}
@@ -144,7 +144,7 @@ export function RecentlyViewedPage() {
                 </span>
                 <div className="flex-1 h-px bg-border-subtle dark:bg-border-dark" />
                 <span className="text-[11px] text-text-secondary dark:text-gray-500">
-                  {dayItems.length} {dayItems.length === 1 ? "property" : "properties"}
+                  {dayItems.length} {dayItems.length === 1 ? "opportunity" : "opportunities"}
                 </span>
               </div>
 
