@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 import { Pannellum } from "pannellum-react";
+import { BlazingRifts } from "../components/BlazingRifts";
 import {
   ChevronLeft,
   ArrowUpFromLine,
@@ -175,11 +176,8 @@ export const Details: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group flex items-center justify-center text-white/50">
-                  <div className="text-center">
-                    <Video size={32} className="mx-auto mb-2 opacity-30" />
-                    <span className="text-sm">No 360 tour available</span>
-                  </div>
+              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
+                  <BlazingRifts />
               </div>
             )}
           </div>

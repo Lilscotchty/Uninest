@@ -10,12 +10,10 @@ import { fetchAndFilterCompaniesByProximity, getSectorForField } from '../data/c
 import type { Company, CompanySector, StudentLocation } from '../types/opportunities';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Toast } from '../components/Toast';
-import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
 export const Opportunities: React.FC = () => {
   const { user, showToast } = useAppContext();
   const navigate = useNavigate();
-  const { recordView } = useRecentlyViewed();
   
   const [showLocationPrompt, setShowLocationPrompt] = useState(false);
   const [location, setLocation] = useState<StudentLocation | null>(null);
@@ -29,20 +27,6 @@ export const Opportunities: React.FC = () => {
       setShowLocationPrompt(true);
     }
   }, [location]);
-
-  useEffect(() => {
-    if (selectedCompany) {
-      recordView({
-        id: selectedCompany.id,
-        name: selectedCompany.name,
-        image_url: selectedCompany.imageUrl,
-        location: selectedCompany.city ? `${selectedCompany.city}, ${selectedCompany.country}` : selectedCompany.street,
-        sector: selectedCompany.sector,
-        category: selectedCompany.category,
-        viewedAt: Date.now()
-      });
-    }
-  }, [selectedCompany, recordView]);
 
   useEffect(() => {
     if (location) {
