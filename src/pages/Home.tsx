@@ -139,6 +139,11 @@ export const Home: React.FC = () => {
             ))}
           </div>
 
+           {/* RECENTLY VIEWED */}
+            <RecentlyViewedStrip />
+         </>
+         )}
+
           {/* CAMPUS SECTIONS */}
           {renderPropertyRow("Nearby Properties", properties.slice(0, 5), "/see-all/nearby")}
           {renderPropertyRow("Near ATU Campus", properties.filter(p => p.location?.includes('ATU')).length > 0 ? properties.filter(p => p.location?.includes('ATU')) : properties.slice(0, 4), "/see-all/atu")}
@@ -232,12 +237,7 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* RECENTLY VIEWED */}
-          <div className="mt-6 pb-2 border-t border-border-subtle pt-6">
-            <RecentlyViewedStrip />
-          </div>
-        </>
-      )}
+         
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (

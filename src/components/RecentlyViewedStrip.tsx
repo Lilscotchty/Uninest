@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react"; 
 import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
 import { RecentlyViewedCard } from "./RecentlyViewedCard";
 
@@ -15,14 +15,14 @@ export function RecentlyViewedStrip() {
   const hasMore = allItems.length > 7;
 
   return (
-    <section className="w-full">
+    <section className="mt-2 mb-2 max-w-screen-2xl mx-auto w-full">
       {/* ── Section header ── */}
-      <div className="flex items-center justify-between px-4 sm:px-5 py-4 pb-3">
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 pb-3">
         <div>
           <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)] leading-tight">
             Recently Viewed
           </h2>
-          <p className="text-[0.75rem] sm:text-xs text-text-muted mt-0.5">
+          <p className="text-[0.75rem] sm:text-xs text-text-secondary mt-0.5 font-medium">
             Pick up where you left off
           </p>
         </div>
@@ -31,14 +31,9 @@ export function RecentlyViewedStrip() {
           <button
             type="button"
             onClick={() => navigate("/recently-viewed")}
-            className={[
-              "flex items-center gap-1 text-xs font-semibold",
-              "text-indigo-600 dark:text-indigo-400",
-              "hover:underline active:opacity-70 transition-opacity",
-            ].join(" ")}
+            className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors flex items-center gap-1 group"
           >
-            See all
-            <ChevronRight size={14} />
+            See all <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
         )}
       </div>
@@ -46,36 +41,24 @@ export function RecentlyViewedStrip() {
       {/* ── Scrollable card row ── */}
       <div
         ref={ref}
-        className={[
-          "flex gap-4 overflow-x-auto",
-          "px-4 sm:px-5 lg:px-8",
-          // Hide scrollbar
-          "hide-scrollbar",
-          "pb-4",
-          "pt-2"
-        ].join(" ")}
+        className="flex gap-4 overflow-x-auto px-4 sm:px-6 lg:px-8 hide-scrollbar pb-4 pt-2 items-stretch"
       >
         {stripItems.map((item) => (
           <RecentlyViewedCard key={item.id} item={item} />
         ))}
 
-        {/* ── "See more" end-cap card ── */}
+        {/* ── Premium "See more" end-cap card ── */}
         {hasMore && (
           <button
             type="button"
             onClick={() => navigate("/recently-viewed")}
-            className={[
-              "flex-shrink-0 w-[160px] h-[120px] rounded-[14px]",
-              "border border-dashed border-gray-300 dark:border-gray-600",
-              "flex flex-col items-center justify-center gap-1",
-              "text-gray-400 dark:text-gray-500",
-              "hover:border-indigo-400 hover:text-indigo-500",
-              "transition-all duration-200",
-            ].join(" ")}
+            className="flex-shrink-0 w-[160px] rounded-2xl border-2 border-dashed border-border-subtle bg-transparent flex flex-col items-center justify-center gap-3 text-text-secondary hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:bg-[var(--color-surface-hover)] transition-all duration-300 group shadow-none"
           >
-            <ChevronRight size={20} />
-            <span className="text-[0.65rem] font-medium">
-              {allItems.length - 7} more
+            <div className="w-10 h-10 rounded-full bg-card-bg group-hover:bg-[var(--color-accent-muted)] flex items-center justify-center transition-colors shadow-sm">
+              <ArrowRight size={18} className="group-hover:scale-110 transition-transform" />
+            </div>
+            <span className="text-[0.85rem] font-bold tracking-wide">
+              View {allItems.length - 7} More
             </span>
           </button>
         )}
