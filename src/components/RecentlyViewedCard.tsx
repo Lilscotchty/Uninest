@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRecentlyViewed, type RecentlyViewedItem } from "../hooks/useRecentlyViewed";
 import { useAppContext } from "../context/AppContext";
+import { MapPin } from "lucide-react";
 
 interface Props {
   item: RecentlyViewedItem;
@@ -23,7 +24,7 @@ export function RecentlyViewedCard({ item }: Props) {
   const handleClick = () => {
     recordView(item);                          // refresh viewedAt timestamp
     setSelectedPropertyId(item.id);
-    navigate(`/details`);            // existing hostel detail route - using property in this app
+    navigate(`/details`);            // navigate to hostel details
   };
 
   return (
@@ -33,74 +34,38 @@ export function RecentlyViewedCard({ item }: Props) {
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && handleClick()}
       aria-label={`View ${item.name}`}
-      className={[
-        // Dimensions — exact from HTML spec
-        "relative w-[160px] h-[120px]",
-        "rounded-[14px] overflow-hidden",
-        // Border
-        "border border-black/5 dark:border-white/10",
-        // Shadow
-        "shadow-[0_4px_12px_rgba(0,0,0,0.08)]",
-        // Hover
-        "hover:-translate-y-1",
-        "hover:shadow-[0_12px_24px_rgba(0,0,0,0.15)]",
-        // Group for image zoom
-        "group cursor-pointer",
-        // Transition
-        "transition-all duration-300",
-        // Flex shrink — never compress in horizontal scroll
-        "flex-shrink-0",
-      ].join(" ")}
+      className="relative w-[140px] sm:w-[150px] aspect-square rounded-2xl overflow-hidden border border-border-subtle shadow-sm group cursor-pointer transition-all duration-300 flex-shrink-0 isolate hover:-translate-y-1.5 hover:shadow-md hover:border-[var(--color-accent-muted)]"
     >
-      {/* ── Image ── */}
+      {/* ── Background Image ── */}
       <img
         src={displayImage}
         alt={item.name}
-        className={[
-          "w-full h-full object-cover block",
-          "transition-transform duration-500",
-          "group-hover:scale-[1.08]",
-        ].join(" ")}
+        className="w-full h-full object-cover block transition-transform duration-700 group-hover:scale-110"
         loading="lazy"
         onError={(e) => {
           (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2400&auto=format&fit=crop";
         }}
       />
 
-      {/* ── Glassmorphism overlay ── */}
-      <div
-        className={[
-          "absolute bottom-0 left-0 w-full",
-          "min-h-[45%]",
-          // Gradient — from-black/20 → to-black/60 (bottom heavy)
-          "bg-gradient-to-b from-black/20 to-black/60",
-          // Blur
-          "backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]",
-          // Top edge highlight
-          "border-t border-white/10",
-          // Layout
-          "flex flex-col justify-end",
-          "p-2 box-border z-10",
-        ].join(" ")}
-      >
-        {/* Hostel name */}
-        <h3
-          className="m-0 mb-0.5 text-white font-semibold leading-tight tracking-[0.2px] truncate"
-          style={{ fontSize: "0.80rem", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-        >
+      {/* ── Floating Price Badge (Top Right) ── */}
+      <div className="absolute top-2 right-2 z-20">
+        <span className="bg-black/60 backdrop-blur-md text-white text-[0.65rem] font-bold px-2.5 py-1 rounded-full border border-white/20 shadow-sm transition-colors group-hover:bg-[var(--color-accent)] group-hover:border-[var(--color-accent)]">
+          {formattedPrice}
+        </span>
+      </div>
+
+      {/* ── Smooth Gradient Overlay (Bottom) ── */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-85 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+
+      {/* ── Text Content ── */}
+      <div className="absolute bottom-0 left-0 w-full p-3 z-20 flex flex-col justify-end transform transition-transform duration-300">
+        <h3 className="text-white text-sm font-bold leading-tight tracking-wide truncate drop-shadow-md mb-1">
           {item.name}
         </h3>
-
-        {/* Price + separator + location */}
-        <p
-          className="m-0 text-white/90 font-medium flex items-center gap-1 truncate"
-          style={{ fontSize: "0.65rem" }}
-        >
-          <span className="font-bold text-[#ffd700]">
-            {formattedPrice}/sem
-          </span>
-          <span className="text-white/50" style={{ fontSize: "0.5rem" }}>•</span>
-          <span className="opacity-85 truncate">{item.location}</span>
+        
+        <p className="text-white/80 text-[0.7rem] font-medium truncate flex items-center gap-1 drop-shadow-sm">
+          <MapPin size={10} className="text-[var(--color-accent)] flex-shrink-0" /> 
+          <span className="truncate">{item.location}</span>
         </p>
       </div>
     </div>
