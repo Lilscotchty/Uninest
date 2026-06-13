@@ -1,3 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+@import "./styles/tokens.css";
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Map tokens to Tailwind colour names */
+  --color-bg:             var(--color-bg);
+  --color-surface:        var(--color-surface);
+  --color-surface-2:      var(--color-surface-2);
+  --color-elevated:       var(--color-elevated);
+  --color-border:         var(--color-border);
+  --color-border-strong:  var(--color-border-strong);
+  --color-primary:        var(--color-text-primary);
+  --color-secondary:      var(--color-text-secondary);
+  --color-disabled:       var(--color-text-disabled);
+  --color-inverse:        var(--color-text-inverse);
+  --color-accent:         var(--color-accent);
+  --color-accent-muted:   var(--color-accent-muted);
+  --color-highlight:      var(--color-highlight);
+  --color-highlight-muted: var(--color-highlight-muted);
+  --color-on-highlight:   var(--color-on-highlight);
+  --color-success:        var(--color-success);
+  --color-warning:        var(--color-warning);
+  --color-error:          var(--color-error);
+  --color-nav-bg:         var(--color-nav-bg);
+  --color-card-bg:        var(--color-card-bg);
+  --color-input-bg:       var(--color-input-bg);
+  --color-header-bg:      var(--color-header-bg);
+
+  /* Preserving specific color aliases in case they are used as bg-indigo etc. */
+  --color-indigo: var(--color-accent);
+  --color-indigo-dark: var(--color-accent-hover);
+  --color-indigo-light: var(--color-accent-muted);
+  --color-indigo-mid: var(--color-accent-hover);
+  --color-amber: #d97706;
+  --color-amber-light: var(--amber-light, #fef3c7);
+  --color-amber-glow: #f97316;
+  --color-coral: #e11d48;
+  --color-coral-light: var(--coral-light, #ffe4e6);
+  --color-teal: var(--color-accent);
+  --color-teal-light: var(--color-accent-muted);
+  --color-teal-50: var(--color-accent-muted);
+  --color-teal-200: var(--color-border);
+  --color-teal-600: var(--color-accent);
+  --color-green: var(--color-accent);
+  --color-green-light: var(--color-accent-muted);
+  --color-app-bg: var(--color-bg);
+  --color-card-bg: var(--color-card-bg);
+  
+  --color-text-primary: var(--color-text-primary);
+  --color-text-muted: var(--color-text-secondary);
+  --color-text-white: var(--color-text-inverse);
+  --color-border-subtle: var(--color-border);
+  
+  --shadow-card: var(--shadow-card-val, 0 2px 14px rgba(0,0,0,0.04));
+  --shadow-float: var(--shadow-float-val, 0 8px 30px rgba(0,0,0,0.08));
+}
+
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Smooth theme transition on all elements */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* --- RESPONSIVE CARD WIDGETS --- */
 .card-wrapper {
   display: grid;
@@ -13,7 +114,7 @@
   }
 }
 
-/* On desktop, show 3 or 4 cards to prevent excessive stretching */
+/* On desktop, show 4 cards to prevent excessive stretching */
 @media (min-width: 1024px) {
   .card-wrapper {
     grid-template-columns: repeat(4, 1fr);
