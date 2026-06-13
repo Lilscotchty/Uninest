@@ -5,7 +5,7 @@ import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 import { PageHeader } from '../components/layout/PageHeader';
 import { RecentlyViewedStrip } from "../components/RecentlyViewedStrip";
-import { MapPin, Grip, DoorClosed, Users, School, Tag, Wifi, Search, SlidersHorizontal, ArrowRight, Bell, Video } from 'lucide-react';
+import { MapPin, Grip, DoorClosed, Users, School, Tag, Wifi, Search, SlidersHorizontal, ArrowRight } from 'lucide-react';
 
 const FILTERS = [
   { id: 'all', label: 'All', icon: <Grip size={14} /> },
@@ -149,32 +149,30 @@ export const Home: React.FC = () => {
             <div className="flex justify-between items-center py-4 pb-3">
               <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <button 
-                onClick={() => navigate("/virtual-tour")}
-                className="bg-card-bg border border-border-subtle rounded-2xl p-4 flex flex-col items-start gap-3 transition-all hover:shadow-md hover:border-[var(--color-warning)] group text-left"
-              >
-                <div className="w-10 h-10 rounded-full bg-[var(--color-warning-muted)] flex items-center justify-center text-[var(--color-warning)] group-hover:scale-110 transition-transform">
-                  <Video size={20} strokeWidth={2.5} />
+            <div className="card-wrapper">
+              <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
+                <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}></div>
+                <div className="icon-box" style={{ background: "transparent", color: "#b45309" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
                 </div>
-                <div>
-                  <h3 className="font-bold text-text-primary text-sm">Virtual Tour</h3>
-                  <p className="text-xs text-text-secondary mt-0.5">See units live</p>
+                <div className="text-content">
+                  <h3>Virtual Tour</h3>
+                  <p>See units live</p>
                 </div>
-              </button>
+                <div className="arrow">›</div>
+              </div>
 
-              <button 
-                onClick={() => navigate("/price-alerts")}
-                className="bg-card-bg border border-border-subtle rounded-2xl p-4 flex flex-col items-start gap-3 transition-all hover:shadow-md hover:border-[var(--color-success)] group text-left"
-              >
-                <div className="w-10 h-10 rounded-full bg-[var(--color-success-muted)] flex items-center justify-center text-[var(--color-success)] group-hover:scale-110 transition-transform">
-                  <Bell size={20} strokeWidth={2.5} />
+              <div className="modern-card" onClick={() => navigate("/price-alerts")}>
+                <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%)" }}></div>
+                <div className="icon-box" style={{ background: "transparent", color: "#047857" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                 </div>
-                <div>
-                  <h3 className="font-bold text-text-primary text-sm">Price Alerts</h3>
-                  <p className="text-xs text-text-secondary mt-0.5">Get notified</p>
+                <div className="text-content">
+                  <h3>Price Alerts</h3>
+                  <p>Get notified</p>
                 </div>
-              </button>
+                <div className="arrow">›</div>
+              </div>
             </div>
           </div>
 
