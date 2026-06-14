@@ -99,10 +99,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
           Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
         );
-        const baselineRefs = JSON.parse(localStorage.getItem(`referees_${session.user.id}`) || '[]');
-        const codeRefs = JSON.parse(localStorage.getItem(`referees_by_code_${code}`) || '[]');
+        let baselineRefs: any[] = [];
+        let codeRefs: any[] = [];
+        try {
+          const v1 = localStorage.getItem(`referees_${session.user.id}`);
+          if (v1 && v1 !== 'undefined') {
+            const parsed = JSON.parse(v1);
+            if (Array.isArray(parsed)) baselineRefs = parsed;
+          }
+        } catch(e) {}
+        try {
+          const v2 = localStorage.getItem(`referees_by_code_${code}`);
+          if (v2 && v2 !== 'undefined') {
+            const parsed = JSON.parse(v2);
+            if (Array.isArray(parsed)) codeRefs = parsed;
+          }
+        } catch(e) {}
+        
         const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t.name === value.name)
+           index === self.findIndex((t) => t?.name === value?.name)
         );
         setReferees(uniqueRefs);
       }
@@ -121,10 +136,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
           Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
         );
-        const baselineRefs = JSON.parse(localStorage.getItem(`referees_${session.user.id}`) || '[]');
-        const codeRefs = JSON.parse(localStorage.getItem(`referees_by_code_${code}`) || '[]');
+        let baselineRefs: any[] = [];
+        let codeRefs: any[] = [];
+        try {
+          const v1 = localStorage.getItem(`referees_${session.user.id}`);
+          if (v1 && v1 !== 'undefined') {
+            const parsed = JSON.parse(v1);
+            if (Array.isArray(parsed)) baselineRefs = parsed;
+          }
+        } catch(e) {}
+        try {
+          const v2 = localStorage.getItem(`referees_by_code_${code}`);
+          if (v2 && v2 !== 'undefined') {
+            const parsed = JSON.parse(v2);
+            if (Array.isArray(parsed)) codeRefs = parsed;
+          }
+        } catch(e) {}
+
         const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t.name === value.name)
+           index === self.findIndex((t) => t?.name === value?.name)
         );
         setReferees(uniqueRefs);
       }

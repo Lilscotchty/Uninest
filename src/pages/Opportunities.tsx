@@ -241,7 +241,12 @@ export const Opportunities: React.FC = () => {
                      const currentCash = Number(localStorage.getItem(`cash_by_code_${referrerCode}`) || '0');
                      localStorage.setItem(`cash_by_code_${referrerCode}`, (currentCash + 1).toString());
                      
-                     const refs = JSON.parse(localStorage.getItem(`referees_by_code_${referrerCode}`) || '[]');
+                     let refs = [];
+                     try {
+                       const v = localStorage.getItem(`referees_by_code_${referrerCode}`);
+                       if (v && v !== 'undefined') refs = JSON.parse(v);
+                       if (!Array.isArray(refs)) refs = [];
+                     } catch(e) {}
                      refs.push({ name: user.user_metadata.full_name || 'Referred Friend', status: 'Completed', date: new Date().toLocaleDateString(), amount: 1 });
                      localStorage.setItem(`referees_by_code_${referrerCode}`, JSON.stringify(refs));
                   }
