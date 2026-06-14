@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS public.property_reviews CASCADE;
 -- Create property reviews table if it doesn't exist
 CREATE TABLE IF NOT EXISTS public.property_reviews (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  property_id uuid REFERENCES public.hostels(id) ON DELETE CASCADE NOT NULL,
+  property_id text NOT NULL,
   user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
   rating smallint NOT NULL CHECK (rating >= 1 AND rating <= 5),
   title text NOT NULL,

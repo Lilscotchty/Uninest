@@ -12,6 +12,7 @@ import { Toast } from '../components/Toast';
 import {
   ThumbsUp,
   ThumbsDown,
+  Star,
   AlertCircle,
   CheckCircle,
   ChevronLeft,
@@ -28,29 +29,25 @@ const RatingBlocks: React.FC<{
   size?: 'sm' | 'md' | 'lg';
 }> = ({ rating, onRatingChange, interactive = false, size = 'md' }) => {
   const sizeClasses = {
-    sm: 'w-3 h-1.5 sm:w-4 sm:h-2 gap-1',
-    md: 'w-5 h-2 sm:w-6 sm:h-2.5 gap-1.5',
-    lg: 'w-8 h-3 sm:w-10 sm:h-3.5 gap-2',
+    sm: 'w-3 h-3 sm:w-4 sm:h-4 gap-1',
+    md: 'w-5 h-5 sm:w-6 sm:h-6 gap-1.5',
+    lg: 'w-8 h-8 sm:w-10 sm:h-10 gap-2',
   };
 
   return (
-    <div className={`flex ${sizeClasses[size].split(' ')[2]}`}>
+    <div className={`flex items-center ${sizeClasses[size].split(' ')[2]}`}>
       {[1, 2, 3, 4, 5].map((level) => (
         <button
           key={level}
           type="button"
           onClick={() => interactive && onRatingChange?.(level)}
-          className={`${
-            sizeClasses[size].split(' ')[0]
-          } ${sizeClasses[size].split(' ')[1]} rounded-sm transition-all duration-300 ${
+          className={`flex items-center justify-center transition-all duration-300 ${
             interactive ? 'cursor-pointer hover:opacity-80 active:scale-95' : 'cursor-default'
-          } ${
-            level <= rating 
-              ? 'bg-slate-800 shadow-sm' 
-              : 'bg-slate-200'
           }`}
           aria-label={`Rate ${level} out of 5`}
-        />
+        >
+          <Star className={`${sizeClasses[size].split(' ')[0]} ${sizeClasses[size].split(' ')[1]} ${level <= rating ? 'fill-black text-black' : 'fill-slate-200 text-slate-200'}`} />
+        </button>
       ))}
     </div>
   );
@@ -418,7 +415,7 @@ const CreateReviewForm: React.FC<{
         <button
           type="button"
           onClick={onCancel}
-          className="px-8 py-4 bg-white text-slate-900 font-bold text-[0.9rem] rounded-xl hover:bg-slate-50 transition-colors"
+          className="px-8 py-4 bg-white border border-slate-200 text-slate-900 font-bold text-[0.9rem] rounded-xl hover:bg-slate-50 transition-colors"
         >
           Cancel
         </button>
@@ -449,11 +446,15 @@ export const PropertyReviews: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-white">
       <PageHeader 
         title="Guest Feedback" 
-        actions={[{
-          label: "Back",
-          icon: <ChevronLeft />,
-          onClick: () => navigate(-1)
-        }]}
+        rightAction={
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-1 text-white hover:text-white/80 transition-colors font-bold text-[0.9rem]"
+          >
+            <ChevronLeft size={18} />
+            Back
+          </button>
+        }
       />
 
       <div className="flex-1 px-6 py-12 md:py-20">
