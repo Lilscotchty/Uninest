@@ -31,7 +31,7 @@ export function Navigation() {
       {/* MOBILE: Bottom Tab Bar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 
                       bg-card-bg border-t border-border-subtle 
-                      pb-[max(env(safe-area-inset-bottom),0.5rem)]">
+                      pt-2 pb-4">
         <div className="flex items-center justify-around h-16">
           {NAV_ITEMS.map(item => (
             <NavLink
@@ -51,7 +51,7 @@ export function Navigation() {
 
       {/* TABLET: Collapsed Sidebar (icon only) */}
       <nav className="hidden md:flex lg:hidden fixed left-0 top-0 bottom-0 z-40 
-                      w-18 flex-col items-center 
+                      w-[72px] flex-col items-center 
                       bg-card-bg border-r border-border-subtle py-4 gap-1">
         <div className="mb-6 font-bold text-xl text-[var(--color-accent)] flex items-center justify-center w-full h-12">
           U
