@@ -86,10 +86,10 @@ const AppContent: React.FC = () => {
         <Route path="/explore" element={<AppShell><Explore /></AppShell>} />
         <Route path="/see-all/:type" element={<AppShell><SeeAll /></AppShell>} />
         <Route path="/details" element={<Details />} />
-        <Route path="/opportunities" element={<Opportunities />} />
+        <Route path="/opportunities" element={<AppShell><Opportunities /></AppShell>} />
         <Route path="/property/:propertyId/reviews" element={<PropertyReviews />} />
-        <Route path="/virtual-tour" element={<VirtualTour />} />
-        <Route path="/price-alerts" element={<PriceAlerts />} />
+        <Route path="/virtual-tour" element={<AppShell><VirtualTour /></AppShell>} />
+        <Route path="/price-alerts" element={<AppShell><PriceAlerts /></AppShell>} />
         <Route path="/saved" element={<AppShell><Saved /></AppShell>} />
         <Route path="/profile" element={<AppShell><Profile /></AppShell>} />
         
@@ -101,8 +101,8 @@ const AppContent: React.FC = () => {
         } />
 
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/referrals" element={<Referrals />} />
-        <Route path="/recently-viewed" element={<RecentlyViewedPage />} />
+        <Route path="/referrals" element={<AppShell><Referrals /></AppShell>} />
+        <Route path="/recently-viewed" element={<AppShell><RecentlyViewedPage /></AppShell>} />
         <Route path="/not-authorised" element={<NotAuthorisedPage />} />
 
         {/* Fallback */}
