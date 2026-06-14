@@ -176,14 +176,6 @@ export const Profile: React.FC = () => {
               <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Account</span>
             </div>
             <div className="flex flex-col">
-              <button onClick={() => navigate('/referrals')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <User size={16} /> {/* Replace with Gift icon if available, but User works for now */}
-                </div>
-                <span className="flex-1 text-[0.9rem] font-semibold text-text-primary">Refer a Friend</span>
-                <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold mr-1">Earn ₵</span>
-                <ChevronRight size={16} className="text-text-muted group-hover:text-[var(--color-accent)] transition-colors" />
-              </button>
               <button onClick={() => handleAction('Personal Information')} className="flex items-center gap-3 w-full p-4 border-b border-transparent text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                 <div className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center shrink-0">
                   <User size={16} />
