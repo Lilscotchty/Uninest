@@ -111,43 +111,23 @@ export const Details: React.FC = () => {
 
   const fallbackRooms = [
     {
-      name: "Private Single Suite",
-      size: "12 m²",
-      occ: "1 occupant",
-      bed: "Single bed",
-      price: "GH₵5,000",
-      avail: "4 units left",
+      name: "Standard Room",
+      size: "Standard",
+      occ: "Unknown capacity",
+      bed: "1 bed(s)",
+      price: property.price ? `${property.price}` : "GH₵5,000",
+      avail: property.avail || "Available",
       availClass: "bg-green-100 text-green-700",
       img: property.images?.[0] || property.img,
-    },
-    {
-      name: "Shared Double Unit",
-      size: "18 m²",
-      occ: "2 occupants",
-      bed: "Bunk beds",
-      price: "GH₵3,800",
-      avail: "2 units left",
-      availClass: "bg-amber-100 text-amber-700",
-      img: property.images?.[1] || property.img,
-    },
-    {
-      name: "Quad Dorm Room",
-      size: "28 m²",
-      occ: "4 occupants",
-      bed: "4 single beds",
-      price: "GH₵3,200",
-      avail: "6 units left",
-      availClass: "bg-green-100 text-green-700",
-      img: property.images?.[2] || property.img,
-    },
+    }
   ];
 
   const roomsToDisplay = property.rooms && property.rooms.length > 0 
     ? property.rooms.map((r: any, idx: number) => ({
         name: r.room_type || r.name || `Room ${idx + 1}`,
         size: r.size || "Standard size",
-        occ: r.capacity || r.occupantsPerRoom ? `${r.capacity || r.occupantsPerRoom} occupant(s)` : "Unknown capacity",
-        bed: r.bed || `${r.capacity || r.occupantsPerRoom || 1} bed(s)`,
+        occ: (r.capacity !== undefined && r.capacity !== null) ? `${r.capacity} occupant(s)` : (r.occupantsPerRoom !== undefined && r.occupantsPerRoom !== null) ? `${r.occupantsPerRoom} occupant(s)` : "Unknown capacity",
+        bed: r.bed || `${(r.capacity !== undefined && r.capacity !== null) ? r.capacity : (r.occupantsPerRoom !== undefined && r.occupantsPerRoom !== null) ? r.occupantsPerRoom : 1} bed(s)`,
         price: r.price ? `GH₵${r.price}` : "Price unknown",
         avail: r.quantity ? `${r.quantity} space(s) left` : "Available",
         availClass: "bg-green-100 text-green-700",
@@ -330,15 +310,26 @@ export const Details: React.FC = () => {
           </div>
 
           {/* Map View */}
-          <div className="h-[200px] bg-slate-200 rounded-[20px] mb-8 overflow-hidden shadow-sm relative z-0">
+          <div 
+            className="h-[200px] bg-slate-200 rounded-[20px] mb-8 overflow-hidden shadow-sm relative z-0 cursor-pointer group"
+            onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${property.lat || 5.6506},${property.lng || -0.1870}`, "_blank")}
+          >
+            <div className="absolute inset-0 bg-transparent z-[1000] flex items-center justify-center transition-colors group-hover:bg-black/10">
+              <div className="bg-white/90 backdrop-blur-sm text-text-primary px-4 py-2 rounded-full font-bold shadow-[0_4px_12px_rgba(0,0,0,0.1)] transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex items-center gap-2">
+                Open in Google Maps
+              </div>
+            </div>
             <MapContainer 
               center={[property.lat || 5.6506, property.lng || -0.1870]} 
               zoom={14} 
-              className="w-full h-full z-0" 
+              className="w-full h-full z-0 pointer-events-none" 
               zoomControl={false}
+              dragging={false}
+              scrollWheelZoom={false}
+              doubleClickZoom={false}
             >
               <TileLayer
-                url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+                url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"
                 attribution="Google Maps"
               />
               <Marker position={[property.lat || 5.6506, property.lng || -0.1870]} icon={mapIcon}>
