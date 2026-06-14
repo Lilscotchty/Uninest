@@ -446,15 +446,8 @@ export const PropertyReviews: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-white">
       <PageHeader 
         title="Guest Feedback" 
-        rightAction={
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-1 text-slate-900 hover:text-slate-600 transition-colors font-bold text-[0.9rem]"
-          >
-            <ChevronLeft size={18} />
-            Back
-          </button>
-        }
+        showBackButton={true}
+        onBack={() => navigate(-1)}
       />
 
       <div className="flex-1 px-6 py-12 md:py-20">

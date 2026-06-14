@@ -3,6 +3,8 @@ import { ArrowLeft, Trash2, Clock } from "lucide-react";
 import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
 import { RecentlyViewedCard } from "../components/RecentlyViewedCard";
 
+import { PageHeader } from '../components/layout/PageHeader';
+
 // Format relative time: "2 hours ago", "3 days ago"
 function timeAgo(timestamp: number): string {
   const diff = Date.now() - timestamp;
@@ -45,61 +47,27 @@ export function RecentlyViewedPage() {
 
   return (
     <div className="min-h-screen bg-offwhite dark:bg-customDark">
-      {/* ── Sticky header ── */}
-      <header
-        className={[
-          "sticky top-0 z-40",
-          "bg-white dark:bg-[#1a1a24]",
-          "border-b border-border-subtle dark:border-border-dark",
-          "px-4 sm:px-6",
-          "h-[72px] flex items-center justify-between",
-        ].join(" ")}
-      >
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            aria-label="Go back"
-            className={[
-              "w-10 h-10 rounded-full flex items-center justify-center",
-              "border border-border-subtle dark:border-border-dark",
-              "hover:bg-gray-50 dark:hover:bg-gray-800",
-              "text-text-secondary dark:text-gray-400 transition-colors",
-            ].join(" ")}
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <div>
-            <h1 className="text-xl font-black text-[var(--color-heading)] leading-tight">
-              Recently Viewed
-            </h1>
-            {hasItems && (
-              <p className="text-xs text-text-secondary dark:text-gray-400">
-                {allItems.length} {allItems.length === 1 ? "property" : "properties"}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {hasItems && (
-          <button
-             type="button"
-             onClick={() => {
-               if (confirm("Clear your entire viewing history?")) clearHistory();
-             }}
-             aria-label="Clear history"
-             className={[
-               "flex items-center gap-1.5 px-3 py-1.5 rounded-lg",
-               "text-xs font-medium text-red-500",
-               "border border-red-200 dark:border-red-900/50",
-               "hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors",
-             ].join(" ")}
-           >
-             <Trash2 size={13} />
-             Clear all
-           </button>
-        )}
-      </header>
+      <PageHeader 
+        title="Recently Viewed"
+        subtitle={hasItems ? `${allItems.length} ${allItems.length === 1 ? "property" : "properties"}` : undefined}
+        showBackButton={true}
+        onBack={() => navigate(-1)}
+        rightAction={
+          hasItems ? (
+            <button
+               type="button"
+               onClick={() => {
+                 if (confirm("Clear your entire viewing history?")) clearHistory();
+               }}
+               aria-label="Clear history"
+               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-500 border border-red-200 hover:bg-red-50 transition-colors"
+             >
+               <Trash2 size={13} />
+               Clear all
+             </button>
+          ) : null
+        }
+      />
 
       {/* ── Empty state ── */}
       {!hasItems && (

@@ -70,6 +70,8 @@ export const Profile: React.FC = () => {
   return (
     <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
       <PageHeader 
+        showBackButton={true}
+        onBack={() => navigate(-1)}
         actions={[
           {
             icon: <ScanLine size={22} strokeWidth={1.8} />,

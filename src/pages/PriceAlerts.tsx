@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { ChevronLeft, Bell, Plus, Check } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
-import { PageHeader } from '../components/PageHeader';
+import { PageHeader } from '../components/layout/PageHeader';
 
 export const PriceAlerts: React.FC = () => {
   const { setCurrentView, showToast, user } = useAppContext();
@@ -24,14 +24,8 @@ export const PriceAlerts: React.FC = () => {
     <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans">
       <PageHeader 
         title="Price Alerts"
-        rightAction={
-          <button 
-            onClick={() => navigate("/student/dashboard")}
-            className="text-white hover:text-[var(--color-accent)]-200 transition-colors"
-          >
-            <ChevronLeft size={24} /> Back
-          </button>
-        }
+        showBackButton={true}
+        onBack={() => navigate("/student/dashboard")}
       />
 
       <div className="flex-1 w-full overflow-y-auto">

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { cn } from "../../lib/utils"; 
+import { ChevronLeft } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -21,6 +22,10 @@ export interface PageHeaderProps {
    * Omit entirely for Pattern B (icon-only header).
    */
   title?: string;
+  
+  showBackButton?: boolean;
+  onBack?: () => void;
+  rightAction?: React.ReactNode;
 
   /**
    * Right-side icon action buttons (Pattern A & B).
@@ -197,6 +202,9 @@ function TabBar({
 
 export function PageHeader({
   title,
+  showBackButton,
+  onBack,
+  rightAction,
   actions = [],
   tabs,
   activeTab,
@@ -215,7 +223,7 @@ export function PageHeader({
     return () => window.removeEventListener("scroll", handler);
   }, [sticky]);
 
-  const hasRightContent = actions.length > 0 || socialLinks.length > 0;
+  const hasRightContent = actions.length > 0 || socialLinks.length > 0 || !!rightAction;
 
   return (
     <header
@@ -239,27 +247,33 @@ export function PageHeader({
       )}
     >
       {/* ── Top row: Title + Actions ── */}
-      {(title || hasRightContent) && (
+      {(title || hasRightContent || showBackButton) && (
         <div className="flex items-center justify-between mb-1">
           {/* Title — bold, large, left-aligned */}
-          {title ? (
-            <h1
-              style={{ color: 'var(--color-text-primary)' }}
-              className={cn(
-                "text-[26px] sm:text-[28px] lg:text-[30px] font-bold leading-tight tracking-tight",
-                // If no title, allow right content to take full width
-                hasRightContent ? "flex-1 min-w-0 mr-3" : "flex-1"
-              )}
-            >
-              {title}
-            </h1>
-          ) : (
-            // Pattern B: spacer so icons push to the right even without a title
-            <div className="flex-1" aria-hidden />
-          )}
+          <div className="flex items-center gap-4 flex-1 min-w-0 mr-3">
+            {showBackButton && (
+              <button
+                onClick={onBack}
+                className="w-10 h-10 shrink-0 rounded-full border border-[var(--color-border)] bg-[var(--color-card-bg)] flex items-center justify-center text-[var(--color-text-primary)] shadow-sm hover:scale-105 transition-transform"
+              >
+                <ChevronLeft size={20} />
+              </button>
+            )}
+            {title && (
+              <h1
+                style={{ color: 'var(--color-text-primary)' }}
+                className={cn(
+                  "text-[26px] sm:text-[28px] lg:text-[30px] font-bold leading-tight tracking-tight truncate",
+                )}
+              >
+                {title}
+              </h1>
+            )}
+          </div>
 
           {/* Right side — icon actions OR social icons (never both) */}
           <div className="flex items-center gap-1 flex-shrink-0">
+            {rightAction}
             {actions.map((action) => (
               <ActionButton key={action.label} action={action} />
             ))}

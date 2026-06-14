@@ -408,6 +408,8 @@ export const ManagerDashboard: React.FC = () => {
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative">
         <PageHeader
           title="Your Listings"
+          showBackButton={true}
+          onBack={() => navigate(-1)}
           actions={[
             { icon: <Plus size={22} strokeWidth={1.8} />, label: "Add", onClick: () => setIsEditing(true) },
             { icon: <MoreHorizontal size={22} strokeWidth={1.8} />, label: "More", onClick: () => {} }

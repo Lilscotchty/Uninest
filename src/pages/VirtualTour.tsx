@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, Video, Play, MapPin } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PROPERTIES } from '../data';
-import { PageHeader } from '../components/PageHeader';
+import { PageHeader } from '../components/layout/PageHeader';
 import { BlazingRifts } from '../components/BlazingRifts';
 
 export const VirtualTour: React.FC = () => {
@@ -17,14 +17,8 @@ export const VirtualTour: React.FC = () => {
     <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative">
       <PageHeader 
         title="Virtual Tours"
-        rightAction={
-          <button 
-            onClick={() => navigate("/student/dashboard")}
-            className="text-white hover:text-[var(--color-accent)]-200 transition-colors"
-          >
-            <ChevronLeft size={24} /> Back
-          </button>
-        }
+        showBackButton={true}
+        onBack={() => navigate("/student/dashboard")}
       />
 
       <div className="flex-1 w-full overflow-y-auto">

@@ -70,57 +70,53 @@ export const Opportunities: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full flex-1 min-h-[100dvh] overflow-hidden bg-app-bg">
+    <div className="relative w-full flex-1 min-h-[100dvh] overflow-hidden bg-app-bg flex flex-col">
+      <PageHeader
+        title="Opportunities"
+        showBackButton={true}
+        onBack={() => navigate(-1)}
+        rightAction={
+          location && (
+            <button 
+              onClick={() => setShowLocationPrompt(true)}
+              className="bg-[var(--color-surface)] shadow-sm rounded-full px-4 py-2 flex items-center justify-center gap-2 border border-border-subtle text-text-primary text-[0.8rem] font-bold hover:bg-slate-50 transition-colors pointer-events-auto"
+            >
+               <Target size={16} className="text-[var(--color-accent)]" /> 
+               {location.value}
+            </button>
+          )
+        }
+      />
+      
       {/* Map Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="flex-1 relative z-0">
         <OpportunitiesMap 
           companies={filteredCompanies} 
           location={location} 
           onCompanySelect={setSelectedCompany} 
         />
-      </div>
 
-      {/* Floating Header */}
-      <div className="absolute top-0 left-0 w-full z-10 p-4 sm:p-5 flex flex-col pointer-events-none">
-        <div className="flex items-start justify-between w-full mb-4">
-          <button 
-            onClick={() => navigate(-1)}
-            className="w-11 h-11 rounded-full bg-[#1c1c1e]/85 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.2)] flex items-center justify-center text-white pointer-events-auto active:scale-95 transition-transform"
-          >
-            <ChevronLeft size={24} strokeWidth={2.5} />
-          </button>
-          
-          <div className="flex-1 mx-3 sm:mx-4 pointer-events-auto h-11">
-            <button 
-              onClick={() => setShowLocationPrompt(true)}
-              className="w-full bg-[var(--color-surface)]/95 backdrop-blur shadow-[0_2px_10px_rgba(0,0,0,0.1)] rounded-full px-4 flex items-center justify-center gap-2 border border-black/5 h-full text-text-primary text-[0.9rem] font-bold hover:bg-slate-50 transition-colors"
-            >
-               <Target size={18} className="text-[var(--color-accent)]" /> 
-               {location ? location.value : 'Set Your Location'}
-            </button>
-          </div>
+        {/* Sector Filters & Results Overlay */}
+        <div className="absolute top-0 left-0 w-full z-10 p-4 sm:p-5 flex flex-col pointer-events-none">
+          {location && (
+            <div className="pointer-events-auto mb-2">
+              <SectorFilterBar 
+                selectedSector={selectedSector} 
+                onSelect={(sector) => {
+                  setSelectedSector(sector);
+                  setSelectedCompany(null);
+                }} 
+              />
+            </div>
+          )}
+
+          {location && filteredCompanies.length > 0 && (
+            <div className="inline-flex items-center gap-1.5 bg-card-bg/90 backdrop-blur rounded-full px-3 py-1.5 self-start shadow-[0_2px_10px_rgba(0,0,0,0.1)] pointer-events-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
+              <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-[var(--color-accent)]">{filteredCompanies.length} result{filteredCompanies.length === 1 ? '' : 's'} found</span>
+            </div>
+          )}
         </div>
-
-        {/* Sector Filters overlay */}
-        {location && (
-          <div className="pointer-events-auto mb-2">
-            <SectorFilterBar 
-              selectedSector={selectedSector} 
-              onSelect={(sector) => {
-                setSelectedSector(sector);
-                setSelectedCompany(null);
-              }} 
-            />
-          </div>
-        )}
-
-        {/* Result Badge */}
-        {location && filteredCompanies.length > 0 && (
-          <div className="inline-flex items-center gap-1.5 bg-card-bg/90 backdrop-blur rounded-full px-3 py-1.5 self-start shadow-[0_2px_10px_rgba(0,0,0,0.1)] pointer-events-none transition-all">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
-            <span className="text-[0.7rem] sm:text-[0.75rem] font-bold text-[var(--color-accent)]">{filteredCompanies.length} result{filteredCompanies.length === 1 ? '' : 's'} found</span>
-          </div>
-        )}
       </div>
 
       {/* Loading Skeletons */}

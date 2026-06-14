@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 import { ChevronLeft, Save, User, Phone, BookOpen, Layers } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
+import { PageHeader } from '../components/layout/PageHeader';
+
 export const EditProfile: React.FC = () => {
   const { user, showToast } = useAppContext();
   const navigate = useNavigate();
@@ -137,17 +139,11 @@ export const EditProfile: React.FC = () => {
     <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="flex-1 w-full overflow-y-auto">
         <div className="max-w-xl mx-auto w-full flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center px-5 pt-12 md:pt-16 pb-4 bg-app-bg sticky top-0 z-20">
-            {!isCompleting && (
-              <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-primary hover:bg-[var(--color-surface-2)] transition-colors">
-                <ChevronLeft size={24} />
-              </button>
-            )}
-            <h1 className="text-xl md:text-2xl font-bold text-text-primary ml-2">
-              {isCompleting ? 'Complete Profile' : 'Personal Info'}
-            </h1>
-          </div>
+          <PageHeader 
+            title={isCompleting ? 'Complete Profile' : 'Personal Info'}
+            showBackButton={!isCompleting}
+            onBack={() => navigate(-1)}
+          />
 
           <div className="px-5 pb-8">
             {isCompleting && (
