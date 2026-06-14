@@ -14,6 +14,7 @@ import { EditProfile } from './pages/EditProfile';
 import { Toast } from './components/Toast';
 import { ErrorBoundary } from './ErrorBoundary';
 import { VirtualTour } from './pages/VirtualTour';
+import { Referrals } from './pages/Referrals';
 import { PriceAlerts } from './pages/PriceAlerts';
 import { ManagerDashboard } from './pages/ManagerDashboard';
 import { PropertyReviews } from './pages/PropertyReviews';
@@ -100,6 +101,7 @@ const AppContent: React.FC = () => {
         } />
 
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/referrals" element={<Referrals />} />
         <Route path="/recently-viewed" element={<RecentlyViewedPage />} />
         <Route path="/not-authorised" element={<NotAuthorisedPage />} />
 
