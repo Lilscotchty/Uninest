@@ -17,7 +17,7 @@ export function useReviews({ propertyId, sortBy: initialSort = 'recent' }: { pro
         .from('property_reviews')
         .select(`
           *,
-          user:profiles!user_id(email)
+          user:profiles!user_id(first_name, last_name, avatar_url)
         `)
         .eq('property_id', propertyId);
 
@@ -111,6 +111,16 @@ export function useReviews({ propertyId, sortBy: initialSort = 'recent' }: { pro
     setReviews(prev => prev.map(r => r.id === reviewId ? { ...r, ...countUpdate } : r));
   };
 
+  const deleteReview = async (reviewId: string | number) => {
+    const { error } = await supabase
+      .from('property_reviews')
+      .delete()
+      .eq('id', reviewId);
+
+    if (error) throw error;
+    setReviews(prev => prev.filter(r => r.id !== reviewId));
+  };
+
   return {
     reviews,
     analytics,
@@ -118,6 +128,7 @@ export function useReviews({ propertyId, sortBy: initialSort = 'recent' }: { pro
     sortBy,
     setSortBy,
     createReview,
+    deleteReview,
     voteHelpful,
     refetch: fetchReviews
   };

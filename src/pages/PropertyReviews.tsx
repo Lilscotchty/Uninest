@@ -107,7 +107,8 @@ const ReviewCard: React.FC<{
   review: any;
   userId?: string;
   onVote: (reviewId: string | number, userId: string, helpful: boolean) => Promise<void>;
-}> = ({ review, userId, onVote }) => {
+  onDelete?: (reviewId: string | number) => Promise<void>;
+}> = ({ review, userId, onVote, onDelete }) => {
   const [isHelpful, setIsHelpful] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const { showToast } = useAppContext();
@@ -129,6 +130,23 @@ const ReviewCard: React.FC<{
     }
   };
 
+  const handleDelete = async () => {
+    if (!onDelete) return;
+    if (window.confirm("Are you sure you want to delete your review?")) {
+      try {
+        setLoading(true);
+        await onDelete(review.id);
+        showToast('Review deleted successfully');
+      } catch (error) {
+        showToast('Failed to delete review');
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const isOwner = userId === review.user_id;
+
   return (
     <div className="py-8 border-b border-slate-100 last:border-0 group">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
@@ -139,7 +157,7 @@ const ReviewCard: React.FC<{
           
           <div className="mt-4">
             <span className="block text-[0.9rem] text-slate-900 font-bold mb-1">
-              {review.reviewer_profile_visible ? review.user?.email || 'Anonymous' : 'Anonymous Guest'}
+              {review.reviewer_profile_visible ? `${review.user?.first_name || ''} ${review.user?.last_name || ''}`.trim() || 'Guest' : 'Anonymous Guest'}
             </span>
             <span className="block text-[0.8rem] text-slate-500 font-medium tracking-wide">
               {new Date(review.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -213,6 +231,16 @@ const ReviewCard: React.FC<{
               <ThumbsDown size={14} className={isHelpful === false ? 'fill-slate-900' : ''} /> 
               {review.unhelpful_count}
             </button>
+            
+            {isOwner && onDelete && (
+              <button
+                onClick={handleDelete}
+                disabled={loading}
+                className="ml-auto text-[0.8rem] font-bold text-red-500 hover:text-red-700 transition-colors flex items-center gap-1.5"
+              >
+                Delete
+              </button>
+            )}
           </div>
 
           {/* Replies */}
@@ -222,7 +250,7 @@ const ReviewCard: React.FC<{
                 <div key={reply.id} className="pt-2">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="font-bold text-[0.85rem] text-slate-900">
-                      {reply.user?.email || 'Property Manager'}
+                      {`${reply.user?.first_name || ''} ${reply.user?.last_name || ''}`.trim() || 'Property Manager'}
                     </span>
                     <span className="text-[0.65rem] text-slate-500 font-bold uppercase tracking-widest">
                       Response
@@ -410,7 +438,7 @@ export const PropertyReviews: React.FC = () => {
   const { propertyId } = useParams<{ propertyId: string }>();
   const navigate = useNavigate();
   const { user, showToast } = useAppContext();
-  const { reviews, analytics, loading, sortBy, setSortBy, voteHelpful, refetch } = useReviews({
+  const { reviews, analytics, loading, sortBy, setSortBy, voteHelpful, deleteReview, refetch } = useReviews({
     propertyId: propertyId || '',
     sortBy: 'recent',
   });
@@ -524,6 +552,7 @@ export const PropertyReviews: React.FC = () => {
                       review={review}
                       userId={user?.id}
                       onVote={voteHelpful}
+                      onDelete={deleteReview}
                     />
                   ))
                 )}
