@@ -31,6 +31,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useAppContext } from "../context/AppContext";
 import { PROPERTIES } from "../data";
+import { supabase } from "../lib/supabase";
 
 const mapIcon = L.divIcon({
   className: "",
@@ -49,16 +50,51 @@ export const Details: React.FC = () => {
     toggleSave,
     properties,
     user,
+    profile,
   } = useAppContext();
 
   const [bookingForm, setBookingForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: ""
+    firstName: profile?.full_name?.split(' ')[0] || "",
+    lastName: profile?.full_name?.split(' ').slice(1).join(' ') || "",
+    phone: profile?.phone || ""
   });
+
+  const [hostProfile, setHostProfile] = useState<any>(null);
+
   const navigate = useNavigate();
 
   const property = properties.find((h) => h.id?.toString() === selectedPropertyId?.toString()) || properties[0];
+
+  useEffect(() => {
+    if (profile) {
+      setBookingForm(prev => ({
+        ...prev,
+        firstName: prev.firstName || profile.full_name?.split(' ')[0] || "",
+        lastName: prev.lastName || profile.full_name?.split(' ').slice(1).join(' ') || "",
+        phone: prev.phone || profile.phone || ""
+      }));
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    async function fetchHostProfile() {
+      if (!property?.manager_id) return;
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', property.manager_id)
+          .single();
+        if (data && !error) {
+          setHostProfile(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch host profile", err);
+      }
+    }
+    fetchHostProfile();
+  }, [property?.manager_id]);
+
   const isSaved = savedProperties.includes(property.id);
 
   // Gallery State
@@ -68,15 +104,13 @@ export const Details: React.FC = () => {
   const [descExpanded, setDescExpanded] = useState(false);
   const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living.`;
 
-  const [activeRoomMode, setActiveRoomMode] = useState<
-    "single" | "double" | "quad"
-  >("single");
+  const [activeRoomMode, setActiveRoomMode] = useState<number>(0);
 
   // Modals
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
-  const rooms = {
-    single: {
+  const fallbackRooms = [
+    {
       name: "Private Single Suite",
       size: "12 m²",
       occ: "1 occupant",
@@ -86,7 +120,7 @@ export const Details: React.FC = () => {
       availClass: "bg-green-100 text-green-700",
       img: property.images?.[0] || property.img,
     },
-    double: {
+    {
       name: "Shared Double Unit",
       size: "18 m²",
       occ: "2 occupants",
@@ -96,7 +130,7 @@ export const Details: React.FC = () => {
       availClass: "bg-amber-100 text-amber-700",
       img: property.images?.[1] || property.img,
     },
-    quad: {
+    {
       name: "Quad Dorm Room",
       size: "28 m²",
       occ: "4 occupants",
@@ -106,9 +140,22 @@ export const Details: React.FC = () => {
       availClass: "bg-green-100 text-green-700",
       img: property.images?.[2] || property.img,
     },
-  };
+  ];
 
-  const selectedRoom = rooms[activeRoomMode];
+  const roomsToDisplay = property.rooms && property.rooms.length > 0 
+    ? property.rooms.map((r: any, idx: number) => ({
+        name: r.room_type || r.name || `Room ${idx + 1}`,
+        size: r.size || "Standard size",
+        occ: r.capacity || r.occupantsPerRoom ? `${r.capacity || r.occupantsPerRoom} occupant(s)` : "Unknown capacity",
+        bed: r.bed || `${r.capacity || r.occupantsPerRoom || 1} bed(s)`,
+        price: r.price ? `GH₵${r.price}` : "Price unknown",
+        avail: r.quantity ? `${r.quantity} space(s) left` : "Available",
+        availClass: "bg-green-100 text-green-700",
+        img: r.image_url || property.images?.[idx] || property.images?.[0] || property.img,
+      }))
+    : fallbackRooms;
+
+  const selectedRoom = roomsToDisplay[activeRoomMode] || roomsToDisplay[0];
 
   return (
     <div className="flex-1 w-full bg-slate-100 relative flex flex-col md:overflow-y-auto">
@@ -155,7 +202,7 @@ export const Details: React.FC = () => {
                 setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
             }}
           >
-            {(property.images || []).map((src, i) => (
+            {(property.images?.length ? property.images : [property.img]).map((src, i) => (
               <div key={i} className="min-w-full h-full snap-start relative">
                 <img src={src} className="w-full h-full object-cover" />
               </div>
@@ -186,7 +233,7 @@ export const Details: React.FC = () => {
           <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
 
           <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
-            {(property.images || []).map((src, i) => (
+            {(property.images?.length ? property.images : [property.img]).map((src, i) => (
               <div
                 key={i}
                 className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
@@ -204,7 +251,7 @@ export const Details: React.FC = () => {
               </div>
             ))}
             {property.panoramas && property.panoramas.length > 0 ? property.panoramas.map((pano, j) => {
-              const i = (property.images?.length || 0) + j;
+              const i = (property.images?.length || 1) + j;
               return (
                 <div
                   key={`pano-thumb-${j}`}
@@ -225,10 +272,10 @@ export const Details: React.FC = () => {
             }) : (
               <div
                   key="pano-thumb-fallback"
-                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 0) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
+                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 1) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
                   onClick={() =>
                     trackRef.current?.scrollTo({
-                      left: (property.images?.length || 0) * (trackRef.current?.clientWidth || 0),
+                      left: (property.images?.length || 1) * (trackRef.current?.clientWidth || 0),
                       behavior: "smooth",
                     })
                   }
@@ -241,7 +288,7 @@ export const Details: React.FC = () => {
           </div>
 
           <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-            {currentImg + 1} / {(property.images?.length || 0) + Math.max((property.panoramas?.length || 0), 1)}
+            {currentImg + 1} / {(property.images?.length || 1) + Math.max((property.panoramas?.length || 0), 1)}
           </div>
         </div>
 
@@ -280,6 +327,24 @@ export const Details: React.FC = () => {
           <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
             <MapPin size={14} className="text-[var(--color-accent)] shrink-0" />
             <span>{property.loc}</span>
+          </div>
+
+          {/* Map View */}
+          <div className="h-[200px] bg-slate-200 rounded-[20px] mb-8 overflow-hidden shadow-sm relative z-0">
+            <MapContainer 
+              center={[property.lat || 5.6506, property.lng || -0.1870]} 
+              zoom={14} 
+              className="w-full h-full z-0" 
+              zoomControl={false}
+            >
+              <TileLayer
+                url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+                attribution="Google Maps"
+              />
+              <Marker position={[property.lat || 5.6506, property.lng || -0.1870]} icon={mapIcon}>
+                 <Popup>{property.name}</Popup>
+              </Marker>
+            </MapContainer>
           </div>
 
           {/* Stats */}
@@ -324,29 +389,40 @@ export const Details: React.FC = () => {
             Listed by
           </h2>
           <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
-            <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-lg">
-              C
-            </div>
+            {hostProfile?.avatar_url ? (
+              <img 
+                 src={hostProfile.avatar_url} 
+                 alt="Host avatar" 
+                 className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full object-cover" 
+              />
+            ) : (
+              <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-lg uppercase">
+                {hostProfile?.full_name ? hostProfile.full_name.substring(0, 1) : "H"}
+              </div>
+            )}
             <div className="flex-1 min-w-0 pr-1">
               <strong className="block text-[0.85rem] sm:text-[0.95rem] font-bold text-text-primary truncate">
-                Mr. Carter
+                {hostProfile?.full_name || "Hostel Admin"}
               </strong>
               <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted font-medium flex items-center gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
-                <ShieldCheck size={12} className="text-teal shrink-0" /> Verified Landlord
+                {hostProfile?.role === 'student' ? null : <ShieldCheck size={12} className="text-teal shrink-0" />} 
+                {hostProfile?.role === 'accommodation_owner' ? 'Verified Owner' : hostProfile?.role === 'student' ? 'Student' : 'Property Manager'}
               </span>
               <div className="inline-block mt-0.5 sm:mt-1 bg-teal-50 text-teal-600 text-[0.6rem] sm:text-[0.65rem] font-bold px-2 py-0.5 rounded-[5px] uppercase tracking-wide">
-                In 1 hr
+                Replies in 1 hr
               </div>
             </div>
             <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
                   <a
-                    href="tel:+233"
+                    href={`tel:${hostProfile?.phone || '+233550000000'}`}
                     className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-[var(--color-accent)] flex items-center justify-center transition-transform hover:bg-[var(--color-accent)] hover:text-white"
                   >
                     <Phone size={16} />
                   </a>
                   <a
-                    href="https://wa.me/233"
+                    href={`https://wa.me/${(hostProfile?.phone || '233550000000').replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)]/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-teal-600 hover:text-white"
                   >
                     <MessageCircle size={20} />
@@ -399,24 +475,15 @@ export const Details: React.FC = () => {
             Room Options
           </h2>
           <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
-            <button
-              onClick={() => setActiveRoomMode("single")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "single" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Single
-            </button>
-            <button
-              onClick={() => setActiveRoomMode("double")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "double" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Double
-            </button>
-            <button
-              onClick={() => setActiveRoomMode("quad")}
-              className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === "quad" ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-            >
-              Quad
-            </button>
+            {roomsToDisplay.map((room_item, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveRoomMode(index)}
+                className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === index ? "bg-[var(--color-accent)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
+              >
+                {room_item.name}
+              </button>
+            ))}
           </div>
 
           <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
@@ -467,10 +534,10 @@ export const Details: React.FC = () => {
         <div className="fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 md:pb-4 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)] md:rounded-b-2xl">
           <div>
             <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-              {property.price.split(',')[0]}K
+              {selectedRoom.price}
             </strong>
             <span className="block text-[0.7rem] text-text-muted font-bold uppercase tracking-[0.5px]">
-              Total Price
+              {property.pricing_tag || 'Total Price'}
             </span>
           </div>
           <button
