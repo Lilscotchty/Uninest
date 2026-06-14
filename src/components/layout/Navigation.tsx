@@ -30,8 +30,8 @@ export function Navigation() {
     <>
       {/* MOBILE: Bottom Tab Bar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 
-                      bg-card-bg border-t border-border-subtle 
-                      pt-2 pb-4">
+                      bg-card-bg/85 backdrop-blur-xl border-t border-border-subtle 
+                      pb-[max(env(safe-area-inset-bottom),0.5rem)]">
         <div className="flex items-center justify-around h-16">
           {NAV_ITEMS.map(item => (
             <NavLink
