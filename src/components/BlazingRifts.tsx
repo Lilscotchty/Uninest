@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Original effect: "Blazing Rifts" by Paul (prisoner849)
 // Licensed under MIT: https://codepen.io/prisoner849/pen/ZYBKmRN
 

@@ -44,9 +44,7 @@ export function RecentlyViewedStrip() {
         className="flex gap-4 overflow-x-auto px-4 sm:px-6 lg:px-8 hide-scrollbar pb-4 pt-2 items-stretch"
       >
         {stripItems.map((item) => (
-          <div key={item.id}>
-            <RecentlyViewedCard item={item} />
-          </div>
+          <RecentlyViewedCard key={item.id} item={item} />
         ))}
 
         {/* ── Premium "See more" end-cap card ── */}

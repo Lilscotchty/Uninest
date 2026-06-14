@@ -160,11 +160,6 @@ export function SignUp() {
   const navigate = useNavigate();
   const { showToast } = useAppContext();
 
-  const [searchParams] = useSearchParams();
-  const rawRole = searchParams.get('role') || 'student';
-  const role = rawRole === 'manager' ? 'manager' : 'student';
-  const referralCodeFromUrl = searchParams.get('ref') || '';
-
   // Sign-in form
   const signInForm = useForm<SignInData>({
     resolver: zodResolver(signInSchema),
@@ -173,10 +168,12 @@ export function SignUp() {
   // Sign-up form
   const signUpForm = useForm<SignUpData>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      referralCode: referralCodeFromUrl,
-    }
   });
+
+  
+  const [searchParams] = useSearchParams();
+  const rawRole = searchParams.get('role') || 'student';
+  const role = rawRole === 'manager' ? 'manager' : 'student';
 
   const onSignIn = async (data: SignInData) => {
     setLoading(true);
@@ -205,7 +202,7 @@ export function SignUp() {
   const onSignUp = async (data: SignUpData) => {
     setLoading(true);
     try {
-      const { error, data: authData } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
@@ -214,7 +211,6 @@ export function SignUp() {
             last_name: data.fullName.split(" ").slice(1).join(" ") || "",
             full_name: data.fullName,
             account_type: role,
-            referred_by: data.referralCode || null,
           }
         }
       });
@@ -225,11 +221,6 @@ export function SignUp() {
       } else {
         toast.success("Account created successfully!");
         showToast("Account created successfully!");
-        
-        // Mock rewarding the current user if they used a referral code
-        if (data.referralCode && authData.user) {
-           localStorage.setItem(`credits_${authData.user.id}`, '10');
-        }
         
         // Send welcome email
         fetch('/api/send-email', {

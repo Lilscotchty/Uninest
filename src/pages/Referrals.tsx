@@ -6,32 +6,28 @@ import { useAppContext } from '../context/AppContext';
 
 export const Referrals: React.FC = () => {
   const navigate = useNavigate();
-  const { showToast, referralCode, earnedCredits, earnedCash, referees } = useAppContext();
+  const { showToast } = useAppContext();
   const [copied, setCopied] = useState(false);
   
-  // Real code generated from user ID
-  const displayReferralCode = referralCode || "SIGN-IN-REQUIRED";
+  const referralCode = "ROOMIE2024"; // Mock code for prototype
+  const earnedCredits = 15; // Mock earned credits
 
   const handleCopy = () => {
-    if (!referralCode) return;
-    navigator.clipboard.writeText(displayReferralCode);
+    navigator.clipboard.writeText(referralCode);
     setCopied(true);
     showToast("Referral code copied!");
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleShare = () => {
-    if (!referralCode) return;
-    const shareUrl = `${window.location.origin}/signup?ref=${displayReferralCode}`;
     if (navigator.share) {
       navigator.share({
         title: 'Join me on this housing app!',
-        text: `Use my code ${displayReferralCode} to sign up and we both get credits!`,
-        url: shareUrl,
+        text: `Use my code ${referralCode} to sign up and we both get credits!`,
+        url: window.location.origin,
       }).catch(console.error);
     } else {
-      navigator.clipboard.writeText(shareUrl);
-      showToast("Referral link copied!");
+      handleCopy();
     }
   };
 
@@ -61,22 +57,20 @@ export const Referrals: React.FC = () => {
           <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm mb-6 flex flex-col items-center">
             <span className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-3">Your Unique Code</span>
             <div className="flex items-center justify-center gap-3 w-full bg-[var(--color-surface-2)] tracking-widest text-2xl font-black text-text-primary rounded-xl py-4 px-4 border border-[var(--color-border)] border-dashed">
-              <span>{displayReferralCode}</span>
+              <span>{referralCode}</span>
             </div>
             
             <div className="flex gap-4 w-full mt-6">
               <button 
                 onClick={handleCopy}
-                disabled={!referralCode}
-                className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-surface)] border border-border-subtle rounded-xl py-3 text-text-primary font-semibold hover:bg-[var(--color-surface-2)] disabled:opacity-50 transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-surface)] border border-border-subtle rounded-xl py-3 text-text-primary font-semibold hover:bg-[var(--color-surface-2)] transition-colors"
               >
                 {copied ? <Check size={18} className="text-emerald-500" /> : <Copy size={18} />}
                 {copied ? 'Copied' : 'Copy Code'}
               </button>
               <button 
                 onClick={handleShare}
-                disabled={!referralCode}
-                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white rounded-xl py-3 font-semibold hover:bg-emerald-700 disabled:opacity-50 transition-colors shadow-sm"
+                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white rounded-xl py-3 font-semibold hover:bg-emerald-700 transition-colors shadow-sm"
               >
                 <Share2 size={18} />
                 Share
@@ -95,7 +89,7 @@ export const Referrals: React.FC = () => {
                 <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Credits Earned</span>
               </div>
               <div className="bg-[var(--color-surface)] rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-border-subtle">
-                <span className="text-3xl font-black text-[var(--color-accent)] mb-1">₵{earnedCash.toFixed(2)}</span>
+                <span className="text-3xl font-black text-[var(--color-accent)] mb-1">₵4.00</span>
                 <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Cash Earned</span>
               </div>
             </div>
@@ -103,38 +97,39 @@ export const Referrals: React.FC = () => {
 
           <div className="mt-8 mb-4 px-2">
             <h3 className="font-bold text-text-primary text-lg mb-4">Referral History</h3>
-            
-            {referees.length === 0 ? (
-              <div className="text-center py-8 bg-card-bg/50 rounded-xl border border-border-subtle">
-                <p className="text-sm text-text-muted">No referrals yet. Share your code to get started!</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {referees.map((ref, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-4 bg-card-bg/50 rounded-xl border border-border-subtle">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] flex items-center justify-center text-text-secondary font-bold">
-                        {ref.name.substring(0, 2).toUpperCase()}
-                      </div>
-                      <div>
-                        <p className="font-bold text-text-primary text-sm">{ref.name}</p>
-                        <p className={`text-xs font-medium px-2 py-0.5 rounded-full inline-block mt-0.5 ${ref.status === 'Completed' ? 'text-emerald-600 bg-emerald-100' : 'text-amber-600 bg-amber-100'}`}>
-                          {ref.status}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      {ref.amount ? (
-                        <p className="font-bold text-text-primary">+ GH₵ {ref.amount.toFixed(2)}</p>
-                      ) : (
-                        <p className="font-bold text-text-primary">+10 Credits</p>
-                      )}
-                      <p className="text-xs text-text-muted mt-0.5">{ref.date}</p>
-                    </div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-card-bg/50 rounded-xl border border-border-subtle">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold overflow-hidden shadow-sm">
+                     <img src="https://loremflickr.com/100/100/face,woman?lock=4" alt="user" className="w-full h-full object-cover" />
                   </div>
-                ))}
+                  <div>
+                    <p className="font-bold text-text-primary text-sm">Sarah J.</p>
+                    <p className="text-xs text-emerald-600 font-medium bg-emerald-100 px-2 py-0.5 rounded-full inline-block mt-0.5">Completed</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-text-primary">+10 Credits</p>
+                  <p className="text-xs text-text-muted mt-0.5">Oct 24, 2024</p>
+                </div>
               </div>
-            )}
+              
+              <div className="flex items-center justify-between p-4 bg-card-bg/50 rounded-xl border border-border-subtle">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] flex items-center justify-center text-text-secondary font-bold">
+                    MK
+                  </div>
+                  <div>
+                    <p className="font-bold text-text-primary text-sm">Michael K.</p>
+                    <p className="text-xs text-amber-600 font-medium bg-amber-100 px-2 py-0.5 rounded-full inline-block mt-0.5">Pending Booking</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-text-muted">--</p>
+                  <p className="text-xs text-text-muted mt-0.5">Nov 2, 2024</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

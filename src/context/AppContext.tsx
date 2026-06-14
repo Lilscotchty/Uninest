@@ -24,16 +24,6 @@ interface AppContextType extends AppState, ViewState {
   toggleFullscreen: () => void;
   exitFullscreen: () => void;
   
-  // Payment & Referral additions
-  hasPaidOpportunityHub: boolean;
-  setHasPaidOpportunityHub: (val: boolean) => void;
-  earnedCredits: number;
-  setEarnedCredits: React.Dispatch<React.SetStateAction<number>>;
-  earnedCash: number;
-  setEarnedCash: React.Dispatch<React.SetStateAction<number>>;
-  referralCode: string;
-  referees: { name: string; status: string; date: string; amount?: number }[];
-  
   // Auth additions
   profile: UserProfile | null;
   profileLoading: boolean;
@@ -61,20 +51,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
 
-  // Payment & Referral states
-  const [hasPaidOpportunityHub, setHasPaidOpportunityHubState] = useState(false);
-  const [earnedCredits, setEarnedCredits] = useState(0);
-  const [earnedCash, setEarnedCash] = useState(0);
-  const [referralCode, setReferralCode] = useState('');
-  const [referees, setReferees] = useState<{ name: string; status: string; date: string; amount?: number }[]>([]);
-
-  const setHasPaidOpportunityHub = (val: boolean) => {
-    setHasPaidOpportunityHubState(val);
-    if (user) {
-      localStorage.setItem(`paid_opp_hub_${user.id}`, val ? 'true' : 'false');
-    }
-  };
-
   const fetchProfile = async (userId: string) => {
     setProfileLoading(true);
     const { data, error } = await supabase
@@ -89,75 +65,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
-        const code = session.user.id.substring(0, 8).toUpperCase();
-        setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
-        setReferralCode(code);
-        setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
-        setEarnedCash(
-          Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
-          Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
-        );
-        let baselineRefs: any[] = [];
-        let codeRefs: any[] = [];
-        try {
-          const v1 = localStorage.getItem(`referees_${session.user.id}`);
-          if (v1 && v1 !== 'undefined') {
-            const parsed = JSON.parse(v1);
-            if (Array.isArray(parsed)) baselineRefs = parsed;
-          }
-        } catch(e) {}
-        try {
-          const v2 = localStorage.getItem(`referees_by_code_${code}`);
-          if (v2 && v2 !== 'undefined') {
-            const parsed = JSON.parse(v2);
-            if (Array.isArray(parsed)) codeRefs = parsed;
-          }
-        } catch(e) {}
-        
-        const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t?.name === value?.name)
-        );
-        setReferees(uniqueRefs);
-      }
+      if (session?.user) fetchProfile(session.user.id);
       else setProfileLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
-        const code = session.user.id.substring(0, 8).toUpperCase();
-        setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
-        setReferralCode(code);
-        setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
-        setEarnedCash(
-          Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
-          Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
-        );
-        let baselineRefs: any[] = [];
-        let codeRefs: any[] = [];
-        try {
-          const v1 = localStorage.getItem(`referees_${session.user.id}`);
-          if (v1 && v1 !== 'undefined') {
-            const parsed = JSON.parse(v1);
-            if (Array.isArray(parsed)) baselineRefs = parsed;
-          }
-        } catch(e) {}
-        try {
-          const v2 = localStorage.getItem(`referees_by_code_${code}`);
-          if (v2 && v2 !== 'undefined') {
-            const parsed = JSON.parse(v2);
-            if (Array.isArray(parsed)) codeRefs = parsed;
-          }
-        } catch(e) {}
-
-        const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t?.name === value?.name)
-        );
-        setReferees(uniqueRefs);
-      }
+      if (session?.user) fetchProfile(session.user.id);
       else {
         setProfile(null);
         setProfileLoading(false);
@@ -166,15 +80,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     return () => subscription.unsubscribe();
   }, []);
-
-  // Sync earned credits/cash with local storage manually for mock
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem(`credits_${user.id}`, earnedCredits.toString());
-      localStorage.setItem(`cash_${user.id}`, earnedCash.toString());
-      localStorage.setItem(`referees_${user.id}`, JSON.stringify(referees));
-    }
-  }, [earnedCredits, earnedCash, referees, user]);
 
   const updateRole = async (role: UserRole, ownerType?: string) => {
     if (!user) return;
@@ -336,14 +241,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         isStudent: isStudentUser,
         isAccommodationOwner,
         isPropertyOwnerUser,
-        hasPaidOpportunityHub,
-        setHasPaidOpportunityHub,
-        earnedCredits,
-        setEarnedCredits,
-        earnedCash,
-        setEarnedCash,
-        referralCode,
-        referees,
       }}
     >
       {children}

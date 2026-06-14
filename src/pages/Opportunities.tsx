@@ -12,13 +12,10 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { Toast } from '../components/Toast';
 
 export const Opportunities: React.FC = () => {
-  const { user, showToast, hasPaidOpportunityHub, setHasPaidOpportunityHub } = useAppContext();
+  const { user, showToast } = useAppContext();
   const navigate = useNavigate();
   
   const [showLocationPrompt, setShowLocationPrompt] = useState(false);
-  const [showPaymentPrompt, setShowPaymentPrompt] = useState(false);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  
   const [location, setLocation] = useState<StudentLocation | null>(null);
   const [selectedSector, setSelectedSector] = useState<CompanySector | 'all'>('all');
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
@@ -50,9 +47,6 @@ export const Opportunities: React.FC = () => {
         try {
           const results = await fetchAndFilterCompaniesByProximity(location.resolvedCity, selectedSector);
           setFilteredCompanies(results);
-          if (results.length > 0 && !hasPaidOpportunityHub) {
-            setShowPaymentPrompt(true);
-          }
         } catch (err) {
           console.error("Failed to load companies", err);
         } finally {
@@ -99,13 +93,7 @@ export const Opportunities: React.FC = () => {
         <OpportunitiesMap 
           companies={filteredCompanies} 
           location={location} 
-          onCompanySelect={(c) => {
-            if (!hasPaidOpportunityHub) {
-              setShowPaymentPrompt(true);
-            } else {
-              setSelectedCompany(c);
-            }
-          }} 
+          onCompanySelect={setSelectedCompany} 
         />
 
         {/* Sector Filters & Results Overlay */}
@@ -206,71 +194,8 @@ export const Opportunities: React.FC = () => {
         </div>
       )}
 
-      {/* Payment Modal */}
-      {showPaymentPrompt && (
-        <div className="absolute inset-0 z-[2000] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => navigate(-1)} />
-          <div className="relative bg-[var(--color-card-bg)] shadow-2xl rounded-3xl p-6 md:p-8 max-w-sm w-full text-center animate-in zoom-in-95 duration-300 border border-[var(--color-border)]">
-            <div className="w-16 h-16 bg-[var(--color-accent-muted)] text-[var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Briefcase size={32} />
-            </div>
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Unlock Opportunity Hub</h2>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
-              We found <b>{filteredCompanies.length}</b> opportunities near you! Pay a one-time fee of <b>GH₵ 5.00</b> to unlock company names, exact locations, and direct contact details.
-            </p>
-            
-            <button 
-              onClick={() => {
-                setIsProcessingPayment(true);
-                setTimeout(() => {
-                  setHasPaidOpportunityHub(true);
-                  setIsProcessingPayment(false);
-                  setShowPaymentPrompt(false);
-                  showToast("Payment Successful! Opportunity Hub unlocked.");
-
-                  // Simulate rewarding referrer if this user was referred
-                  if (user && user.user_metadata?.referred_by) {
-                     const referrerCode = user.user_metadata.referred_by;
-                     console.log(`Referrer with code ${referrerCode} earned 1 GHC!`);
-                     
-                     // In our mock, the referralCode is `user.id.substring(0, 8).toUpperCase()`. 
-                     // We can't trivially find user.id from the code if we don't have a DB query.
-                     // But if the user is using the app locally in one browser, we can just save it 
-                     // using the referralCode as a key as a hacky way to mock it across tabs.
-                     // A real app would query: UPDATE profiles SET cash = cash + 1 WHERE referral_code = referrerCode
-                     const currentCash = Number(localStorage.getItem(`cash_by_code_${referrerCode}`) || '0');
-                     localStorage.setItem(`cash_by_code_${referrerCode}`, (currentCash + 1).toString());
-                     
-                     let refs = [];
-                     try {
-                       const v = localStorage.getItem(`referees_by_code_${referrerCode}`);
-                       if (v && v !== 'undefined') refs = JSON.parse(v);
-                       if (!Array.isArray(refs)) refs = [];
-                     } catch(e) {}
-                     refs.push({ name: user.user_metadata.full_name || 'Referred Friend', status: 'Completed', date: new Date().toLocaleDateString(), amount: 1 });
-                     localStorage.setItem(`referees_by_code_${referrerCode}`, JSON.stringify(refs));
-                  }
-                }, 1500);
-              }}
-              disabled={isProcessingPayment}
-              className="w-full py-3.5 bg-[var(--color-accent)] text-white font-bold rounded-xl hover:bg-[var(--color-accent-hover)] transition-all flex items-center justify-center disabled:opacity-70 disabled:cursor-wait mb-3"
-            >
-              {isProcessingPayment ? (
-                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : "Pay GH₵ 5.00 Now"}
-            </button>
-            <button 
-              onClick={() => navigate(-1)}
-              className="text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors p-2"
-            >
-              Maybe Later
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Selected Company Map Card Popup */}
-      {selectedCompany && hasPaidOpportunityHub && (
+      {selectedCompany && (
         <div className="absolute left-4 right-4 z-[1050] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] flex justify-center opacity-100 translate-y-[-20px] bottom-0 pointer-events-auto">
           <div className="relative w-full max-w-[400px]">
             <button 

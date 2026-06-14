@@ -46,9 +46,10 @@ export function RecentlyViewedPage() {
   const groups = groupByDay(allItems);
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)]">
+    <div className="min-h-screen bg-offwhite dark:bg-customDark">
       <PageHeader 
         title="Recently Viewed"
+        subtitle={hasItems ? `${allItems.length} ${allItems.length === 1 ? "property" : "properties"}` : undefined}
         showBackButton={true}
         onBack={() => navigate(-1)}
         rightAction={

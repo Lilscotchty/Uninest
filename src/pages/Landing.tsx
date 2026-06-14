@@ -116,6 +116,7 @@ export function Landing() {
                   src={slide.videoSrc}
                   isActive={isActive}
                   onEnded={isActive ? handleVideoEnded : undefined}
+                  key={slide.id}
                 />
                 
                 {/* Fallback gradient if video is not present or loading */}
