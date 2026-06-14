@@ -15,9 +15,14 @@ const NAV_ITEMS = [
 ];
 
 export function Navigation() {
-  const { user } = useAppContext();
+  const { user, profile } = useAppContext();
   
-  if (!user || user.user_metadata?.account_type === 'manager') {
+  if (!user) return null;
+  
+  const role = profile?.role || user.user_metadata?.account_type || 'student';
+  const isManager = role === 'manager' || role === 'accommodation_owner' || role === 'property_owner';
+
+  if (isManager) {
     return null;
   }
 
