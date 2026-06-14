@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Eye, EyeOff, User, Lock, ArrowLeft } from "lucide-react";
+import { Mail, Eye, EyeOff, User, Lock, ArrowLeft, Gift } from "lucide-react";
 import { Facebook, Twitter, Linkedin, Apple, CheckCircle2 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
@@ -22,6 +22,7 @@ const signUpSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string(),
+  referralCode: z.string().optional(),
 }).refine((d) => d.password === d.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -448,6 +449,13 @@ export function SignUp() {
                     </button>
                   }
                   {...signUpForm.register("confirmPassword")}
+                />
+
+                <AuthInput
+                  icon={<Gift size={18} />}
+                  placeholder="Referral Code (Optional)"
+                  error={signUpForm.formState.errors.referralCode?.message}
+                  {...signUpForm.register("referralCode")}
                 />
 
                 <div className="pt-2">
