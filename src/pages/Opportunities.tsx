@@ -190,7 +190,7 @@ export const Opportunities: React.FC = () => {
             </p>
             <button 
               onClick={() => setShowLocationPrompt(true)}
-              className="px-6 py-2.5 bg-[#1c1c1e] text-white font-bold text-[0.85rem] rounded-full hover:bg-black transition-colors w-full"
+              className="px-6 py-2.5 bg-[#1c1c1e] text-white font-bold text-[0.85rem] rounded-full hover:bg-[var(--color-button-hover)] transition-colors w-full"
             >
               Try a different location
             </button>

@@ -393,7 +393,7 @@ const CreateReviewForm: React.FC<{
               type="checkbox"
               checked={formData.is_verified_tenant}
               onChange={(e) => setFormData({ ...formData, is_verified_tenant: e.target.checked })}
-              className="w-5 h-5 border-2 border-slate-200 rounded-md appearance-none checked:bg-slate-900 checked:border-slate-900 transition-colors cursor-pointer group-hover:border-slate-900"
+              className="w-5 h-5 border-2 border-slate-200 rounded-md appearance-none checked:bg-[var(--color-button)] checked:border-slate-900 transition-colors cursor-pointer group-hover:border-slate-900"
             />
             {formData.is_verified_tenant && (
               <CheckCircle size={14} className="absolute inset-0 m-auto text-white pointer-events-none" strokeWidth={3} />
@@ -422,7 +422,7 @@ const CreateReviewForm: React.FC<{
         <button
           type="submit"
           disabled={loading || !formData.title || !formData.content}
-          className="px-10 py-4 bg-slate-900 text-white font-bold text-[0.9rem] rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md flex items-center gap-2"
+          className="px-10 py-4 bg-[var(--color-button)] text-white font-bold text-[0.9rem] rounded-xl hover:bg-[var(--color-button-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md flex items-center gap-2"
         >
           {loading ? 'Posting...' : 'Submit Review'}
         </button>
@@ -503,7 +503,7 @@ export const PropertyReviews: React.FC = () => {
                       }
                       setShowCreateForm(true);
                     }}
-                    className="px-8 py-3.5 bg-slate-900 text-white rounded-xl font-bold text-[0.9rem] shadow-sm hover:bg-black transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
+                    className="px-8 py-3.5 bg-[var(--color-button)] text-white rounded-xl font-bold text-[0.9rem] shadow-sm hover:bg-[var(--color-button-hover)] transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
                   >
                     <MessageCircle size={18} />
                     Write a Review

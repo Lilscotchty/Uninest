@@ -103,7 +103,7 @@ export function OnboardingModal() {
                 }`}
               >
                 <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center flex-shrink-0 transition-colors ${
-                  selected ? 'bg-slate-900/10 text-[var(--color-accent)]' : 'bg-slate-100/5 text-text-muted border border-[var(--color-border)]'
+                  selected ? 'bg-[var(--color-button)]/10 text-[var(--color-accent)]' : 'bg-slate-100/5 text-text-muted border border-[var(--color-border)]'
                 }`}>
                   {roleIcons[role]}
                 </div>
@@ -118,7 +118,7 @@ export function OnboardingModal() {
                   </p>
                 </div>
                 <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
-                  selected ? 'bg-slate-900 scale-100' : 'border-2 border-[var(--color-border)] scale-90 opacity-40'
+                  selected ? 'bg-[var(--color-button)] scale-100' : 'border-2 border-[var(--color-border)] scale-90 opacity-40'
                 }`}>
                   {selected && <Check size={14} className="text-white" strokeWidth={3} />}
                 </div>
@@ -135,7 +135,7 @@ export function OnboardingModal() {
           className={`w-full h-[54px] rounded-xl font-bold text-[0.95rem] tracking-wide text-white flex items-center justify-center gap-2 transition-all duration-200 ${
             !selectedRole || saving 
               ? 'opacity-50 cursor-not-allowed bg-slate-700 border border-slate-600' 
-              : 'bg-slate-900 hover:opacity-90 active:scale-[0.98] shadow-[0_4px_20px_rgba(192,132,60,0.25)]'
+              : 'bg-[var(--color-button)] hover:opacity-90 active:scale-[0.98] shadow-[0_4px_20px_rgba(192,132,60,0.25)]'
           }`}
         >
           {saving ? (

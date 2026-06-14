@@ -190,7 +190,7 @@ export const Details: React.FC = () => {
             {/* 360 Slide */}
             {property.panoramas && property.panoramas.length > 0 ? (
                property.panoramas.map((pano, i) => (
-                <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-slate-900">
+                <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-[var(--color-button)]">
                     <Pannellum
                       width="100%"
                       height="100%"
@@ -203,7 +203,7 @@ export const Details: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-slate-900 group">
+              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-[var(--color-button)] group">
                   <BlazingRifts />
               </div>
             )}
@@ -260,7 +260,7 @@ export const Details: React.FC = () => {
                     })
                   }
                 >
-                  <div className="w-full h-full bg-slate-900 border border-slate-700 flex items-center justify-center text-white">
+                  <div className="w-full h-full bg-[var(--color-button)] border border-slate-700 flex items-center justify-center text-white">
                     <Video size={14} className="opacity-50" />
                   </div>
                 </div>
@@ -314,7 +314,7 @@ export const Details: React.FC = () => {
             className="h-[200px] bg-slate-200 rounded-[20px] mb-8 overflow-hidden shadow-sm relative z-0 cursor-pointer group"
             onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${property.lat || 5.6506},${property.lng || -0.1870}`, "_blank")}
           >
-            <div className="absolute inset-0 bg-transparent z-[1000] flex items-center justify-center transition-colors group-hover:bg-black/10">
+            <div className="absolute inset-0 bg-transparent z-[1000] flex items-center justify-center transition-colors group-hover:bg-[var(--color-button-hover)]/10">
               <div className="bg-white/90 backdrop-blur-sm text-text-primary px-4 py-2 rounded-full font-bold shadow-[0_4px_12px_rgba(0,0,0,0.1)] transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex items-center gap-2">
                 Open in Google Maps
               </div>
@@ -406,7 +406,7 @@ export const Details: React.FC = () => {
             <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
                   <a
                     href={`tel:${hostProfile?.phone || '+233550000000'}`}
-                    className="w-10 h-10 rounded-full bg-slate-800/20 text-slate-900 flex items-center justify-center transition-transform hover:bg-slate-900 hover:text-white"
+                    className="w-10 h-10 rounded-full bg-slate-800/20 text-slate-900 flex items-center justify-center transition-transform hover:bg-[var(--color-button)] hover:text-white"
                   >
                     <Phone size={16} />
                   </a>
@@ -414,7 +414,7 @@ export const Details: React.FC = () => {
                     href={`https://wa.me/${(hostProfile?.phone || '233550000000').replace(/[^0-9]/g, '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-slate-800/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-slate-900 hover:text-white"
+                    className="w-10 h-10 rounded-full bg-slate-800/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-[var(--color-button)] hover:text-white"
                   >
                     <MessageCircle size={20} />
                   </a>
@@ -470,7 +470,7 @@ export const Details: React.FC = () => {
               <button
                 key={index}
                 onClick={() => setActiveRoomMode(index)}
-                className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === index ? "bg-slate-900 text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
+                className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === index ? "bg-[var(--color-button)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
               >
                 {room_item.name}
               </button>
@@ -511,7 +511,7 @@ export const Details: React.FC = () => {
                 {/* NEW CHECKOUT BUTTON */}
                 <button
                   onClick={() => setBookingModalOpen(true)}
-                  className="px-5 py-2 bg-slate-900 text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform" >
+                  className="px-5 py-2 bg-[var(--color-button)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform" >
               
                   Checkout
                 </button>
@@ -533,7 +533,7 @@ export const Details: React.FC = () => {
           </div>
           <button
             onClick={() => setBookingModalOpen(true)}
-            className="px-8 py-3.5 bg-slate-900 text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
+            className="px-8 py-3.5 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
           >
             Request Room
           </button>
@@ -592,7 +592,7 @@ export const Details: React.FC = () => {
                   showToast("Room requested successfully!");
                   setBookingModalOpen(false);
                 }}
-                className="w-full py-3.5 bg-slate-900 text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:opacity-90 transition-opacity mt-4"
+                className="w-full py-3.5 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:opacity-90 transition-opacity mt-4"
               >
                 Submit Request
               </button>

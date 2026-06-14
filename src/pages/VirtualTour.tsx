@@ -42,12 +42,12 @@ export const VirtualTour: React.FC = () => {
               <div key={property.id} className="bg-card-bg rounded-[20px] overflow-hidden border-zinc-100 border transition-all shadow-sm flex flex-col cursor-pointer hover:-translate-y-1 hover:shadow-md group" onClick={() => setSelectedVideo(property.img)}>
                 <div className="relative h-[200px] w-full">
                   <img src={property.img} alt={property.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-[var(--color-button-hover)]/20 transition-colors">
                     <div className="w-14 h-14 bg-[var(--color-surface)]/20 backdrop-blur-md rounded-full border border-white/30 flex items-center justify-center text-white pl-1">
                       <Play size={24} fill="currentColor" />
                     </div>
                   </div>
-                  <div className="absolute top-3 left-3 bg-slate-900 text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
+                  <div className="absolute top-3 left-3 bg-[var(--color-button)] text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
                     Featured
                   </div>
                 </div>

@@ -129,7 +129,7 @@ export const Home: React.FC = () => {
                 onClick={() => setActiveFilter(f.id)}
                 className={`flex flex-row items-center gap-1.5 shrink-0 px-4 py-2.5 rounded-full text-[0.85rem] font-medium transition-all border ${
                   activeFilter === f.id 
-                    ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-[0_4px_12px_var(--color-accent-muted)]' 
+                    ? 'bg-[var(--color-button)] text-white border-transparent shadow-[var(--shadow-button)]' 
                     : 'bg-card-bg text-text-secondary border-border-subtle hover:bg-[var(--color-surface-hover)] hover:text-text-primary'
                 }`}
               >
@@ -219,7 +219,7 @@ export const Home: React.FC = () => {
                           setSelectedPropertyId(feat.id);
                           navigate("/details");
                         }}
-                        className="w-full flex items-center justify-center gap-2 bg-[var(--color-surface-hover)] text-text-primary border border-border-subtle rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all hover:bg-slate-900 hover:text-white hover:border-[var(--color-accent)] active:scale-[0.98]"
+                        className="w-full flex items-center justify-center gap-2 bg-[var(--color-surface-hover)] text-text-primary border border-border-subtle rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all hover:bg-[var(--color-button)] hover:text-white hover:border-[var(--color-accent)] active:scale-[0.98]"
                       >
                         {feat.action} <ArrowRight size={16} />
                       </button>
@@ -231,7 +231,7 @@ export const Home: React.FC = () => {
               {/* Carousel Indicators */}
               <div className="flex justify-center gap-1.5 mt-1 mb-2">
                 {featuredProperties.map((_, i) => (
-                  <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-6 bg-slate-900' : 'w-1.5 bg-border-subtle'}`} />
+                  <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-6 bg-[var(--color-button)]' : 'w-1.5 bg-border-subtle'}`} />
                 ))}
               </div>
             </div>

@@ -20,7 +20,7 @@ export const OpportunitiesSection: React.FC = () => {
           </div>
         </div>
         <button 
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white text-[0.8rem] font-bold rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-button)] text-white text-[0.8rem] font-bold rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
         >
           Find <ArrowRight size={14} />
         </button>

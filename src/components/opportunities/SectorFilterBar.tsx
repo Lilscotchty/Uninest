@@ -30,7 +30,7 @@ export const SectorFilterBar: React.FC<SectorFilterBarProps> = ({ selectedSector
               onClick={() => onSelect(sector.id)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.85rem] font-bold transition-all whitespace-nowrap ${
                 isSelected 
-                  ? 'bg-slate-900 text-white shadow-sm' 
+                  ? 'bg-[var(--color-button)] text-white shadow-sm' 
                   : 'bg-app-bg text-text-muted hover:bg-slate-200'
               }`}
             >

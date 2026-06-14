@@ -98,7 +98,7 @@ export const Profile: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
             <button 
               onClick={() => handleAction('Edit Cover Photo')}
-              className="absolute top-3 right-3 w-8 h-8 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+              className="absolute top-3 right-3 w-8 h-8 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-[var(--color-button-hover)]/50 transition-colors"
             >
               <PenLine size={14} className="stroke-[2.5]" />
             </button>
@@ -109,7 +109,7 @@ export const Profile: React.FC = () => {
             <div className="flex justify-between items-start mb-2">
               <div className="relative -mt-[48px]">
                 {/* Avatar */}
-                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-slate-900/10">
+                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-[var(--color-button)]/10">
                   <img 
                     src={user?.user_metadata?.avatar_url || "https://loremflickr.com/200/200/face,smiling?lock=300"} 
                     alt={fullName} 
@@ -127,7 +127,7 @@ export const Profile: React.FC = () => {
               {/* Edit Profile Button */}
               <button 
                 onClick={() => handleAction('Edit Profile')}
-                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-[var(--color-accent)] hover:bg-slate-900/5 flex items-center justify-center transition-colors"
+                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-[var(--color-accent)] hover:bg-[var(--color-button)]/5 flex items-center justify-center transition-colors"
               >
                 <PenLine size={18} />
               </button>

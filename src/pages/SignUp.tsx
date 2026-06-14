@@ -138,7 +138,7 @@ function PrimaryBtn({ children, loading, className = "", ...rest }: { children: 
     <button
       {...rest}
       disabled={loading || rest.disabled}
-      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer bg-slate-900 text-white shadow-sm ${className}`}
+      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer bg-[var(--color-button)] text-white shadow-sm ${className}`}
     >
       {loading ? (
         <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

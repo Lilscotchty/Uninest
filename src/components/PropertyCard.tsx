@@ -102,7 +102,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
             
             <button 
               onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
-              className="absolute top-3.5 right-3.5 bg-white/90 backdrop-blur-md text-text-primary w-[34px] h-[34px] rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-slate-900 hover:text-white shadow-sm z-10 hover:scale-110 active:scale-95"
+              className="absolute top-3.5 right-3.5 bg-white/90 backdrop-blur-md text-text-primary w-[34px] h-[34px] rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-[var(--color-button)] hover:text-white shadow-sm z-10 hover:scale-110 active:scale-95"
             >
               <Heart size={16} className={`transition-colors duration-200 ${isSaved ? 'text-[var(--color-accent)] fill-[var(--color-accent)]' : 'fill-transparent'}`} />
             </button>
@@ -199,7 +199,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
 
           <button 
             onClick={(e) => { e.stopPropagation(); handleCardClick(); }}
-            className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-accent)] border-[1.5px] border-[var(--color-accent)] bg-transparent rounded-[10px] text-center cursor-pointer font-bold transition-colors duration-300 hover:bg-[var(--color-accent-muted)] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
+            className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-button-text)] bg-[var(--color-button)] rounded-[10px] text-center cursor-pointer font-bold transition-all duration-300 border-none shadow-sm hover:bg-[var(--color-button-hover)] hover:scale-[1.01] active:scale-[0.98] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
             View Details
           </button>
         </div>

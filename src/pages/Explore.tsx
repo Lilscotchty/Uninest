@@ -167,7 +167,7 @@ export const Explore: React.FC = () => {
               key={filter}
               className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
-                  ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                  ? 'bg-[var(--color-button)] text-white border-transparent shadow-[var(--shadow-button)]' 
                   : 'bg-card-bg/90 backdrop-blur text-text-muted border-transparent hover:bg-card-bg'}`}
             >
               {filter}
@@ -214,7 +214,7 @@ export const Explore: React.FC = () => {
                  key={filter}
                  className={`shrink-0 px-4 py-1.5 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                    ${i === 0 
-                     ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                     ? 'bg-[var(--color-button)] text-white border-transparent shadow-[var(--shadow-button)]' 
                      : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
                >
                  {filter}

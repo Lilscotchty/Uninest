@@ -37,7 +37,7 @@ export function PricingTagSelector({ value, onChange, error }: Props) {
             onClick={() => onChange(tag)}
             className={`px-4 py-2.5 rounded-xl text-[0.85rem] font-bold border-2 transition-all duration-150 ${
               value === tag
-                ? 'border-[var(--color-accent)] bg-slate-900/10 text-[var(--color-accent)]'
+                ? 'border-[var(--color-accent)] bg-[var(--color-button)]/10 text-[var(--color-accent)]'
                 : 'border-[var(--color-border)] text-text-muted hover:border-slate-400'
             } active:scale-95`}
           >

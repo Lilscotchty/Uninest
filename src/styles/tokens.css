@@ -47,6 +47,12 @@
   --color-card-bg:      #ffffff;
   --color-input-bg:     #f8f9fa;
   --color-header-bg:    #ffffff;
+
+  /* ── Buttons ──────────────────────────────────────────────────────────── */
+  --color-button:       #0f172a;       /* slate-900 for light theme */
+  --color-button-hover: #000000;
+  --color-button-text:  #ffffff;
+  --shadow-button:      0 4px 12px rgba(15, 23, 42, 0.15);
 }
 
 /* ── DARK THEME ─────────────────────────────────────────────────────────── */
@@ -95,4 +101,10 @@
   --color-card-bg:      #1e1e1e;
   --color-input-bg:     #2a2a2a;
   --color-header-bg:    #1a1a1a;
+
+  /* ── Buttons ──────────────────────────────────────────────────────────── */
+  --color-button:       var(--color-accent);
+  --color-button-hover: var(--color-accent-hover);
+  --color-button-text:  #ffffff;
+  --shadow-button:      0 4px 12px var(--color-accent-muted);
 }

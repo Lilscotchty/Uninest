@@ -74,7 +74,7 @@ export const CompanyPopupCard: React.FC<CompanyPopupProps> = ({
           {company.phone && (
             <button
               onClick={() => onCall(company.phone!)}
-              className="flex-1 bg-slate-900 text-white font-bold text-[0.85rem] py-2.5 rounded-[12px] flex items-center justify-center gap-2 hover:bg-black transition-colors"
+              className="flex-1 bg-[var(--color-button)] text-white font-bold text-[0.85rem] py-2.5 rounded-[12px] flex items-center justify-center gap-2 hover:bg-[var(--color-button-hover)] transition-colors"
             >
               <Phone size={14} /> Call
             </button>
