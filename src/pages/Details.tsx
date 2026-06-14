@@ -138,41 +138,43 @@ export const Details: React.FC = () => {
   const selectedRoom = roomsToDisplay[activeRoomMode] || roomsToDisplay[0];
 
   return (
-    <div className="flex-1 w-full bg-slate-100 relative flex flex-col md:overflow-y-auto">
-      <div className="w-full max-w-screen-2xl mx-auto px-0 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-8 pt-0 md:pt-6">
+    <div className="flex-1 w-full bg-app-bg relative flex flex-col md:overflow-y-auto">
+      
+      {/* HEADER ACTIONS (Not floating on image) */}
+      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pt-4 md:pt-6 flex justify-between items-center z-10 shrink-0">
+        <button
+          onClick={() => navigate("/student/dashboard")}
+          className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        <div className="flex gap-2 items-center">
+          <button
+            onClick={() => toggleSave(property.id)}
+            className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+          >
+            {isSaved ? (
+              <Heart strokeWidth={2.5} className="text-coral" />
+            ) : (
+              <Heart strokeWidth={2.5} fill="none" color="currentColor" />
+            )}
+          </button>
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              showToast("Link copied!");
+            }}
+            className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+          >
+            <ArrowUpFromLine size={18} />
+          </button>
+        </div>
+      </div>
+
+      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-8 pt-4">
         {/* GALLERY */}
-        <div className="relative h-[380px] md:h-[500px] bg-black md:col-span-3 md:rounded-2xl overflow-hidden shadow-sm">
-          <div className="absolute top-6 left-5 right-5 flex justify-between items-center z-10">
-            <button
-              onClick={() => navigate("/student/dashboard")}
-              className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            <div className="flex gap-2.5 items-center">
-              <button
-                onClick={() => toggleSave(property.id)}
-                className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-              >
-                {isSaved ? (
-                  <Heart strokeWidth={2.5} className="text-coral" />
-                ) : (
-                  <Heart strokeWidth={2.5} fill="none" color="currentColor" />
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  showToast("Link copied!");
-                }}
-                className="w-11 h-11 rounded-full bg-card-bg/75 backdrop-blur-md flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-              >
-                <ArrowUpFromLine size={18} />
-              </button>
-            </div>
-          </div>
-
+        <div className="relative h-[340px] md:h-[500px] bg-black md:col-span-3 rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
           <div
             className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
             ref={trackRef}
@@ -272,30 +274,28 @@ export const Details: React.FC = () => {
           </div>
         </div>
 
-        {/* SHEET */}
-        <div className="bg-app-bg -mt-8 relative z-[5] rounded-t-[32px] pt-6 px-6 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] pb-10">
-          <div className="w-10 h-[5px] bg-slate-300 rounded-full mx-auto mb-5" />
-
+        {/* DETAILS SECTION */}
+        <div className="bg-transparent relative z-[5] w-full pb-10 flex flex-col md:col-span-3">
           {/* Tags */}
-          <div className="flex gap-2 mb-4 flex-wrap">
-            <span className="bg-teal-light text-teal text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] flex items-center gap-1">
-              <ShieldCheck size={12} /> Verified
+          <div className="flex gap-2.5 mb-5 flex-wrap">
+            <span className="bg-teal-light text-teal text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] flex items-center gap-1.5">
+              <ShieldCheck size={14} /> Verified
             </span>
-            <span className="bg-green-light text-green-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px] border border-green-200">
+            <span className="bg-green-light text-green-600 text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] border border-green-200">
               Rooms Available
             </span>
-            <span className="bg-amber-light text-amber-600 text-[0.65rem] sm:text-[0.68rem] font-bold px-2 py-1 sm:px-3 rounded-full uppercase tracking-[0.5px]">
+            <span className="bg-amber-light text-amber-600 text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px]">
               🔥 Popular Pick
             </span>
           </div>
 
-          <div className="flex justify-between items-start mb-2 gap-2">
-            <h1 className="text-[1.4rem] sm:text-[1.85rem] font-bold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
+          <div className="flex justify-between items-start mb-3 gap-4">
+            <h1 className="text-[1.6rem] sm:text-[2.2rem] font-bold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
               {property.name}
             </h1>
-            <div className="bg-card-bg border-transparent border shadow-sm rounded-xl px-2 py-1.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 shrink-0">
-              <Star size={14} className="fill-amber-400 text-amber-400" />
-              <strong className="text-[0.85rem] sm:text-[0.95rem] font-bold">
+            <div className="bg-card-bg border-border-subtle border shadow-sm rounded-xl px-3 py-2 sm:px-4 flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <Star size={16} className="fill-amber-400 text-amber-400" />
+              <strong className="text-[0.95rem] sm:text-[1.1rem] font-bold">
                 {property.rating}
               </strong>
               <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted">
