@@ -14,14 +14,14 @@ export const VirtualTour: React.FC = () => {
   const featuredTours = properties.slice(0, 3);
 
   return (
-    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative">
+    <div className="w-full flex-1 flex flex-col bg-app-bg font-sans relative">
       <PageHeader 
         title="Virtual Tours"
         showBackButton={true}
         onBack={() => navigate("/student/dashboard")}
       />
 
-      <div className="flex-1 w-full overflow-y-auto">
+      <div className="w-full pb-20">
         <div className="max-w-screen-xl mx-auto px-5 py-6">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-amber-light text-amber-500 rounded-[20px] flex items-center justify-center mx-auto mb-4">

@@ -25,7 +25,7 @@ export const Saved: React.FC = () => {
   });
 
   return (
-   <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans relative overflow-hidden overflow-y-auto">
+   <div className="w-full flex-1 flex flex-col bg-app-bg font-sans relative">
       <PageHeader 
         title="Saved" 
         tabs={[

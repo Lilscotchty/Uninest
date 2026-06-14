@@ -21,14 +21,14 @@ export const PriceAlerts: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex-1 min-h-0 bg-app-bg flex flex-col font-sans">
+    <div className="w-full flex-1 flex flex-col bg-app-bg font-sans">
       <PageHeader 
         title="Price Alerts"
         showBackButton={true}
         onBack={() => navigate("/student/dashboard")}
       />
 
-      <div className="flex-1 w-full overflow-y-auto">
+      <div className="w-full pb-20">
         <div className="max-w-screen-md mx-auto w-full px-5 py-6">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-teal-light text-teal-600 rounded-[20px] flex items-center justify-center mx-auto mb-4">

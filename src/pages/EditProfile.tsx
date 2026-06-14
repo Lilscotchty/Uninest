@@ -136,11 +136,10 @@ export const EditProfile: React.FC = () => {
   );
 
   return (
-    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="flex-1 w-full overflow-y-auto">
-        <div className="max-w-xl mx-auto w-full flex flex-col h-full">
-          <PageHeader 
-            title={isCompleting ? 'Complete Profile' : 'Personal Info'}
+    <div className="w-full flex flex-col bg-app-bg font-sans relative animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="max-w-xl mx-auto w-full flex flex-col flex-1">
+        <PageHeader 
+          title={isCompleting ? 'Complete Profile' : 'Personal Info'}
             showBackButton={!isCompleting}
             onBack={() => navigate(-1)}
           />
@@ -190,7 +189,6 @@ export const EditProfile: React.FC = () => {
             </form>
           </div>
         </div>
-      </div>
     </div>
   );
 };

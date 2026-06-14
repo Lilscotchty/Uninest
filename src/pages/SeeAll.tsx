@@ -26,13 +26,13 @@ export const SeeAll: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-app-bg">
+    <div className="flex flex-col flex-1 bg-app-bg w-full">
       <PageHeader 
         title={title}
         showBackButton={true}
         onBack={() => navigate(-1)}
       />
-      <div className="flex-1 overflow-y-auto p-4 sm:p-6 pb-20">
+      <div className="w-full p-4 sm:p-6 pb-20">
         <div className="max-w-screen-xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayProperties.map(property => (
             <PropertyCard 
