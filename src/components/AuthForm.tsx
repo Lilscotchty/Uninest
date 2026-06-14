@@ -257,7 +257,7 @@ export function AuthForm({ type }: AuthFormProps) {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] mt-2 flex justify-center items-center bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+          className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] mt-2 flex justify-center items-center bg-slate-900 hover:bg-black ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

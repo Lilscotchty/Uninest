@@ -427,7 +427,7 @@ export const ManagerDashboard: React.FC = () => {
 };
 
 const NavItem = ({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) => (
-  <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-semibold text-[0.9rem] ${active ? "bg-[var(--color-accent)] text-white shadow-sm" : "text-text-muted hover:bg-[var(--color-accent-muted)]/50 hover:text-text-primary"}`}>
+  <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-semibold text-[0.9rem] ${active ? "bg-slate-900 text-white shadow-sm" : "text-text-muted hover:bg-slate-800/50 hover:text-text-primary"}`}>
     {icon} {label}
   </button>
 );
@@ -443,7 +443,7 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
         <h1 className=" text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">Overview</h1>
         <p className="text-sm font-normal text-[var(--color-text-secondary)] mt-1">Manage your properties and track performance.</p>
       </div>
-      <button onClick={onAddNew} className="bg-[var(--color-accent)] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm hover:bg-[var(--color-accent)]/90 active:scale-95 transition-all flex items-center gap-2 justify-center w-full">
+      <button onClick={onAddNew} className="bg-slate-900 text-white font-bold px-5 py-2.5 rounded-xl shadow-sm hover:bg-slate-900/90 active:scale-95 transition-all flex items-center gap-2 justify-center w-full">
         <Plus size={18} /> New Listing
       </button>
     </div>
@@ -472,7 +472,7 @@ const Overview = ({ onAddNew, onEdit, onDelete, properties }: { onAddNew: () => 
                 <td className="py-4 text-sm font-normal text-[var(--color-text-secondary)]">{h.loc}</td>
                 <td className="py-4"><span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">published</span></td>
                 <td className="py-4 flex items-center justify-end gap-2">
-                  <button onClick={() => onEdit(h.id)} className="w-8 h-8 rounded-lg bg-[var(--color-accent-muted)]/30 text-[var(--color-accent)] flex items-center justify-center hover:bg-[var(--color-accent)] hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
+                  <button onClick={() => onEdit(h.id)} className="w-8 h-8 rounded-lg bg-[var(--color-accent-muted)]/30 text-[var(--color-accent)] flex items-center justify-center hover:bg-slate-900 hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
                   <button onClick={() => onDelete(h.id)} className="w-8 h-8 rounded-lg bg-coral/10 text-coral flex items-center justify-center hover:bg-coral hover:text-white transition-colors" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg></button>
                 </td>
               </tr>
@@ -663,13 +663,13 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
   return (
     <div className="p-6 flex flex-col gap-6 w-full mx-auto pb-20">
       <div className="flex items-center gap-3 mb-2">
-        <button onClick={onBack} className="text-text-muted hover:text-[var(--color-accent)]"><ChevronLeft size={20} /></button>
+        <button onClick={onBack} className="text-text-muted hover:text-slate-900"><ChevronLeft size={20} /></button>
         <h1 className=" text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">Add New Listing</h1>
       </div>
 
       <div className="flex gap-2 mb-2">
         {[1, 2, 3, 4].map((s) => (
-          <div key={s} className={`h-2 flex-1 rounded-full ${s <= step ? "bg-[var(--color-accent)]" : "bg-[var(--color-border)]"}`} />
+          <div key={s} className={`h-2 flex-1 rounded-full ${s <= step ? "bg-slate-900" : "bg-[var(--color-border)]"}`} />
         ))}
       </div>
 
@@ -701,7 +701,7 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
                   placeholder="e.g. GM-132-4567"
                   required
                 />
-                <button type="button" onClick={handleVerifyGPS} disabled={isVerifying || !formData.ghanaPostGPS} className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-bold px-4 rounded-xl text-sm whitespace-nowrap active:scale-95 disabled:opacity-50">
+                <button type="button" onClick={handleVerifyGPS} disabled={isVerifying || !formData.ghanaPostGPS} className="bg-slate-800 text-slate-900 font-bold px-4 rounded-xl text-sm whitespace-nowrap active:scale-95 disabled:opacity-50">
                   {isVerifying ? "Verifying…" : "Verify"}
                 </button>
               </div>
@@ -726,7 +726,7 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
 
             {/* ── Nearest campus badge ────────────────────────────────────── */}
             {formData.nearestCampus && (
-              <div className="flex items-start gap-3 bg-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 rounded-xl px-4 py-3 animate-in fade-in">
+              <div className="flex items-start gap-3 bg-slate-900/5 border border-[var(--color-accent)]/20 rounded-xl px-4 py-3 animate-in fade-in">
                 <Navigation size={16} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-0.5 min-w-0">
                   <span className="text-xs font-bold text-[var(--color-accent)] uppercase tracking-wide">Nearest Campus</span>
@@ -860,9 +860,9 @@ const CreateEditListing = ({ onBack, onSave, initialData }: { onBack: () => void
             {step === 1 ? "Cancel" : "Back"}
           </button>
           {step < 4 ? (
-            <button type="button" onClick={handleNext} className="bg-[var(--color-accent)] text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-[var(--color-accent)]/90 active:scale-95 transition-all">Next</button>
+            <button type="button" onClick={handleNext} className="bg-slate-900 text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-slate-900/90 active:scale-95 transition-all">Next</button>
           ) : (
-            <button type="submit" className="bg-emerald-600 text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-emerald-700 active:scale-95 transition-all flex items-center gap-2">
+            <button type="submit" className="bg-slate-900 text-white font-bold px-8 py-2.5 rounded-xl shadow-sm hover:bg-black active:scale-95 transition-all flex items-center gap-2">
               Publish <CheckCircle2 size={16} />
             </button>
           )}

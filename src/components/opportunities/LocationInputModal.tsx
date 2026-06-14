@@ -74,7 +74,7 @@ export const LocationInputModal: React.FC<LocationInputModalProps> = ({ onSave, 
             
             <button 
               type="submit"
-              className="w-full mt-4 bg-[var(--color-accent)] hover:opacity-90 text-white font-bold py-3.5 rounded-xl transition-all shadow-sm active:scale-[0.98]"
+              className="w-full mt-4 bg-slate-900 hover:opacity-90 text-white font-bold py-3.5 rounded-xl transition-all shadow-sm active:scale-[0.98]"
             >
               Find Opportunities
             </button>

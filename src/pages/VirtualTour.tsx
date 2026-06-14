@@ -47,7 +47,7 @@ export const VirtualTour: React.FC = () => {
                       <Play size={24} fill="currentColor" />
                     </div>
                   </div>
-                  <div className="absolute top-3 left-3 bg-[var(--color-accent)] text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
+                  <div className="absolute top-3 left-3 bg-slate-900 text-white text-[0.7rem] font-bold px-2 py-1 rounded-md uppercase">
                     Featured
                   </div>
                 </div>

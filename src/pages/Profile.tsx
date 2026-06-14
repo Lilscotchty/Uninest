@@ -109,7 +109,7 @@ export const Profile: React.FC = () => {
             <div className="flex justify-between items-start mb-2">
               <div className="relative -mt-[48px]">
                 {/* Avatar */}
-                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-[var(--color-accent)]/10">
+                <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-slate-900/10">
                   <img 
                     src={user?.user_metadata?.avatar_url || "https://loremflickr.com/200/200/face,smiling?lock=300"} 
                     alt={fullName} 
@@ -127,7 +127,7 @@ export const Profile: React.FC = () => {
               {/* Edit Profile Button */}
               <button 
                 onClick={() => handleAction('Edit Profile')}
-                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-[var(--color-accent)] hover:bg-[var(--color-accent)]/5 flex items-center justify-center transition-colors"
+                className="mt-3 w-8 h-8 rounded-full text-text-muted hover:text-[var(--color-accent)] hover:bg-slate-900/5 flex items-center justify-center transition-colors"
               >
                 <PenLine size={18} />
               </button>

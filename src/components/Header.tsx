@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
             <span className="text-sm font-semibold text-text-primary flex-1 truncate">Any duration</span>
             <div className="w-[1px] h-5 bg-border-subtle mx-3" />
             <span className="text-sm text-text-muted flex-1 truncate">Add filters</span>
-            <div className="w-8 h-8 rounded-full bg-[var(--color-accent)] flex items-center justify-center ml-2 text-white group-hover:scale-105 transition-transform shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center ml-2 text-white group-hover:scale-105 transition-transform shadow-sm">
               <Search size={14} strokeWidth={3} />
             </div>
           </div>

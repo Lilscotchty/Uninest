@@ -178,7 +178,7 @@ export const EditProfile: React.FC = () => {
                   type="submit"
                   disabled={isLoading}
                   className={`w-full text-white font-bold text-[0.95rem] py-4 rounded-[14px] shadow-lg transition-transform active:scale-[0.98] flex justify-center items-center gap-2 ${
-                    role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-teal-600' : 'bg-[var(--color-accent)] shadow-indigo/25 hover:bg-[var(--color-accent-hover)]'
+                    role === 'manager' ? 'bg-teal shadow-teal/25 hover:bg-slate-900' : 'bg-slate-900 shadow-indigo/25 hover:bg-black'
                   } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   {isLoading ? (

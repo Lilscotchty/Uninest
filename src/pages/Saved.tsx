@@ -55,7 +55,7 @@ export const Saved: React.FC = () => {
               key={filterItem}
               onClick={() => setActiveSavedFilter(filterKey)}
               className={`px-4 py-2 rounded-full border-[1.5px] text-xs font-semibold whitespace-nowrap cursor-pointer transition-all shadow-[0_2px_6px_rgba(0,0,0,0.03)]
-                ${isActive ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-float' : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'}`}
+                ${isActive ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-float' : 'bg-card-bg text-text-muted border-transparent hover:bg-app-bg'}`}
             >
               {filterItem}
             </button>
@@ -74,7 +74,7 @@ export const Saved: React.FC = () => {
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => navigate("/explore")}
-              className="bg-[var(--color-accent)] text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-[var(--color-accent)]-dark"
+              className="bg-slate-900 text-white border-none py-3 px-6 rounded-[14px] font-bold text-[0.95rem] shadow-float cursor-pointer transition-colors hover:bg-slate-900-dark"
             >
               Start Exploring
             </button>
@@ -96,7 +96,7 @@ export const Saved: React.FC = () => {
                     toggleSave(h.id);
                     showToast('Bookmark removed');
                   }}
-                  className="absolute top-3.5 right-3.5 bg-card-bg/85 backdrop-blur-md text-[var(--color-accent)] w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-[var(--color-accent)] hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
+                  className="absolute top-3.5 right-3.5 bg-card-bg/85 backdrop-blur-md text-[var(--color-accent)] w-9 h-9 rounded-full flex items-center justify-center border-none cursor-pointer transition-all hover:bg-slate-900 hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-10 group-active:scale-110"
                 >
                   <Bookmark size={18} fill="currentColor" />
                 </button>

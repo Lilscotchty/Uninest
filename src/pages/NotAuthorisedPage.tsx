@@ -38,7 +38,7 @@ export function NotAuthorisedPage() {
           <button
             type="button"
             onClick={() => navigate('/profile')}
-            className="h-[50px] rounded-[14px] bg-[var(--color-accent)] text-white text-[0.9rem] font-bold hover:opacity-90 active:scale-[0.98] transition-all"
+            className="h-[50px] rounded-[14px] bg-slate-900 text-white text-[0.9rem] font-bold hover:opacity-90 active:scale-[0.98] transition-all"
           >
             Update account type
           </button>

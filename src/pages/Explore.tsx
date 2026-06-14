@@ -167,7 +167,7 @@ export const Explore: React.FC = () => {
               key={filter}
               className={`whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                 ${i === 0 
-                  ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                  ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
                   : 'bg-card-bg/90 backdrop-blur text-text-muted border-transparent hover:bg-card-bg'}`}
             >
               {filter}
@@ -214,7 +214,7 @@ export const Explore: React.FC = () => {
                  key={filter}
                  className={`shrink-0 px-4 py-1.5 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
                    ${i === 0 
-                     ? 'bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
+                     ? 'bg-slate-900 text-white border-[var(--color-accent)] shadow-[0_4px_14px_rgba(55,48,163,0.35)]' 
                      : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
                >
                  {filter}
@@ -339,7 +339,7 @@ export const Explore: React.FC = () => {
         >
           <div className="flex justify-between items-center px-1 mb-4">
             <h2 className="text-[1.4rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
-            <button className="flex items-center gap-1.5 bg-[var(--color-accent-muted)] text-[var(--color-accent)] px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-[var(--color-accent-muted)]/80">
+            <button className="flex items-center gap-1.5 bg-slate-800 text-slate-900 px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-slate-800/80">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
             </button>

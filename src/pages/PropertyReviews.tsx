@@ -364,7 +364,7 @@ const CreateReviewForm: React.FC<{
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Sum up your experience in a few words"
           maxLength={100}
-          className="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-slate-50/50 hover:bg-slate-50 focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all outline-none font-medium placeholder:text-slate-400"
+          className="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-slate-50/50 text-slate-900 hover:bg-slate-50 focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all outline-none font-medium placeholder:text-slate-400"
           required
         />
       </div>
@@ -380,7 +380,7 @@ const CreateReviewForm: React.FC<{
           placeholder="What did you love? What could be better? Consider mentioning noise levels, management responsiveness, and cleanliness."
           rows={6}
           maxLength={2000}
-          className="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-slate-50/50 hover:bg-slate-50 focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all outline-none font-medium placeholder:text-slate-400 resize-y"
+          className="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-slate-50/50 text-slate-900 hover:bg-slate-50 focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all outline-none font-medium placeholder:text-slate-400 resize-y"
           required
         />
       </div>
@@ -449,7 +449,7 @@ export const PropertyReviews: React.FC = () => {
         rightAction={
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1 text-white hover:text-white/80 transition-colors font-bold text-[0.9rem]"
+            className="flex items-center gap-1 text-slate-900 hover:text-slate-600 transition-colors font-bold text-[0.9rem]"
           >
             <ChevronLeft size={18} />
             Back

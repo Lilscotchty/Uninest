@@ -138,7 +138,7 @@ function PrimaryBtn({ children, loading, className = "", ...rest }: { children: 
     <button
       {...rest}
       disabled={loading || rest.disabled}
-      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer bg-[var(--color-accent)] text-white shadow-sm ${className}`}
+      className={`w-full h-[52px] rounded-xl font-semibold text-[15px] tracking-wide transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-60 flex items-center justify-center cursor-pointer bg-slate-900 text-white shadow-sm ${className}`}
     >
       {loading ? (
         <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -363,11 +363,11 @@ export function SignUp() {
 
               <p className="text-center text-[11px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
                 By signing in, you agree to our{" "}
-                <a href="#" className="text-[var(--color-accent)] hover:underline">Terms of Use</a>
+                <a href="#" className="text-slate-900 hover:underline">Terms of Use</a>
                 {", "}
-                <a href="#" className="text-[var(--color-accent)] hover:underline">Privacy Policy</a>
+                <a href="#" className="text-slate-900 hover:underline">Privacy Policy</a>
                 {", and "}
-                <a href="#" className="text-[var(--color-accent)] hover:underline">Cookies Policy</a>.
+                <a href="#" className="text-slate-900 hover:underline">Cookies Policy</a>.
               </p>
 
               <p className="text-center text-[var(--color-text-secondary)] text-sm mt-4">
@@ -459,9 +459,9 @@ export function SignUp() {
 
               <p className="text-center text-[11px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
                 By creating an account, you agree to our{" "}
-                <a href="#" className="text-[var(--color-accent)] hover:underline">Terms of Use</a>
+                <a href="#" className="text-slate-900 hover:underline">Terms of Use</a>
                 {" and "}
-                <a href="#" className="text-[var(--color-accent)] hover:underline">Privacy Policy</a>.
+                <a href="#" className="text-slate-900 hover:underline">Privacy Policy</a>.
               </p>
 
               <p className="text-center text-[var(--color-text-secondary)] text-sm mt-4">
