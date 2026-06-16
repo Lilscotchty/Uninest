@@ -71,9 +71,10 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-0 sm:gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-4 sm:gap-6 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <div key={property.id} className="w-[220px] sm:w-[240px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            {/* RESOLVED HERE: Changed w-[240px] down to w-[200px] to match your updated PropertyCard */}
+            <div key={property.id} className="w-[200px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -242,7 +243,7 @@ export const Home: React.FC = () => {
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-4 pb-20">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-20">
           {(
             activeTab === 'nearby' ? properties.slice(0, 5) :
             activeTab === 'featured' ? properties.filter(p => ['1', '2', '3'].includes(p.id.toString())) :

@@ -208,12 +208,12 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         </div>
       </div>
 
-     {/* Desktop Simple View */}
+    {/* Desktop Simple View */}
 <div 
   onClick={handleCardClick}
   className="hidden md:flex flex-col cursor-pointer group w-max"
 >
-  {/* Square Image Container (Fixed to 240x240 as requested) */}
+  {/* Square Image Container (Your manual 200x200 and rounded-3xl kept) */}
   <div className="relative overflow-hidden rounded-3xl group w-[200px] h-[200px] shrink-0">
     <img 
       src={property.img} 
@@ -221,7 +221,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
     />
     
-    {/* Heart Icon Button (Repositioned and slightly larger for consistency) */}
+    {/* Heart Icon Button */}
     <button 
       onClick={(e) => {
         e.stopPropagation();
@@ -233,7 +233,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       <Heart size={20} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
     </button>
     
-    {/* White Glass Price Badge (Bottom Left, black text) */}
+    {/* White Glass Price Badge (Your bg-white/80 kept) */}
     <div className="absolute bottom-3.5 left-3.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <span className="font-sans text-[0.6rem] font-semibold tracking-wide uppercase">
         {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
@@ -243,7 +243,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       </span>
     </div>
 
-    {/* White Glass Review Badge (Moved to top left, black text, black star) */}
+    {/* White Glass Review Badge (Your bg-white/80 kept) */}
     <div className="absolute top-3.5 left-3.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <Star size={13} className="fill-black text-black" stroke="none" /> 
       <span className="text-[0.7rem] font-medium">
@@ -252,14 +252,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     </div>
   </div>
 
-  {/* Written Data Section (Width matched to image container, reasonable gap closed) */}
-  <div className="pt-2.5 px-2 w-[200px]">
-    <div className="flex justify-between items-start mb-0.5">
+  {/* Written Data Section (Width synced to 200px, internal gaps closed) */}
+  <div className="pt-1.5 px-1 w-[200px]">
+    <div className="flex justify-between items-start">
       <h3 className="text-[0.8rem] font-medium text-text-primary leading-tight truncate pr-2">
         {property.name}
       </h3>
     </div>
-    <div className="text-[0.8rem] text-text-muted flex items-center gap-1">
+    <div className="text-[0.8rem] text-text-muted flex items-center gap-0.5 mt-0.5">
         <MapPin size={11} className="shrink-0" />
         <span className="truncate">{property.loc}</span>
     </div>
