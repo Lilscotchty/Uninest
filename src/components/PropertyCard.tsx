@@ -134,76 +134,132 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   const isCompact = layout === 'compact';
   
   return (
-    <div 
-      onClick={handleCardClick}
-      className={`
-        bg-card-bg border-transparent border shadow-card overflow-hidden flex cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] 
-        ${isCompact ? 'w-full h-full flex-col rounded-[20px] shrink-0' : 'w-full flex-col sm:flex-row rounded-xl hover:shadow-md'}
-      `}
-    >
-      {/* Image Container */}
-      <div className={`relative overflow-hidden group ${isCompact ? 'h-[130px]' : 'h-48 sm:h-full sm:w-48 xl:w-56 shrink-0 aspect-[4/3] sm:aspect-auto'}`}>
-        <img 
-          src={property.img} 
-          alt={property.name} 
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
-        />
-        <div className="absolute top-2.5 left-2.5 bg-teal/90 text-white text-[0.45rem] font-bold px-2 py-1 rounded-md tracking-[0.4px] uppercase flex items-center gap-1">
-          <Check size={10} strokeWidth={4} /> Verified
-        </div>
-        <button 
-          onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
-          className="absolute top-2.5 right-2.5 bg-card-bg/90 border-none rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer shadow-md transition-transform duration-200 hover:scale-115 active:scale-95"
-        >
-          <Heart size={16} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-[var(--color-text-disabled)] fill-transparent'}`} />
-        </button>
-      </div>
-
-      {/* Card Body */}
-      <div className={`flex flex-col flex-1 ${isCompact ? 'p-[14px]' : 'p-4 sm:p-5'}`}>
-        <div className="flex justify-between items-center mb-1.5">
-          <div className="text-[0.7rem] sm:text-[0.75rem] font-semibold text-text-primary flex items-center gap-1">
-            <Star size={13} className="text-yellow-400 fill-yellow-400" /> {property.rating} <span className="text-text-primary text-xs ml-1">({property.reviews})</span>
+    <>
+      {/* Mobile/Tablet View (Original) */}
+      <div 
+        onClick={handleCardClick}
+        className={`md:hidden
+          bg-card-bg border-transparent border shadow-card overflow-hidden flex cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] 
+          ${isCompact ? 'w-full h-full flex-col rounded-[20px] shrink-0' : 'w-full flex-col sm:flex-row rounded-xl hover:shadow-md'}
+        `}
+      >
+        {/* Image Container */}
+        <div className={`relative overflow-hidden group ${isCompact ? 'h-[130px]' : 'h-48 sm:h-full sm:w-48 xl:w-56 shrink-0 aspect-[4/3] sm:aspect-auto'}`}>
+          <img 
+            src={property.img} 
+            alt={property.name} 
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
+          />
+          <div className="absolute top-2.5 left-2.5 bg-teal/90 text-white text-[0.45rem] font-bold px-2 py-1 rounded-md tracking-[0.4px] uppercase flex items-center gap-1">
+            <Check size={10} strokeWidth={4} /> Verified
           </div>
-          <div className="text-[0.6rem] sm:text-[0.68rem] bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-semibold px-2 py-0.5 rounded-[5px]">
-            {property.avail}
-          </div>
-        </div>
-        
-        <h3 className={`font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis ${isCompact ? 'text-[0.8rem] sm:text-[0.98rem]' : 'text-lg sm:text-xl'}`}>
-          {property.name}
-        </h3>
-        
-        <div className="flex gap-1.5 mb-[10px] flex-wrap">
-           {property.tags.map((tag) => (
-             <div key={tag} className="flex items-center justify-center gap-1 bg-app-bg rounded-[6px] px-[7px] py-[3px] text-[0.68rem] text-text-muted font-medium">
-               {tag === 'wifi' && <Wifi size={12} className="text-[var(--color-accent)]" />}
-               {tag === 'sec' && <ShieldCheck size={12} className="text-[var(--color-accent)]" />}
-               {tag === 'gen' && <Zap size={12} className="text-[var(--color-accent)]" />}
-               {tag === 'ac' && <span className="text-[0.55rem] font-bold text-[var(--color-accent)]">AC</span>}
-             </div>
-           ))}
-        </div>
-        
-        <div className="mt-auto pt-2">
-          <div className="text-[0.65rem] sm:text-[0.7rem] text-text-muted">
-            <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem]' : 'text-xl sm:text-2xl'}`}>
-              {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
-            </strong>{property.pricing_tag || '/sem'}
-          </div>
-          
-          <div className="text-[0.65rem] sm:text-[0.72rem] text-teal font-semibold mt-[2px] sm:mt-[3px] flex items-center gap-1">
-            <MapPin size={10} className="shrink-0" /> <span className="truncate">{property.loc}</span>
-          </div>
-
           <button 
-            onClick={(e) => { e.stopPropagation(); handleCardClick(); }}
-            className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-button-text)] bg-[var(--color-button)] rounded-[10px] text-center cursor-pointer font-bold transition-all duration-300 border-none shadow-sm hover:bg-[var(--color-button-hover)] hover:scale-[1.01] active:scale-[0.98] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
-            View Details
+            onClick={(e) => { e.stopPropagation(); onToggleSave(property.id); }}
+            className="absolute top-2.5 right-2.5 bg-card-bg/90 border-none rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer shadow-md transition-transform duration-200 hover:scale-115 active:scale-95"
+          >
+            <Heart size={16} className={`transition-colors duration-200 ${isSaved ? 'text-coral fill-coral' : 'text-[var(--color-text-disabled)] fill-transparent'}`} />
           </button>
         </div>
+
+        {/* Card Body */}
+        <div className={`flex flex-col flex-1 ${isCompact ? 'p-[14px]' : 'p-4 sm:p-5'}`}>
+          <div className="flex justify-between items-center mb-1.5">
+            <div className="text-[0.7rem] sm:text-[0.75rem] font-semibold text-text-primary flex items-center gap-1">
+              <Star size={13} className="text-yellow-400 fill-yellow-400" /> {property.rating} <span className="text-text-primary text-xs ml-1">({property.reviews})</span>
+            </div>
+            <div className="text-[0.6rem] sm:text-[0.68rem] bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-semibold px-2 py-0.5 rounded-[5px]">
+              {property.avail}
+            </div>
+          </div>
+          
+          <h3 className={`font-bold text-text-primary mb-1.5 sm:mb-2 whitespace-nowrap overflow-hidden text-ellipsis ${isCompact ? 'text-[0.8rem] sm:text-[0.98rem]' : 'text-lg sm:text-xl'}`}>
+            {property.name}
+          </h3>
+          
+          <div className="flex gap-1.5 mb-[10px] flex-wrap">
+             {property.tags.map((tag) => (
+               <div key={tag} className="flex items-center justify-center gap-1 bg-app-bg rounded-[6px] px-[7px] py-[3px] text-[0.68rem] text-text-muted font-medium">
+                 {tag === 'wifi' && <Wifi size={12} className="text-[var(--color-accent)]" />}
+                 {tag === 'sec' && <ShieldCheck size={12} className="text-[var(--color-accent)]" />}
+                 {tag === 'gen' && <Zap size={12} className="text-[var(--color-accent)]" />}
+                 {tag === 'ac' && <span className="text-[0.55rem] font-bold text-[var(--color-accent)]">AC</span>}
+               </div>
+             ))}
+          </div>
+          
+          <div className="mt-auto pt-2">
+            <div className="text-[0.65rem] sm:text-[0.7rem] text-text-muted">
+              <strong className={`font-bold text-text-primary ${isCompact ? 'text-[0.7rem] sm:text-[1.2rem]' : 'text-xl sm:text-2xl'}`}>
+                {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
+              </strong>{property.pricing_tag || '/sem'}
+            </div>
+            
+            <div className="text-[0.65rem] sm:text-[0.72rem] text-teal font-semibold mt-[2px] sm:mt-[3px] flex items-center gap-1">
+              <MapPin size={10} className="shrink-0" /> <span className="truncate">{property.loc}</span>
+            </div>
+
+            <button 
+              onClick={(e) => { e.stopPropagation(); handleCardClick(); }}
+              className={`mt-2.5 sm:mt-3 flex justify-center items-center text-[var(--color-button-text)] bg-[var(--color-button)] rounded-[10px] text-center cursor-pointer font-bold transition-all duration-300 border-none shadow-sm hover:bg-[var(--color-button-hover)] hover:scale-[1.01] active:scale-[0.98] w-full ${isCompact ? 'text-[0.75rem] py-1.5' : 'text-sm py-2'}`}>
+              View Details
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Desktop Simple View */}
+      <div 
+        onClick={handleCardClick}
+        className="hidden md:flex flex-col w-full h-full cursor-pointer group"
+      >
+        <div className={`relative overflow-hidden rounded-2xl group ${isCompact ? 'h-[180px] lg:h-[200px]' : 'h-[240px]'}`}>
+          <img 
+            src={property.img} 
+            alt={property.name} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          />
+          
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleSave(property.id);
+            }}
+            aria-label="Toggle favorite"
+            className="absolute top-3.5 right-3.5 bg-black/30 backdrop-blur-md text-white w-9 h-9 rounded-full flex items-center justify-center border border-white/10 cursor-pointer transition-all hover:bg-black/50 shadow-[0_4px_12px_rgba(0,0,0,0.2)] z-10 hover:scale-110 active:scale-95"
+          >
+            <Heart size={18} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
+          </button>
+          
+          <div className="absolute bottom-3.5 left-3.5 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1.5 rounded-full flex items-baseline gap-1.5 shadow-lg z-10">
+            <span className="text-[0.9rem] font-medium tracking-tight">
+              {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
+            </span>
+            <span className="text-[0.6rem] font-normal opacity-80 tracking-wider uppercase">
+              Per {property.pricing_tag ? property.pricing_tag.replace('/', '') : 'sem'}
+            </span>
+          </div>
+
+          <div className="absolute bottom-3.5 right-3.5 bg-black/50 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-lg z-10">
+            <Star size={12} className="fill-yellow-400 text-yellow-400" /> 
+            <span className="text-[0.8rem] font-medium">
+              {property.rating}
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-3 px-1.5">
+          <div className="flex justify-between items-start mb-1">
+            <h3 className="text-[0.95rem] font-medium text-text-primary leading-tight truncate pr-2">
+              {property.name}
+            </h3>
+          </div>
+          <div className="text-[0.75rem] text-text-muted flex items-center gap-1">
+             <MapPin size={11} className="shrink-0" />
+             <span className="truncate">{property.loc}</span>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
