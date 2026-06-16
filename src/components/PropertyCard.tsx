@@ -209,57 +209,61 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       </div>
 
       {/* Desktop Simple View */}
-      <div 
-        onClick={handleCardClick}
-        className="hidden md:flex flex-col w-full h-full cursor-pointer group"
-      >
-        <div className={`relative overflow-hidden rounded-2xl group ${isCompact ? 'h-[180px] lg:h-[200px]' : 'h-[240px]'}`}>
-          <img 
-            src={property.img} 
-            alt={property.name} 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-          />
-          
-          <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleSave(property.id);
-            }}
-            aria-label="Toggle favorite"
-            className="absolute top-3.5 right-3.5 bg-black/30 backdrop-blur-md text-white w-9 h-9 rounded-full flex items-center justify-center border border-white/10 cursor-pointer transition-all hover:bg-black/50 shadow-[0_4px_12px_rgba(0,0,0,0.2)] z-10 hover:scale-110 active:scale-95"
-          >
-            <Heart size={18} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
-          </button>
-          
-          <div className="absolute bottom-3.5 left-3.5 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1.5 rounded-full flex items-baseline gap-1.5 shadow-lg z-10">
-            <span className="text-[0.9rem] font-medium tracking-tight">
-              {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
-            </span>
-            <span className="text-[0.6rem] font-normal opacity-80 tracking-wider uppercase">
-              Per {property.pricing_tag ? property.pricing_tag.replace('/', '') : 'sem'}
-            </span>
-          </div>
+<div 
+  onClick={handleCardClick}
+  className="hidden md:flex flex-col cursor-pointer group w-max"
+>
+  {/* Square Image Container (Fixed to 180x180 to reduce size and ensure perfect square) */}
+  <div className="relative overflow-hidden rounded-2xl group w-[180px] h-[180px] shrink-0">
+    <img 
+      src={property.img} 
+      alt={property.name} 
+      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+    />
+    
+    <button 
+      onClick={(e) => {
+        e.stopPropagation();
+        onToggleSave(property.id);
+      }}
+      aria-label="Toggle favorite"
+      className="absolute top-2.5 right-2.5 bg-black/30 backdrop-blur-md text-white w-8 h-8 rounded-full flex items-center justify-center border border-white/10 cursor-pointer transition-all hover:bg-black/50 shadow-[0_4px_12px_rgba(0,0,0,0.2)] z-10 hover:scale-110 active:scale-95"
+    >
+      <Heart size={16} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
+    </button>
+    
+    {/* Dark Glass Price Badge (Identical, small inline font) */}
+    <div className="absolute bottom-2.5 left-2.5 bg-black/40 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+      <span className="font-sans text-[0.6rem] font-semibold tracking-wide uppercase">
+        {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
+      </span>
+      <span className="font-sans text-[0.6rem] font-semibold opacity-80 tracking-wide uppercase">
+        Per {property.pricing_tag ? property.pricing_tag.replace('/', '') : 'sem'}
+      </span>
+    </div>
 
-          <div className="absolute bottom-3.5 right-3.5 bg-black/50 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-lg z-10">
-            <Star size={12} className="fill-yellow-400 text-yellow-400" /> 
-            <span className="text-[0.8rem] font-medium">
-              {property.rating}
-            </span>
-          </div>
-        </div>
+    {/* Dark Glass Review Badge (Moved to bottom right, black star) */}
+    <div className="absolute bottom-2.5 right-2.5 bg-black/40 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+      <Star size={11} className="fill-black text-black" stroke="none" /> 
+      <span className="text-[0.7rem] font-medium">
+        {property.rating}
+      </span>
+    </div>
+  </div>
 
-        <div className="pt-3 px-1.5">
-          <div className="flex justify-between items-start mb-1">
-            <h3 className="text-[0.95rem] font-medium text-text-primary leading-tight truncate pr-2">
-              {property.name}
-            </h3>
-          </div>
-          <div className="text-[0.75rem] text-text-muted flex items-center gap-1">
-             <MapPin size={11} className="shrink-0" />
-             <span className="truncate">{property.loc}</span>
-          </div>
-        </div>
-      </div>
+  {/* Written Data Section (Reduced font sizes & weights) */}
+  <div className="pt-2.5 px-1.5 w-[180px]">
+    <div className="flex justify-between items-start mb-0.5">
+      <h3 className="text-[0.9rem] font-medium text-text-primary leading-tight truncate pr-2">
+        {property.name}
+      </h3>
+    </div>
+    <div className="text-[0.7rem] text-text-muted flex items-center gap-1">
+        <MapPin size={11} className="shrink-0" />
+        <span className="truncate">{property.loc}</span>
+    </div>
+  </div>
+</div>
     </>
   );
 };
