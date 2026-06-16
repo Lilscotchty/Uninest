@@ -214,7 +214,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   className="hidden md:flex flex-col cursor-pointer group w-max"
 >
   {/* Square Image Container (Fixed to 240x240 as requested) */}
-  <div className="relative overflow-hidden rounded-2xl group w-[220px] h-[220px] shrink-0">
+  <div className="relative overflow-hidden rounded-3xl group w-[190px] h-[190px] shrink-0">
     <img 
       src={property.img} 
       alt={property.name} 
@@ -244,8 +244,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     </div>
 
     {/* White Glass Review Badge (Moved to top left, black text, black star) */}
-    <div className="absolute top-2.5 left-2.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
-      <Star size={11} className="fill-black text-black" stroke="none" /> 
+    <div className="absolute top-2.5 left-2.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.0 rounded-full flex items-center gap-1 shadow-sm z-10">
+      <Star size={13} className="fill-black text-black" stroke="none" /> 
       <span className="text-[0.7rem] font-medium">
         {property.rating}
       </span>
