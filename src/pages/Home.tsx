@@ -142,8 +142,6 @@ export const Home: React.FC = () => {
 
            {/* RECENTLY VIEWED */}
             <RecentlyViewedStrip />
-         </>
-         )}
 
           {/* CAMPUS SECTIONS */}
           {renderPropertyRow("Nearby Properties", properties.slice(0, 5), "/see-all/nearby")}
@@ -239,12 +237,12 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
-
-         
+        </>
+      )}
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-20">
           {(
             activeTab === 'nearby' ? properties.slice(0, 5) :
             activeTab === 'featured' ? properties.filter(p => ['1', '2', '3'].includes(p.id.toString())) :
@@ -259,7 +257,7 @@ export const Home: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="explore-list"
+              layout="full-width-clean"
             />
           ))}
         </div>
