@@ -71,9 +71,9 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-2.5 sm:gap-3 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-3 sm:gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <div key={property.id} className="min-w-[280px] sm:min-w-[300px] max-w-[300px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            <div key={property.id} className="w-[220px] sm:w-[240px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -199,8 +199,8 @@ export const Home: React.FC = () => {
                 }}
               >
                 {featuredProperties.map((feat, i) => (
-                  <div key={i} className="min-w-[85vw] sm:min-w-[320px] md:min-w-[360px] lg:min-w-[420px] max-w-[420px] snap-center shrink-0 flex flex-col bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                    <img src={feat.img} alt={feat.name} className="w-full h-44 object-cover" />
+                  <div key={i} className="w-[85vw] sm:w-[400px] lg:w-[420px] shrink-0 snap-center flex flex-col bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <img src={feat.img} alt={feat.name} className="w-full h-48 sm:h-52 object-cover" />
                     <div className="p-5 flex flex-col flex-1">
                       <span className={`inline-flex items-center self-start text-xs font-bold px-2.5 py-1 rounded-md mb-3 uppercase tracking-wider ${
                         feat.tagTheme === 'warning' ? 'bg-[var(--color-warning-muted)] text-[var(--color-warning)]' :

@@ -138,7 +138,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       onClick={handleCardClick}
       className={`
         bg-card-bg border-transparent border shadow-card overflow-hidden flex cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-float active:scale-[0.98] 
-        ${isCompact ? 'w-[200px] min-w-[200px] flex-col rounded-[20px] shrink-0' : 'w-full flex-col sm:flex-row rounded-xl hover:shadow-md'}
+        ${isCompact ? 'w-full h-full flex-col rounded-[20px] shrink-0' : 'w-full flex-col sm:flex-row rounded-xl hover:shadow-md'}
       `}
     >
       {/* Image Container */}
