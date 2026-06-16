@@ -60,9 +60,9 @@ export const Home: React.FC = () => {
     if (!data || data.length === 0) return null;
     
     return (
-      <div className="mt-2 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col">
-        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">{title}</h2>
+      <div className="mt-4 mb-6 max-w-screen-2xl mx-auto w-full flex flex-col">
+        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-4">
+          <h2 className="text-[1.2rem] sm:text-[1.4rem] font-extrabold tracking-tight text-[var(--color-heading)]">{title}</h2>
           <span 
             onClick={() => navigate(seeAllLink)} 
             className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors flex items-center gap-1"
@@ -71,9 +71,9 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-5 sm:gap-6 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <div key={property.id} className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start shrink-0 flex">
+            <div key={property.id} className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
