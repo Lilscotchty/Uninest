@@ -21,17 +21,22 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [canScroll, setCanScroll] = useState(false);
+  
+  // React-based screen detection (Fail-safe)
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Check if content overflows to determine if arrows are even needed
   useEffect(() => {
-    const checkScroll = () => {
+    const checkLayout = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is Tailwind's 'md' breakpoint
       if (scrollRef.current) {
         setCanScroll(scrollRef.current.scrollWidth > scrollRef.current.clientWidth);
       }
     };
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    
+    // Check on mount and resize
+    checkLayout();
+    window.addEventListener('resize', checkLayout);
+    return () => window.removeEventListener('resize', checkLayout);
   }, [data]);
 
   const handleNext = () => {
@@ -51,6 +56,11 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
     }
   };
 
+  // Sync state if a desktop user swipes with a trackpad
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    setScrolled(e.currentTarget.scrollLeft > 10);
+  };
+
   if (!data || data.length === 0) return null;
 
   return (
@@ -66,37 +76,43 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
       </div>
       
       <div className="relative group">
-        {/* Left Arrow - Hidden on mobile (md:flex), shows only when scrolled on desktop */}
-        {canScroll && scrolled && (
+        
+        {/* Left Arrow - Strict conditional render (only runs if NOT mobile) */}
+        {!isMobile && canScroll && scrolled && (
           <button 
             onClick={handlePrev}
-            className="hidden md:flex absolute -left-3 lg:-left-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+            className="absolute -left-3 lg:-left-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
           >
             <ChevronLeft size={22} />
           </button>
         )}
 
-        {/* Right Arrow - Hidden on mobile (md:flex), shows initially if content overflows on desktop */}
-        {canScroll && !scrolled && (
+        {/* Right Arrow - Strict conditional render (only runs if NOT mobile) */}
+        {!isMobile && canScroll && !scrolled && (
           <button 
             onClick={handleNext}
-            className="hidden md:flex absolute -right-3 lg:-right-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+            className="absolute -right-3 lg:-right-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
           >
             <ChevronRight size={22} />
           </button>
         )}
 
-        {/* Responsive scrolling: 
-            Mobile gets native scroll (overflow-x-auto, snap-x)
-            Desktop gets locked scroll (md:overflow-hidden) relying on arrows
+        {/* Container 
+            Inline overflowX guarantees global CSS cannot freeze the scroll effect
         */}
         <div 
           ref={scrollRef}
-          className="flex gap-4 sm:gap-5 overflow-x-auto md:overflow-hidden hide-scrollbar pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory w-full"
+          onScroll={handleScroll}
+          className={`flex gap-4 sm:gap-5 hide-scrollbar pb-6 pt-2 items-stretch scroll-smooth w-full ${isMobile ? 'snap-x snap-mandatory' : ''}`}
+          style={{ 
+            overflowX: isMobile ? 'auto' : 'hidden', // Inline style forces native scroll on mobile
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none' 
+          }}
         >
           {data.map((property: any) => (
-            {/* Mobile uses 85vw (original layout), Desktop snaps to exactly 200px (new bubbly layout) */}
-            <div key={property.id} className="w-[85vw] sm:w-[300px] md:w-[200px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            {/* Sizing: 85vw on mobile, 200px square on desktop */}
+            <div key={property.id} className="w-[65vw] sm:w-[300px] md:w-[200px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -329,7 +345,7 @@ export const Home: React.FC = () => {
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-4 pb-20">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-20">
           {(
             activeTab === 'nearby' ? properties.slice(0, 5) :
             activeTab === 'featured' ? properties.filter(p => ['1', '2', '3'].includes(p.id.toString())) :
