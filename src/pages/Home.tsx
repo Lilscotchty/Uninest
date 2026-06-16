@@ -71,9 +71,9 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-2.5 sm:gap-3 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <div key={property.id} className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            <div key={property.id} className="min-w-[280px] sm:min-w-[300px] max-w-[300px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -189,7 +189,7 @@ export const Home: React.FC = () => {
             
             <div className="px-4 sm:px-6 lg:px-8">
               <div 
-                className="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar scroll-smooth pb-4 snap-x snap-mandatory items-stretch" 
+                className="flex gap-3 sm:gap-4 overflow-x-auto hide-scrollbar scroll-smooth pb-4 snap-x snap-mandatory items-stretch" 
                 ref={trackRef} 
                 onScroll={(e) => {
                   const track = e.currentTarget;
@@ -199,7 +199,7 @@ export const Home: React.FC = () => {
                 }}
               >
                 {featuredProperties.map((feat, i) => (
-                  <div key={i} className="min-w-[90vw] sm:min-w-[380px] md:min-w-[400px] lg:min-w-[420px] snap-center shrink-0 flex flex-col bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="min-w-[85vw] sm:min-w-[320px] md:min-w-[360px] lg:min-w-[420px] max-w-[420px] snap-center shrink-0 flex flex-col bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <img src={feat.img} alt={feat.name} className="w-full h-44 object-cover" />
                     <div className="p-5 flex flex-col flex-1">
                       <span className={`inline-flex items-center self-start text-xs font-bold px-2.5 py-1 rounded-md mb-3 uppercase tracking-wider ${
@@ -242,7 +242,7 @@ export const Home: React.FC = () => {
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 pb-20">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pb-20">
           {(
             activeTab === 'nearby' ? properties.slice(0, 5) :
             activeTab === 'featured' ? properties.filter(p => ['1', '2', '3'].includes(p.id.toString())) :
