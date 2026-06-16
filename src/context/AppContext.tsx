@@ -43,6 +43,8 @@ interface AppContextType extends AppState, ViewState {
   isStudent: boolean;
   isAccommodationOwner: boolean;
   isPropertyOwnerUser: boolean;
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -55,6 +57,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [currentView, setCurrentView] = useState<'home' | 'explore' | 'details' | 'saved' | 'profile' | 'signup' | 'virtual-tour' | 'price-alerts' | 'manager-dashboard'>('home');
   const [selectedPropertyId, setSelectedPropertyId] = useState<number | string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   
   const [user, setUser] = useState<any | null | undefined>(undefined);
@@ -287,6 +290,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
+
   const addCustomProperty = (property: Property) => setProperties(prev => [...prev, property]);
   const updateCustomProperty = (id: number | string, updates: Partial<Property>) => {
     setProperties(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
@@ -336,6 +343,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         isStudent: isStudentUser,
         isAccommodationOwner,
         isPropertyOwnerUser,
+        isSidebarOpen,
+        toggleSidebar,
         hasPaidOpportunityHub,
         setHasPaidOpportunityHub,
         earnedCredits,

@@ -1,21 +1,28 @@
 import React from 'react';
-import { Bell, Maximize, Minimize, ArrowRightLeft, Search } from 'lucide-react';
+import { Bell, Maximize, Minimize, ArrowRightLeft, Search, Menu } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const Header: React.FC = () => {
-  const { showToast, isFullscreen, toggleFullscreen } = useAppContext();
+  const { showToast, isFullscreen, toggleFullscreen, toggleSidebar } = useAppContext();
   const [notifications, setNotifications] = React.useState(3);
 
   return (
-    <header className="sticky top-0 z-[100] w-full bg-card-bg/90 backdrop-blur-md border-b border-border-subtle transition-colors duration-300">
-      {/* max-w-screen-2xl keeps it from stretching infinitely on massive monitors */}
+    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-card-bg/90 backdrop-blur-md border-b border-border-subtle transition-colors duration-300">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
         
-        {/* LEFT: Logo */}
-        <div className="flex-shrink-0 flex items-center cursor-pointer hover:opacity-80 transition-opacity">
-          <span className="text-text-primary text-[22px] font-extrabold tracking-tight">
-            SKY<span className="text-[var(--color-accent)]">COBE</span>
-          </span>
+        {/* LEFT: Toggle + Logo */}
+        <div className="flex-shrink-0 flex items-center gap-4">
+          <button 
+            onClick={toggleSidebar}
+            className="hidden md:flex p-2 text-text-primary hover:bg-[var(--color-surface-hover)] rounded-md transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+          <div className="cursor-pointer hover:opacity-80 transition-opacity flex items-center">
+            <span className="text-text-primary text-[22px] font-extrabold tracking-widest uppercase">
+              SKY<span style={{ color: "#e8b96a" }}>COBE</span>
+            </span>
+          </div>
         </div>
 
         {/* MIDDLE: Search Pill (Desktop Only - Airbnb Style) */}

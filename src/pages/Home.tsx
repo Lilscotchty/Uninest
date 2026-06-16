@@ -71,7 +71,7 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
+        <div className="flex lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-x-auto lg:overflow-visible hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
           {data.map((property) => (
             <PropertyCard 
               key={property.id} 
@@ -154,7 +154,7 @@ export const Home: React.FC = () => {
             <div className="flex justify-between items-center py-4 pb-3">
               <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
             </div>
-            <div className="card-wrapper">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
                 <div className="glass-orb" style={{ background: "radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)" }}></div>
                 <div className="icon-box" style={{ background: "transparent", color: "#b45309" }}>
@@ -190,7 +190,7 @@ export const Home: React.FC = () => {
             
             <div className="px-4 sm:px-6 lg:px-8">
               <div 
-                className="flex gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth pb-4" 
+                className="flex lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory hide-scrollbar scroll-smooth pb-4" 
                 ref={trackRef} 
                 onScroll={(e) => {
                   const track = e.currentTarget;
@@ -200,7 +200,7 @@ export const Home: React.FC = () => {
                 }}
               >
                 {featuredProperties.map((feat, i) => (
-                  <div key={i} className="min-w-full sm:min-w-[400px] snap-center bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="min-w-full sm:min-w-[400px] lg:min-w-0 snap-center bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <img src={feat.img} alt={feat.name} className="w-full h-44 object-cover" />
                     <div className="p-5">
                       <span className={`inline-flex items-center text-xs font-bold px-2.5 py-1 rounded-md mb-3 uppercase tracking-wider ${
@@ -229,7 +229,7 @@ export const Home: React.FC = () => {
               </div>
               
               {/* Carousel Indicators */}
-              <div className="flex justify-center gap-1.5 mt-1 mb-2">
+              <div className="flex lg:hidden justify-center gap-1.5 mt-1 mb-2">
                 {featuredProperties.map((_, i) => (
                   <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-6 bg-[var(--color-button)]' : 'w-1.5 bg-border-subtle'}`} />
                 ))}

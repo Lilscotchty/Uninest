@@ -8,7 +8,7 @@ function cn(...classes: (string | undefined | null | false)[]) {
 }
 
 export function Navigation() {
-  const { user, profile } = useAppContext();
+  const { user, profile, isSidebarOpen } = useAppContext();
 
   const role = profile?.role || user?.user_metadata?.account_type || "student";
   const isManager =
@@ -60,13 +60,12 @@ export function Navigation() {
 
       {/* TABLET: Collapsed Sidebar (icon only) */}
       <nav
-        className="hidden md:flex lg:hidden fixed left-0 top-0 bottom-0 z-40 
-                      w-[72px] flex-col items-center 
-                      bg-card-bg border-r border-border-subtle py-4 gap-1"
+        className={`hidden md:flex lg:hidden fixed left-0 top-[72px] bottom-0 z-40 
+                      w-[72px] flex-col items-center transition-transform duration-300
+                      bg-card-bg border-r border-border-subtle py-4 gap-1 ${
+                        !isSidebarOpen ? '-translate-x-full' : 'translate-x-0'
+                      }`}
       >
-        <div className="mb-6 font-bold text-xl text-[var(--color-accent)] flex items-center justify-center w-full h-12">
-          U
-        </div>
         {currentNavItems.map((item) => (
           <NavLink
             key={item.path}
@@ -96,15 +95,12 @@ export function Navigation() {
 
       {/* DESKTOP: Full Sidebar with labels */}
       <nav
-        className="hidden lg:flex fixed left-0 top-0 bottom-0 z-40 
-                      w-60 flex-col 
-                      bg-card-bg border-r border-border-subtle py-4 px-3"
+        className={`hidden lg:flex fixed left-0 top-[72px] bottom-0 z-40 
+                      w-60 flex-col transition-transform duration-300
+                      bg-card-bg border-r border-border-subtle py-4 px-3 ${
+                        !isSidebarOpen ? '-translate-x-full' : 'translate-x-0'
+                      }`}
       >
-        <div className="mb-8 px-3 font-bold text-2xl text-[var(--color-accent)] flex items-center text-left w-full h-12">
-          <span className="font-bold tracking-widest">
-            SKY<span style={{ color: "#e8b96a" }}>COBE</span>
-          </span>
-        </div>
         <div className="flex-1 space-y-1">
           {currentNavItems.map((item) => (
             <NavLink

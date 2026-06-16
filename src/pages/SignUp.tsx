@@ -96,20 +96,20 @@ function SocialBtn({ icon, label, ...props }: { icon: React.ReactNode; label: st
 }
 
 // ─── Input field ──────────────────────────────────────────────────────────────
-function AuthInput({
+const AuthInput = React.forwardRef<HTMLInputElement, {
+  icon: React.ReactNode;
+  placeholder: string;
+  type?: string;
+  trailing?: React.ReactNode;
+  error?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>>(({
   icon,
   placeholder,
   type = "text",
   trailing,
   error,
   ...rest
-}: {
-  icon: React.ReactNode;
-  placeholder: string;
-  type?: string;
-  trailing?: React.ReactNode;
-  error?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
+}, ref) => {
   return (
     <div className="mb-4 text-left">
       <div
@@ -121,6 +121,7 @@ function AuthInput({
         <span className="text-[var(--color-text-secondary)] flex-shrink-0">{icon}</span>
         <input
           {...rest}
+          ref={ref}
           type={type}
           placeholder={placeholder}
           className="flex-1 bg-transparent text-[var(--color-text-primary)] placeholder-[var(--color-text-disabled)] text-[16px] outline-none"
@@ -131,7 +132,7 @@ function AuthInput({
       {error && <p className="text-red-400 text-xs mt-1 pl-1 text-left">{error}</p>}
     </div>
   );
-}
+});
 
 // ─── Primary CTA button ───────────────────────────────────────────────────────
 function PrimaryBtn({ children, loading, className = "", ...rest }: { children: React.ReactNode; loading?: boolean } & React.ButtonHTMLAttributes<HTMLButtonElement>) {

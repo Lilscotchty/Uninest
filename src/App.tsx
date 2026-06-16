@@ -19,6 +19,7 @@ import { SignUp } from "./pages/SignUp";
 import { Landing } from "./pages/Landing";
 import { EditProfile } from "./pages/EditProfile";
 import { Toast } from "./components/Toast";
+import { Toaster } from "sonner";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { VirtualTour } from "./pages/VirtualTour";
 import { Referrals } from "./pages/Referrals";
@@ -93,6 +94,7 @@ const AppContent: React.FC = () => {
     <div
       className={`w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] flex flex-col font-sans`}
     >
+      <Toaster position="top-center" theme="system" />
       <Toast />
       <OnboardingModal />
 

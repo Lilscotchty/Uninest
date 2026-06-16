@@ -230,7 +230,7 @@ export function PageHeader({
       style={{ backgroundColor: 'var(--color-header-bg)', borderBottomColor: scrolled ? 'var(--color-border)' : 'transparent' }}
       className={cn(
         // Positioning
-        sticky ? "sticky top-0 z-40" : "relative",
+        sticky ? "sticky top-0 md:top-[72px] z-40" : "relative",
 
         // Scroll-triggered border
         scrolled ? "border-b shadow-sm" : "border-b border-transparent",
