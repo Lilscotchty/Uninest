@@ -183,63 +183,7 @@ export const Explore: React.FC = () => {
       </div>
 
       
-      {/* DESKTOP/TABLET SIDEBAR LIST */}
-      <div className="hidden md:flex w-[40%] lg:w-[35%] h-full flex-col bg-card-bg border-r border-border-subtle z-10 shrink-0">
-        <div className="p-4 border-b border-border-subtle shrink-0">
-           <div className="flex items-center gap-3 mb-4">
-              <button 
-                onClick={() => navigate("/student/dashboard")}
-                className="w-10 h-10 rounded-full bg-border-subtle flex items-center justify-center text-text-primary hover:bg-border-subtle/80 cursor-pointer"
-              >
-                <ChevronLeft size={20} strokeWidth={2.5} />
-              </button>
-              <div className="bg-app-bg rounded-xl px-4 flex items-center gap-2 border border-border-subtle h-11 flex-1">
-                <Search size={18} className="text-[var(--color-text-secondary)] shrink-0" />
-                <input 
-                  type="text" 
-                  placeholder="Search properties, areas..." 
-                  className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-text-primary placeholder:text-text-muted"
-                  value={localSearch}
-                  onChange={(e) => {
-                    setLocalSearch(e.target.value);
-                    setExploreSearchQuery(e.target.value);
-                  }}
-                />
-              </div>
-           </div>
-           
-           <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
-             {['All', 'Private', 'Shared', 'Near Campus', 'Budget', 'Wi-Fi'].map((filter, i) => (
-               <button 
-                 key={filter}
-                 className={`shrink-0 px-4 py-1.5 rounded-full border-[1.5px] text-[0.75rem] font-bold shadow-sm transition-all
-                   ${i === 0 
-                     ? 'bg-[var(--color-button)] text-white border-transparent shadow-[var(--shadow-button)]' 
-                     : 'bg-card-bg text-text-muted border-border-subtle hover:bg-app-bg'}`}
-               >
-                 {filter}
-               </button>
-             ))}
-           </div>
-           <div className="mt-2 text-sm font-semibold text-text-primary">
-             {filteredProperties.length} properties nearby
-           </div>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
-          {filteredProperties.map(h => (
-            <div key={h.id} className="w-full" onMouseEnter={() => setPeekPropertyId(h.id)} onMouseLeave={() => setPeekPropertyId(null)}>
-               <PropertyCard 
-                 property={h} 
-                 layout="explore-list"
-                 isSaved={savedProperties.includes(h.id)} 
-                 onToggleSave={toggleSave} 
-                 onClick={() => { setSelectedPropertyId(h.id); navigate("/details"); }} 
-               />
-            </div>
-          ))}
-        </div>
-      </div>
+
 
       {/* Map Container */}
       <div className="absolute md:relative inset-0 md:inset-auto z-0 md:z-auto transition-all duration-500 ease-in-out md:flex-1 md:h-full">
@@ -315,20 +259,21 @@ export const Explore: React.FC = () => {
 
       {/* Bottom Drawer */}
       <motion.div
+        initial={{ y: typeof window !== 'undefined' ? window.innerHeight * 0.5 : 400 }}
         animate={drawerControls}
         drag="y"
-        dragConstraints={{ top: 0, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
+        dragConstraints={{ top: 80, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
         dragElastic={0.1}
         onDragEnd={handleDragEnd}
         className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
       >
         {/* Drawer Handle */}
-        <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0">
-          <div className="w-12 h-1.5 bg-[var(--color-accent-muted)] rounded-full"></div>
+        <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0 pointer-events-auto">
+          <div className="w-16 h-1.5 bg-border-subtle rounded-full"></div>
         </div>
         
         {/* Scrollable Content inside Drawer */}
-        <div className="flex-1 overflow-y-auto px-5 pb-10 hide-scrollbar"
+        <div className="flex-1 overflow-y-auto px-5 pb-32 hide-scrollbar pointer-events-auto"
              onPointerDown={(e) => {
                // Prevent dragging the drawer when scrolling inside it unless at the very top
                const target = e.currentTarget;
@@ -338,16 +283,39 @@ export const Explore: React.FC = () => {
              }}
         >
           <div className="flex justify-between items-center px-1 mb-4">
-            <h2 className="text-[1.4rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
-            <button className="flex items-center gap-1.5 bg-slate-800 text-slate-900 px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-slate-800/80">
+             <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => navigate("/student/dashboard")}
+                  className="w-10 h-10 hidden md:flex rounded-full bg-border-subtle items-center justify-center text-text-primary hover:bg-border-subtle/80 cursor-pointer transition-colors"
+                >
+                  <ChevronLeft size={20} strokeWidth={2.5} />
+                </button>
+                <h2 className="text-[1.4rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
+             </div>
+             
+             <div className="hidden md:flex flex-1 max-w-md mx-6 bg-[var(--color-surface)] rounded-full px-4 items-center gap-2 border border-border-subtle h-11">
+                <Search size={18} className="text-[var(--color-text-secondary)] shrink-0" />
+                <input 
+                  type="text" 
+                  placeholder="Search properties, areas..." 
+                  className="bg-transparent border-none outline-none w-full text-[0.9rem] font-medium text-[var(--color-text-primary)] placeholder:text-[var(--color-text-disabled)]"
+                  value={localSearch}
+                  onChange={(e) => {
+                    setLocalSearch(e.target.value);
+                    setExploreSearchQuery(e.target.value);
+                  }}
+                />
+             </div>
+
+            <button className="flex items-center gap-1.5 bg-slate-800 text-white px-3 py-1.5 rounded-[10px] text-[0.75rem] font-semibold transition-colors hover:bg-slate-800/80 shrink-0">
               <Navigation size={12} className="rotate-180" />
               <span>Price ↑</span>
             </button>
           </div>
           
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-4">
             {filteredProperties.length === 0 ? (
-              <div className="text-center py-8 text-text-muted">No properties found.</div>
+              <div className="text-center py-8 text-text-muted col-span-full">No properties found.</div>
             ) : filteredProperties.map(property => (
               <div key={property.id} className="w-full flex justify-center">
                 <PropertyCard 

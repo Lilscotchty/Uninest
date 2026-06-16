@@ -94,7 +94,7 @@ const AppContent: React.FC = () => {
     <div
       className={`w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] flex flex-col font-sans`}
     >
-      <Toaster position="top-center" theme="system" />
+      <Toaster position="top-center" theme="light" toastOptions={{ style: { background: 'var(--color-surface)', color: 'var(--color-text-primary)', border: '1px solid var(--color-border-subtle)' } }} />
       <Toast />
       <OnboardingModal />
 

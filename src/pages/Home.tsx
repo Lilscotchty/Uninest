@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
     if (!data || data.length === 0) return null;
     
     return (
-      <div className="mt-2 mb-2 max-w-screen-2xl mx-auto w-full">
+      <div className="mt-2 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
           <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">{title}</h2>
           <span 
@@ -71,19 +71,20 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-x-auto lg:overflow-visible hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch">
+        <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-4 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              isSaved={savedProperties.includes(property.id)}
-              onToggleSave={toggleSave}
-              onClick={() => {
-                setSelectedPropertyId(property.id);
-                navigate("/details");
-              }} 
-              layout="compact"
-            />
+            <div key={property.id} className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start shrink-0 flex">
+              <PropertyCard 
+                property={property} 
+                isSaved={savedProperties.includes(property.id)}
+                onToggleSave={toggleSave}
+                onClick={() => {
+                  setSelectedPropertyId(property.id);
+                  navigate("/details");
+                }} 
+                layout="compact"
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -190,7 +191,7 @@ export const Home: React.FC = () => {
             
             <div className="px-4 sm:px-6 lg:px-8">
               <div 
-                className="flex lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory hide-scrollbar scroll-smooth pb-4" 
+                className="flex gap-6 overflow-x-auto hide-scrollbar scroll-smooth pb-4 snap-x snap-mandatory items-stretch" 
                 ref={trackRef} 
                 onScroll={(e) => {
                   const track = e.currentTarget;
@@ -200,10 +201,10 @@ export const Home: React.FC = () => {
                 }}
               >
                 {featuredProperties.map((feat, i) => (
-                  <div key={i} className="min-w-full sm:min-w-[400px] lg:min-w-0 snap-center bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="min-w-full sm:min-w-[400px] lg:min-w-[450px] snap-center shrink-0 flex flex-col bg-card-bg border border-border-subtle rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <img src={feat.img} alt={feat.name} className="w-full h-44 object-cover" />
-                    <div className="p-5">
-                      <span className={`inline-flex items-center text-xs font-bold px-2.5 py-1 rounded-md mb-3 uppercase tracking-wider ${
+                    <div className="p-5 flex flex-col flex-1">
+                      <span className={`inline-flex items-center self-start text-xs font-bold px-2.5 py-1 rounded-md mb-3 uppercase tracking-wider ${
                         feat.tagTheme === 'warning' ? 'bg-[var(--color-warning-muted)] text-[var(--color-warning)]' :
                         feat.tagTheme === 'accent' ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]' :
                         'bg-[var(--color-success-muted)] text-[var(--color-success)]'
@@ -214,22 +215,24 @@ export const Home: React.FC = () => {
                       <p className="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
                         {feat.desc}
                       </p>
-                      <button 
-                        onClick={() => {
-                          setSelectedPropertyId(feat.id);
-                          navigate("/details");
-                        }}
-                        className="w-full flex items-center justify-center gap-2 bg-[var(--color-surface-hover)] text-text-primary border border-border-subtle rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all hover:bg-[var(--color-button)] hover:text-white hover:border-[var(--color-accent)] active:scale-[0.98]"
-                      >
-                        {feat.action} <ArrowRight size={16} />
-                      </button>
+                      <div className="mt-auto pt-2">
+                        <button 
+                          onClick={() => {
+                            setSelectedPropertyId(feat.id);
+                            navigate("/details");
+                          }}
+                          className="w-full flex items-center justify-center gap-2 bg-[var(--color-surface-hover)] text-text-primary border border-border-subtle rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all hover:bg-[var(--color-button)] hover:text-white hover:border-[var(--color-accent)] active:scale-[0.98]"
+                        >
+                          {feat.action} <ArrowRight size={16} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
               
               {/* Carousel Indicators */}
-              <div className="flex lg:hidden justify-center gap-1.5 mt-1 mb-2">
+              <div className="flex justify-center gap-1.5 mt-1 mb-2">
                 {featuredProperties.map((_, i) => (
                   <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeatured ? 'w-6 bg-[var(--color-button)]' : 'w-1.5 bg-border-subtle'}`} />
                 ))}
@@ -241,9 +244,9 @@ export const Home: React.FC = () => {
 
       {/* RENDER OTHER TABS DYNAMICALLY */}
       {['nearby', 'featured', 'new'].includes(activeTab) && (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-20">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-screen-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
           {(
-            activeTab === 'nearby' ? properties :
+            activeTab === 'nearby' ? properties.slice(0, 5) :
             activeTab === 'featured' ? properties.filter(p => ['1', '2', '3'].includes(p.id.toString())) :
             [...properties].reverse()
           ).map(property => (
@@ -256,7 +259,7 @@ export const Home: React.FC = () => {
                 setSelectedPropertyId(property.id);
                 navigate("/details");
               }} 
-              layout="full-width-clean"
+              layout="explore-list"
             />
           ))}
         </div>
