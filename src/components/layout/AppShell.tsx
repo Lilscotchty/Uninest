@@ -13,7 +13,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex flex-1 md:pt-[72px]">
         <Navigation />
-        <main className={`flex-1 w-full pb-20 md:pb-0 transition-all duration-300 ${isSidebarOpen ? 'md:pl-[72px] lg:pl-60' : 'md:pl-0'}`}>
+        <main className={`flex-1 w-full pb-20 md:pb-0 transition-all duration-300`}>
           {children}
         </main>
       </div>

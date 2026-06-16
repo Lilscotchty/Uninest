@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Compass, Heart, User } from "lucide-react";
+import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 
 function cn(...classes: (string | undefined | null | false)[]) {
@@ -8,7 +8,7 @@ function cn(...classes: (string | undefined | null | false)[]) {
 }
 
 export function Navigation() {
-  const { user, profile, isSidebarOpen } = useAppContext();
+  const { user, profile, isSidebarOpen, toggleSidebar } = useAppContext();
 
   const role = profile?.role || user?.user_metadata?.account_type || "student";
   const isManager =
@@ -58,52 +58,29 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* TABLET: Collapsed Sidebar (icon only) */}
-      <nav
-        className={`hidden md:flex lg:hidden fixed left-0 top-[72px] bottom-0 z-40 
-                      w-[72px] flex-col items-center transition-transform duration-300
-                      bg-card-bg border-r border-border-subtle py-4 gap-1 ${
-                        !isSidebarOpen ? '-translate-x-full' : 'translate-x-0'
-                      }`}
-      >
-        {currentNavItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            title={item.label}
-            className={({ isActive }) =>
-              cn(
-                "w-12 h-12 flex items-center justify-center rounded-xl transition-colors",
-                isActive
-                  ? "bg-[var(--color-accent-muted)] text-[var(--color-accent)]"
-                  : "text-text-muted hover:bg-border-subtle",
-              )
-            }
-          >
-            <item.icon className="w-6 h-6" />
-          </NavLink>
-        ))}
-        <div className="mt-auto mb-4">
-          <NavLink
-            to="/profile"
-            className="w-10 h-10 rounded-full bg-border-subtle flex items-center justify-center text-text-primary overflow-hidden"
-          >
-            <User className="w-5 h-5" />
-          </NavLink>
-        </div>
-      </nav>
+      {/* ALL OVERLAYS */}
+      {isSidebarOpen && (
+        <div 
+          className="hidden md:block fixed inset-0 bg-black/30 backdrop-blur-sm z-[90] transition-opacity" 
+          onClick={toggleSidebar}
+        />
+      )}
 
-      {/* DESKTOP: Full Sidebar with labels */}
+      {/* DESKTOP/TABLET: Floating Sidebar */}
       <nav
-        className={`hidden lg:flex fixed left-0 top-[72px] bottom-0 z-40 
-                      w-60 flex-col transition-transform duration-300
-                      bg-card-bg border-r border-border-subtle py-4 px-3 ${
-                        !isSidebarOpen ? '-translate-x-full' : 'translate-x-0'
+        className={`hidden md:flex fixed left-4 top-[88px] bottom-6 z-[95] 
+                      w-64 flex-col transition-all duration-300 rounded-2xl shadow-2xl
+                      bg-card-bg border border-border-subtle py-4 px-3 overflow-y-auto ${
+                        !isSidebarOpen ? '-translate-x-[120%] opacity-0' : 'translate-x-0 opacity-100'
                       }`}
       >
         <div className="flex-1 space-y-1">
+          <div className="px-3 pb-2 pt-1 text-xs font-bold text-text-muted uppercase tracking-wider">
+            Main Menu
+          </div>
           {currentNavItems.map((item) => (
             <NavLink
+              onClick={toggleSidebar}
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
@@ -119,9 +96,36 @@ export function Navigation() {
               {item.label}
             </NavLink>
           ))}
+
+          <div className="px-3 pt-6 pb-2 text-xs font-bold text-text-muted uppercase tracking-wider">
+            Shortcuts
+          </div>
+          {[
+             { path: '/notifications', icon: Bell, label: 'Notifications' },
+             { path: '/messages', icon: MessageSquare, label: 'Messages' },
+             { path: '/settings', icon: Settings, label: 'Settings' },
+             { path: '/support', icon: HelpCircle, label: 'Help & Support' },
+             { path: '/campus-guide', icon: Map, label: 'Campus Guide' }
+          ].map((item) => (
+            <NavLink
+              onClick={toggleSidebar}
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-sm font-medium text-text-primary hover:bg-border-subtle"
+                )
+              }
+            >
+              <item.icon className="w-5 h-5 flex-shrink-0 opacity-70" />
+              {item.label}
+            </NavLink>
+          ))}
         </div>
-        <div className="border-t border-border-subtle pt-4 px-1 pb-4">
+        
+        <div className="border-t border-border-subtle pt-4 px-1 mt-4">
           <NavLink
+            onClick={toggleSidebar}
             to="/profile"
             className="flex items-center gap-3 px-2 py-2 hover:bg-border-subtle rounded-xl transition-colors"
           >
