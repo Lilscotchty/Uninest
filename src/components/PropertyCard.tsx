@@ -214,7 +214,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   className="hidden md:flex flex-col cursor-pointer group w-max"
 >
   {/* Square Image Container (Fixed to 180x180 to reduce size and ensure perfect square) */}
-  <div className="relative overflow-hidden rounded-2xl group w-[180px] h-[180px] shrink-0">
+  <div className="relative overflow-hidden rounded-2xl group w-[190px] h-[190px] shrink-0">
     <img 
       src={property.img} 
       alt={property.name} 
