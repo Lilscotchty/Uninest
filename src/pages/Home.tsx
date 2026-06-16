@@ -54,7 +54,6 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
   if (!data || data.length === 0) return null;
 
   return (
-    // Clean, perfectly aligned margin wrap
     <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center py-4 pb-4">
         <h2 className="text-[1.2rem] sm:text-[1.4rem] font-extrabold tracking-tight text-[var(--color-heading)]">{title}</h2>
@@ -67,33 +66,37 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
       </div>
       
       <div className="relative group">
-        {/* Left Arrow - Shows only when scrolled */}
+        {/* Left Arrow - Hidden on mobile (md:flex), shows only when scrolled on desktop */}
         {canScroll && scrolled && (
           <button 
             onClick={handlePrev}
-            className="absolute -left-3 sm:-left-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+            className="hidden md:flex absolute -left-3 lg:-left-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
           >
             <ChevronLeft size={22} />
           </button>
         )}
 
-        {/* Right Arrow - Shows initially if content overflows */}
+        {/* Right Arrow - Hidden on mobile (md:flex), shows initially if content overflows on desktop */}
         {canScroll && !scrolled && (
           <button 
             onClick={handleNext}
-            className="absolute -right-3 sm:-right-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+            className="hidden md:flex absolute -right-3 lg:-right-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
           >
             <ChevronRight size={22} />
           </button>
         )}
 
-        {/* Locked manual scrolling (overflow-hidden) */}
+        {/* Responsive scrolling: 
+            Mobile gets native scroll (overflow-x-auto, snap-x)
+            Desktop gets locked scroll (md:overflow-hidden) relying on arrows
+        */}
         <div 
           ref={scrollRef}
-          className="flex gap-4 sm:gap-5 overflow-hidden pb-6 pt-2 items-stretch scroll-smooth w-full"
+          className="flex gap-4 sm:gap-5 overflow-x-auto md:overflow-hidden hide-scrollbar pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory w-full"
         >
           {data.map((property: any) => (
-            <div key={property.id} className="w-[85vw] sm:w-[220px] md:w-[190px] xl:w-[210px] shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            {/* Mobile uses 85vw (original layout), Desktop snaps to exactly 200px (new bubbly layout) */}
+            <div key={property.id} className="w-[85vw] sm:w-[300px] md:w-[200px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -267,8 +270,8 @@ export const Home: React.FC = () => {
           {/* FEATURED CAROUSEL */}
           <div className="mt-2 max-w-screen-2xl mx-auto w-full">
             <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-              <h2 className="text-[1.0rem] sm:text-[1.0rem] font-bold-100 tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
-              <span onClick={() => navigate('/see-all/featured')} className="text-[0.6rem] font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors">See all →</span>
+              <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
+              <span onClick={() => navigate('/see-all/featured')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors">See all →</span>
             </div>
             
             <div className="px-4 sm:px-6 lg:px-8">
