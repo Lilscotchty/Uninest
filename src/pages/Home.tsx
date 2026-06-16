@@ -71,7 +71,7 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-0 sm:gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-10 sm:gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
             <div key={property.id} className="w-[200px] sm:w-[240px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
