@@ -253,7 +253,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   </div>
 
   {/* Written Data Section (Width matched to image container, reasonable gap closed) */}
-  <div className="pt-2.5 px-2 w-[240px]">
+  <div className="pt-2.5 px-2 w-[200px]">
     <div className="flex justify-between items-start mb-0.5">
       <h3 className="text-[0.8rem] font-medium text-text-primary leading-tight truncate pr-2">
         {property.name}
