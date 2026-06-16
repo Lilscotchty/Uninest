@@ -234,7 +234,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     </button>
     
     {/* White Glass Price Badge (Bottom Left, black text) */}
-    <div className="absolute bottom-2.5 left-2.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+    <div className="absolute bottom-3.5 left-3.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <span className="font-sans text-[0.6rem] font-semibold tracking-wide uppercase">
         {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
       </span>
@@ -244,7 +244,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     </div>
 
     {/* White Glass Review Badge (Moved to top left, black text, black star) */}
-    <div className="absolute top-2.5 left-2.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+    <div className="absolute top-3.5 left-3.5 bg-white/80 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <Star size={13} className="fill-black text-black" stroke="none" /> 
       <span className="text-[0.7rem] font-medium">
         {property.rating}
@@ -255,11 +255,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
   {/* Written Data Section (Width matched to image container, reasonable gap closed) */}
   <div className="pt-2.5 px-2 w-[240px]">
     <div className="flex justify-between items-start mb-0.5">
-      <h3 className="text-[0.9rem] font-medium text-text-primary leading-tight truncate pr-2">
+      <h3 className="text-[0.8rem] font-medium text-text-primary leading-tight truncate pr-2">
         {property.name}
       </h3>
     </div>
-    <div className="text-[0.7rem] text-text-muted flex items-center gap-1">
+    <div className="text-[0.8rem] text-text-muted flex items-center gap-1">
         <MapPin size={11} className="shrink-0" />
         <span className="truncate">{property.loc}</span>
     </div>
