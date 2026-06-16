@@ -71,9 +71,9 @@ export const Home: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex gap-10 sm:gap-4 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
           {data.map((property) => (
-            <div key={property.id} className="w-[200px] sm:w-[240px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+            <div key={property.id} className="w-[85vw] sm:w-[220px] md:w-[190px] xl:w-[210px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
                 isSaved={savedProperties.includes(property.id)}
@@ -144,9 +144,9 @@ export const Home: React.FC = () => {
             <RecentlyViewedStrip />
 
           {/* CAMPUS SECTIONS */}
-          {renderPropertyRow("Nearby Properties", properties.slice(0, 5), "/see-all/nearby")}
-          {renderPropertyRow("Near ATU Campus", properties.filter(p => p.location?.includes('ATU')).length > 0 ? properties.filter(p => p.location?.includes('ATU')) : properties.slice(0, 4), "/see-all/atu")}
-          {renderPropertyRow("Near UG Campus", properties.filter(p => p.location?.includes('UG')).length > 0 ? properties.filter(p => p.location?.includes('UG')) : [...properties].reverse().slice(0, 4), "/see-all/ug")}
+          {renderPropertyRow("Nearby Properties", properties.slice(0, 8), "/see-all/nearby")}
+          {renderPropertyRow("Near ATU Campus", properties.filter(p => p.location?.includes('ATU')).length > 0 ? properties.filter(p => p.location?.includes('ATU')) : properties.slice(0, 8), "/see-all/atu")}
+          {renderPropertyRow("Near UG Campus", properties.filter(p => p.location?.includes('UG')).length > 0 ? properties.filter(p => p.location?.includes('UG')) : [...properties].reverse().slice(0, 8), "/see-all/ug")}
 
           {/* QUICK ACTIONS */}
           <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
