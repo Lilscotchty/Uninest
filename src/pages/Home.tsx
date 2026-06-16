@@ -110,8 +110,8 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
             msOverflowStyle: 'none' 
           }}
         >
+           {/* Sizing: 85vw on mobile, 200px square on desktop */}
           {data.map((property: any) => (
-            {/* Sizing: 85vw on mobile, 200px square on desktop */}
             <div key={property.id} className="w-[65vw] sm:w-[300px] md:w-[200px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
               <PropertyCard 
                 property={property} 
