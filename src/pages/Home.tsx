@@ -267,8 +267,8 @@ export const Home: React.FC = () => {
           {/* FEATURED CAROUSEL */}
           <div className="mt-2 max-w-screen-2xl mx-auto w-full">
             <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-              <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
-              <span onClick={() => navigate('/see-all/featured')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors">See all →</span>
+              <h2 className="text-[1.0rem] sm:text-[1.0rem] font-bold-100 tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
+              <span onClick={() => navigate('/see-all/featured')} className="text-[0.6rem] font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors">See all →</span>
             </div>
             
             <div className="px-4 sm:px-6 lg:px-8">
