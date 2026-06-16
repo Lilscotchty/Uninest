@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
 import { PageHeader } from '../components/layout/PageHeader';
 import { RecentlyViewedStrip } from "../components/RecentlyViewedStrip";
-import { MapPin, Grip, DoorClosed, Users, School, Tag, Wifi, Search, SlidersHorizontal, ArrowRight } from 'lucide-react';
+import { MapPin, Grip, DoorClosed, Users, School, Tag, Wifi, Search, SlidersHorizontal, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const FILTERS = [
   { id: 'all', label: 'All', icon: <Grip size={14} /> },
@@ -15,6 +15,102 @@ const FILTERS = [
   { id: 'budget', label: 'Budget', icon: <Tag size={14} /> },
   { id: 'wifi', label: 'Wi-Fi', icon: <Wifi size={14} /> },
 ];
+
+// Dedicated component to handle stateful, binary sliding per row
+const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, setSelectedPropertyId, navigate }: any) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [canScroll, setCanScroll] = useState(false);
+
+  // Check if content overflows to determine if arrows are even needed
+  useEffect(() => {
+    const checkScroll = () => {
+      if (scrollRef.current) {
+        setCanScroll(scrollRef.current.scrollWidth > scrollRef.current.clientWidth);
+      }
+    };
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, [data]);
+
+  const handleNext = () => {
+    if (scrollRef.current) {
+      // Slide exactly to the end
+      const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+      scrollRef.current.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      setScrolled(true);
+    }
+  };
+
+  const handlePrev = () => {
+    if (scrollRef.current) {
+      // Slide exactly back to the beginning
+      scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      setScrolled(false);
+    }
+  };
+
+  if (!data || data.length === 0) return null;
+
+  return (
+    // Clean, perfectly aligned margin wrap
+    <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center py-4 pb-4">
+        <h2 className="text-[1.2rem] sm:text-[1.4rem] font-extrabold tracking-tight text-[var(--color-heading)]">{title}</h2>
+        <span 
+          onClick={() => navigate(seeAllLink)} 
+          className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors flex items-center gap-1"
+        >
+          See all <ArrowRight size={14} />
+        </span>
+      </div>
+      
+      <div className="relative group">
+        {/* Left Arrow - Shows only when scrolled */}
+        {canScroll && scrolled && (
+          <button 
+            onClick={handlePrev}
+            className="absolute -left-3 sm:-left-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+          >
+            <ChevronLeft size={22} />
+          </button>
+        )}
+
+        {/* Right Arrow - Shows initially if content overflows */}
+        {canScroll && !scrolled && (
+          <button 
+            onClick={handleNext}
+            className="absolute -right-3 sm:-right-5 top-[40%] -translate-y-1/2 z-20 bg-card-bg/95 backdrop-blur-md text-text-primary shadow-[0_4px_16px_rgba(0,0,0,0.15)] rounded-full w-10 h-10 flex items-center justify-center border border-border-subtle hover:scale-110 hover:bg-[var(--color-button)] hover:text-white transition-all cursor-pointer"
+          >
+            <ChevronRight size={22} />
+          </button>
+        )}
+
+        {/* Locked manual scrolling (overflow-hidden) */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 sm:gap-5 overflow-hidden pb-6 pt-2 items-stretch scroll-smooth w-full"
+        >
+          {data.map((property: any) => (
+            <div key={property.id} className="w-[85vw] sm:w-[220px] md:w-[190px] xl:w-[210px] shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
+              <PropertyCard 
+                property={property} 
+                isSaved={savedProperties.includes(property.id)}
+                onToggleSave={toggleSave}
+                onClick={() => {
+                  setSelectedPropertyId(property.id);
+                  navigate("/details");
+                }} 
+                layout="compact"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const Home: React.FC = () => {
   const { activeFilter, setActiveFilter, savedProperties, toggleSave, setSelectedPropertyId, properties } = useAppContext();
@@ -54,42 +150,6 @@ export const Home: React.FC = () => {
       action: 'See Location'
     }
   ];
-
-  // Helper function to render horizontal property rows
-  const renderPropertyRow = (title: string, data: typeof properties, seeAllLink: string) => {
-    if (!data || data.length === 0) return null;
-    
-    return (
-      <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col">
-        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-4">
-          <h2 className="text-[1.2rem] sm:text-[1.4rem] font-extrabold tracking-tight text-[var(--color-heading)]">{title}</h2>
-          <span 
-            onClick={() => navigate(seeAllLink)} 
-            className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors flex items-center gap-1"
-          >
-            See all <ArrowRight size={14} />
-          </span>
-        </div>
-        
-        <div className="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 pb-6 pt-2 items-stretch scroll-smooth snap-x snap-mandatory">
-          {data.map((property) => (
-            <div key={property.id} className="w-[85vw] sm:w-[220px] md:w-[190px] xl:w-[210px] snap-start shrink-0 flex hover:-translate-y-1 transition-transform duration-300">
-              <PropertyCard 
-                property={property} 
-                isSaved={savedProperties.includes(property.id)}
-                onToggleSave={toggleSave}
-                onClick={() => {
-                  setSelectedPropertyId(property.id);
-                  navigate("/details");
-                }} 
-                layout="compact"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="flex-1 w-full hide-scrollbar relative scroll-smooth flex flex-col pt-0 bg-app-bg">
@@ -143,10 +203,34 @@ export const Home: React.FC = () => {
            {/* RECENTLY VIEWED */}
             <RecentlyViewedStrip />
 
-          {/* CAMPUS SECTIONS */}
-          {renderPropertyRow("Nearby Properties", properties.slice(0, 8), "/see-all/nearby")}
-          {renderPropertyRow("Near ATU Campus", properties.filter(p => p.location?.includes('ATU')).length > 0 ? properties.filter(p => p.location?.includes('ATU')) : properties.slice(0, 8), "/see-all/atu")}
-          {renderPropertyRow("Near UG Campus", properties.filter(p => p.location?.includes('UG')).length > 0 ? properties.filter(p => p.location?.includes('UG')) : [...properties].reverse().slice(0, 8), "/see-all/ug")}
+          {/* CAMPUS SECTIONS USING NEW COMPONENT */}
+          <PropertyRow 
+            title="Nearby Properties" 
+            data={properties.slice(0, 8)} 
+            seeAllLink="/see-all/nearby" 
+            savedProperties={savedProperties} 
+            toggleSave={toggleSave} 
+            setSelectedPropertyId={setSelectedPropertyId} 
+            navigate={navigate} 
+          />
+          <PropertyRow 
+            title="Near ATU Campus" 
+            data={properties.filter(p => p.location?.includes('ATU')).length > 0 ? properties.filter(p => p.location?.includes('ATU')) : properties.slice(0, 8)} 
+            seeAllLink="/see-all/atu" 
+            savedProperties={savedProperties} 
+            toggleSave={toggleSave} 
+            setSelectedPropertyId={setSelectedPropertyId} 
+            navigate={navigate} 
+          />
+          <PropertyRow 
+            title="Near UG Campus" 
+            data={properties.filter(p => p.location?.includes('UG')).length > 0 ? properties.filter(p => p.location?.includes('UG')) : [...properties].reverse().slice(0, 8)} 
+            seeAllLink="/see-all/ug" 
+            savedProperties={savedProperties} 
+            toggleSave={toggleSave} 
+            setSelectedPropertyId={setSelectedPropertyId} 
+            navigate={navigate} 
+          />
 
           {/* QUICK ACTIONS */}
           <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
