@@ -208,32 +208,33 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
         </div>
       </div>
 
-      {/* Desktop Simple View */}
+     {/* Desktop Simple View */}
 <div 
   onClick={handleCardClick}
   className="hidden md:flex flex-col cursor-pointer group w-max"
 >
-  {/* Square Image Container (Fixed to 180x180 to reduce size and ensure perfect square) */}
-  <div className="relative overflow-hidden rounded-2xl group w-[230px] h-[230px] shrink-0">
+  {/* Square Image Container (Fixed to 240x240 as requested) */}
+  <div className="relative overflow-hidden rounded-2xl group w-[240px] h-[240px] shrink-0">
     <img 
       src={property.img} 
       alt={property.name} 
       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
     />
     
+    {/* Heart Icon Button (Repositioned and slightly larger for consistency) */}
     <button 
       onClick={(e) => {
         e.stopPropagation();
         onToggleSave(property.id);
       }}
       aria-label="Toggle favorite"
-      className="absolute top-2.5 right-2.5 bg-black/30 backdrop-blur-md text-white w-8 h-8 rounded-full flex items-center justify-center border border-white/10 cursor-pointer transition-all hover:bg-black/50 shadow-[0_4px_12px_rgba(0,0,0,0.2)] z-10 hover:scale-110 active:scale-95"
+      className="absolute top-3 right-3 bg-black/30 backdrop-blur-md text-white w-9 h-9 rounded-full flex items-center justify-center border border-white/10 cursor-pointer transition-all hover:bg-black/50 shadow-[0_4px_12px_rgba(0,0,0,0.2)] z-10 hover:scale-110 active:scale-95"
     >
-      <Heart size={16} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
+      <Heart size={20} className={isSaved ? 'fill-coral text-coral' : 'fill-transparent'} stroke={isSaved ? 'none' : 'currentColor'} />
     </button>
     
-    {/* Dark Glass Price Badge (Identical, small inline font) */}
-    <div className="absolute bottom-2.5 left-2.5 bg-black/40 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+    {/* White Glass Price Badge (Bottom Left, black text) */}
+    <div className="absolute bottom-2.5 left-2.5 bg-white/40 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <span className="font-sans text-[0.6rem] font-semibold tracking-wide uppercase">
         {formatPrice(property.priceNum, property.pricing_tag || '/sem').replace(property.pricing_tag || '/sem', '')}
       </span>
@@ -242,8 +243,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
       </span>
     </div>
 
-    {/* Dark Glass Review Badge (Moved to bottom right, black star) */}
-    <div className="absolute bottom-2.5 right-2.5 bg-black/40 backdrop-blur-md border border-white/10 text-white px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
+    {/* White Glass Review Badge (Moved to top left, black text, black star) */}
+    <div className="absolute top-2.5 left-2.5 bg-white/40 backdrop-blur-md border border-black/10 text-black px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-sm z-10">
       <Star size={11} className="fill-black text-black" stroke="none" /> 
       <span className="text-[0.7rem] font-medium">
         {property.rating}
@@ -251,8 +252,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, isSaved, o
     </div>
   </div>
 
-  {/* Written Data Section (Reduced font sizes & weights) */}
-  <div className="pt-2.5 px-1.5 w-[180px]">
+  {/* Written Data Section (Width matched to image container, reasonable gap closed) */}
+  <div className="pt-2.5 px-2 w-[240px]">
     <div className="flex justify-between items-start mb-0.5">
       <h3 className="text-[0.9rem] font-medium text-text-primary leading-tight truncate pr-2">
         {property.name}
