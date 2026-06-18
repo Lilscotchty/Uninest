@@ -36,19 +36,18 @@ export const Referrals: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-app-bg flex flex-col font-sans relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="max-w-xl mx-auto w-full flex flex-col flex-1 pb-20">
-        <PageHeader 
-          title="Refer a Friend"
-          showBackButton={true}
-          onBack={() => navigate(-1)}
-          actions={[
-            { icon: <HelpCircle size={22} />, label: "Help", onClick: () => showToast("Learn how referrals work") }
-          ]}
-        />
-
-        <div className="flex-1 overflow-y-auto px-5 py-6">
-          <div className="flex flex-col items-center justify-center text-center space-y-4 mb-8 mt-4">
+    <div className="w-full min-h-screen bg-app-bg flex flex-col font-sans relative animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <PageHeader 
+        title="Refer a Friend"
+        showBackButton={true}
+        onBack={() => navigate(-1)}
+        actions={[
+          { icon: <HelpCircle size={22} />, label: "Help", onClick: () => showToast("Learn how referrals work") }
+        ]}
+      />
+      
+      <div className="max-w-2xl mx-auto w-full flex flex-col flex-1 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center text-center space-y-4 mb-8 mt-6">
             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-2">
               <Gift size={40} className="ml-1" />
             </div>
@@ -137,7 +136,6 @@ export const Referrals: React.FC = () => {
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 };

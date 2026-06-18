@@ -138,7 +138,7 @@ export const Details: React.FC = () => {
   const selectedRoom = roomsToDisplay[activeRoomMode] || roomsToDisplay[0];
 
   return (
-    <div className="flex-1 w-full bg-app-bg relative flex flex-col md:overflow-y-auto">
+    <div className="flex-1 w-full bg-app-bg relative flex flex-col">
       
       {/* HEADER ACTIONS (Not floating on image) */}
       <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pt-4 md:pt-6 flex justify-between items-center z-10 shrink-0">
