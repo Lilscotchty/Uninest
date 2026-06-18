@@ -63,7 +63,7 @@ const RatingDistribution: React.FC<{
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
         {/* Average Rating Typography */}
         <div className="md:col-span-4 flex flex-col items-center md:items-start">
-          <div className="text-[5rem] sm:text-[6rem] font-bold text-slate-900 leading-none tracking-tighter mb-4">
+          <div className="text-[4rem] sm:text-[5rem] font-bold text-slate-900 leading-none tracking-tighter mb-4">
             {averageRating.toFixed(1)}
           </div>
           <RatingBlocks rating={Math.round(averageRating)} size="md" />
@@ -171,7 +171,7 @@ const ReviewCard: React.FC<{
 
         {/* Content Column */}
         <div className="md:col-span-9">
-          <h3 className="text-xl font-bold text-slate-900 leading-tight tracking-tight mb-3">
+          <h3 className="text-lg font-semibold text-slate-900 leading-tight tracking-tight mb-3">
             {review.title}
           </h3>
           
@@ -507,7 +507,7 @@ export const PropertyReviews: React.FC = () => {
               {/* Filter / Sort Header */}
               {reviews.length > 0 && (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-6">
-                  <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
+                  <h3 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-slate-900 leading-tight">
                     All Reviews
                   </h3>
                   <div className="flex items-center gap-3">
@@ -534,7 +534,7 @@ export const PropertyReviews: React.FC = () => {
                     <div className="w-16 h-16 bg-slate-50 text-slate-300 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <MessageCircle size={32} />
                     </div>
-                    <h4 className="text-xl font-bold text-slate-900 tracking-tight mb-3">No reviews yet</h4>
+                    <h4 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-slate-900 tracking-tight leading-tight mb-2">No reviews yet</h4>
                     <p className="text-[0.95rem] text-slate-500 font-medium max-w-[300px] mx-auto">
                       Be the first to share your experience staying at this property!
                     </p>

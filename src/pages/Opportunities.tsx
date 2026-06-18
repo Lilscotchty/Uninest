@@ -192,7 +192,7 @@ export const Opportunities: React.FC = () => {
             <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
               <Search size={28} />
             </div>
-            <h4 className="text-lg font-bold text-text-primary mb-2">No companies found</h4>
+            <h4 className="text-[1.05rem] font-semibold text-text-primary mb-2">No companies found</h4>
             <p className="text-[0.9rem] text-text-muted max-w-sm mb-6">
               We didn't find any companies for "{selectedSector !== 'all' ? selectedSector : 'this sector'}" in {location.resolvedCity || location.value}.
             </p>
@@ -214,7 +214,7 @@ export const Opportunities: React.FC = () => {
             <div className="w-16 h-16 bg-[var(--color-accent-muted)] text-[var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
               <Briefcase size={32} />
             </div>
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Unlock Opportunity Hub</h2>
+            <h2 className="text-[1.2rem] font-semibold text-[var(--color-text-primary)] mb-2">Unlock Opportunity Hub</h2>
             <p className="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
               We found <b>{filteredCompanies.length}</b> opportunities near you! Pay a one-time fee of <b>GH₵ 5.00</b> to unlock company names, exact locations, and direct contact details.
             </p>

@@ -19,7 +19,7 @@ export function RecentlyViewedStrip() {
       {/* ── Section header ── */}
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 pb-3">
         <div>
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)] leading-tight">
+          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-[var(--color-heading)] leading-tight">
             Recently Viewed
           </h2>
           <p className="text-[0.75rem] sm:text-xs text-text-secondary mt-0.5 font-medium">

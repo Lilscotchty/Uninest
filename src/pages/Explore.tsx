@@ -290,7 +290,7 @@ export const Explore: React.FC = () => {
                 >
                   <ChevronLeft size={20} strokeWidth={2.5} />
                 </button>
-                <h2 className="text-[1.4rem] font-bold tracking-tight text-[var(--color-heading)]">Nearby Properties</h2>
+                <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-[var(--color-heading)] leading-tight">Nearby Properties</h2>
              </div>
              
              <div className="hidden md:flex flex-1 max-w-md mx-6 bg-[var(--color-surface)] rounded-full px-4 items-center gap-2 border border-border-subtle h-11">

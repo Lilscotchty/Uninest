@@ -392,7 +392,7 @@ export const ManagerDashboard: React.FC = () => {
       {/* Sidebar */}
       <div className={`fixed md:relative z-50 h-full bg-[var(--color-surface)] border-r border-[var(--color-border)] w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
         <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)] h-[60px]">
-          <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">Property Portal</span>
+          <span className="text-[1.2rem] font-semibold tracking-tight text-[var(--color-text-primary)]">Property Portal</span>
           <button className="text-text-muted md:hidden" onClick={() => setSidebarOpen(false)}><X size={24} /></button>
         </div>
         <div className="flex flex-col p-4 gap-2">

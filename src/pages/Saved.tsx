@@ -65,13 +65,13 @@ export const Saved: React.FC = () => {
       </div>
 
       {/* List */}
-      <div className="w-full mt-2 pb-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="w-full mt-2 pb-[100px] md:pb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredItems.length === 0 ? (
           <div className="col-span-full flex-1 flex flex-col items-center justify-center text-center px-8 py-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="w-20 h-20 rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] flex items-center justify-center mb-5">
               <Bookmark size={40} />
             </div>
-            <h2 className="text-[1.4rem] text-text-primary mb-2 font-bold mt-0">No saved properties yet</h2>
+            <h2 className="text-[1.2rem] text-text-primary mb-2 font-semibold mt-0">No saved properties yet</h2>
             <p className="text-[0.85rem] text-text-muted leading-relaxed mb-6">Properties you bookmark will show up here so you can easily view and book them later.</p>
             <button 
               onClick={() => navigate("/explore")}

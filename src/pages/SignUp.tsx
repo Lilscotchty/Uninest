@@ -73,7 +73,7 @@ function SkyCobeLogo() {
       </div>
 
       <h1
-        className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]"
+        className="text-[1.2rem] font-semibold tracking-tight text-[var(--color-text-primary)]"
       >
         Welcome to <span className="text-[var(--color-accent)]">SKYCOBE</span>
       </h1>

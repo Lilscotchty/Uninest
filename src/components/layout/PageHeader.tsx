@@ -263,7 +263,7 @@ export function PageHeader({
               <h1
                 style={{ color: 'var(--color-text-primary)' }}
                 className={cn(
-                  "text-[26px] sm:text-[28px] lg:text-[30px] font-bold leading-tight tracking-tight truncate",
+                  "text-[1.15rem] sm:text-[1.2rem] font-semibold leading-tight tracking-tight truncate",
                 )}
               >
                 {title}

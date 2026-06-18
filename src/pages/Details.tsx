@@ -141,7 +141,7 @@ export const Details: React.FC = () => {
     <div className="flex-1 w-full bg-app-bg relative flex flex-col">
       
       {/* HEADER ACTIONS (Not floating on image) */}
-      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pt-4 md:pt-6 flex justify-between items-center z-10 shrink-0">
+      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 sticky top-0 md:top-[72px] bg-app-bg">
         <button
           onClick={() => navigate("/student/dashboard")}
           className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
@@ -172,7 +172,7 @@ export const Details: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-8 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-8 pt-4">
+      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-[90px] flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-8 pt-4">
         {/* GALLERY */}
         <div className="relative h-[340px] md:h-[500px] bg-black md:col-span-3 rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
           <div
@@ -290,7 +290,7 @@ export const Details: React.FC = () => {
           </div>
 
           <div className="flex justify-between items-start mb-3 gap-4">
-            <h1 className="text-[1.6rem] sm:text-[2.2rem] font-bold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
+            <h1 className="text-[1.15rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
               {property.name}
             </h1>
             <div className="bg-card-bg border-border-subtle border shadow-sm rounded-xl px-3 py-2 sm:px-4 flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -341,7 +341,7 @@ export const Details: React.FC = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
             <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
                 {property.price.split(",")[0]}K
               </strong>
               <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -349,7 +349,7 @@ export const Details: React.FC = () => {
               </span>
             </div>
             <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
                 {property.reviews}
               </strong>
               <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -357,7 +357,7 @@ export const Details: React.FC = () => {
               </span>
             </div>
             <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.4rem] font-bold text-text-primary mb-0.5">
+              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
                 3 min
               </strong>
               <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
@@ -376,7 +376,7 @@ export const Details: React.FC = () => {
           </button>
 
           {/* Host */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
             Listed by
           </h2>
           <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
@@ -422,7 +422,7 @@ export const Details: React.FC = () => {
           </div>
 
           {/* Amenities */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
             What's Included
           </h2>
           <div className="grid grid-cols-2 gap-3 mb-8">
@@ -448,7 +448,7 @@ export const Details: React.FC = () => {
             })}
           </div>
 
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
             About this Property
           </h2>
           <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
@@ -462,7 +462,7 @@ export const Details: React.FC = () => {
           </button>
 
           {/* Room Options */}
-          <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-[var(--color-heading)] mb-4 tracking-tight">
+          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
             Room Options
           </h2>
           <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
@@ -485,7 +485,7 @@ export const Details: React.FC = () => {
               />
             </div>
             <div className="p-[18px]">
-              <h3 className="text-[1.1rem] font-bold text-[var(--color-heading)] mb-2.5">
+              <h3 className="text-[1rem] font-semibold text-[var(--color-heading)] mb-2.5">
                 {selectedRoom.name}
               </h3>
               <div className="flex gap-3 flex-wrap mb-3.5">
@@ -552,7 +552,7 @@ export const Details: React.FC = () => {
             >
               ✕
             </button>
-            <h2 className="text-[1.3rem] font-bold text-[var(--color-heading)] mb-2">Request Room</h2>
+            <h2 className="text-[1.15rem] font-semibold text-[var(--color-heading)] mb-2">Request Room</h2>
             <p className="text-[0.9rem] text-text-muted mb-6">Fill out your details to secure your {selectedRoom.name}.</p>
             
             <div className="space-y-4">

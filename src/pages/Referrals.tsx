@@ -51,7 +51,7 @@ export const Referrals: React.FC = () => {
             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-2">
               <Gift size={40} className="ml-1" />
             </div>
-            <h2 className="text-2xl font-bold text-text-primary">Invite friends, earn credits</h2>
+            <h2 className="text-[1.2rem] font-semibold text-text-primary">Invite friends, earn credits</h2>
             <p className="text-text-secondary w-4/5 mx-auto text-[0.95rem] leading-relaxed">
               When a friend signs up with your code and completes their first booking, you both receive <b>10 booking credits</b>. Plus, earn <b>₵1.00</b> every time a referee pays for Opportunity Hub features!
             </p>
@@ -85,7 +85,7 @@ export const Referrals: React.FC = () => {
 
           <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-bold text-text-primary text-lg">Your Rewards</h3>
+              <h3 className="text-[1.05rem] font-semibold text-text-primary">Your Rewards</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
@@ -101,7 +101,7 @@ export const Referrals: React.FC = () => {
           </div>
 
           <div className="mt-8 mb-4 px-2">
-            <h3 className="font-bold text-text-primary text-lg mb-4">Referral History</h3>
+            <h3 className="text-[1.05rem] font-semibold text-text-primary mb-4">Referral History</h3>
             
             {referees.length === 0 ? (
               <div className="text-center py-8 bg-card-bg/50 rounded-xl border border-border-subtle">

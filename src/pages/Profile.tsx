@@ -86,7 +86,7 @@ export const Profile: React.FC = () => {
         ]}
       />
 
-      <div className="flex-1 w-full px-5 pb-[70px] flex flex-col gap-5 hide-scrollbar mt-4 max-w-3xl mx-auto relative pt-0">
+      <div className="flex-1 w-full px-5 pb-[100px] md:pb-8 flex flex-col gap-5 hide-scrollbar mt-4 max-w-3xl mx-auto relative pt-0">
         
         {/* User Identity Card Redesign */}
         <div className="bg-card-bg rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-transparent border relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">

@@ -66,7 +66,7 @@ const PropertyRow = ({ title, data, seeAllLink, savedProperties, toggleSave, set
   return (
     <div className="mt-4 mb-2 max-w-screen-2xl mx-auto w-full flex flex-col px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center py-4 pb-4">
-        <h2 className="text-[1.2rem] sm:text-[1.4rem] font-extrabold tracking-tight text-[var(--color-heading)]">{title}</h2>
+        <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-[var(--color-heading)] leading-tight">{title}</h2>
         <span 
           onClick={() => navigate(seeAllLink)} 
           className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors flex items-center gap-1"
@@ -254,7 +254,7 @@ export const Home: React.FC = () => {
           {/* QUICK ACTIONS */}
           <div className="mt-2 text-text-primary px-4 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto w-full pb-4">
             <div className="flex justify-between items-center py-4 pb-3">
-              <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Quick Actions</h2>
+              <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-[var(--color-heading)] leading-tight">Quick Actions</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               <div className="modern-card" onClick={() => navigate("/virtual-tour")}>
@@ -286,7 +286,7 @@ export const Home: React.FC = () => {
           {/* FEATURED CAROUSEL */}
           <div className="mt-2 max-w-screen-2xl mx-auto w-full">
             <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 pb-3">
-              <h2 className="text-[1.1rem] sm:text-[1.3rem] font-bold tracking-tight text-[var(--color-heading)]">Featured Picks</h2>
+              <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold tracking-tight text-[var(--color-heading)] leading-tight">Featured Picks</h2>
               <span onClick={() => navigate('/see-all/featured')} className="text-sm font-semibold text-[var(--color-accent)] cursor-pointer tracking-tight hover:text-[var(--color-accent-hover)] transition-colors">See all →</span>
             </div>
             

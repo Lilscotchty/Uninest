@@ -27,7 +27,7 @@ export const VirtualTour: React.FC = () => {
             <div className="w-16 h-16 bg-amber-light text-amber-500 rounded-[20px] flex items-center justify-center mx-auto mb-4">
               <Video size={32} />
             </div>
-            <h2 className="text-2xl font-bold text-text-primary mb-2">Explore Look-Alikes</h2>
+            <h2 className="text-[1.2rem] font-semibold text-text-primary mb-2">Explore Look-Alikes</h2>
             <p className="text-sm text-text-muted">Experience video walkthroughs of top-rated student properties before making a decision.</p>
           </div>
 
@@ -46,7 +46,7 @@ export const VirtualTour: React.FC = () => {
                   </div>
                 </div>
                 <div className="p-4 flex flex-col gap-1">
-                  <h3 className="text-lg font-bold text-text-primary">{property.name}</h3>
+                  <h3 className="text-[1.05rem] font-semibold text-text-primary">{property.name}</h3>
                   <div className="flex items-center text-[0.8rem] text-text-muted gap-1">
                     <MapPin size={12} className="text-amber-500" /> {property.loc}
                   </div>
