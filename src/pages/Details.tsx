@@ -138,14 +138,13 @@ export const Details: React.FC = () => {
   const selectedRoom = roomsToDisplay[activeRoomMode] || roomsToDisplay[0];
 
   return (
-    <div className="flex-1 w-full bg-app-bg relative flex flex-col">
+    <div className="flex-1 w-full bg-app-bg relative flex flex-col min-h-screen">
       
       {/* HEADER ACTIONS (Not floating on image) */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 sticky top-0 md:top-[72px] bg-app-bg">
+      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 bg-app-bg relative">
         <button
-
-          onClick={() => navigate("/student/dashboard")}
-          className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:bg-[var(--color-surface)] hover:scale-105 transition-all"
         >
           <ChevronLeft size={20} />
         </button>
@@ -173,9 +172,11 @@ export const Details: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-[90px] flex flex-col pt-4">
-        {/* GALLERY */}
-        <div className="relative h-[340px] md:h-[500px] bg-black w-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
+      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 pb-[100px] lg:pb-[90px] flex flex-col lg:flex-row gap-8 lg:gap-12 pt-2">
+        {/* LEFT/TOP: Media */}
+        <div className="w-full lg:w-[55%] xl:w-[60%] shrink-0 flex flex-col lg:sticky lg:top-8 h-fit">
+          {/* GALLERY */}
+          <div className="relative h-[340px] md:h-[500px] xl:h-[600px] bg-black w-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
           <div
             className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
             ref={trackRef}
@@ -275,9 +276,10 @@ export const Details: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-14 w-full items-start relative pb-10">
-          {/* LEFT CONTENT */}
-          <div className="flex-1 w-full flex flex-col bg-transparent relative z-[5]">
+        {/* RIGHT/BOTTOM: Content */}
+        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col gap-8 pb-10">
+          {/* CONTENT HEADER */}
+          <div className="flex flex-col relative z-[5]">
              {/* Tags */}
              <div className="flex gap-2.5 mb-5 flex-wrap">
             <span className="bg-teal-light text-teal text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] flex items-center gap-1.5">
@@ -464,126 +466,69 @@ export const Details: React.FC = () => {
           </button>
 
           {/* Room Options */}
-          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
-            Room Options
-          </h2>
-          <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
-            {roomsToDisplay.map((room_item, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveRoomMode(index)}
-                className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === index ? "bg-[var(--color-button)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-              >
-                {room_item.name}
-              </button>
-            ))}
-          </div>
-
-          <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
-            <div className="h-[160px]">
-              <img
-                src={selectedRoom.img}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-[18px]">
-              <h3 className="text-[1rem] font-semibold text-[var(--color-heading)] mb-2.5">
-                {selectedRoom.name}
-              </h3>
-              <div className="flex gap-3 flex-wrap mb-3.5">
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Ruler size={14} className="text-[var(--color-accent)]" /> {selectedRoom.size}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <User size={14} className="text-[var(--color-accent)]" /> {selectedRoom.occ}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
-                </div>
-              </div>
-                 <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
-                <div>
-                  <strong className="block text-[1.1rem] text-text-primary leading-none">
-                    {selectedRoom.price}
-                  </strong>
-                  <span className="block text-[0.75rem] text-text-muted font-medium mt-1">
-                    per semester
-                  </span>
-                </div>
-                {/* NEW CHECKOUT BUTTON */}
-                <button
-                  onClick={() => setBookingModalOpen(true)}
-                  className="px-5 py-2 bg-[var(--color-button)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform md:hidden" >
-              
-                  Checkout
-                </button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT SIDEBAR (Desktop) */}
-        <div className="hidden md:block w-1/3 lg:w-[380px] shrink-0 md:sticky md:top-24 h-fit">
-          <div className="bg-card-bg rounded-[24px] border border-border-subtle shadow-sm p-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="bg-green-100 text-green-700 text-[0.7rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{property.avail || "Available"}</span>
-            </div>
+          <div className="flex flex-col gap-4 mt-2">
+            <h2 className="text-[1.1rem] sm:text-[1.25rem] font-bold text-[var(--color-heading)] tracking-tight leading-tight mb-2">
+              Available Rooms
+            </h2>
             
-            <div className="mb-6">
-              <strong className="block text-[1.4rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-                {selectedRoom.price}
-              </strong>
-              <span className="block text-[0.85rem] text-text-muted font-semibold mt-1">
-                {property.pricing_tag || 'per semester'}
-              </span>
-            </div>
-
-            <div className="mb-6 border border-border-subtle rounded-xl overflow-hidden divide-y divide-border-subtle">
-              <div className="p-3">
-                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Room Type</span>
-                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.name}</span>
-              </div>
-              <div className="p-3">
-                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Occupancy</span>
-                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.occ}</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setBookingModalOpen(true)}
-              className="w-full py-4 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:scale-[1.02] transition-transform flex justify-center items-center gap-2"
-            >
-              Request Room
-            </button>
-            
-            <div className="mt-4 text-center">
-               <span className="text-[0.75rem] text-text-muted">You won't be charged yet</span>
+            <div className="flex flex-col gap-4">
+              {roomsToDisplay.map((room_item, index) => (
+                <div key={index} className="bg-card-bg rounded-[20px] border border-border-subtle shadow-sm overflow-hidden flex flex-col sm:flex-row relative group hover:border-[var(--color-border)] transition-colors">
+                  <div className="w-full sm:w-[140px] h-[160px] sm:h-auto shrink-0 relative">
+                    <img
+                      src={room_item.img}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 left-2 bg-green-100/90 backdrop-blur-sm text-green-700 text-[0.65rem] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                      {room_item.avail}
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-[1.05rem] font-bold text-[var(--color-heading)] leading-tight mb-3">
+                        {room_item.name}
+                      </h3>
+                      <div className="grid grid-cols-2 gap-y-2 gap-x-4 mb-4">
+                        <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                          <Ruler size={14} className="text-[var(--color-accent)]" /> {room_item.size}
+                        </div>
+                        <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                          <User size={14} className="text-[var(--color-accent)]" /> {room_item.occ}
+                        </div>
+                        <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
+                          <Bed size={14} className="text-[var(--color-accent)]" /> {room_item.bed}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-end pt-3 sm:pt-4 border-t border-border-subtle/50">
+                      <div>
+                        <strong className="block text-[1.15rem] font-bold text-[var(--color-heading)] leading-none mb-1">
+                          {room_item.price}
+                        </strong>
+                        <span className="block text-[0.7rem] text-text-muted font-semibold tracking-wide uppercase">
+                          {property.pricing_tag || 'per semester'}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setActiveRoomMode(index);
+                          setBookingModalOpen(true);
+                        }}
+                        className="px-6 py-2.5 bg-[var(--color-button)] text-white rounded-[14px] font-bold text-[0.9rem] shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all" 
+                      >
+                        Request
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-
-      {/* --- BOTTOM MOBILE REQUEST BAR --- */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-          <div>
-            <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-              {selectedRoom.price}
-            </strong>
-            <span className="block text-[0.7rem] text-text-muted font-bold uppercase tracking-[0.5px]">
-              {property.pricing_tag || 'Total Price'}
-            </span>
-          </div>
-          <button
-            onClick={() => setBookingModalOpen(true)}
-            className="px-8 py-3.5 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
-          >
-            Request Room
-          </button>
-        </div>
-        {/* --- END OF REQUEST BAR --- */}
-
-      </div>
+    </div>
 
       {/* --- NEW BOOKING MODAL --- */}
       {bookingModalOpen && (
@@ -645,6 +590,7 @@ export const Details: React.FC = () => {
       )}
       {/* --- END OF BOOKING MODAL --- */}
 
+    </div>
     </div>
   );
 };
