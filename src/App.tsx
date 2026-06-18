@@ -31,6 +31,11 @@ import RecentlyViewedPage from "./pages/RecentlyViewedPage";
 import { OwnerGuard } from "./components/guards/RoleGuard";
 import { NotAuthorisedPage } from "./pages/NotAuthorisedPage";
 import { OnboardingModal } from "./components/OnboardingModal";
+import { Notifications } from "./pages/Notifications";
+import { Messages } from "./pages/Messages";
+import { Settings } from "./pages/Settings";
+import { Support } from "./pages/Support";
+import { CampusGuide } from "./pages/CampusGuide";
 
 const AppContent: React.FC = () => {
   const { user, profile, profileLoading } = useAppContext();
@@ -170,6 +175,46 @@ const AppContent: React.FC = () => {
           element={
             <AppShell>
               <Profile />
+            </AppShell>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <AppShell>
+              <Notifications />
+            </AppShell>
+          }
+        />
+        <Route
+          path="/messages"
+          element={
+            <AppShell>
+              <Messages />
+            </AppShell>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <AppShell>
+              <Settings />
+            </AppShell>
+          }
+        />
+        <Route
+          path="/support"
+          element={
+            <AppShell>
+              <Support />
+            </AppShell>
+          }
+        />
+        <Route
+          path="/campus-guide"
+          element={
+            <AppShell>
+              <CampusGuide />
             </AppShell>
           }
         />
