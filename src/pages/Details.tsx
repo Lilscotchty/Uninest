@@ -141,8 +141,9 @@ export const Details: React.FC = () => {
     <div className="flex-1 w-full bg-app-bg relative flex flex-col">
       
       {/* HEADER ACTIONS (Not floating on image) */}
-      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 sticky top-0 md:top-[72px] bg-app-bg">
+      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 sticky top-0 md:top-[72px] bg-app-bg">
         <button
+
           onClick={() => navigate("/student/dashboard")}
           className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
         >
@@ -172,9 +173,9 @@ export const Details: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-[90px] flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-8 pt-4">
+      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-[90px] flex flex-col pt-4">
         {/* GALLERY */}
-        <div className="relative h-[340px] md:h-[500px] bg-black md:col-span-3 rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
+        <div className="relative h-[340px] md:h-[500px] bg-black w-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
           <div
             className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
             ref={trackRef}
@@ -273,11 +274,12 @@ export const Details: React.FC = () => {
             {currentImg + 1} / {(property.images?.length || 1) + Math.max((property.panoramas?.length || 0), 1)}
           </div>
         </div>
-
-        {/* DETAILS SECTION */}
-        <div className="bg-transparent relative z-[5] w-full pb-10 flex flex-col md:col-span-3">
-          {/* Tags */}
-          <div className="flex gap-2.5 mb-5 flex-wrap">
+        
+        <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-14 w-full items-start relative pb-10">
+          {/* LEFT CONTENT */}
+          <div className="flex-1 w-full flex flex-col bg-transparent relative z-[5]">
+             {/* Tags */}
+             <div className="flex gap-2.5 mb-5 flex-wrap">
             <span className="bg-teal-light text-teal text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] flex items-center gap-1.5">
               <ShieldCheck size={14} /> Verified
             </span>
@@ -511,7 +513,7 @@ export const Details: React.FC = () => {
                 {/* NEW CHECKOUT BUTTON */}
                 <button
                   onClick={() => setBookingModalOpen(true)}
-                  className="px-5 py-2 bg-[var(--color-button)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform" >
+                  className="px-5 py-2 bg-[var(--color-button)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform md:hidden" >
               
                   Checkout
                 </button>
@@ -521,8 +523,49 @@ export const Details: React.FC = () => {
           </div>
         </div>
 
-                {/* --- ADD THE MISSING BOTTOM REQUEST BAR HERE --- */}
-        <div className="fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 md:pb-4 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)] md:rounded-b-2xl">
+        {/* RIGHT SIDEBAR (Desktop) */}
+        <div className="hidden md:block w-1/3 lg:w-[380px] shrink-0 md:sticky md:top-24 h-fit">
+          <div className="bg-card-bg rounded-[24px] border border-border-subtle shadow-sm p-6 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="bg-green-100 text-green-700 text-[0.7rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{property.avail || "Available"}</span>
+            </div>
+            
+            <div className="mb-6">
+              <strong className="block text-[1.4rem] font-bold text-[var(--color-heading)] leading-none mb-1">
+                {selectedRoom.price}
+              </strong>
+              <span className="block text-[0.85rem] text-text-muted font-semibold mt-1">
+                {property.pricing_tag || 'per semester'}
+              </span>
+            </div>
+
+            <div className="mb-6 border border-border-subtle rounded-xl overflow-hidden divide-y divide-border-subtle">
+              <div className="p-3">
+                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Room Type</span>
+                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.name}</span>
+              </div>
+              <div className="p-3">
+                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Occupancy</span>
+                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.occ}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setBookingModalOpen(true)}
+              className="w-full py-4 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:scale-[1.02] transition-transform flex justify-center items-center gap-2"
+            >
+              Request Room
+            </button>
+            
+            <div className="mt-4 text-center">
+               <span className="text-[0.75rem] text-text-muted">You won't be charged yet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- BOTTOM MOBILE REQUEST BAR --- */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
           <div>
             <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
               {selectedRoom.price}
