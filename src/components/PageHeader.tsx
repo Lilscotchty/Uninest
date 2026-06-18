@@ -19,7 +19,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, rightAction }) =>
       }}
     >
       <div className="flex items-center gap-2.5 z-10">
-        <span className="text-white text-[26px] font-bold tracking-tight">
+        <span className="text-white text-[20px] font-bold tracking-tight">
           {title || "Property Portal"}
         </span>
       </div>
