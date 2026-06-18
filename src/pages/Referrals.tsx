@@ -46,18 +46,21 @@ export const Referrals: React.FC = () => {
         ]}
       />
       
-      <div className="max-w-2xl mx-auto w-full flex flex-col flex-1 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-center text-center space-y-4 mb-8 mt-6">
+      <div className="max-w-screen-xl mx-auto w-full flex flex-col md:flex-row gap-8 flex-1 pb-20 px-4 sm:px-6 lg:px-8 items-start">
+        
+        {/* Left Column */}
+        <div className="w-full md:w-1/2 lg:w-5/12 shrink-0 flex flex-col md:sticky md:top-24">
+          <div className="flex flex-col items-center justify-center text-center space-y-4 mb-8 mt-6 md:mt-2">
             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-2">
               <Gift size={40} className="ml-1" />
             </div>
             <h2 className="text-[1.2rem] font-semibold text-text-primary">Invite friends, earn credits</h2>
-            <p className="text-text-secondary w-4/5 mx-auto text-[0.95rem] leading-relaxed">
+            <p className="text-text-secondary w-full sm:w-4/5 mx-auto text-[0.95rem] leading-relaxed">
               When a friend signs up with your code and completes their first booking, you both receive <b>10 booking credits</b>. Plus, earn <b>₵1.00</b> every time a referee pays for Opportunity Hub features!
             </p>
           </div>
 
-          <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm mb-6 flex flex-col items-center">
+          <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm mb-6 flex flex-col items-center w-full">
             <span className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-3">Your Unique Code</span>
             <div className="flex items-center justify-center gap-3 w-full bg-[var(--color-surface-2)] tracking-widest text-2xl font-black text-text-primary rounded-xl py-4 px-4 border border-[var(--color-border)] border-dashed">
               <span>{displayReferralCode}</span>
@@ -82,8 +85,11 @@ export const Referrals: React.FC = () => {
               </button>
             </div>
           </div>
+        </div>
 
-          <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm">
+        {/* Right Column */}
+        <div className="w-full md:w-1/2 lg:flex-1 shrink-0 flex flex-col md:mt-2">
+          <div className="bg-card-bg border border-border-subtle rounded-[20px] p-6 shadow-sm mb-8 w-full">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-[1.05rem] font-semibold text-text-primary">Your Rewards</h3>
             </div>
@@ -100,17 +106,17 @@ export const Referrals: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-8 mb-4 px-2">
+          <div className="mb-4 px-2 w-full">
             <h3 className="text-[1.05rem] font-semibold text-text-primary mb-4">Referral History</h3>
             
             {referees.length === 0 ? (
-              <div className="text-center py-8 bg-card-bg/50 rounded-xl border border-border-subtle">
+              <div className="text-center py-8 bg-card-bg/50 rounded-xl border border-border-subtle w-full">
                 <p className="text-sm text-text-muted">No referrals yet. Share your code to get started!</p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-4 w-full">
                 {referees.map((ref, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-4 bg-card-bg/50 rounded-xl border border-border-subtle">
+                  <div key={idx} className="flex items-center justify-between p-4 bg-card-bg/50 rounded-xl border border-border-subtle w-full">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] flex items-center justify-center text-text-secondary font-bold">
                         {ref.name.substring(0, 2).toUpperCase()}
@@ -136,6 +142,7 @@ export const Referrals: React.FC = () => {
             )}
           </div>
         </div>
+      </div>
     </div>
   );
 };
