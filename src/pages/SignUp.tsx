@@ -193,7 +193,7 @@ export function SignUp() {
       } else {
         toast.success("Logged in successfully!");
         showToast("Logged in successfully!");
-        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+        // Navigation handled reactively by App.tsx router
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
@@ -243,7 +243,7 @@ export function SignUp() {
           })
         }).catch(err => console.error("Email API Error:", err));
 
-        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+        // Navigation handled reactively by App.tsx router
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
