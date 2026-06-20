@@ -82,7 +82,7 @@ const AppContent: React.FC = () => {
       if (publicPaths.includes(location.pathname)) {
         // Fallback for new role system + legacy
         const role =
-          profile?.role || user.user_metadata?.account_type || "student";
+          profile?.role || user.user_metadata?.account_type || localStorage.getItem('signupRole') || "student";
         const isManager =
           role === "manager" ||
           role === "accommodation_owner" ||

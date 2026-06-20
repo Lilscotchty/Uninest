@@ -129,7 +129,7 @@ export function AuthForm({ type }: AuthFormProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo: `${window.location.origin}${role === 'manager' ? '/manager/dashboard' : '/student/dashboard'}`
         }
       });
       if (error) {

@@ -193,7 +193,7 @@ export function SignUp() {
       } else {
         toast.success("Logged in successfully!");
         showToast("Logged in successfully!");
-        // Navigation handled reactively by App.tsx router
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
@@ -244,6 +244,7 @@ export function SignUp() {
         }).catch(err => console.error("Email API Error:", err));
 
         // Navigation handled reactively by App.tsx router
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
@@ -262,7 +263,7 @@ export function SignUp() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo: `${window.location.origin}${role === 'manager' ? '/manager/dashboard' : '/student/dashboard'}`
         }
       });
       if (error) {
