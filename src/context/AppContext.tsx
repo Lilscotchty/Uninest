@@ -90,6 +90,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   useEffect(() => {
+    const isAuthRedirect = window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.hash.includes('error=');
+    if (isAuthRedirect) {
+      // Don't set profileLoading to false yet, let onAuthStateChange handle it after exchange
+      setProfileLoading(true);
+    }
+    
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -124,7 +130,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         );
         setReferees(uniqueRefs);
       }
-      else setProfileLoading(false);
+      else {
+        if (!isAuthRedirect) setProfileLoading(false);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {

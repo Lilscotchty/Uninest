@@ -56,7 +56,7 @@ export function OwnerGuard({ children, fallback }: {
 }) {
   return (
     <RoleGuard
-      allowedRoles={['accommodation_owner', 'property_owner']}
+      allowedRoles={['manager', 'accommodation_owner', 'property_owner']}
       redirectTo="/not-authorised"
       fallback={fallback}
     >
@@ -80,7 +80,7 @@ export function AccommodationOwnerGuard({ children }: { children: React.ReactNod
 /** Only students */
 export function StudentGuard({ children }: { children: React.ReactNode }) {
   return (
-    <RoleGuard allowedRoles={['student']} redirectTo="/not-authorised">
+    <RoleGuard allowedRoles={['student', 'manager', 'accommodation_owner', 'property_owner', 'general_renter']} redirectTo="/not-authorised">
       {children}
     </RoleGuard>
   );

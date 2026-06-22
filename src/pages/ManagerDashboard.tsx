@@ -390,8 +390,8 @@ export const ManagerDashboard: React.FC = () => {
   return (
     <div className="w-full h-full bg-[var(--color-surface)] flex font-sans relative overflow-hidden">
       {/* Sidebar */}
-      <div className={`fixed md:relative z-50 h-full bg-[var(--color-surface)] border-r border-[var(--color-border)] w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
-        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)] h-[60px]">
+      <div className={`fixed md:relative flex flex-col z-50 h-full bg-[var(--color-surface)] border-r border-[var(--color-border)] w-[260px] shrink-0 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)] shrink-0 h-[60px]">
           <span className="text-[1.2rem] font-semibold tracking-tight text-[var(--color-text-primary)]">Property Portal</span>
           <button className="text-text-muted md:hidden" onClick={() => setSidebarOpen(false)}><X size={24} /></button>
         </div>
@@ -400,6 +400,11 @@ export const ManagerDashboard: React.FC = () => {
           <NavItem icon={<HomeIcon size={18} />} label="My Properties" active={activeTab === "properties"} onClick={() => { setActiveTab("properties"); setSidebarOpen(false); }} />
           <NavItem icon={<MessageSquare size={18} />} label="Inquiries" active={activeTab === "inquiries"} onClick={() => { setActiveTab("inquiries"); setSidebarOpen(false); }} />
           <NavItem icon={<Settings size={18} />} label="Settings" active={activeTab === "settings"} onClick={() => { setActiveTab("settings"); setSidebarOpen(false); }} />
+        </div>
+        <div className="p-4 mt-auto border-t border-[var(--color-border)]">
+           <button onClick={() => navigate('/student/dashboard')} className="flex items-center gap-3 w-full p-3 rounded-[12px] bg-[var(--color-button)]/10 text-[var(--color-accent)] font-semibold border-none hover:bg-[var(--color-button)]/20 transition-colors">
+              <span className="flex-1 text-center">Switch to Student View</span>
+           </button>
         </div>
       </div>
 

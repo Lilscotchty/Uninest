@@ -33,29 +33,48 @@ export function Navigation() {
 
   return (
     <>
-      {/* MOBILE: Bottom Tab Bar */}
+      {/* MOBILE: Bottom Tab Bar (iPhone Capsule Style) */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 
-                      bg-card-bg border-t border-border-subtle 
-                      pt-2 pb-[max(env(safe-area-inset-bottom),1rem)]"
+        className="md:hidden fixed bottom-[max(env(safe-area-inset-bottom,16px),16px)] left-1/2 -translate-x-1/2 z-[100] 
+                   w-[calc(100%-32px)] max-w-[360px] h-[68px] px-2
+                   bg-[var(--color-surface)]/85 backdrop-blur-xl border border-[var(--color-border)]/60
+                   rounded-[34px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex items-center justify-between"
       >
-        <div className="flex items-center justify-around h-16">
-          {currentNavItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                cn(
-                  "flex flex-col items-center gap-1 px-3 py-1 rounded-xl transition-colors",
-                  isActive ? "text-[var(--color-accent)]" : "text-text-muted",
-                )
-              }
-            >
-              <item.icon className="w-5 h-5" />
-              <span className="text-[10px] font-semibold">{item.label}</span>
-            </NavLink>
-          ))}
-        </div>
+        {currentNavItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              cn(
+                "relative flex flex-col items-center justify-center flex-1 h-full rounded-full transition-all duration-300 group",
+                isActive 
+                  ? "text-[var(--color-accent)]" 
+                  : "text-text-muted hover:text-text-primary",
+              )
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <div className={cn(
+                  "absolute inset-0 m-auto w-12 h-12 rounded-full transition-all duration-300 ease-out -z-10",
+                  isActive ? "bg-[var(--color-accent)]/15 scale-100" : "scale-50 opacity-0 bg-transparent group-hover:bg-[var(--color-border)]/50 group-hover:scale-100 group-hover:opacity-100"
+                )} />
+                <item.icon 
+                  className={cn("w-6 h-6 transition-all duration-300 ease-out", isActive ? "-translate-y-2" : "translate-y-0")} 
+                  strokeWidth={isActive ? 2.5 : 2} 
+                />
+                <span 
+                  className={cn(
+                    "absolute bottom-2.5 text-[10px] font-bold transition-all duration-300 ease-out tracking-wide", 
+                    isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                  )}
+                >
+                  {item.label}
+                </span>
+              </>
+            )}
+          </NavLink>
+        ))}
       </nav>
 
       {/* ALL OVERLAYS */}

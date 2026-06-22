@@ -216,6 +216,7 @@ export const Profile: React.FC = () => {
             </div>
 
             {/* Management Group */}
+            {role !== 'Student' && (
             <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle overflow-hidden h-fit">
               <div className="px-5 py-3.5 border-b border-border-subtle bg-app-bg/30">
                 <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
@@ -229,6 +230,7 @@ export const Profile: React.FC = () => {
                 </button>
               </div>
             </div>
+            )}
 
             {/* Support Group */}
             <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle overflow-hidden h-fit">
