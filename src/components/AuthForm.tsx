@@ -108,7 +108,7 @@ export function AuthForm({ type }: AuthFormProps) {
       } else {
         toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!");
         showToast(isLogin ? "Logged in successfully!" : "Account created successfully!");
-        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+        navigate('/student/dashboard', { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
@@ -129,7 +129,7 @@ export function AuthForm({ type }: AuthFormProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}${role === 'manager' ? '/manager/dashboard' : '/student/dashboard'}`
+          redirectTo: `${window.location.origin}/student/dashboard`
         }
       });
       if (error) {

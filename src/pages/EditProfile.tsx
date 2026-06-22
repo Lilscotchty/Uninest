@@ -103,7 +103,7 @@ export const EditProfile: React.FC = () => {
       showToast(isCompleting ? "Profile completed!" : "Profile updated successfully!");
       
       if (isCompleting) {
-        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+        navigate('/student/dashboard', { replace: true });
       } else {
         navigate(-1); // Go back
       }

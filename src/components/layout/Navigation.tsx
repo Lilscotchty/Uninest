@@ -20,7 +20,7 @@ export function Navigation() {
 
   const getNavItems = () => [
     {
-      path: isManager ? "/manager/dashboard" : "/student/dashboard",
+      path: "/student/dashboard",
       icon: Home,
       label: "Home",
     },

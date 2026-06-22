@@ -81,14 +81,7 @@ const AppContent: React.FC = () => {
       // If user is logged in, restrict access to landing/login/signup
       if (publicPaths.includes(location.pathname)) {
         // Fallback for new role system + legacy
-        const role =
-          profile?.role || user.user_metadata?.account_type || localStorage.getItem('signupRole') || "student";
-        const isManager =
-          role === "manager" ||
-          role === "accommodation_owner" ||
-          role === "property_owner";
-
-        navigate(isManager ? "/manager/dashboard" : "/student/dashboard", {
+        navigate("/student/dashboard", {
           replace: true,
         });
       }
@@ -257,16 +250,7 @@ const AppContent: React.FC = () => {
                 <div className="w-8 h-8 border-4 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
               </div>
             ) : user ? (
-              <Navigate
-                to={
-                  profile?.role === "accommodation_owner" ||
-                  profile?.role === "property_owner" ||
-                  user.user_metadata?.account_type === "manager"
-                    ? "/manager/dashboard"
-                    : "/student/dashboard"
-                }
-                replace
-              />
+              <Navigate to="/student/dashboard" replace />
             ) : (
               <Navigate to="/login" replace />
             )

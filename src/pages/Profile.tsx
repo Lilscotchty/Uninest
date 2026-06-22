@@ -41,8 +41,10 @@ function ThemeRow() {
 }
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user } = useAppContext();
+  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user, profile } = useAppContext();
   const navigate = useNavigate();
+
+  const isManager = profile?.role === 'manager' || profile?.role === 'accommodation_owner' || profile?.role === 'property_owner' || user?.user_metadata?.account_type === 'manager';
 
   const handleAction = (action: string) => {
     if (action === 'Personal Information' || action === 'Edit Profile') {
@@ -216,7 +218,7 @@ export const Profile: React.FC = () => {
             </div>
 
             {/* Management Group */}
-            {role !== 'Student' && (
+            {isManager && (
             <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle overflow-hidden h-fit">
               <div className="px-5 py-3.5 border-b border-border-subtle bg-app-bg/30">
                 <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
