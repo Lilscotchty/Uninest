@@ -37,22 +37,54 @@ export function Navigation() {
       <nav
         className="md:hidden fixed bottom-0 left-0 right-0 z-50 
                       bg-card-bg border-t border-border-subtle 
-                      pt-2 pb-[max(env(safe-area-inset-bottom),1rem)]"
+                      pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1"
       >
-        <div className="flex items-center justify-around h-16">
+        <div className="flex items-center justify-evenly h-[64px] w-full px-1">
           {currentNavItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
                 cn(
-                  "flex flex-col items-center gap-1 px-3 py-1 rounded-xl transition-colors",
-                  isActive ? "text-[var(--color-accent)]" : "text-text-muted",
+                  "flex flex-col items-center justify-center transition-all duration-300",
+                  isActive
+                    ? "px-[20px] py-[6px] bg-[var(--color-accent)]/15 rounded-full"
+                    : "px-[12px] py-[6px] bg-transparent"
                 )
               }
             >
-              <item.icon className="w-5 h-5" />
-              <span className="text-[10px] font-semibold">{item.label}</span>
+              {({ isActive }) => (
+                <>
+                  <div className="relative flex items-center justify-center mb-[3px]">
+                    <item.icon
+                      className={cn(
+                        "w-[22px] h-[22px] transition-colors duration-300",
+                        isActive ? "text-[var(--color-accent)]" : "text-text-muted"
+                      )}
+                      strokeWidth={isActive ? 2.5 : 2}
+                    />
+                    {/* Badge Example (conditionally render based on item label if needed) */}
+                    {item.label === "Saved" && (
+                      <span className={cn(
+                        "absolute -top-1 -right-2 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-card-bg shadow-sm",
+                        "bg-[var(--color-accent)]"
+                      )}>
+                        3
+                      </span>
+                    )}
+                  </div>
+                  <span
+                    className={cn(
+                      "text-[11px] leading-none transition-all duration-300",
+                      isActive
+                        ? "font-bold text-[var(--color-accent)]"
+                        : "font-medium text-text-muted"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </>
+              )}
             </NavLink>
           ))}
         </div>
