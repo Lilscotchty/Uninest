@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 import { Pannellum } from "pannellum-react";
-import { BlazingRifts } from "../components/BlazingRifts";
 import {
   ChevronLeft,
   ArrowUpFromLine,
@@ -26,7 +25,8 @@ import {
   MessageCircle,
   Coffee,
   Video,
-  CheckCircle2
+  CheckCircle2,
+  Share
 } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -171,15 +171,17 @@ export const Details: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e9ecef] font-poppins selection:bg-[#b9e5d1]">
+    <div className="w-full min-h-screen bg-[#e9ecef] md:bg-[#f7f9f8] font-poppins selection:bg-[#b9e5d1]">
       <style>{`
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .price-bump { animation: bump 0.3s ease; }
         @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.15); color: #489b78; } 100% { transform: scale(1); } }
       `}</style>
 
-      {/* Mobile App Container */}
-      <div className="w-full h-[100dvh] md:w-[375px] md:h-[812px] bg-[#1e1e1e] md:rounded-[40px] relative overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.15)] flex flex-col">
+      {/* ========================================= */}
+      {/* MOBILE LAYOUT (Strictly Preserved)        */}
+      {/* ========================================= */}
+      <div className="md:hidden relative w-full h-[100dvh] bg-[#1e1e1e] overflow-hidden flex flex-col shadow-[0_25px_50px_rgba(0,0,0,0.15)]">
         
         {/* Full Screen Media Slider */}
         <div className="absolute inset-0 w-full h-full z-0 bg-black">
@@ -230,7 +232,7 @@ export const Details: React.FC = () => {
         </div>
 
         {/* Header */}
-        <header className="relative z-10 flex justify-between items-start px-6 pt-12 md:pt-10">
+        <header className="relative z-10 flex justify-between items-start px-6 pt-12">
           <button
             onClick={() => navigate("/student/dashboard")}
             className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-[0_8px_15px_rgba(0,0,0,0.1)] active:scale-95 transition-transform"
@@ -245,7 +247,7 @@ export const Details: React.FC = () => {
             <span className="text-xs text-white/90 font-medium drop-shadow-md">Student Hostel</span>
           </div>
 
-          <div className="w-11 h-11" /> {/* Placeholder for balance */}
+          <div className="w-11 h-11" /> 
         </header>
 
         {/* Floating Actions */}
@@ -354,9 +356,8 @@ export const Details: React.FC = () => {
 
           <div className="flex-1 overflow-y-auto px-6 pb-8 hide-scrollbar">
             
-            {/* Location Map */}
             <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Location</h3>
-            <div className="w-full h-[180px] rounded-[20px] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.08)] bg-[#f7f9f8] mb-6">
+            <div className="w-full h-[180px] rounded-[20px] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.08)] bg-[#f7f9f8] mb-6 relative">
               <MapContainer 
                 center={[property.lat || 5.6506, property.lng || -0.1870]} 
                 zoom={14} 
@@ -370,7 +371,6 @@ export const Details: React.FC = () => {
               </MapContainer>
             </div>
 
-            {/* Amenities Grid */}
             <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Amenities</h3>
             <div className="grid grid-cols-2 gap-4 mb-6">
               {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
@@ -392,7 +392,6 @@ export const Details: React.FC = () => {
               })}
             </div>
 
-            {/* Reviews */}
             <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Reviews</h3>
             <div className="flex justify-between items-center p-4 rounded-[20px] bg-[#f7f9f8] border border-[#e5e5e5] mb-6">
               <div className="flex items-center gap-4">
@@ -410,7 +409,6 @@ export const Details: React.FC = () => {
               </button>
             </div>
 
-            {/* Host Profile */}
             <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Property Host</h3>
             <div className="flex items-center justify-between p-4 border border-[#e5e5e5] rounded-[20px] bg-white mb-8">
               <div className="flex items-center gap-3">
@@ -440,67 +438,283 @@ export const Details: React.FC = () => {
             
           </div>
         </div>
+      </div>
+      {/* ========================================= */}
+      {/* END OF MOBILE LAYOUT                      */}
+      {/* ========================================= */}
 
-        {/* Booking Request Modal */}
-        {bookingModalOpen && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
-            <div className="bg-white w-full max-w-sm rounded-[30px] p-6 shadow-2xl relative animate-in zoom-in duration-200">
+
+      {/* ========================================= */}
+      {/* DESKTOP LAYOUT                            */}
+      {/* ========================================= */}
+      <div className="hidden md:flex flex-col w-full min-h-screen text-[#1e1e1e]">
+        
+        {/* Desktop Header */}
+        <header className="sticky top-0 w-full bg-white border-b border-[#e5e5e5] z-50 shadow-sm">
+          <div className="max-w-[1200px] mx-auto px-8 h-20 flex items-center justify-between">
+            <div className="flex items-center gap-4">
               <button
-                onClick={() => setBookingModalOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#f7f9f8] rounded-full text-[#1e1e1e] hover:bg-[#e5e5e5] transition-colors"
+                onClick={() => navigate("/student/dashboard")}
+                className="w-10 h-10 border border-[#e5e5e5] rounded-full flex items-center justify-center hover:bg-[#f7f9f8] transition-colors"
               >
-                ✕
+                <ChevronLeft size={20} />
               </button>
-              <h2 className="text-[18px] font-bold text-[#1e1e1e] mb-1">Request Room</h2>
-              <p className="text-[13px] text-[#8d9a94] mb-6">Fill out your details to secure {selectedRoom.name}.</p>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">First Name</label>
-                  <input 
-                    type="text" 
-                    value={bookingForm.firstName}
-                    onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
-                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
-                    placeholder="Enter first name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">Last Name</label>
-                  <input 
-                    type="text" 
-                    value={bookingForm.lastName}
-                    onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
-                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
-                    placeholder="Enter last name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    value={bookingForm.phone}
-                    onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
-                    placeholder="Enter phone number"
-                  />
-                </div>
-                
-                <button 
-                  onClick={() => {
-                    showToast("Room requested successfully!");
-                    setBookingModalOpen(false);
-                  }}
-                  className="w-full py-4 bg-[#1e1e1e] text-white rounded-[20px] font-bold text-[15px] shadow-xl shadow-[#1e1e1e]/20 active:scale-95 transition-all mt-4"
-                >
-                  Confirm Request
-                </button>
+              <div>
+                <h1 className="text-xl font-bold leading-none">{property.name}</h1>
+                <span className="text-sm text-[#8d9a94] font-medium mt-1 inline-block"><MapPin size={12} className="inline mr-1"/>{property.loc}</span>
               </div>
             </div>
-          </div>
-        )}
 
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  showToast("Link copied!");
+                }}
+                className="flex items-center gap-2 px-4 py-2 border border-[#e5e5e5] rounded-full font-semibold hover:bg-[#f7f9f8] transition-colors"
+              >
+                <Share size={16} /> Share
+              </button>
+              <button
+                onClick={() => toggleSave(property.id)}
+                className="flex items-center gap-2 px-4 py-2 border border-[#e5e5e5] rounded-full font-semibold hover:bg-[#f7f9f8] transition-colors"
+              >
+                <Heart size={16} className={isSaved ? 'fill-[#1e1e1e]' : 'fill-none'} /> 
+                {isSaved ? 'Saved' : 'Save'}
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Desktop Main Content */}
+        <main className="max-w-[1200px] mx-auto w-full px-8 py-10 flex gap-12 items-start relative">
+          
+          {/* Left Column: Gallery & Details */}
+          <div className="flex-1 w-full min-w-0 flex flex-col">
+            
+            {/* Desktop Hero Gallery */}
+            <div className="w-full flex flex-col gap-4 mb-10">
+              {/* Main Image */}
+              <div className="w-full h-[450px] bg-black rounded-[24px] overflow-hidden relative shadow-md">
+                 {currentImg >= (property.images?.length || 1) ? (
+                    <Pannellum
+                      width="100%"
+                      height="100%"
+                      image={allMedia[currentImg]}
+                      pitch={10}
+                      yaw={180}
+                      hfov={110}
+                      autoLoad={true}
+                    />
+                 ) : (
+                    <img src={allMedia[currentImg]} className="w-full h-full object-cover" alt="Main View" />
+                 )}
+              </div>
+              {/* Thumbnails */}
+              <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                {allMedia.map((media, idx) => {
+                  const isPano = idx >= (property.images?.length || 1);
+                  return (
+                    <div 
+                      key={idx}
+                      onClick={() => setCurrentImg(idx)}
+                      className={`w-[120px] h-[80px] shrink-0 rounded-xl overflow-hidden cursor-pointer relative border-2 transition-all ${currentImg === idx ? 'border-[#489b78] opacity-100 scale-[1.02]' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                    >
+                      <img src={media} className="w-full h-full object-cover" />
+                      {isPano && (
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white">
+                          <Video size={20} />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <hr className="border-[#e5e5e5] mb-8" />
+
+            {/* Desktop Details Section */}
+            <div className="flex justify-between items-start mb-8">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Student Hostel Hosted by {hostProfile?.full_name || "Admin"}</h2>
+                <p className="text-[#8d9a94] flex items-center gap-4 text-sm font-medium">
+                   <span>{roomsToDisplay.length} Room Types</span>
+                   <span>•</span>
+                   <span>Verified Accommodation</span>
+                   <span>•</span>
+                   <span className="flex items-center text-[#ffc107]"><Star size={14} className="fill-current mr-1"/> {property.rating} ({property.reviews} reviews)</span>
+                </p>
+              </div>
+              {hostProfile?.avatar_url ? (
+                <img src={hostProfile.avatar_url} alt="Host" className="w-14 h-14 rounded-full object-cover border border-[#e5e5e5]" />
+              ) : (
+                <div className="w-14 h-14 rounded-full bg-[#b9e5d1] text-[#489b78] flex justify-center items-center font-bold text-xl">
+                  {hostProfile?.full_name ? hostProfile.full_name.substring(0,1) : "H"}
+                </div>
+              )}
+            </div>
+
+            <hr className="border-[#e5e5e5] mb-8" />
+
+            {/* Desktop Amenities */}
+            <h3 className="text-xl font-bold mb-6">What this place offers</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4 mb-10">
+              {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
+                const label = am.toLowerCase();
+                let Icon = Wifi;
+                if (label.includes("ac")) Icon = Snowflake;
+                else if (label.includes("security") || label.includes("sec")) Icon = ShieldCheck;
+                else if (label.includes("gen")) Icon = PlugZap;
+                else if (label.includes("study")) Icon = BookOpen;
+                else if (label.includes("water") || label.includes("piped")) Icon = Droplet;
+                else if (label.includes("kitchen") || label.includes("cafeteria")) Icon = Coffee;
+
+                return (
+                  <div key={i} className="flex items-center gap-3">
+                    <Icon size={24} className="text-[#489b78]" />
+                    <span className="text-base font-medium">{am}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <hr className="border-[#e5e5e5] mb-8" />
+
+            {/* Desktop Location */}
+            <h3 className="text-xl font-bold mb-6">Where you'll be</h3>
+            <div className="w-full h-[350px] rounded-[24px] overflow-hidden border border-[#e5e5e5] mb-10 relative z-0">
+              <MapContainer 
+                center={[property.lat || 5.6506, property.lng || -0.1870]} 
+                zoom={14} 
+                className="w-full h-full" 
+                scrollWheelZoom={false}
+              >
+                <TileLayer url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2" />
+                <Marker position={[property.lat || 5.6506, property.lng || -0.1870]} icon={mapIcon}>
+                   <Popup>{property.name}</Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+
+          </div>
+
+          {/* Right Column: Sticky Booking Card */}
+          <div className="w-[380px] shrink-0 sticky top-28 bg-white border border-[#e5e5e5] rounded-[24px] p-6 shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
+            <div className="flex justify-between items-end mb-6">
+               <div>
+                  <span className={`text-[32px] font-bold leading-none block ${priceBump ? 'price-bump' : ''}`} onAnimationEnd={() => setPriceBump(false)}>
+                    {selectedRoom.price}
+                  </span>
+                  <span className="text-sm text-[#8d9a94] font-medium block mt-1">per semester</span>
+               </div>
+               <span className={`px-3 py-1 rounded-full text-xs font-bold ${selectedRoom.availClass} mb-1`}>
+                 {selectedRoom.avail}
+               </span>
+            </div>
+
+            <div className="w-full border border-[#e5e5e5] rounded-xl mb-6 overflow-hidden">
+               <div className="w-full p-4 border-b border-[#e5e5e5]">
+                 <label className="block text-[10px] font-bold text-[#1e1e1e] uppercase tracking-wider mb-2">Select Room Option</label>
+                 <div className="flex flex-col gap-2">
+                    {roomsToDisplay.map((room_item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleRoomChange(index)}
+                        className={`w-full text-left px-4 py-3 rounded-lg border text-sm font-semibold transition-all ${
+                          activeRoomMode === index 
+                            ? 'bg-[#e5f5ed] border-[#489b78] text-[#1e1e1e]' 
+                            : 'bg-transparent border-[#e5e5e5] text-[#8d9a94] hover:border-[#1e1e1e]'
+                        }`}
+                      >
+                        {room_item.name}
+                      </button>
+                    ))}
+                 </div>
+               </div>
+               <div className="w-full p-4 bg-[#f7f9f8] flex justify-between items-center text-sm">
+                 <span className="font-semibold text-[#8d9a94]">Occupancy</span>
+                 <span className="font-bold">{selectedRoom.occ}</span>
+               </div>
+            </div>
+
+            <button 
+              className="w-full bg-[#489b78] text-white rounded-[16px] py-[16px] text-lg font-bold flex justify-center items-center gap-2 shadow-[0_10px_20px_rgba(72,155,120,0.25)] hover:scale-[1.02] transition-transform"
+              onClick={handleBookClick}
+            >
+              {isBooking ? (
+                <><CheckCircle2 size={20} /> Requesting...</>
+              ) : (
+                'Request Room'
+              )}
+            </button>
+            <p className="text-center text-xs text-[#8d9a94] mt-4 font-medium">You won't be charged yet</p>
+          </div>
+        </main>
       </div>
+      {/* ========================================= */}
+      {/* END OF DESKTOP LAYOUT                     */}
+      {/* ========================================= */}
+
+      {/* Global Booking Modal (Works for both Mobile & Desktop) */}
+      {bookingModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-md rounded-[30px] p-8 shadow-2xl relative animate-in zoom-in duration-200">
+            <button
+              onClick={() => setBookingModalOpen(false)}
+              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center bg-[#f7f9f8] rounded-full text-[#1e1e1e] hover:bg-[#e5e5e5] transition-colors"
+            >
+              ✕
+            </button>
+            <h2 className="text-2xl font-bold text-[#1e1e1e] mb-2">Confirm Request</h2>
+            <p className="text-sm text-[#8d9a94] font-medium mb-6">Review your details to secure {selectedRoom.name}.</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[11px] font-bold text-[#1e1e1e] mb-2 ml-1 uppercase tracking-wider">First Name</label>
+                <input 
+                  type="text" 
+                  value={bookingForm.firstName}
+                  onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
+                  className="w-full px-5 py-4 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-base font-medium"
+                  placeholder="Enter first name"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-bold text-[#1e1e1e] mb-2 ml-1 uppercase tracking-wider">Last Name</label>
+                <input 
+                  type="text" 
+                  value={bookingForm.lastName}
+                  onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
+                  className="w-full px-5 py-4 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-base font-medium"
+                  placeholder="Enter last name"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-bold text-[#1e1e1e] mb-2 ml-1 uppercase tracking-wider">Phone Number</label>
+                <input 
+                  type="tel" 
+                  value={bookingForm.phone}
+                  onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                  className="w-full px-5 py-4 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-base font-medium"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              
+              <button 
+                onClick={() => {
+                  showToast("Room requested successfully!");
+                  setBookingModalOpen(false);
+                }}
+                className="w-full py-4 bg-[#1e1e1e] text-white rounded-[20px] font-bold text-lg shadow-[0_10px_20px_rgba(30,30,30,0.2)] active:scale-95 transition-all mt-4"
+              >
+                Submit Details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
