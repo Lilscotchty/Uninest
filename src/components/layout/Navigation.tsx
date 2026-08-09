@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map } from "lucide-react";
+import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map, Plus } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 
 function cn(...classes: (string | undefined | null | false)[]) {
@@ -34,61 +34,66 @@ export function Navigation() {
   return (
     <>
       {/* MOBILE: Bottom Tab Bar */}
-      <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 
-                      bg-card-bg border-t border-border-subtle 
-                      pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1"
-      >
-        <div className="flex items-center justify-evenly h-[64px] w-full px-1">
-          {currentNavItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                cn(
-                  "flex flex-col items-center justify-center transition-all duration-300",
-                  isActive
-                    ? "px-[20px] py-[6px] bg-[var(--color-accent)]/15 rounded-full"
-                    : "px-[12px] py-[6px] bg-transparent"
-                )
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <div className="relative flex items-center justify-center mb-[3px]">
-                    <item.icon
-                      className={cn(
-                        "w-[22px] h-[22px] transition-colors duration-300",
-                        isActive ? "text-[var(--color-accent)]" : "text-text-muted"
+      <div className="md:hidden fixed bottom-[max(env(safe-area-inset-bottom),1rem)] left-0 right-0 z-50 flex justify-center items-center gap-4 px-4 pointer-events-none">
+        
+        {/* Navigation Bar */}
+        <nav className="bg-card-bg/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_15px_35px_-10px_rgba(0,0,0,0.06)] dark:shadow-black/20 w-[240px] h-[55px] flex items-center justify-center pointer-events-auto shrink-0">
+          <div className="bg-app-bg w-[240px] h-[52px] rounded-[50px] flex items-center justify-center gap-1 px-1">
+            {currentNavItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center justify-center rounded-full transition-all duration-200 shrink-0 overflow-hidden",
+                    isActive
+                      ? "h-[40px] w-[80px] px-3 bg-[var(--color-accent)]/15 text-[var(--color-accent)] gap-1.5"
+                      : "h-[44px] w-[44px] text-text-muted hover:bg-border-subtle"
+                  )
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <div className="relative flex items-center justify-center">
+                      {item.label === "Profile" ? (
+                        <img 
+                          src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
+                          alt="Profile" 
+                          className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
+                        />
+                      ) : (
+                        <item.icon
+                          className="shrink-0 transition-colors duration-200"
+                          size={18}
+                          strokeWidth={isActive ? 2.5 : 1.8}
+                        />
                       )}
-                      strokeWidth={isActive ? 2.5 : 2}
-                    />
-                    {/* Badge Example (conditionally render based on item label if needed) */}
-                    {item.label === "Saved" && (
-                      <span className={cn(
-                        "absolute -top-1 -right-2 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-card-bg shadow-sm",
-                        "bg-[var(--color-accent)]"
-                      )}>
-                        3
+                      {/* Badge Example */}
+                      {item.label === "Saved" && (
+                        <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-app-bg bg-[var(--color-accent)] shadow-sm">
+                          3
+                        </span>
+                      )}
+                    </div>
+                    
+                    {isActive && (
+                      <span className="text-[11px] font-semibold tracking-wide whitespace-nowrap block" style={{ display: 'block' }}>
+                        {item.label}
                       </span>
                     )}
-                  </div>
-                  <span
-                    className={cn(
-                      "text-[11px] leading-none transition-all duration-300",
-                      isActive
-                        ? "font-bold text-[var(--color-accent)]"
-                        : "font-medium text-text-muted"
-                    )}
-                  >
-                    {item.label}
-                  </span>
-                </>
-              )}
-            </NavLink>
-          ))}
-        </div>
-      </nav>
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+
+        {/* Floating Action Button (FAB) */}
+        <button className="w-[3.25rem] h-[3.25rem] rounded-full bg-gradient-to-tr from-[var(--color-accent)] to-[var(--color-accent)]/70 shadow-[0_12px_24px_-8px_var(--color-accent)] flex items-center justify-center text-white shrink-0 transition-transform duration-150 hover:scale-105 active:scale-95 pointer-events-auto">
+          <Plus size={22} strokeWidth={2} />
+        </button>
+
+      </div>
 
       {/* ALL OVERLAYS */}
       {isSidebarOpen && (
