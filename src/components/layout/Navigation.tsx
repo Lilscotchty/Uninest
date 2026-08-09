@@ -71,21 +71,32 @@ export function Navigation() {
               >
                 {({ isActive }) => (
                   <>
-                    {item.label === "Profile" ? (
-                      <img 
-                        src={profile?.avatar_url || "https://i.pravatar.cc/100"}
-                        alt="Profile" 
-                        style={{ width: '18px', height: '18px', borderRadius: '50%', objectFit: 'cover' }}
-                      />
-                    ) : item.label === "Home" ? (
-                      <i className="fa-solid fa-house"></i>
-                    ) : item.label === "Explore" ? (
-                      <i className="fa-solid fa-compass"></i>
-                    ) : item.label === "Saved" ? (
-                      <i className="fa-solid fa-bookmark"></i>
-                    ) : (
-                      <item.icon className="w-[18px] h-[18px]" />
-                    )}
+                    <div className="relative flex items-center justify-center">
+                      {item.label === "Profile" ? (
+                        <img 
+                          src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
+                          alt="Profile" 
+                          className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
+                        />
+                      ) : item.label === "Home" ? (
+                        <CustomHomeIcon 
+                          isActive={isActive} 
+                          className="shrink-0 transition-colors duration-200" 
+                        />
+                      ) : (
+                        <item.icon
+                          className="shrink-0 transition-colors duration-200"
+                          size={18}
+                          strokeWidth={isActive ? 2.5 : 1.8}
+                        />
+                      )}
+                      {/* Badge Example */}
+                      {item.label === "Saved" && (
+                        <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-app-bg bg-[var(--color-accent)] shadow-sm">
+                          3
+                        </span>
+                      )}
+                    </div>
                     <span className="nav-text">{item.label}</span>
                   </>
                 )}
@@ -96,7 +107,7 @@ export function Navigation() {
 
         {/* Floating Action Button (FAB) */}
         <button className="fab pointer-events-auto" onClick={() => navigate("/price-alerts")}>
-          <i className="fa-solid fa-plus text-xl"></i>
+          <Plus size={22} strokeWidth={2} />
         </button>
       </div>
 
