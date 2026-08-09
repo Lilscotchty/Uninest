@@ -8,7 +8,6 @@ export const USER_ROLES = [
   'general_renter',
   'accommodation_owner',
   'property_owner',
-  'manager',
 ] as const;
 
 export type UserRole = typeof USER_ROLES[number];
@@ -16,11 +15,10 @@ export type UserRole = typeof USER_ROLES[number];
 export const OWNER_ROLES: UserRole[] = [
   'accommodation_owner',
   'property_owner',
-  'manager',
 ];
 
 export function isOwner(role: UserRole | null | undefined): boolean {
-  return role === 'accommodation_owner' || role === 'property_owner' || role === 'manager';
+  return role === 'accommodation_owner' || role === 'property_owner';
 }
 
 export function isStudent(role: UserRole | null | undefined): boolean {
@@ -28,6 +26,7 @@ export function isStudent(role: UserRole | null | undefined): boolean {
 }
 
 // ─── Role display metadata ────────────────────────────────────────────────────
+
 export const ROLE_META: Record<UserRole, {
   label:       string;
   description: string;
@@ -52,11 +51,6 @@ export const ROLE_META: Record<UserRole, {
     label:       'Property Owner',
     description: 'I rent out homes, apartments, or short-lets',
     icon:        '🏢',
-  },
-  manager: {
-    label:       'Manager',
-    description: 'System manager or administrative user',
-    icon:        '🛡️',
   },
 };
 

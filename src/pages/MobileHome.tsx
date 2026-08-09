@@ -11,18 +11,13 @@ export const MobileHome: React.FC = () => {
   const [activeNav, setActiveNav] = useState('Home');
 
   // Helper to format property data safely
-  const formatPrice = (property: any) => {
-    if (typeof property.priceNum === 'number') return `GH₵${property.priceNum.toLocaleString()}`;
-    return property.price || 'GH₵0';
-  };
-
-  const getPricingTag = (property: any) => {
-    if (property.pricing_tag) return property.pricing_tag;
-    return '/sem';
+  const formatPrice = (price: any) => {
+    if (typeof price === 'number') return `$${price.toLocaleString()}`;
+    return price || '$0';
   };
 
   const getLocation = (property: any) => {
-    return property.loc || property.location?.address || property.location || property.address || 'Unknown Location';
+    return property.location?.address || property.location || property.address || 'Unknown Location';
   };
 
   const getBgImage = (property: any, index: number) => {
@@ -32,7 +27,7 @@ export const MobileHome: React.FC = () => {
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop'
     ];
-    return property.img || property.image || property.thumbnail || property.images?.[0] || fallbacks[index % fallbacks.length];
+    return property.image || property.thumbnail || property.images?.[0] || fallbacks[index % fallbacks.length];
   };
 
   // Replace spaces with line breaks for the stylistic headers
@@ -64,33 +59,22 @@ export const MobileHome: React.FC = () => {
 
       {/* Tabs - Wired to your Context */}
       <nav className="nav-tabs">
-        {['Recommend', 'New', 'Nearby'].map(tab => {
-          const isActive = activeFilter === tab || (activeFilter === 'all' && tab === 'Recommend');
-          return (
+        {['Recommend', 'New', 'Nearby'].map(tab => (
           <div 
             key={tab}
-            className={`tab ${isActive ? 'active' : ''}`} 
+            className={`tab ${activeFilter === tab ? 'active' : ''}`} 
             onClick={() => setActiveFilter(tab)}
           >
             {tab}
           </div>
-          );
-        })}
+        ))}
       </nav>
 
       {/* Scrollable Cards Area */}
       <main className="cards-scroll-area">
         
         {/* Dynamic Properties from Context */}
-        {properties
-          .filter(property => {
-            const effectiveFilter = activeFilter === 'all' ? 'Recommend' : activeFilter;
-            if (effectiveFilter === 'Recommend') return property.rating >= 4.5 || property.category?.toLowerCase().includes('premium');
-            if (effectiveFilter === 'Nearby') return property.loc?.includes('min') || property.loc?.toLowerCase().includes('legon') || property.loc?.toLowerCase().includes('near');
-            if (effectiveFilter === 'New') return Number(property.id) > 3;
-            return true; // Fallback for unmatched filters
-          })
-          .map((property: any, index: number) => {
+        {properties.map((property: any, index: number) => {
           const isSaved = savedProperties.includes(property.id);
           
           return (
@@ -105,7 +89,7 @@ export const MobileHome: React.FC = () => {
                 </div>
                 
                 <div className="card-info">
-                  <div className="price">{formatPrice(property)} <span>{getPricingTag(property)}</span></div>
+                  <div className="price">{formatPrice(property.price)} <span>/ month</span></div>
                   <div className="location">
                     <i className="fa-solid fa-location-dot mr-1"></i> {getLocation(property)}
                   </div>
@@ -135,6 +119,33 @@ export const MobileHome: React.FC = () => {
             </div>
           );
         })}
+
+        {/* Discoveries around Legon - Final Card */}
+        <div 
+          className="card" 
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=1000&auto=format&fit=crop')" }}
+        >
+          <div className="card-content">
+            <div className="card-header">
+              <h2>Discoveries<br/>around Legon</h2>
+            </div>
+            
+            {/* Hidden block to maintain exact spatial alignment */}
+            <div className="card-info" style={{ visibility: 'hidden' }}>
+              <div className="price">$0 <span>/ month</span></div>
+              <div className="location"><i className="fa-solid fa-location-dot mr-1"></i> None</div>
+            </div>
+
+            <div className="card-actions">
+              <button 
+                className="btn-take-look" 
+                onClick={() => navigate("/explore")}
+              >
+                Take a look
+              </button>
+            </div>
+          </div>
+        </div>
 
       </main>
     </div>
