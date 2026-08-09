@@ -15,6 +15,14 @@
   --nav-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.06);
 }
 
+* {
+  font-family: 'Urbanist', sans-serif;
+}
+
+button {
+  font-family: inherit;
+}
+
 /* Mobile App Container */
 .app-container {
   width: 100%;

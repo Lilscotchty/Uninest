@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './MobileHome.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
-import { MapPin, SlidersHorizontal, Bookmark, Circle } from 'lucide-react';
 
 export const MobileHome: React.FC = () => {
   const { activeFilter, setActiveFilter, savedProperties, toggleSave, setSelectedPropertyId, properties } = useAppContext();
@@ -44,7 +43,7 @@ export const MobileHome: React.FC = () => {
     <div className="app-container">
       {/* Brand top center */}
       <div className="top-brand">
-        <Circle size={10} fill="currentColor" className="mr-1" /> Skycobe
+        <i className="fa-solid fa-circle"></i> Skycobe
       </div>
 
       {/* Header */}
@@ -54,7 +53,7 @@ export const MobileHome: React.FC = () => {
           <h1>Find<br/>Apartments</h1>
         </div>
         <button className="filter-btn" onClick={() => navigate("/explore")}>
-          <SlidersHorizontal size={20} className="text-text-dark" />
+          <i className="fa-solid fa-sliders text-text-dark text-xl"></i>
         </button>
       </header>
 
@@ -92,7 +91,7 @@ export const MobileHome: React.FC = () => {
                 <div className="card-info">
                   <div className="price">{formatPrice(property.price)} <span>/ month</span></div>
                   <div className="location">
-                    <MapPin size={14} className="mr-1" /> {getLocation(property)}
+                    <i className="fa-solid fa-location-dot mr-1"></i> {getLocation(property)}
                   </div>
                 </div>
 
@@ -113,11 +112,7 @@ export const MobileHome: React.FC = () => {
                       toggleSave(property.id);
                     }}
                   >
-                    <Bookmark 
-                      size={20} 
-                      fill={isSaved ? "currentColor" : "none"} 
-                      color={isSaved ? "var(--text-dark)" : "white"} 
-                    />
+                    <i className={isSaved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"}></i>
                   </button>
                 </div>
               </div>
@@ -138,7 +133,7 @@ export const MobileHome: React.FC = () => {
             {/* Hidden block to maintain exact spatial alignment */}
             <div className="card-info" style={{ visibility: 'hidden' }}>
               <div className="price">$0 <span>/ month</span></div>
-              <div className="location"><MapPin size={14} className="mr-1" /> None</div>
+              <div className="location"><i className="fa-solid fa-location-dot mr-1"></i> None</div>
             </div>
 
             <div className="card-actions">
@@ -153,82 +148,6 @@ export const MobileHome: React.FC = () => {
         </div>
 
       </main>
-
-      {/* Floating Navigation Bar */}
-      <div className="fixed-nav-wrapper">
-        <nav className="nav-bar">
-          <div className="nav-inner">
-            
-            {/* Item 1: Home */}
-            <button 
-              className={`nav-item ${activeNav === 'Home' ? 'active' : ''}`} 
-              onClick={() => setActiveNav('Home')}
-            >
-              <svg 
-                width="18" height="18" viewBox="0 0 24 24" 
-                fill={activeNav === 'Home' ? 'currentColor' : 'none'}
-                stroke={activeNav === 'Home' ? 'none' : 'currentColor'}
-                strokeWidth={activeNav === 'Home' ? '0' : '1.8'}
-              >
-                <path d="M12 2.5a2.5 2.5 0 00-1.6.58l-6.5 5.3A2.5 2.5 0 003 10.3V18a3 3 0 003 3h12a3 3 0 003-3v-7.7a2.5 2.5 0 00-.9-1.92l-6.5-5.3a2.5 2.5 0 00-1.6-.58z"></path>
-                <rect 
-                  x="9.5" y="14" width="5" height="2" rx="1" 
-                  fill="var(--nav-active-bg)" 
-                  style={{ display: activeNav === 'Home' ? 'block' : 'none' }}
-                ></rect>
-              </svg>
-              <span className="nav-text">Home</span>
-            </button>
-
-            {/* Item 2: Map/Discover */}
-            <button 
-              className={`nav-item ${activeNav === 'Discover' ? 'active' : ''}`} 
-              onClick={() => {
-                setActiveNav('Discover');
-                navigate("/virtual-tour");
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-              </svg>
-              <span className="nav-text">Maps</span>
-            </button>
-
-            {/* Item 3: Saved */}
-            <button 
-              className={`nav-item ${activeNav === 'Saved' ? 'active' : ''}`} 
-              onClick={() => setActiveNav('Saved')}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span className="nav-text">Saved</span>
-            </button>
-
-            {/* Item 4: Profile */}
-            <button 
-              className={`nav-item ${activeNav === 'Profile' ? 'active' : ''}`} 
-              onClick={() => setActiveNav('Profile')}
-            >
-              <img 
-                src="https://i.pravatar.cc/100" 
-                alt="Profile" 
-                style={{ width: '18px', height: '18px', borderRadius: '50%', objectFit: 'cover' }}
-              />
-              <span className="nav-text">Profile</span>
-            </button>
-          </div>
-        </nav>
-
-        {/* Floating Action Button (FAB) */}
-        <button className="fab" onClick={() => navigate("/price-alerts")}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-        </button>
-      </div>
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map, Plus } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
+import "../../pages/MobileHome.css";
 
 function cn(...classes: (string | undefined | null | false)[]) {
   return classes.filter(Boolean).join(" ");
@@ -9,6 +10,7 @@ function cn(...classes: (string | undefined | null | false)[]) {
 
 export function Navigation() {
   const { user, profile, isSidebarOpen, toggleSidebar } = useAppContext();
+  const navigate = useNavigate();
 
   const CustomHomeIcon = ({ isActive, className }: { isActive: boolean, className?: string }) => (
     <svg 
@@ -53,58 +55,38 @@ export function Navigation() {
   return (
     <>
       {/* MOBILE: Bottom Tab Bar */}
-      <div className="md:hidden fixed bottom-[max(env(safe-area-inset-bottom),1rem)] left-0 right-0 z-50 flex justify-center items-center gap-4 px-4 pointer-events-none">
-        
-        {/* Navigation Bar */}
-        <nav className="bg-card-bg/95 backdrop-blur-xl border-none rounded-full shadow-[0_15px_35px_-5px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.7)] w-[240px] h-[55px] flex items-center justify-center pointer-events-auto shrink-0">
-          <div className="bg-app-bg w-[240px] h-[52px] rounded-[50px] flex items-center justify-center gap-1 px-1">
+      <div className="md:hidden fixed-nav-wrapper pointer-events-none" style={{ position: 'fixed', bottom: 'max(env(safe-area-inset-bottom), 1.5rem)' }}>
+        <nav className="nav-bar pointer-events-auto">
+          <div className="nav-inner">
             {currentNavItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
                   cn(
-                    "flex items-center justify-center rounded-full transition-all duration-200 shrink-0 overflow-hidden",
-                    isActive
-                      ? "h-[40px] w-[80px] px-3 bg-[var(--color-accent)]/15 text-[var(--color-accent)] gap-1.5"
-                      : "h-[44px] w-[44px] text-text-muted hover:bg-border-subtle"
+                    "nav-item",
+                    isActive ? "active" : ""
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <div className="relative flex items-center justify-center">
-                      {item.label === "Profile" ? (
-                        <img 
-                          src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
-                          alt="Profile" 
-                          className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
-                        />
-                      ) : item.label === "Home" ? (
-                        <CustomHomeIcon 
-                          isActive={isActive} 
-                          className="shrink-0 transition-colors duration-200" 
-                        />
-                      ) : (
-                        <item.icon
-                          className="shrink-0 transition-colors duration-200"
-                          size={18}
-                          strokeWidth={isActive ? 2.5 : 1.8}
-                        />
-                      )}
-                      {/* Badge Example */}
-                      {item.label === "Saved" && (
-                        <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-app-bg bg-[var(--color-accent)] shadow-sm">
-                          3
-                        </span>
-                      )}
-                    </div>
-                    
-                    {isActive && (
-                      <span className="text-[11px] font-semibold tracking-wide whitespace-nowrap block" style={{ display: 'block' }}>
-                        {item.label}
-                      </span>
+                    {item.label === "Profile" ? (
+                      <img 
+                        src={profile?.avatar_url || "https://i.pravatar.cc/100"}
+                        alt="Profile" 
+                        style={{ width: '18px', height: '18px', borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                    ) : item.label === "Home" ? (
+                      <i className="fa-solid fa-house"></i>
+                    ) : item.label === "Explore" ? (
+                      <i className="fa-solid fa-compass"></i>
+                    ) : item.label === "Saved" ? (
+                      <i className="fa-solid fa-bookmark"></i>
+                    ) : (
+                      <item.icon className="w-[18px] h-[18px]" />
                     )}
+                    <span className="nav-text">{item.label}</span>
                   </>
                 )}
               </NavLink>
@@ -113,10 +95,9 @@ export function Navigation() {
         </nav>
 
         {/* Floating Action Button (FAB) */}
-        <button className="w-[3.25rem] h-[3.25rem] rounded-full bg-gradient-to-tr from-[var(--color-accent)] to-[var(--color-accent)]/70 shadow-[0_12px_24px_-8px_var(--color-accent)] flex items-center justify-center text-white shrink-0 transition-transform duration-150 hover:scale-105 active:scale-95 pointer-events-auto">
-          <Plus size={22} strokeWidth={2} />
+        <button className="fab pointer-events-auto" onClick={() => navigate("/price-alerts")}>
+          <i className="fa-solid fa-plus text-xl"></i>
         </button>
-
       </div>
 
       {/* ALL OVERLAYS */}
