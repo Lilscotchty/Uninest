@@ -3,7 +3,7 @@ import { Property } from './types';
 export const PROPERTIES: Property[] = [
   {
     id: 1,
-    name: 'Evandy Property',
+    name: 'The Haven Residences',
     loc: 'North Legon · 5 min to campus',
     lat: 5.6420,
     lng: -0.1982,
@@ -14,17 +14,17 @@ export const PROPERTIES: Property[] = [
     tags: ['wifi', 'ac', 'sec'],
     category: 'premium',
     avail: '2 units',
-    img: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1502672260266-1c1c24240f38?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: ['https://pannellum.org/images/bma-0.jpg']
   },
   {
     id: 2,
-    name: 'Bani Property',
+    name: 'Nova Student Living',
     loc: 'Legon Campus · 2 min to main gate',
     lat: 5.6471,
     lng: -0.1901,
@@ -35,17 +35,17 @@ export const PROPERTIES: Property[] = [
     tags: ['sec', 'gen'],
     category: 'standard',
     avail: 'Sold out',
-    img: 'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: ['https://pannellum.org/images/library.jpg']
   },
   {
     id: 3,
-    name: 'Pentagon Annex',
+    name: 'Skycobe Signature Suites',
     loc: 'Legon · 10 min to central',
     lat: 5.6510,
     lng: -0.1855,
@@ -56,17 +56,17 @@ export const PROPERTIES: Property[] = [
     tags: ['wifi', 'sec', 'gen', 'ac'],
     category: 'premium',
     avail: 'Available',
-    img: 'https://images.pexels.com/photos/376533/pexels-photo-376533.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/376533/pexels-photo-376533.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/208323/pexels-photo-208323.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: ['https://pannellum.org/images/jfk.jpg']
   },
   {
     id: 4,
-    name: 'TF Property',
+    name: 'The Quad at Atomic',
     loc: 'Atomic Junction · 8 min to campus',
     lat: 5.6582,
     lng: -0.1868,
@@ -77,17 +77,17 @@ export const PROPERTIES: Property[] = [
     tags: ['wifi'],
     category: 'budget',
     avail: '5 units',
-    img: 'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/1743227/pexels-photo-1743227.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3316922/pexels-photo-3316922.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: ['https://pannellum.org/images/bma-1.jpg']
   },
   {
     id: 5,
-    name: 'James Topp Nelson',
+    name: 'Oasis Heights',
     loc: 'South Legon · 3 min to main gate',
     lat: 5.6350,
     lng: -0.1850,
@@ -98,17 +98,17 @@ export const PROPERTIES: Property[] = [
     tags: ['sec', 'gen'],
     category: 'standard',
     avail: '1 unit',
-    img: 'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/775219/pexels-photo-775219.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1374125/pexels-photo-1374125.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1493809842364-78817add7ff6?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: ['https://pannellum.org/images/milan.jpg']
   },
   {
     id: 6,
-    name: 'Cosmic Edge Hostel',
+    name: 'Prism Hostels',
     loc: 'Outer Legon · 15 min to campus',
     lat: 5.6200,
     lng: -0.1750,
@@ -119,10 +119,11 @@ export const PROPERTIES: Property[] = [
     tags: ['wifi', 'sec'],
     category: 'budget',
     avail: '10 units',
-    img: 'https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=800',
+    img: 'https://images.unsplash.com/photo-1528909514045-2ba42816b4bb?q=80&w=800&auto=format&fit=crop',
     images: [
-      'https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.unsplash.com/photo-1528909514045-2ba42816b4bb?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1598928506311-c55dd1b31048?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=800&auto=format&fit=crop'
     ],
     panoramas: []
   }

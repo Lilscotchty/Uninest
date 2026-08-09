@@ -21,11 +21,12 @@ export const MobileHome: React.FC = () => {
   };
 
   const getBgImage = (property: any, index: number) => {
+    // Fresh, premium real estate and aesthetic apartment imagery
     const fallbacks = [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop', // Modern luxury exterior
+      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1000&auto=format&fit=crop', // Clean apartment building facade
+      'https://images.unsplash.com/photo-1493809842364-78817add7ff6?q=80&w=1000&auto=format&fit=crop', // Beautiful modern interior
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000&auto=format&fit=crop'  // Sleek aesthetic bedroom
     ];
     return property.image || property.thumbnail || property.images?.[0] || fallbacks[index % fallbacks.length];
   };
@@ -121,9 +122,10 @@ export const MobileHome: React.FC = () => {
         })}
 
         {/* Discoveries around Legon - Final Card */}
+        {/* Updated with a vibrant, aesthetic neighborhood/cityscape image */}
         <div 
           className="card" 
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=1000&auto=format&fit=crop')" }}
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1000&auto=format&fit=crop')" }}
         >
           <div className="card-content">
             <div className="card-header">
