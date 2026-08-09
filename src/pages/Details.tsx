@@ -25,7 +25,8 @@ import {
   Heart,
   MessageCircle,
   Coffee,
-  Video
+  Video,
+  CheckCircle2
 } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -35,9 +36,9 @@ import { supabase } from "../lib/supabase";
 
 const mapIcon = L.divIcon({
   className: "",
-  html: `<div style="background:#178053;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(23,128,83,0.4);"></div>`,
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
+  html: `<div style="background:#489b78;width:16px;height:16px;border-radius:50%;border:3px solid white;box-shadow:0 4px 10px rgba(72,155,120,0.5);"></div>`,
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
 });
 
 export const Details: React.FC = () => {
@@ -60,7 +61,6 @@ export const Details: React.FC = () => {
   });
 
   const [hostProfile, setHostProfile] = useState<any>(null);
-
   const navigate = useNavigate();
 
   const property = properties.find((h) => h.id?.toString() === selectedPropertyId?.toString()) || properties[0];
@@ -97,17 +97,28 @@ export const Details: React.FC = () => {
 
   const isSaved = savedProperties.includes(property.id);
 
-  // Gallery State
+  // Gallery State combined with Slider Logic
+  const allMedia = [...(property.images?.length ? property.images : [property.img]), ...(property.panoramas || [])];
   const [currentImg, setCurrentImg] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
 
-  const [descExpanded, setDescExpanded] = useState(false);
-  const fullDesc = `Located perfectly for students looking to minimize their commute. ${property.name} offers a vibrant community atmosphere with spaces designed for deep study and relaxed living.`;
+  useEffect(() => {
+    // Pause auto-slider if user is viewing a 360 panorama so it doesn't swipe away while dragging
+    const isPano = currentImg >= (property.images?.length || 1);
+    if (isPano) return;
 
+    const interval = setInterval(() => {
+      setCurrentImg((prev) => (prev + 1) % allMedia.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [allMedia.length, currentImg, property.images]);
+
+  // UI States
   const [activeRoomMode, setActiveRoomMode] = useState<number>(0);
-
-  // Modals
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isBooking, setIsBooking] = useState(false);
+  const [priceBump, setPriceBump] = useState(false);
+  const [touchStartY, setTouchStartY] = useState(0);
 
   const fallbackRooms = [
     {
@@ -117,7 +128,7 @@ export const Details: React.FC = () => {
       bed: "1 bed(s)",
       price: property.price ? `${property.price}` : "GH₵5,000",
       avail: property.avail || "Available",
-      availClass: "bg-green-100 text-green-700",
+      availClass: "bg-[#b9e5d1] text-[#489b78]",
       img: property.images?.[0] || property.img,
     }
   ];
@@ -130,521 +141,366 @@ export const Details: React.FC = () => {
         bed: r.bed || `${(r.capacity !== undefined && r.capacity !== null) ? r.capacity : (r.occupantsPerRoom !== undefined && r.occupantsPerRoom !== null) ? r.occupantsPerRoom : 1} bed(s)`,
         price: r.price ? `GH₵${r.price}` : "Price unknown",
         avail: r.quantity ? `${r.quantity} space(s) left` : "Available",
-        availClass: "bg-green-100 text-green-700",
+        availClass: "bg-[#b9e5d1] text-[#489b78]",
         img: r.image_url || property.images?.[idx] || property.images?.[0] || property.img,
       }))
     : fallbackRooms;
 
   const selectedRoom = roomsToDisplay[activeRoomMode] || roomsToDisplay[0];
 
+  // Event Handlers
+  const handleRoomChange = (idx: number) => {
+    setActiveRoomMode(idx);
+    setPriceBump(true);
+  };
+
+  const handleSwipeUpStart = (e: React.TouchEvent) => setTouchStartY(e.changedTouches[0].screenY);
+  const handleSwipeUpEnd = (e: React.TouchEvent) => {
+    if (touchStartY - e.changedTouches[0].screenY > 20) setIsPanelOpen(true);
+  };
+  const handleSwipeDownEnd = (e: React.TouchEvent) => {
+    if (e.changedTouches[0].screenY - touchStartY > 20) setIsPanelOpen(false);
+  };
+
+  const handleBookClick = () => {
+    setIsBooking(true);
+    setTimeout(() => {
+      setIsBooking(false);
+      setBookingModalOpen(true);
+    }, 800);
+  };
+
   return (
-    <div className="flex-1 w-full bg-app-bg relative flex flex-col">
-      
-      {/* HEADER ACTIONS (Not floating on image) */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 flex justify-between items-center z-40 shrink-0 sticky top-0 md:top-[72px] bg-app-bg">
-        <button
+    <div className="flex justify-center items-center min-h-screen bg-[#e9ecef] font-poppins selection:bg-[#b9e5d1]">
+      <style>{`
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .price-bump { animation: bump 0.3s ease; }
+        @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.15); color: #489b78; } 100% { transform: scale(1); } }
+      `}</style>
 
-          onClick={() => navigate("/student/dashboard")}
-          className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
-        >
-          <ChevronLeft size={20} />
-        </button>
+      {/* Mobile App Container */}
+      <div className="w-full h-[100dvh] md:w-[375px] md:h-[812px] bg-[#1e1e1e] md:rounded-[40px] relative overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.15)] flex flex-col">
+        
+        {/* Full Screen Media Slider */}
+        <div className="absolute inset-0 w-full h-full z-0 bg-black">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent z-10 pointer-events-none" />
+          
+          {allMedia.map((media, idx) => {
+            const isPano = idx >= (property.images?.length || 1);
+            return (
+              <div 
+                key={idx} 
+                className={`absolute inset-0 w-full h-full transition-opacity duration-[1.5s] ease-in-out ${currentImg === idx ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
+              >
+                {isPano ? (
+                  currentImg === idx ? (
+                    <Pannellum
+                      width="100%"
+                      height="100%"
+                      image={media}
+                      pitch={10}
+                      yaw={180}
+                      hfov={110}
+                      autoLoad={true}
+                    />
+                  ) : null
+                ) : (
+                  <img src={media} className="w-full h-full object-cover" alt={`${property.name} view`} />
+                )}
+              </div>
+            );
+          })}
 
-        <div className="flex gap-2 items-center">
+          {/* Media Indicators */}
+          <div className="absolute bottom-[45%] left-0 w-full flex justify-center gap-2 z-10">
+            {allMedia.map((_, idx) => (
+              <button 
+                key={idx} 
+                onClick={() => setCurrentImg(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${currentImg === idx ? 'w-6 bg-white' : 'w-1.5 bg-white/50'}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Background Typography */}
+        <div className="absolute top-[10%] left-[-2%] text-[110px] font-extrabold italic leading-[0.85] text-white/40 z-[2] pointer-events-none tracking-[-3px] drop-shadow-2xl">
+          <div>SKY</div>
+          <div>COBE</div>
+        </div>
+
+        {/* Header */}
+        <header className="relative z-10 flex justify-between items-start px-6 pt-12 md:pt-10">
+          <button
+            onClick={() => navigate("/student/dashboard")}
+            className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-[0_8px_15px_rgba(0,0,0,0.1)] active:scale-95 transition-transform"
+          >
+            <ChevronLeft size={20} className="text-[#1e1e1e]" />
+          </button>
+          
+          <div className="text-center mt-1">
+            <h1 className="text-lg font-bold text-white leading-tight drop-shadow-md">
+              {property.name.length > 20 ? property.name.slice(0,20) + '...' : property.name}
+            </h1>
+            <span className="text-xs text-white/90 font-medium drop-shadow-md">Student Hostel</span>
+          </div>
+
+          <div className="w-11 h-11" /> {/* Placeholder for balance */}
+        </header>
+
+        {/* Floating Actions */}
+        <div className="absolute right-6 top-[35%] flex flex-col gap-4 z-10">
           <button
             onClick={() => toggleSave(property.id)}
-            className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-[0_8px_15px_rgba(0,0,0,0.1)] active:scale-95 transition-transform"
           >
-            {isSaved ? (
-              <Heart strokeWidth={2.5} className="text-coral" />
-            ) : (
-              <Heart strokeWidth={2.5} fill="none" color="currentColor" />
-            )}
+            <Heart 
+              size={20} 
+              className={`transition-colors duration-300 ${isSaved ? 'fill-[#1e1e1e] text-[#1e1e1e]' : 'fill-none text-[#1e1e1e]'}`} 
+            />
           </button>
           <button
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
               showToast("Link copied!");
             }}
-            className="w-10 h-10 rounded-full border border-border-subtle bg-card-bg flex items-center justify-center text-text-primary shadow-sm hover:scale-105 transition-transform"
+            className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-[0_8px_15px_rgba(0,0,0,0.1)] active:scale-95 transition-transform"
           >
-            <ArrowUpFromLine size={18} />
+            <ArrowUpFromLine size={18} className="text-[#1e1e1e]" />
           </button>
         </div>
-      </div>
 
-      <div className="w-full max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 pb-[100px] md:pb-[90px] flex flex-col pt-4">
-        {/* GALLERY */}
-        <div className="relative h-[340px] md:h-[500px] bg-black w-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm">
-          <div
-            className="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth relative"
-            ref={trackRef}
-            onScroll={(e) => {
-              const track = e.currentTarget;
-              if (track.clientWidth > 0)
-                setCurrentImg(Math.round(track.scrollLeft / track.clientWidth));
-            }}
-          >
-            {(property.images?.length ? property.images : [property.img]).map((src, i) => (
-              <div key={i} className="min-w-full h-full snap-start relative">
-                <img src={src} className="w-full h-full object-cover" />
-              </div>
-            ))}
-            {/* 360 Slide */}
-            {property.panoramas && property.panoramas.length > 0 ? (
-               property.panoramas.map((pano, i) => (
-                <div key={`pano-${i}`} className="min-w-full h-full snap-start relative bg-[var(--color-button)]">
-                    <Pannellum
-                      width="100%"
-                      height="100%"
-                      image={pano}
-                      pitch={10}
-                      yaw={180}
-                      hfov={110}
-                      autoLoad={false}
-                    />
-                </div>
-              ))
-            ) : (
-              <div key="pano-fallback" className="min-w-full h-full snap-start relative bg-[var(--color-button)] group">
-                  <BlazingRifts />
-              </div>
-            )}
-          </div>
-
-          {/* Gradient Overlay */}
-          <div className="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-[#0f0e2e]/60 to-transparent pointer-events-none" />
-
-          <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex gap-2 items-center bg-black/30 backdrop-blur-md p-1.5 rounded-[14px]">
-            {(property.images?.length ? property.images : [property.img]).map((src, i) => (
-              <div
-                key={i}
-                className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
-                onClick={() =>
-                  trackRef.current?.scrollTo({
-                    left: i * (trackRef.current?.clientWidth || 0),
-                    behavior: "smooth",
-                  })
-                }
+        {/* Primary Bottom Sheet */}
+        <div className="relative z-10 bg-white mt-auto h-[42%] rounded-t-[35px] p-6 pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] flex flex-col justify-between">
+          <div className="flex justify-between items-end">
+            <div>
+              <div className="text-xs text-[#8d9a94] font-medium mb-1">Total Price</div>
+              <div 
+                className={`text-[28px] font-bold text-[#1e1e1e] leading-none tracking-tight ${priceBump ? 'price-bump' : ''}`}
+                onAnimationEnd={() => setPriceBump(false)}
               >
-                <img
-                  src={src}
-                  className="w-full h-full object-cover"
-                />
+                {selectedRoom.price}
               </div>
-            ))}
-            {property.panoramas && property.panoramas.length > 0 ? property.panoramas.map((pano, j) => {
-              const i = (property.images?.length || 1) + j;
-              return (
-                <div
-                  key={`pano-thumb-${j}`}
-                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === i ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
-                  onClick={() =>
-                    trackRef.current?.scrollTo({
-                      left: i * (trackRef.current?.clientWidth || 0),
-                      behavior: "smooth",
-                    })
-                  }
-                >
-                  <img src={pano} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-                    <Video size={14} />
-                  </div>
-                </div>
-              );
-            }) : (
-              <div
-                  key="pano-thumb-fallback"
-                  className={`w-[44px] h-[34px] rounded-lg overflow-hidden cursor-pointer transition-all relative ${currentImg === (property.images?.length || 1) ? "opacity-100 scale-105 outline outline-2 outline-white -outline-offset-1" : "opacity-60 hover:opacity-100"}`}
-                  onClick={() =>
-                    trackRef.current?.scrollTo({
-                      left: (property.images?.length || 1) * (trackRef.current?.clientWidth || 0),
-                      behavior: "smooth",
-                    })
-                  }
-                >
-                  <div className="w-full h-full bg-[var(--color-button)] border border-slate-700 flex items-center justify-center text-white">
-                    <Video size={14} className="opacity-50" />
-                  </div>
-                </div>
-            )}
-          </div>
-
-          <div className="absolute bottom-5 right-5 bg-black/50 backdrop-blur-md text-white text-[0.75rem] font-bold px-3 py-1.5 rounded-full tracking-[0.5px]">
-            {currentImg + 1} / {(property.images?.length || 1) + Math.max((property.panoramas?.length || 0), 1)}
-          </div>
-        </div>
-        
-        <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-14 w-full items-start relative pb-10">
-          {/* LEFT CONTENT */}
-          <div className="flex-1 w-full flex flex-col bg-transparent relative z-[5]">
-             {/* Tags */}
-             <div className="flex gap-2.5 mb-5 flex-wrap">
-            <span className="bg-teal-light text-teal text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] flex items-center gap-1.5">
-              <ShieldCheck size={14} /> Verified
-            </span>
-            <span className="bg-green-light text-green-600 text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px] border border-green-200">
-              Rooms Available
-            </span>
-            <span className="bg-amber-light text-amber-600 text-[0.7rem] sm:text-[0.75rem] font-bold px-3 py-1 sm:px-4 rounded-full uppercase tracking-[0.5px]">
-              🔥 Popular Pick
-            </span>
-          </div>
-
-          <div className="flex justify-between items-start mb-3 gap-4">
-            <h1 className="text-[1.15rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] leading-[1.1] tracking-[-0.5px] break-words">
-              {property.name}
-            </h1>
-            <div className="bg-card-bg border-border-subtle border shadow-sm rounded-xl px-3 py-2 sm:px-4 flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <Star size={16} className="fill-amber-400 text-amber-400" />
-              <strong className="text-[0.95rem] sm:text-[1.1rem] font-bold">
-                {property.rating}
-              </strong>
-              <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted">
-                ({property.reviews})
+            </div>
+            <div className="text-right">
+              <div className="text-xs text-[#8d9a94] font-medium mb-1">Availability</div>
+              <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${selectedRoom.availClass}`}>
+                {selectedRoom.avail}
               </span>
             </div>
           </div>
 
-          <div className="flex items-start sm:items-center gap-2 text-text-muted text-[0.85rem] mb-6 font-medium">
-            <MapPin size={14} className="text-[var(--color-accent)] shrink-0" />
-            <span>{property.loc}</span>
-          </div>
-
-          {/* Map View */}
-          <div 
-            className="h-[200px] bg-slate-200 rounded-[20px] mb-8 overflow-hidden shadow-sm relative z-0 cursor-pointer group"
-            onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${property.lat || 5.6506},${property.lng || -0.1870}`, "_blank")}
-          >
-            <div className="absolute inset-0 bg-transparent z-[1000] flex items-center justify-center transition-colors group-hover:bg-[var(--color-button-hover)]/10">
-              <div className="bg-white/90 backdrop-blur-sm text-text-primary px-4 py-2 rounded-full font-bold shadow-[0_4px_12px_rgba(0,0,0,0.1)] transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex items-center gap-2">
-                Open in Google Maps
-              </div>
-            </div>
-            <MapContainer 
-              center={[property.lat || 5.6506, property.lng || -0.1870]} 
-              zoom={14} 
-              className="w-full h-full z-0 pointer-events-none" 
-              zoomControl={false}
-              dragging={false}
-              scrollWheelZoom={false}
-              doubleClickZoom={false}
-            >
-              <TileLayer
-                url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"
-                attribution="Google Maps"
-              />
-              <Marker position={[property.lat || 5.6506, property.lng || -0.1870]} icon={mapIcon}>
-                 <Popup>{property.name}</Popup>
-              </Marker>
-            </MapContainer>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 bg-app-bg/80 rounded-[20px] p-1.5 sm:p-2 mb-8 divide-x divide-slate-200/60 border border-border-subtle">
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
-                {property.price.split(",")[0]}K
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Per Sem
-              </span>
-            </div>
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
-                {property.reviews}
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Reviews
-              </span>
-            </div>
-            <div className="text-center py-2 sm:py-2.5">
-              <strong className="block text-[1rem] sm:text-[1.15rem] font-semibold text-text-primary mb-0.5">
-                3 min
-              </strong>
-              <span className="text-[0.6rem] sm:text-[0.65rem] text-text-muted font-bold tracking-[0.5px] uppercase">
-                Campus
-              </span>
-            </div>
-          </div>
-
-          {/* View Reviews Button */}
-          <button
-            onClick={() => navigate(`/property/${property.id}/reviews`)}
-            className="w-full mb-6 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-[16px] font-bold text-[0.95rem] flex items-center justify-center gap-2 hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm"
-          >
-            <MessageCircle size={18} />
-            View Reviews ({property.reviews})
-          </button>
-
-          {/* Host */}
-          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
-            Listed by
-          </h2>
-          <div className="bg-card-bg rounded-[20px] p-3 sm:p-4 border-transparent border shadow-sm flex items-center gap-2 sm:gap-3.5 mb-8 flex-wrap">
-            {hostProfile?.avatar_url ? (
-              <img 
-                 src={hostProfile.avatar_url} 
-                 alt="Host avatar" 
-                 className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full object-cover" 
-              />
-            ) : (
-              <div className="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] shrink-0 rounded-full bg-gradient-to-br from-[var(--color-accent-muted)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-lg uppercase">
-                {hostProfile?.full_name ? hostProfile.full_name.substring(0, 1) : "H"}
-              </div>
-            )}
-            <div className="flex-1 min-w-0 pr-1">
-              <strong className="block text-[0.85rem] sm:text-[0.95rem] font-bold text-text-primary truncate">
-                {hostProfile?.full_name || "Hostel Admin"}
-              </strong>
-              <span className="text-[0.7rem] sm:text-[0.75rem] text-text-muted font-medium flex items-center gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
-                {hostProfile?.role === 'student' ? null : <ShieldCheck size={12} className="text-teal shrink-0" />} 
-                {hostProfile?.role === 'accommodation_owner' ? 'Verified Owner' : hostProfile?.role === 'student' ? 'Student' : 'Property Manager'}
-              </span>
-              <div className="inline-block mt-0.5 sm:mt-1 bg-teal-50 text-teal-600 text-[0.6rem] sm:text-[0.65rem] font-bold px-2 py-0.5 rounded-[5px] uppercase tracking-wide">
-                Replies in 1 hr
-              </div>
-            </div>
-            <div className="flex gap-1.5 sm:gap-2.5 shrink-0">
-                  <a
-                    href={`tel:${hostProfile?.phone || '+233550000000'}`}
-                    className="w-10 h-10 rounded-full bg-slate-800/20 text-slate-900 flex items-center justify-center transition-transform hover:bg-[var(--color-button)] hover:text-white"
-                  >
-                    <Phone size={16} />
-                  </a>
-                  <a
-                    href={`https://wa.me/${(hostProfile?.phone || '233550000000').replace(/[^0-9]/g, '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-slate-800/20 text-teal-600 flex items-center justify-center transition-transform hover:bg-[var(--color-button)] hover:text-white"
-                  >
-                    <MessageCircle size={20} />
-                  </a>
-            </div>
-          </div>
-
-          {/* Amenities */}
-          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
-            What's Included
-          </h2>
-          <div className="grid grid-cols-2 gap-3 mb-8">
-            {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
-              const label = am.toLowerCase();
-              let Icon = Wifi;
-              let color = "text-[var(--color-accent)]";
-              if (label.includes("ac")) { Icon = Snowflake; color = "text-blue-400"; }
-              else if (label.includes("security") || label.includes("sec")) { Icon = ShieldCheck; color = "text-emerald-500"; }
-              else if (label.includes("gen")) { Icon = PlugZap; color = "text-amber-500"; }
-              else if (label.includes("study")) { Icon = BookOpen; color = "text-pink-500"; }
-              else if (label.includes("water") || label.includes("piped")) { Icon = Droplet; color = "text-cyan-500"; }
-              else if (label.includes("kitchen") || label.includes("cafeteria")) { Icon = Coffee; color = "text-orange-500"; }
-              
-              return (
-                <div key={i} className="flex items-center gap-3 bg-app-bg/80 rounded-[16px] p-3.5 border border-border-subtle">
-                  <Icon className={`${color} text-base`} />
-                  <span className="text-[0.85rem] font-bold text-text-primary">
-                    {am}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
-            About this Property
-          </h2>
-          <p className="text-[0.9rem] text-text-muted leading-[1.7] mb-2">
-            {descExpanded ? fullDesc : fullDesc.slice(0, 200) + "..."}
-          </p>
-          <button
-            onClick={() => setDescExpanded(!descExpanded)}
-            className="text-[var(--color-accent)] font-bold text-[0.85rem] mb-8"
-          >
-            {descExpanded ? "Show less ↑" : "Read more →"}
-          </button>
-
-          {/* Room Options */}
-          <h2 className="text-[1.05rem] sm:text-[1.2rem] font-semibold text-[var(--color-heading)] mb-4 tracking-tight leading-tight">
-            Room Options
-          </h2>
-          <div className="flex gap-2.5 mb-4 px-1 pb-1 overflow-x-auto hide-scrollbar">
-            {roomsToDisplay.map((room_item, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveRoomMode(index)}
-                className={`px-[18px] py-[8px] rounded-full text-[0.85rem] font-bold transition-all shrink-0 ${activeRoomMode === index ? "bg-[var(--color-button)] text-white shadow-sm" : "bg-slate-200 text-text-primary"}`}
-              >
-                {room_item.name}
-              </button>
-            ))}
-          </div>
-
-          <div className="bg-card-bg rounded-[20px] border-transparent border shadow-sm overflow-hidden mb-8">
-            <div className="h-[160px]">
-              <img
-                src={selectedRoom.img}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-[18px]">
-              <h3 className="text-[1rem] font-semibold text-[var(--color-heading)] mb-2.5">
-                {selectedRoom.name}
-              </h3>
-              <div className="flex gap-3 flex-wrap mb-3.5">
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Ruler size={14} className="text-[var(--color-accent)]" /> {selectedRoom.size}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <User size={14} className="text-[var(--color-accent)]" /> {selectedRoom.occ}
-                </div>
-                <div className="text-[0.8rem] text-text-muted font-medium flex items-center gap-1.5">
-                  <Bed size={14} className="text-[var(--color-accent)]" /> {selectedRoom.bed}
-                </div>
-              </div>
-                 <div className="flex justify-between items-end pt-3.5 border-t border-border-subtle">
-                <div>
-                  <strong className="block text-[1.1rem] text-text-primary leading-none">
-                    {selectedRoom.price}
-                  </strong>
-                  <span className="block text-[0.75rem] text-text-muted font-medium mt-1">
-                    per semester
-                  </span>
-                </div>
-                {/* NEW CHECKOUT BUTTON */}
+          <div className="mt-4">
+            <div className="text-xs text-[#8d9a94] font-medium mb-3">Room Options</div>
+            <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+              {roomsToDisplay.map((room_item, index) => (
                 <button
-                  onClick={() => setBookingModalOpen(true)}
-                  className="px-5 py-2 bg-[var(--color-button)] text-white rounded-[12px] font-bold text-[0.85rem] shadow-sm hover:scale-[1.02] transition-transform md:hidden" >
+                  key={index}
+                  onClick={() => handleRoomChange(index)}
+                  className={`px-4 py-2.5 shrink-0 rounded-xl border text-sm font-semibold transition-all duration-200 ${
+                    activeRoomMode === index 
+                      ? 'bg-[#489b78] text-white border-[#489b78] shadow-[0_8px_15px_rgba(72,155,120,0.3)]' 
+                      : 'bg-transparent text-[#1e1e1e] border-[#e5e5e5]'
+                  }`}
+                >
+                  {room_item.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button 
+            className="w-full bg-[#489b78] text-white rounded-[20px] py-[18px] text-base font-semibold flex justify-center items-center gap-2 shadow-[0_10px_20px_rgba(72,155,120,0.25)] active:scale-95 transition-all mt-2"
+            onClick={handleBookClick}
+          >
+            {isBooking ? (
+              <><CheckCircle2 size={18} /> Reserved!</>
+            ) : (
+              <><Bed size={18} /> Request Room</>
+            )}
+          </button>
+
+          {/* Swipe Indicator */}
+          <div 
+            className="text-center mt-4 flex flex-col items-center gap-1 cursor-pointer py-2"
+            onClick={() => setIsPanelOpen(true)}
+            onTouchStart={handleSwipeUpStart}
+            onTouchEnd={handleSwipeUpEnd}
+          >
+            <span className="text-[11px] text-[#8d9a94] font-medium">Swipe up for amenities</span>
+            <ChevronLeft size={16} className="text-[#1e1e1e] rotate-90 animate-bounce" />
+          </div>
+        </div>
+
+        {/* Secondary Details Panel Overlay */}
+        <div 
+          className={`absolute inset-0 bg-black/60 z-15 transition-opacity duration-400 ${isPanelOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
+          onClick={() => setIsPanelOpen(false)}
+        />
+        
+        {/* Secondary Details Panel */}
+        <div 
+          className={`absolute bottom-0 left-0 w-full h-[85%] bg-white rounded-t-[35px] z-20 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isPanelOpen ? 'translate-y-0' : 'translate-y-full'}`}
+        >
+          <div 
+            className="w-full pt-4 pb-6 flex flex-col items-center cursor-pointer"
+            onClick={() => setIsPanelOpen(false)}
+            onTouchStart={handleSwipeUpStart}
+            onTouchEnd={handleSwipeDownEnd}
+          >
+            <div className="w-11 h-[5px] bg-[#e5e5e5] rounded-full mb-4" />
+            <h2 className="text-[18px] font-bold text-[#1e1e1e]">Details & Amenities</h2>
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-6 pb-8 hide-scrollbar">
+            
+            {/* Location Map */}
+            <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Location</h3>
+            <div className="w-full h-[180px] rounded-[20px] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.08)] bg-[#f7f9f8] mb-6">
+              <MapContainer 
+                center={[property.lat || 5.6506, property.lng || -0.1870]} 
+                zoom={14} 
+                className="w-full h-full z-0" 
+                zoomControl={false}
+              >
+                <TileLayer url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2" />
+                <Marker position={[property.lat || 5.6506, property.lng || -0.1870]} icon={mapIcon}>
+                   <Popup>{property.name}</Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+
+            {/* Amenities Grid */}
+            <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Amenities</h3>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              {((property.amenities?.length ? property.amenities : property.tags) || []).map((am, i) => {
+                const label = am.toLowerCase();
+                let Icon = Wifi;
+                if (label.includes("ac")) Icon = Snowflake;
+                else if (label.includes("security") || label.includes("sec")) Icon = ShieldCheck;
+                else if (label.includes("gen")) Icon = PlugZap;
+                else if (label.includes("study")) Icon = BookOpen;
+                else if (label.includes("water") || label.includes("piped")) Icon = Droplet;
+                else if (label.includes("kitchen") || label.includes("cafeteria")) Icon = Coffee;
+
+                return (
+                  <div key={i} className="flex items-center gap-2.5 bg-[#f7f9f8] p-3 rounded-[15px]">
+                    <Icon size={18} className="text-[#489b78]" />
+                    <span className="text-xs font-semibold text-[#1e1e1e]">{am}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Reviews */}
+            <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Reviews</h3>
+            <div className="flex justify-between items-center p-4 rounded-[20px] bg-[#f7f9f8] border border-[#e5e5e5] mb-6">
+              <div className="flex items-center gap-4">
+                <div className="text-[32px] font-extrabold text-[#1e1e1e] leading-none">{property.rating}</div>
+                <div className="flex flex-col">
+                  <div className="text-[#ffc107] text-sm tracking-[2px]">★★★★★</div>
+                  <div className="text-[11px] text-[#8d9a94] font-medium mt-0.5">{property.reviews} Reviews</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => navigate(`/property/${property.id}/reviews`)}
+                className="bg-[#1e1e1e] text-white font-semibold text-xs py-2.5 px-4 rounded-xl active:scale-95 transition-transform"
+              >
+                Read
+              </button>
+            </div>
+
+            {/* Host Profile */}
+            <h3 className="text-[15px] font-bold text-[#1e1e1e] mb-4">Property Host</h3>
+            <div className="flex items-center justify-between p-4 border border-[#e5e5e5] rounded-[20px] bg-white mb-8">
+              <div className="flex items-center gap-3">
+                {hostProfile?.avatar_url ? (
+                  <img src={hostProfile.avatar_url} alt="Host" className="w-[50px] h-[50px] rounded-full object-cover border-2 border-[#b9e5d1]" />
+                ) : (
+                  <div className="w-[50px] h-[50px] rounded-full bg-[#b9e5d1] text-[#489b78] border-2 border-white flex justify-center items-center font-bold text-lg">
+                    {hostProfile?.full_name ? hostProfile.full_name.substring(0,1) : "H"}
+                  </div>
+                )}
+                <div>
+                  <h4 className="text-sm font-bold text-[#1e1e1e]">{hostProfile?.full_name || "Hostel Admin"}</h4>
+                  <p className="text-[11px] text-[#8d9a94] font-medium">
+                    {hostProfile?.role === 'accommodation_owner' ? 'Verified Owner' : 'Property Manager'} • {property.rating} ★
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <a href={`tel:${hostProfile?.phone || '+233550000000'}`} className="w-9 h-9 rounded-xl bg-[#f7f9f8] text-[#1e1e1e] flex justify-center items-center active:bg-[#e5e5e5]">
+                  <Phone size={14} />
+                </a>
+                <a href={`https://wa.me/${(hostProfile?.phone || '233550000000').replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-[#e5f5ed] text-[#489b78] flex justify-center items-center active:bg-[#b9e5d1]">
+                  <MessageCircle size={14} />
+                </a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        {/* Booking Request Modal */}
+        {bookingModalOpen && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
+            <div className="bg-white w-full max-w-sm rounded-[30px] p-6 shadow-2xl relative animate-in zoom-in duration-200">
+              <button
+                onClick={() => setBookingModalOpen(false)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#f7f9f8] rounded-full text-[#1e1e1e] hover:bg-[#e5e5e5] transition-colors"
+              >
+                ✕
+              </button>
+              <h2 className="text-[18px] font-bold text-[#1e1e1e] mb-1">Request Room</h2>
+              <p className="text-[13px] text-[#8d9a94] mb-6">Fill out your details to secure {selectedRoom.name}.</p>
               
-                  Checkout
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">First Name</label>
+                  <input 
+                    type="text" 
+                    value={bookingForm.firstName}
+                    onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
+                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
+                    placeholder="Enter first name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">Last Name</label>
+                  <input 
+                    type="text" 
+                    value={bookingForm.lastName}
+                    onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
+                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
+                    placeholder="Enter last name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-[#1e1e1e] mb-1.5 ml-1 uppercase tracking-wider">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    value={bookingForm.phone}
+                    onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                    className="w-full px-4 py-3.5 bg-[#f7f9f8] border border-[#e5e5e5] rounded-[16px] outline-none focus:border-[#489b78] transition-all text-sm font-medium"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    showToast("Room requested successfully!");
+                    setBookingModalOpen(false);
+                  }}
+                  className="w-full py-4 bg-[#1e1e1e] text-white rounded-[20px] font-bold text-[15px] shadow-xl shadow-[#1e1e1e]/20 active:scale-95 transition-all mt-4"
+                >
+                  Confirm Request
                 </button>
               </div>
-
             </div>
           </div>
-        </div>
-
-        {/* RIGHT SIDEBAR (Desktop) */}
-        <div className="hidden md:block w-1/3 lg:w-[380px] shrink-0 md:sticky md:top-24 h-fit">
-          <div className="bg-card-bg rounded-[24px] border border-border-subtle shadow-sm p-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="bg-green-100 text-green-700 text-[0.7rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{property.avail || "Available"}</span>
-            </div>
-            
-            <div className="mb-6">
-              <strong className="block text-[1.4rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-                {selectedRoom.price}
-              </strong>
-              <span className="block text-[0.85rem] text-text-muted font-semibold mt-1">
-                {property.pricing_tag || 'per semester'}
-              </span>
-            </div>
-
-            <div className="mb-6 border border-border-subtle rounded-xl overflow-hidden divide-y divide-border-subtle">
-              <div className="p-3">
-                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Room Type</span>
-                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.name}</span>
-              </div>
-              <div className="p-3">
-                <span className="block text-[0.65rem] font-bold text-text-muted uppercase tracking-wider mb-1">Occupancy</span>
-                <span className="text-[0.95rem] font-semibold text-text-primary">{selectedRoom.occ}</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setBookingModalOpen(true)}
-              className="w-full py-4 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:scale-[1.02] transition-transform flex justify-center items-center gap-2"
-            >
-              Request Room
-            </button>
-            
-            <div className="mt-4 text-center">
-               <span className="text-[0.75rem] text-text-muted">You won't be charged yet</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* --- BOTTOM MOBILE REQUEST BAR --- */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-app-bg border-t border-border-subtle px-5 py-4 pb-8 z-50 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-          <div>
-            <strong className="block text-[1.2rem] font-bold text-[var(--color-heading)] leading-none mb-1">
-              {selectedRoom.price}
-            </strong>
-            <span className="block text-[0.7rem] text-text-muted font-bold uppercase tracking-[0.5px]">
-              {property.pricing_tag || 'Total Price'}
-            </span>
-          </div>
-          <button
-            onClick={() => setBookingModalOpen(true)}
-            className="px-8 py-3.5 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[0.95rem] shadow-sm hover:scale-[1.02] transition-transform"
-          >
-            Request Room
-          </button>
-        </div>
-        {/* --- END OF REQUEST BAR --- */}
+        )}
 
       </div>
-
-      {/* --- NEW BOOKING MODAL --- */}
-      {bookingModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-app-bg w-full max-w-md rounded-[24px] p-6 shadow-xl relative animate-in fade-in zoom-in duration-200">
-            <button
-              onClick={() => setBookingModalOpen(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 transition-colors"
-            >
-              ✕
-            </button>
-            <h2 className="text-[1.15rem] font-semibold text-[var(--color-heading)] mb-2">Request Room</h2>
-            <p className="text-[0.9rem] text-text-muted mb-6">Fill out your details to secure your {selectedRoom.name}.</p>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">First Name</label>
-                <input 
-                  type="text" 
-                  value={bookingForm.firstName}
-                  onChange={(e) => setBookingForm({...bookingForm, firstName: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter first name"
-                />
-              </div>
-              <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Last Name</label>
-                <input 
-                  type="text" 
-                  value={bookingForm.lastName}
-                  onChange={(e) => setBookingForm({...bookingForm, lastName: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter last name"
-                />
-              </div>
-              <div>
-                <label className="block text-[0.8rem] font-bold text-text-primary mb-1.5 ml-1">Phone Number</label>
-                <input 
-                  type="tel" 
-                  value={bookingForm.phone}
-                  onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[14px] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all text-[0.95rem]"
-                  placeholder="Enter phone number"
-                />
-              </div>
-              
-              <button 
-                onClick={() => {
-                  showToast("Room requested successfully!");
-                  setBookingModalOpen(false);
-                }}
-                className="w-full py-3.5 bg-[var(--color-button)] text-white rounded-[16px] font-bold text-[1rem] shadow-sm hover:opacity-90 transition-opacity mt-4"
-              >
-                Submit Request
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* --- END OF BOOKING MODAL --- */}
-
     </div>
   );
 };
