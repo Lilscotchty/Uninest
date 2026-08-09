@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigation } from './Navigation';
 import { Header } from '../Header';
-import { BottomNav } from '../BottomNav';
 import { useAppContext } from '../../context/AppContext';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -17,9 +16,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <main className={`flex-1 w-full pb-20 md:pb-0 transition-all duration-300`}>
           {children}
         </main>
-      </div>
-      <div className="md:hidden">
-        <BottomNav />
       </div>
     </div>
   );

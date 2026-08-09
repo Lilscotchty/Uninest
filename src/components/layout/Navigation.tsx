@@ -54,6 +54,63 @@ export function Navigation() {
 
   return (
     <>
+      {/* MOBILE: Bottom Tab Bar */}
+      <div className="md:hidden fixed-nav-wrapper pointer-events-none" style={{ position: 'fixed', bottom: 'max(env(safe-area-inset-bottom), 1.5rem)' }}>
+        <nav className="nav-bar pointer-events-auto">
+          <div className="nav-inner">
+            {currentNavItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={({ isActive }) =>
+                  cn(
+                    "nav-item",
+                    isActive ? "active" : ""
+                  )
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <div className="relative flex items-center justify-center">
+                      {item.label === "Profile" ? (
+                        <img 
+                          src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
+                          alt="Profile" 
+                          className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
+                        />
+                      ) : item.label === "Home" ? (
+                        <CustomHomeIcon 
+                          isActive={isActive} 
+                          className="shrink-0 transition-colors duration-200" 
+                        />
+                      ) : (
+                        <item.icon
+                          className="shrink-0 transition-colors duration-200"
+                          size={18}
+                          strokeWidth={isActive ? 2.5 : 1.8}
+                        />
+                      )}
+                      {/* Badge Example */}
+                      {item.label === "Saved" && (
+                        <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[14px] h-[14px] px-[3px] text-[9px] font-bold text-white rounded-full border-[1.5px] border-app-bg bg-[var(--color-accent)] shadow-sm">
+                          3
+                        </span>
+                      )}
+                    </div>
+                    <span className="nav-text">{item.label}</span>
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+
+        {/* Floating Action Button (FAB) */}
+        <button className="fab pointer-events-auto" onClick={() => navigate("/price-alerts")}>
+          <Plus size={22} strokeWidth={2} />
+        </button>
+      </div>
+
       {/* ALL OVERLAYS */}
       {isSidebarOpen && (
         <div 
