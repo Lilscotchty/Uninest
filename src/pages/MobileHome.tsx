@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './MobileHome.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { MapPin, SlidersHorizontal, Bookmark, Circle } from 'lucide-react';
