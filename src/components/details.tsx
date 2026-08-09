@@ -12,20 +12,20 @@ export interface Host {
 export interface Amenity {
   id: string;
   name: string;
-  iconName: string; // Used to map to the correct SVG
+  iconName: string; 
 }
 
 export interface PropertyDetails {
   id: string;
   title: string;
-  type: string; // e.g., "Student Hostel", "Apartment"
-  images: string[]; // Array of image URLs for the slider
-  basePrice: number; // Base price per occupant
-  currency: string; // e.g., "GH₵"
+  type: string; 
+  images: string[]; 
+  basePrice: number; 
+  currency: string; 
   maxOccupants: number; 
   rating: number;
   reviewCount: number;
-  mapEmbedUrl: string; // URL for the iframe
+  mapEmbedUrl: string; 
   amenities: Amenity[];
   host: Host;
 }
@@ -44,7 +44,7 @@ export default function Details({ propertyData }: DetailsProps) {
   const [isReserving, setIsReserving] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-  // Animation keys (React technique to force CSS animation restart)
+  // Animation keys (forces CSS animation restart)
   const [priceKey, setPriceKey] = useState(0);
   const [badgeKey, setBadgeKey] = useState(0);
 
@@ -63,15 +63,14 @@ export default function Details({ propertyData }: DetailsProps) {
   // --- Handlers ---
   const handleOccupantsSelect = (count: number) => {
     setOccupantsCount(count);
-    setPriceKey((prev) => prev + 1); // Trigger price animation bump
+    setPriceKey((prev) => prev + 1);
   };
 
   const handleBooking = () => {
     setBookingsCount((prev) => prev + 1);
-    setBadgeKey((prev) => prev + 1); // Trigger badge animation bump
+    setBadgeKey((prev) => prev + 1); 
     setIsReserving(true);
     
-    // Reset button state after delay
     setTimeout(() => {
       setIsReserving(false);
     }, 1500);
@@ -92,10 +91,9 @@ export default function Details({ propertyData }: DetailsProps) {
     if (touchEndY - touchStartY.current > 20) setIsPanelOpen(false);
   };
 
-  // Constants mapping
   const totalPrice = propertyData.basePrice * occupantsCount;
 
-  // --- Helper to Render Amenity SVG ---
+  // Renders correct SVG based on the database string
   const renderAmenityIcon = (iconName: string) => {
     switch(iconName) {
       case 'wifi':
@@ -153,7 +151,7 @@ export default function Details({ propertyData }: DetailsProps) {
           <img 
             key={idx}
             src={img} 
-            alt={`${propertyData.title} Image ${idx + 1}`} 
+            alt={`${propertyData.title} view ${idx + 1}`} 
             className={`slider-img ${currentImageIndex === idx ? 'active' : ''}`} 
           />
         ))}
@@ -167,7 +165,7 @@ export default function Details({ propertyData }: DetailsProps) {
 
       {/* Header */}
       <header className="header">
-        <button className="icon-btn" aria-label="Go Back">
+        <button type="button" className="icon-btn" aria-label="Go Back">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e1e1e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
@@ -177,7 +175,7 @@ export default function Details({ propertyData }: DetailsProps) {
           <h1 className="header-title">{propertyData.title}</h1>
           <span className="header-subtitle">{propertyData.type}</span>
         </div>
-        <button className="icon-btn" aria-label="Saved Bookings">
+        <button type="button" className="icon-btn" aria-label="Saved Bookings">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e1e1e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
@@ -187,12 +185,12 @@ export default function Details({ propertyData }: DetailsProps) {
 
       {/* Floating Actions */}
       <div className="floating-actions">
-        <button className="icon-btn" aria-label="Like Room" onClick={() => setIsLiked(!isLiked)}>
+        <button type="button" className="icon-btn" aria-label="Like Room" onClick={() => setIsLiked(!isLiked)}>
           <svg className={`heart-icon ${isLiked ? 'liked' : ''}`} width="20" height="20" viewBox="0 0 24 24" fill={isLiked ? '#1e1e1e' : 'none'} stroke="#1e1e1e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>
-        <button className="icon-btn" aria-label="Share Room">
+        <button type="button" className="icon-btn" aria-label="Share Room">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e1e1e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="18" cy="5" r="3"></circle>
             <circle cx="6" cy="12" r="3"></circle>
@@ -216,12 +214,14 @@ export default function Details({ propertyData }: DetailsProps) {
             <div className="label">Select Gender</div>
             <div className="gender-options">
               <button 
+                type="button"
                 className={`gender-btn ${gender === 'Male' ? 'active' : ''}`} 
                 onClick={() => setGender('Male')}
               >
                 Male
               </button>
               <button 
+                type="button"
                 className={`gender-btn ${gender === 'Female' ? 'active' : ''}`} 
                 onClick={() => setGender('Female')}
               >
@@ -237,6 +237,7 @@ export default function Details({ propertyData }: DetailsProps) {
             {Array.from({ length: propertyData.maxOccupants }, (_, i) => i + 1).map(num => (
               <button 
                 key={num}
+                type="button"
                 className={`occ-btn ${occupantsCount === num ? 'active' : ''}`} 
                 onClick={() => handleOccupantsSelect(num)}
               >
@@ -246,7 +247,7 @@ export default function Details({ propertyData }: DetailsProps) {
           </div>
         </div>
 
-        <button className="book-btn" onClick={handleBooking}>
+        <button type="button" className="book-btn" onClick={handleBooking}>
           {isReserving ? (
             <>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -333,7 +334,7 @@ export default function Details({ propertyData }: DetailsProps) {
                 <div className="review-count">{propertyData.reviewCount} Reviews</div>
               </div>
             </div>
-            <button className="write-review-btn">Write a Review</button>
+            <button type="button" className="write-review-btn">Write a Review</button>
           </div>
 
           {/* Host Profile */}
@@ -346,7 +347,7 @@ export default function Details({ propertyData }: DetailsProps) {
                 <p>{propertyData.host.isSuperhost ? 'Superhost • ' : ''}{propertyData.host.rating.toFixed(1)} ★</p>
               </div>
             </div>
-            <button className="contact-btn">Contact</button>
+            <button type="button" className="contact-btn">Contact</button>
           </div>
           
           <div style={{ height: '30px' }}></div>
