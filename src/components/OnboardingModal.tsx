@@ -16,7 +16,8 @@ const roleIcons: Record<UserRole, React.ReactNode> = {
   student: <GraduationCap size={20} />,
   general_renter: <Home size={20} />,
   accommodation_owner: <Hotel size={20} />,
-  property_owner: <Building size={20} />
+  property_owner: <Building size={20} />,
+  manager: <Check size={20} />
 };
 
 export function OnboardingModal() {
