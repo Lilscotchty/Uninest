@@ -10,6 +10,25 @@ function cn(...classes: (string | undefined | null | false)[]) {
 export function Navigation() {
   const { user, profile, isSidebarOpen, toggleSidebar } = useAppContext();
 
+  const CustomHomeIcon = ({ isActive, className }: { isActive: boolean, className?: string }) => (
+    <svg 
+      className={className}
+      width="18" 
+      height="18" 
+      viewBox="0 0 24 24" 
+      fill={isActive ? 'currentColor' : 'none'}
+      stroke={isActive ? 'none' : 'currentColor'}
+      strokeWidth={isActive ? '0' : '1.8'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 2.5a2.5 2.5 0 00-1.6.58l-6.5 5.3A2.5 2.5 0 003 10.3V18a3 3 0 003 3h12a3 3 0 003-3v-7.7a2.5 2.5 0 00-.9-1.92l-6.5-5.3a2.5 2.5 0 00-1.6-.58z"></path>
+      {isActive && (
+        <rect x="9.5" y="14" width="5" height="2" rx="1" fill="var(--color-app-bg, #f4f4f4)" className="home-cutout"></rect>
+      )}
+    </svg>
+  );
+
   const role = profile?.role || user?.user_metadata?.account_type || "student";
   const isManager =
     role === "manager" ||
@@ -37,7 +56,7 @@ export function Navigation() {
       <div className="md:hidden fixed bottom-[max(env(safe-area-inset-bottom),1rem)] left-0 right-0 z-50 flex justify-center items-center gap-4 px-4 pointer-events-none">
         
         {/* Navigation Bar */}
-        <nav className="bg-card-bg/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_15px_35px_-10px_rgba(0,0,0,0.06)] dark:shadow-black/20 w-[240px] h-[55px] flex items-center justify-center pointer-events-auto shrink-0">
+        <nav className="bg-card-bg/95 backdrop-blur-xl border-none rounded-full shadow-[0_15px_35px_-5px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.7)] w-[240px] h-[55px] flex items-center justify-center pointer-events-auto shrink-0">
           <div className="bg-app-bg w-[240px] h-[52px] rounded-[50px] flex items-center justify-center gap-1 px-1">
             {currentNavItems.map((item) => (
               <NavLink
@@ -60,6 +79,11 @@ export function Navigation() {
                           src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
                           alt="Profile" 
                           className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
+                        />
+                      ) : item.label === "Home" ? (
+                        <CustomHomeIcon 
+                          isActive={isActive} 
+                          className="shrink-0 transition-colors duration-200" 
                         />
                       ) : (
                         <item.icon
