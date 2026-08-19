@@ -261,11 +261,11 @@ export function SignUp() {
 
   return (
     <div
-      className="h-[100vh] w-full flex flex-col items-center justify-center relative overflow-hidden bg-[var(--color-bg)] text-[var(--color-text-primary)]"
+      className="min-h-[100dvh] w-full flex flex-col items-center relative overflow-y-auto bg-[var(--color-bg)] text-[var(--color-text-primary)] py-8"
     >
       {/* Card */}
       <div
-        className="relative w-full max-w-sm mx-4 px-7 py-8 rounded-3xl z-10 bg-[var(--color-card-bg)] border border-[var(--color-border)] shadow-float"
+        className="my-auto relative w-full max-w-sm mx-4 px-7 py-8 rounded-3xl z-10 bg-[var(--color-card-bg)] border border-[var(--color-border)] shadow-float"
       >
         {/* Back button — only on signup */}
         <AnimatePresence>

@@ -42,37 +42,36 @@ export const MobileHome: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* Brand top center */}
-      <div className="top-brand">
-        <i className="fa-solid fa-circle"></i> Skycobe
-      </div>
-
-      {/* Header */}
-      <header>
-        <div className="title-wrapper">
-          <div className="accent-line"></div>
-          <h1>Find<br/>Apartments</h1>
-        </div>
-        <button className="filter-btn" onClick={() => navigate("/explore")}>
-          <i className="fa-solid fa-sliders text-text-dark text-xl"></i>
-        </button>
-      </header>
-
-      {/* Tabs - Wired to your Context */}
-      <nav className="nav-tabs">
-        {['Recommend', 'New', 'Nearby'].map(tab => (
-          <div 
-            key={tab}
-            className={`tab ${activeFilter === tab ? 'active' : ''}`} 
-            onClick={() => setActiveFilter(tab)}
-          >
-            {tab}
-          </div>
-        ))}
-      </nav>
-
       {/* Scrollable Cards Area */}
       <main className="cards-scroll-area">
+        {/* Brand top center */}
+        <div className="top-brand">
+          <i className="fa-solid fa-circle"></i> Skycobe
+        </div>
+
+        {/* Header */}
+        <header>
+          <div className="title-wrapper">
+            <div className="accent-line"></div>
+            <h1>Find<br/>Apartments</h1>
+          </div>
+          <button className="filter-btn" onClick={() => navigate("/explore")}>
+            <i className="fa-solid fa-sliders text-text-dark text-xl"></i>
+          </button>
+        </header>
+
+        {/* Tabs - Wired to your Context */}
+        <nav className="nav-tabs sticky-tabs">
+          {['Recommend', 'New', 'Nearby'].map(tab => (
+            <div 
+              key={tab}
+              className={`tab ${activeFilter === tab ? 'active' : ''}`} 
+              onClick={() => setActiveFilter(tab)}
+            >
+              {tab}
+            </div>
+          ))}
+        </nav>
         
         {/* Dynamic Properties from Context */}
         {properties.map((property: any, index: number) => {
