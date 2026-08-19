@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Eye, EyeOff, User, Lock, ArrowLeft, Gift } from "lucide-react";
-import { Facebook, Twitter, Linkedin, Apple, CheckCircle2 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -78,20 +77,6 @@ function SkyCobeLogo() {
         Welcome to <span className="text-[var(--color-accent)]">SKYCOBE</span>
       </h1>
     </div>
-  );
-}
-
-// ─── Social icon button ───────────────────────────────────────────────────────
-function SocialBtn({ icon, label, ...props }: { icon: React.ReactNode; label: string } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    <button
-      {...props}
-      type="button"
-      aria-label={label}
-      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm"
-    >
-      <span className="text-lg">{icon}</span>
-    </button>
   );
 }
 
@@ -274,18 +259,9 @@ export function SignUp() {
     }
   };
 
-
-  const socialProviders = [
-    { icon: <Facebook color="#1877f2" />, label: "Continue with Facebook" },
-    { icon: <Twitter color="white" />, label: "Continue with X" },
-    { icon: <Linkedin color="#0a66c2" />, label: "Continue with LinkedIn" },
-    { icon: <CheckCircle2 color="#720e9e" />, label: "Continue with Yahoo" },
-    { icon: <Apple color="white" />, label: "Continue with Apple" },
-  ];
-
   return (
     <div
-      className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden bg-[var(--color-bg)] text-[var(--color-text-primary)]"
+      className="h-[100vh] w-full flex flex-col items-center justify-center relative overflow-hidden bg-[var(--color-bg)] text-[var(--color-text-primary)]"
     >
       {/* Card */}
       <div
@@ -336,13 +312,6 @@ export function SignUp() {
                 <FcGoogle size={22} />
                 Continue with Google
               </button>
-
-              {/* Other socials */}
-              <div className="flex justify-center gap-2 mb-1">
-                {socialProviders.map((p) => (
-                  <SocialBtn key={p.label} icon={p.icon} label={p.label} />
-                ))}
-              </div>
 
               <CircuitDivider />
 

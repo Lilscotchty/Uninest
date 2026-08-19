@@ -8,6 +8,7 @@ export const USER_ROLES = [
   'general_renter',
   'accommodation_owner',
   'property_owner',
+  'manager',
 ] as const;
 
 export type UserRole = typeof USER_ROLES[number];
@@ -32,6 +33,11 @@ export const ROLE_META: Record<UserRole, {
   description: string;
   icon:        string; 
 }> = {
+  manager: {
+    label:       'Manager',
+    description: 'System Manager',
+    icon:        '🛡️',
+  },
   student: {
     label:       'Student',
     description: 'Looking for accommodation near my university',

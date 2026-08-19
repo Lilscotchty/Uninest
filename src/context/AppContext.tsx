@@ -80,12 +80,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const fetchProfile = async (userId: string) => {
     setProfileLoading(true);
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
-    if (!error && data) setProfile(data as UserProfile);
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      if (!error && data) setProfile(data as UserProfile);
+    } catch (err) {
+      console.warn("Failed to fetch profile", err);
+    }
     setProfileLoading(false);
   };
 
@@ -133,6 +137,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       else {
         if (!isAuthRedirect) setProfileLoading(false);
       }
+    }).catch(err => {
+      console.warn("Failed to get session", err);
+      setProfileLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -247,7 +254,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           setProperties(prev => [...prev.filter(p => !dbProperties.find(d => d.name === p.name)), ...dbProperties]);
         }
       } catch (err) {
-        console.error("Error fetching properties:", err);
+        console.warn("Error fetching properties, using local fallback data", err);
       }
     };
     

@@ -13,6 +13,7 @@ import {
 
 // Ensure ROLE_META is not dependent on emojis here
 const roleIcons: Record<UserRole, React.ReactNode> = {
+  manager: <Check size={20} />,
   student: <GraduationCap size={20} />,
   general_renter: <Home size={20} />,
   accommodation_owner: <Hotel size={20} />,
