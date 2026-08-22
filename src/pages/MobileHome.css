@@ -34,6 +34,7 @@ button {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin-bottom: -20vh;
 }
 
 /* Top Brand Logo */
