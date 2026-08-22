@@ -4,12 +4,11 @@
   position: relative;
   width: 100%;
   flex: 1;
-  min-height: 100vh;
+  min-height: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height:100vh;
-  margin-bottom: -25vh;
+  height: calc(100vh - 64px);
 }
 @media (min-width: 768px) {
   .explore-container {
