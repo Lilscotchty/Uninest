@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { motion, useAnimation, PanInfo, useDragControls } from 'motion/react';
+import { motion, useAnimation, PanInfo } from 'motion/react';
 import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
@@ -61,7 +61,6 @@ export const Explore: React.FC = () => {
   
   // Drawer states
   const drawerControls = useAnimation();
-  const dragControls = useDragControls();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [peekPropertyId, setPeekPropertyId] = useState<number | null>(null);
@@ -263,23 +262,26 @@ export const Explore: React.FC = () => {
         initial={{ y: typeof window !== 'undefined' ? window.innerHeight * 0.5 : 400 }}
         animate={drawerControls}
         drag="y"
-        dragListener={false}
-        dragControls={dragControls}
         dragConstraints={{ top: 80, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
         dragElastic={0.1}
         onDragEnd={handleDragEnd}
         className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
       >
         {/* Drawer Handle */}
-        <div 
-          className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0 pointer-events-auto touch-none"
-          onPointerDown={(e) => dragControls.start(e)}
-        >
+        <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0 pointer-events-auto">
           <div className="w-16 h-1.5 bg-border-subtle rounded-full"></div>
         </div>
         
         {/* Scrollable Content inside Drawer */}
-        <div className="flex-1 overflow-y-auto px-5 pb-32 hide-scrollbar pointer-events-auto">
+        <div className="flex-1 overflow-y-auto px-5 pb-32 hide-scrollbar pointer-events-auto"
+             onPointerDown={(e) => {
+               // Prevent dragging the drawer when scrolling inside it unless at the very top
+               const target = e.currentTarget;
+               if (target.scrollTop > 0) {
+                 e.stopPropagation();
+               }
+             }}
+        >
           <div className="flex justify-between items-center px-1 mb-4">
              <div className="flex items-center gap-4">
                 <button 
