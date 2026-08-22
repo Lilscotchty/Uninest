@@ -78,8 +78,8 @@ export const Explore: React.FC = () => {
     if (!containerRef.current) return;
     const height = containerRef.current.offsetHeight;
     
-    let y = 0;
-    if (state === 'full') y = 0; // Top of container
+    let y = 80;
+    if (state === 'full') y = 80; // Match top constraint
     if (state === 'half') y = height * 0.5;
     if (state === 'peek') y = height - 110; // 110px from bottom
 
@@ -105,7 +105,7 @@ export const Explore: React.FC = () => {
 
     // Determine target based on position and velocity
     const targets = [
-      { state: 'full', y: 0 },
+      { state: 'full', y: 80 },
       { state: 'half', y: height * 0.5 },
       { state: 'peek', y: height - 110 }
     ];

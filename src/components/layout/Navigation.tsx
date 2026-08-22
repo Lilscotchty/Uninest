@@ -55,7 +55,7 @@ export function Navigation() {
   return (
     <>
       {/* MOBILE: Bottom Tab Bar */}
-      <div className="md:hidden fixed-nav-wrapper pointer-events-none" style={{ position: 'fixed', bottom: 'max(env(safe-area-inset-bottom), 1.5rem)' }}>
+      <div className="md:hidden fixed-nav-wrapper pointer-events-none" style={{ position: 'fixed', bottom: 'max(env(safe-area-inset-bottom), 1.5rem)', zIndex: 2000 }}>
         <nav className="nav-bar pointer-events-auto">
           <div className="nav-inner">
             {currentNavItems.map((item) => (
