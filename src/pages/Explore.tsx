@@ -6,6 +6,7 @@ import { motion, useAnimation, PanInfo } from 'motion/react';
 import { ChevronLeft, MapPin, Search, Navigation, Heart, Star, Layers } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PropertyCard } from '../components/PropertyCard';
+import './ExploreDesign.css';
 
 const formatShortPrice = (num: number) => {
   if (!num) return '';
@@ -19,12 +20,12 @@ const getCustomIcon = (img: string, priceNum?: number) => {
   return new L.DivIcon({
     className: 'custom-marker',
     html: `
-      <div style="position:relative;width:56px;height:56px;border-radius:50%;border:2.5px solid white;box-shadow:0 4px 16px rgba(15, 23, 42, 0.4);overflow:visible;background:white;">
-        <img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;filter:brightness(0.65);" />
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:50%;">
-          <span style="color:white;font-weight:700;font-size:11px;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,0.9);letter-spacing:-0.2px;">${priceLabel}</span>
+      <div class="custom-marker-wrapper">
+        <img src="${img}" class="custom-marker-img" />
+        <div class="custom-marker-text-wrapper">
+          <span class="custom-marker-text">${priceLabel}</span>
         </div>
-        <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-width:8px 6px 0;border-style:solid;border-color:white transparent transparent;"></div>
+        <div class="custom-marker-pointer"></div>
       </div>
     `,
     iconSize: [56, 64],
@@ -132,7 +133,7 @@ export const Explore: React.FC = () => {
   const centerLng = -0.1870;
 
   return (
-    <div className="relative w-full flex-1 min-h-0 overflow-hidden flex flex-col md:flex-row h-[calc(100vh-64px)]" ref={containerRef}>
+    <div className="explore-container" ref={containerRef}>
       {/* Top Bar over map */}
       <div className="md:hidden absolute top-0 left-0 w-full z-[1000] p-4 sm:p-5 flex flex-col pointer-events-none">
         <div className="flex items-start justify-between w-full mb-4">
@@ -187,7 +188,7 @@ export const Explore: React.FC = () => {
 
       {/* Map Container */}
       <div className="absolute md:relative inset-0 md:inset-auto z-0 md:z-auto transition-all duration-500 ease-in-out md:flex-1 md:h-full">
-        <MapContainer center={[centerLat, centerLng]} zoom={15} className="w-full h-full !z-0" zoomControl={false} style={{ zIndex: 0 }}>
+        <MapContainer center={[centerLat, centerLng]} zoom={15} className="explore-map-container" zoomControl={false}>
           <TileLayer
             url={mapMode === 'satellite' ? "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2" : "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&scale=2"}
             attribution="Google Maps"
@@ -223,7 +224,7 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Floating Action Buttons */}
-      <div className="absolute right-4 z-[2000] flex flex-col gap-3 pointer-events-none" style={{ bottom: peekProperty ? '140px' : '90px', transition: 'bottom 0.3s cubic-bezier(0.4,0,0.2,1)' }}>
+      <div className={`explore-fab-container ${peekProperty ? 'peek-active' : ''}`}>
         <button 
           onClick={() => setMapMode(prev => prev === 'standard' ? 'satellite' : 'standard')}
           className="w-12 h-12 rounded-full bg-[var(--color-surface)] text-[var(--color-text-primary)] shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-auto active:scale-95 border border-black/5 transition-transform cursor-pointer"
@@ -237,7 +238,7 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Peek Card (shows above drawer) */}
-      <div className={`md:hidden absolute left-4 right-4 z-[1050] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] flex justify-center ${peekProperty ? 'opacity-100 translate-y-[-100px] bottom-0 pointer-events-auto' : 'opacity-0 translate-y-[20px] bottom-0 pointer-events-none'}`}>
+      <div className={`explore-peek-card ${peekProperty ? 'active' : ''}`}>
         {peekProperty && (
           <div className="relative w-full max-w-[400px]">
             <button 
@@ -265,7 +266,7 @@ export const Explore: React.FC = () => {
         dragConstraints={{ top: 80, bottom: typeof window !== 'undefined' ? window.innerHeight - 110 : 600 }}
         dragElastic={0.1}
         onDragEnd={handleDragEnd}
-        className="absolute top-0 left-0 w-full h-[100dvh] bg-app-bg rounded-t-[32px] shadow-[0_-10px_40px_rgba(30,27,75,0.15)] z-[1000] flex flex-col pt-3"
+        className="explore-bottom-drawer bg-app-bg"
       >
         {/* Drawer Handle */}
         <div className="w-full flex justify-center pb-4 pt-1 cursor-grab active:cursor-grabbing shrink-0 pointer-events-auto">
