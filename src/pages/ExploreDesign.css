@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   height:100vh;
-  margin-bottom: 20vh;
+  margin-bottom: -25vh;
 }
 @media (min-width: 768px) {
   .explore-container {
