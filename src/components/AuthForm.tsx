@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { supabase } from '../lib/supabase';
+import { supabase, getAuthRedirectUrl } from '../lib/supabase';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Lock, Mail, User, Phone, BookOpen, Layers } from 'lucide-react';
@@ -88,6 +88,7 @@ export function AuthForm({ type }: AuthFormProps) {
           email: data.email,
           password: data.password,
           options: {
+            emailRedirectTo: getAuthRedirectUrl('/student/dashboard'),
             data: {
               first_name: data.firstName,
               last_name: data.lastName,
@@ -129,7 +130,7 @@ export function AuthForm({ type }: AuthFormProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/student/dashboard`
+          redirectTo: getAuthRedirectUrl('/student/dashboard')
         }
       });
       if (error) {

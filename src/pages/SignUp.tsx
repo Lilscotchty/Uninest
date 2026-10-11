@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Mail, Eye, EyeOff, User, Lock, ArrowLeft, Gift } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
-import { supabase } from "../lib/supabase";
+import { supabase, getAuthRedirectUrl } from "../lib/supabase";
 import { toast } from "sonner";
 import { useAppContext } from "../context/AppContext";
 
@@ -201,6 +201,7 @@ export function SignUp() {
         email: data.email,
         password: data.password,
         options: {
+          emailRedirectTo: getAuthRedirectUrl('/student/dashboard'),
           data: {
             first_name: data.fullName.split(" ")[0] || "",
             last_name: data.fullName.split(" ").slice(1).join(" ") || "",
@@ -254,7 +255,7 @@ export function SignUp() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/student/dashboard`
+          redirectTo: getAuthRedirectUrl('/student/dashboard')
         }
       });
       if (error) {

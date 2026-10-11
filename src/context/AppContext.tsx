@@ -153,6 +153,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           try {
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
             if (!error && data?.session?.user) {
+              if (window.history.replaceState) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+              }
               setUser(data.session.user);
               await fetchProfile(data.session.user.id);
               return;
