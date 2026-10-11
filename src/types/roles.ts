@@ -116,7 +116,10 @@ export const PROPERTY_CATEGORIES_BY_OWNER = {
 export interface UserProfile {
   id:          string;
   full_name:   string | null;
+  first_name?: string | null;
+  last_name?:  string | null;
   avatar_url:  string | null;
+  cover_url?:  string | null;
   role:        UserRole;
   owner_type:  'accommodation_owner' | 'property_owner' | null;
   university:  string | null;

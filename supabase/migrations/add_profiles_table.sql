@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   level text,
   bio text,
   avatar_url text,
+  cover_url text,
   verified boolean default false,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
@@ -38,6 +39,7 @@ ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS student_id text;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS level text;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS bio text;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url text;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS cover_url text;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS verified boolean DEFAULT false;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL;

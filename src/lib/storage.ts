@@ -228,3 +228,155 @@ export function extractPathFromUrl(publicUrl: string): string {
   if (idx === -1) throw new Error(`URL does not belong to bucket "${BUCKET}"`);
   return publicUrl.slice(idx + marker.length);
 }
+
+// ─── Profile Photos (Avatar & Cover) ──────────────────────────────────────────
+
+/**
+ * Resizes an image file to a maximum dimension and compresses it as a JPEG/WEBP Blob.
+ */
+export async function optimizeProfileImage(
+  file: File,
+  maxDimension: number = 1200,
+  quality: number = 0.85
+): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        resolve(file);
+        return;
+      }
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (blob) resolve(blob);
+          else resolve(file);
+        },
+        'image/jpeg',
+        quality
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Failed to load image for optimization'));
+    };
+    img.src = url;
+  });
+}
+
+/**
+ * Uploads an avatar or cover photo.
+ * Tries Supabase Storage buckets ('property-media', 'profile-media', 'hostel-media').
+ * Falls back to an optimized Data URL if storage is not yet provisioned.
+ */
+export async function uploadProfilePhoto(
+  userId: string,
+  type: 'avatar' | 'cover',
+  file: File
+): Promise<string> {
+  const maxDim = type === 'avatar' ? 600 : 1400;
+  let optimizedBlob: Blob;
+  try {
+    optimizedBlob = await optimizeProfileImage(file, maxDim, 0.85);
+  } catch (e) {
+    optimizedBlob = file;
+  }
+
+  const ext = 'jpg';
+  const filePath = `${userId}/profile/${type}_${Date.now()}.${ext}`;
+  const candidateBuckets = ['property-media', 'profile-media', 'hostel-media'];
+
+  for (const bucketName of candidateBuckets) {
+    try {
+      const { error: uploadErr } = await supabase.storage
+        .from(bucketName)
+        .upload(filePath, optimizedBlob, {
+          upsert: true,
+          contentType: 'image/jpeg',
+          cacheControl: '3600',
+        });
+
+      if (!uploadErr) {
+        const { data } = supabase.storage.from(bucketName).getPublicUrl(filePath);
+        if (data?.publicUrl) {
+          return data.publicUrl;
+        }
+      }
+    } catch (ignore) {
+      // Continue to next bucket or fallback
+    }
+  }
+
+  // Graceful fallback to Data URL if storage bucket fails or not yet created
+  return new Promise<string>((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      resolve(reader.result as string);
+    };
+    reader.readAsDataURL(optimizedBlob);
+  });
+}
+
+/**
+ * Persists updated avatar or cover URLs to both auth.users metadata and public.profiles.
+ */
+export async function saveProfilePhotos(
+  userId: string,
+  photos: { avatarUrl?: string; coverUrl?: string }
+): Promise<void> {
+  const updates: Record<string, any> = {
+    updated_at: new Date().toISOString(),
+  };
+
+  const authData: Record<string, any> = {};
+
+  if (photos.avatarUrl !== undefined) {
+    updates.avatar_url = photos.avatarUrl;
+    authData.avatar_url = photos.avatarUrl;
+  }
+  if (photos.coverUrl !== undefined) {
+    updates.cover_url = photos.coverUrl;
+    authData.cover_url = photos.coverUrl;
+  }
+
+  // 1. Update Supabase Auth user metadata
+  try {
+    await supabase.auth.updateUser({
+      data: authData,
+    });
+  } catch (err) {
+    console.warn('Could not update user metadata:', err);
+  }
+
+  // 2. Update public.profiles row
+  try {
+    const { error } = await supabase
+      .from('profiles')
+      .update(updates)
+      .eq('id', userId);
+
+    if (error) {
+      console.warn('Could not update profiles table directly:', error);
+    }
+  } catch (err) {
+    console.warn('Profiles table update exception:', err);
+  }
+}
+

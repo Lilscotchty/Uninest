@@ -74,7 +74,7 @@ export function Navigation() {
                     <div className="relative flex items-center justify-center">
                       {item.label === "Profile" ? (
                         <img 
-                          src={profile?.avatar_url || "https://i.pravatar.cc/150?img=11"}
+                          src={profile?.avatar_url || user?.user_metadata?.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"}
                           alt="Profile" 
                           className="w-[18px] h-[18px] rounded-full object-cover shrink-0" 
                         />

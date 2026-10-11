@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { useTheme, type ThemeMode } from '../context/ThemeContext';
 import { PageHeader } from '../components/layout/PageHeader';
 import { OpportunitiesSection } from '../components/opportunities/OpportunitiesSection';
-import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings } from 'lucide-react';
+import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings, Camera, Image } from 'lucide-react';
+import { PhotoModal } from '../components/profile/PhotoModal';
 
 function ThemeRow() {
   const { mode, resolved, setMode } = useTheme();
@@ -41,14 +42,26 @@ function ThemeRow() {
 }
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user, profile } = useAppContext();
+  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user, profile, refreshProfile } = useAppContext();
   const navigate = useNavigate();
+
+  const [photoModalState, setPhotoModalState] = useState<{
+    isOpen: boolean;
+    type: 'avatar' | 'cover';
+  }>({
+    isOpen: false,
+    type: 'avatar',
+  });
 
   const isManager = profile?.role === 'manager' || profile?.role === 'accommodation_owner' || profile?.role === 'property_owner' || user?.user_metadata?.account_type === 'manager';
 
   const handleAction = (action: string) => {
     if (action === 'Personal Information' || action === 'Edit Profile') {
       navigate('/edit-profile');
+    } else if (action === 'Edit Cover Photo') {
+      setPhotoModalState({ isOpen: true, type: 'cover' });
+    } else if (action === 'Edit Profile Photo') {
+      setPhotoModalState({ isOpen: true, type: 'avatar' });
     } else if (action === 'Log Out') {
       import('../lib/supabase').then(({ supabase }) => {
         supabase.auth.signOut().then(() => {
@@ -68,6 +81,9 @@ export const Profile: React.FC = () => {
   const levelText = user?.user_metadata?.level ? `Level ${user?.user_metadata?.level} ` : '';
   const university = user?.user_metadata?.university || 'University of Ghana, Legon';
   const email = user?.email || '';
+
+  const coverUrl = profile?.cover_url || user?.user_metadata?.cover_url || "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80";
+  const avatarUrl = profile?.avatar_url || user?.user_metadata?.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
 
   return (
     <div className="w-full flex-1 flex flex-col bg-app-bg font-sans relative">
@@ -94,18 +110,20 @@ export const Profile: React.FC = () => {
         <div className="w-full md:w-[340px] shrink-0 md:sticky md:top-24">
           <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Cover Banner */}
-            <div className="h-28 w-full relative shrink-0 bg-slate-200">
+            <div className="h-28 w-full relative shrink-0 bg-slate-200 group">
               <img 
-                src="https://loremflickr.com/600/200/campus,university?lock=200" 
-                alt="University Campus" 
-                className="w-full h-full object-cover" 
+                src={coverUrl} 
+                alt="Profile Cover" 
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" 
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/20"></div>
               <button 
-                onClick={() => handleAction('Edit Cover Photo')}
-                className="absolute top-3 right-3 w-8 h-8 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-[var(--color-button-hover)]/50 transition-colors"
+                onClick={() => setPhotoModalState({ isOpen: true, type: 'cover' })}
+                title="Change Cover Photo"
+                className="absolute top-3 right-3 px-2.5 py-1.5 bg-black/50 hover:bg-black/70 backdrop-blur-md rounded-full flex items-center gap-1.5 text-white transition-all shadow-md active:scale-95 group/btn"
               >
-                <PenLine size={14} className="stroke-[2.5]" />
+                <Camera size={13} className="stroke-[2.5]" />
+                <span className="text-[11px] font-bold">Edit Cover</span>
               </button>
             </div>
 
@@ -114,17 +132,34 @@ export const Profile: React.FC = () => {
               <div className="flex justify-between items-start mb-2">
                 <div className="relative -mt-[48px]">
                   {/* Avatar */}
-                  <div className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-sm z-10 bg-[var(--color-button)]/10">
+                  <div 
+                    onClick={() => setPhotoModalState({ isOpen: true, type: 'avatar' })}
+                    title="Change Profile Photo"
+                    className="w-[96px] h-[96px] rounded-full border-[4px] border-card-bg overflow-hidden relative shadow-md z-10 bg-[var(--color-button)]/10 cursor-pointer group"
+                  >
                     <img 
-                      src={user?.user_metadata?.avatar_url || "https://loremflickr.com/200/200/face,smiling?lock=300"} 
+                      src={avatarUrl} 
                       alt={fullName} 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Camera size={20} className="text-white drop-shadow" />
+                    </div>
                   </div>
+
+                  {/* Camera Badge Icon on bottom-right of avatar */}
+                  <button
+                    onClick={() => setPhotoModalState({ isOpen: true, type: 'avatar' })}
+                    title="Change Profile Photo"
+                    className="absolute -bottom-1 right-0 z-20 w-7 h-7 rounded-full bg-[var(--color-button)] hover:bg-[var(--color-button-hover)] text-white flex items-center justify-center shadow-md border-2 border-card-bg transition-transform active:scale-90"
+                  >
+                    <Camera size={12} strokeWidth={2.5} />
+                  </button>
+
                   {/* Distinctive Status Badge to avoid copyright while keeping the vibe */}
-                  <div className="absolute -bottom-1 -left-2 rotate-[-8deg] z-20 drop-shadow-sm">
+                  <div className="absolute -bottom-1 -left-2 rotate-[-8deg] z-20 drop-shadow-sm pointer-events-none">
                     <div className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-[8px] rounded-tl-[2px] rounded-br-[2px] uppercase tracking-wider border-[2px] border-card-bg">
-                      {role === 'Student' ? '#RoommateSeach' : '#VerifiedManager'}
+                      {role === 'Student' ? '#RoommateSearch' : '#VerifiedManager'}
                     </div>
                   </div>
                 </div>
@@ -269,6 +304,22 @@ export const Profile: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Interactive Photo Upload / Presets Modal */}
+      {user && (
+        <PhotoModal
+          isOpen={photoModalState.isOpen}
+          onClose={() => setPhotoModalState((prev) => ({ ...prev, isOpen: false }))}
+          userId={user.id}
+          type={photoModalState.type}
+          currentUrl={photoModalState.type === 'avatar' ? avatarUrl : coverUrl}
+          onSuccess={async () => {
+            if (refreshProfile) {
+              await refreshProfile();
+            }
+          }}
+        />
+      )}
     </div>
   );
 };
