@@ -38,8 +38,16 @@ export function RoleGuard({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Role check
-  if (!profile || !allowedRoles.includes(profile.role)) {
+  // Role check with resilient fallbacks
+  const effectiveRole = (
+    profile?.role ||
+    user?.user_metadata?.role ||
+    user?.user_metadata?.account_type ||
+    (user?.id ? (localStorage.getItem(`skycobe_role_${user.id}`) as UserRole) : null) ||
+    'student'
+  ) as UserRole;
+
+  if (!allowedRoles.includes(effectiveRole)) {
     if (fallback) return <>{fallback}</>;
     return <Navigate to={redirectTo} replace />;
   }

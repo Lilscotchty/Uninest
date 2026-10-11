@@ -93,7 +93,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         .eq('id', userId)
         .single();
       if (!error && data) {
-        setProfile(data as UserProfile);
+        const localRole = localStorage.getItem(`skycobe_role_${userId}`) as UserRole;
+        const metaRole = (user?.user_metadata?.role || user?.user_metadata?.account_type) as UserRole;
+        const managerRoles = ['manager', 'accommodation_owner', 'property_owner'];
+        const resolvedRole = (localRole && managerRoles.includes(localRole))
+          ? localRole
+          : (metaRole && managerRoles.includes(metaRole))
+            ? metaRole
+            : (data.role || 'student');
+
+        setProfile({
+          ...data,
+          role: resolvedRole,
+          account_type: resolvedRole,
+        } as UserProfile);
       } else {
         // If profile doesn't exist yet (e.g. freshly signed up with Google OAuth)
         const pendingRole = (localStorage.getItem('signupRole') as UserRole) || 'student';
@@ -296,29 +309,36 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const updateRole = async (role: UserRole, ownerType?: string) => {
     if (!user) return;
-    const update: any = {
+    const resolvedOwnerType = ownerType ?? (role === 'accommodation_owner' ? 'accommodation_owner' : null);
+
+    // 1. Immediately cache in localStorage
+    localStorage.setItem(`skycobe_role_${user.id}`, role);
+    localStorage.setItem(`skycobe_onboarding_${user.id}`, 'done');
+
+    // 2. Immediately update React state so UI updates instantaneously
+    setProfile(prev => ({
+      ...(prev || {
+        id: user.id,
+        email: user.email,
+        full_name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+        created_at: new Date().toISOString(),
+        avatar_url: user.user_metadata?.avatar_url || null,
+        cover_url: null,
+      }),
       role,
       account_type: role,
-      owner_type: ownerType ?? null,
+      owner_type: resolvedOwnerType as any,
+      onboarding_completed: true,
       updated_at: new Date().toISOString(),
-    };
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .update(update)
-        .eq('id', user.id);
-      if (error) {
-        console.warn("Notice: profile update fallback", error.message);
-      }
-    } catch (e) {
-      console.warn("Profiles update caught:", e);
-    }
+    } as UserProfile));
 
+    // 3. Update Supabase Auth metadata
     try {
       await supabase.auth.updateUser({
         data: {
           role,
           account_type: role,
+          owner_type: resolvedOwnerType,
           onboarding_completed: true,
         }
       });
@@ -326,7 +346,33 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       console.warn("auth updateUser caught:", e);
     }
 
-    setProfile(prev => prev ? { ...prev, ...update, onboarding_completed: true } as UserProfile : null);
+    // 4. Update Supabase database profiles table
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          role,
+          account_type: role,
+          owner_type: resolvedOwnerType,
+          onboarding_completed: true,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user.id);
+
+      if (error) {
+        console.warn("Notice: full profile update failed, trying fallback:", error.message);
+        // Fallback in case account_type or onboarding_completed column doesn't exist yet
+        await supabase
+          .from('profiles')
+          .update({
+            role,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', user.id);
+      }
+    } catch (e) {
+      console.warn("Profiles update caught:", e);
+    }
   };
 
   const refreshProfile = async () => {

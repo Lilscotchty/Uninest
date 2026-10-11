@@ -92,7 +92,11 @@ const AppContent: React.FC = () => {
           profile?.role === "manager" ||
           profile?.role === "accommodation_owner" ||
           profile?.role === "property_owner" ||
-          user?.user_metadata?.account_type === "manager";
+          user?.user_metadata?.account_type === "manager" ||
+          user?.user_metadata?.role === "manager" ||
+          user?.user_metadata?.role === "accommodation_owner" ||
+          user?.user_metadata?.role === "property_owner" ||
+          (user?.id ? ['manager', 'accommodation_owner', 'property_owner'].includes(localStorage.getItem(`skycobe_role_${user.id}`) || '') : false);
 
         navigate(isHost ? "/manager/dashboard" : "/student/dashboard", {
           replace: true,
@@ -286,7 +290,11 @@ const AppContent: React.FC = () => {
                   profile?.role === "manager" ||
                   profile?.role === "accommodation_owner" ||
                   profile?.role === "property_owner" ||
-                  user?.user_metadata?.account_type === "manager"
+                  user?.user_metadata?.account_type === "manager" ||
+                  user?.user_metadata?.role === "manager" ||
+                  user?.user_metadata?.role === "accommodation_owner" ||
+                  user?.user_metadata?.role === "property_owner" ||
+                  (user?.id ? ['manager', 'accommodation_owner', 'property_owner'].includes(localStorage.getItem(`skycobe_role_${user.id}`) || '') : false)
                     ? "/manager/dashboard"
                     : "/student/dashboard"
                 }

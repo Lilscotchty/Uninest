@@ -16,10 +16,11 @@ export type UserRole = typeof USER_ROLES[number];
 export const OWNER_ROLES: UserRole[] = [
   'accommodation_owner',
   'property_owner',
+  'manager',
 ];
 
 export function isOwner(role: UserRole | null | undefined): boolean {
-  return role === 'accommodation_owner' || role === 'property_owner';
+  return role === 'accommodation_owner' || role === 'property_owner' || role === 'manager';
 }
 
 export function isStudent(role: UserRole | null | undefined): boolean {

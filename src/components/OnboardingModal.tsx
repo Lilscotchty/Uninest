@@ -118,15 +118,18 @@ export function OnboardingModal() {
     if (!selectedRole || !user) return;
     setSaving(true);
     try {
-      const ownerType = isOwnerRole(selectedRole)
+      const isHost = isOwnerRole(selectedRole);
+      const ownerType = isHost
         ? (selectedRole === 'manager' ? 'accommodation_owner' : selectedRole)
         : undefined;
 
       await updateRole(selectedRole, ownerType);
 
       localStorage.setItem(`skycobe_onboarding_${user.id}`, 'done');
+      localStorage.setItem(`skycobe_role_${user.id}`, selectedRole);
 
-      const isHost = isOwnerRole(selectedRole);
+      setShow(false);
+      setIsRoleModalOpen(false);
 
       toast.success(
         isHost
@@ -134,14 +137,15 @@ export function OnboardingModal() {
           : 'Welcome to SKYCOBE! Enjoy exploring your student accommodations.'
       );
 
-      setShow(false);
-      setIsRoleModalOpen(false);
+      const targetPath = isHost ? '/manager/dashboard' : '/student/dashboard';
+      navigate(targetPath, { replace: true });
 
-      if (isHost) {
-        navigate('/manager/dashboard', { replace: true });
-      } else {
-        navigate('/student/dashboard', { replace: true });
-      }
+      // Fallback navigation ensure
+      setTimeout(() => {
+        if (window.location.pathname !== targetPath) {
+          window.location.assign(targetPath);
+        }
+      }, 150);
     } catch (err: any) {
       toast.error('Failed to save your role. Please try again.');
       console.error(err);
@@ -280,7 +284,9 @@ export function OnboardingModal() {
                 try {
                   await updateRole('student');
                   localStorage.setItem(`skycobe_onboarding_${user.id}`, 'done');
+                  localStorage.setItem(`skycobe_role_${user.id}`, 'student');
                   setShow(false);
+                  setIsRoleModalOpen(false);
                   navigate('/student/dashboard', { replace: true });
                 } finally {
                   setSaving(false);

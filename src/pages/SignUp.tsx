@@ -154,7 +154,13 @@ export function SignUp() {
 
   useEffect(() => {
     if (user && !profileLoading) {
-      const isHost = profile?.role === 'manager' || profile?.role === 'accommodation_owner' || profile?.role === 'property_owner';
+      const isHost = 
+        profile?.role === 'manager' || 
+        profile?.role === 'accommodation_owner' || 
+        profile?.role === 'property_owner' ||
+        user?.user_metadata?.role === 'manager' ||
+        user?.user_metadata?.account_type === 'manager' ||
+        (user?.id ? ['manager', 'accommodation_owner', 'property_owner'].includes(localStorage.getItem(`skycobe_role_${user.id}`) || '') : false);
       navigate(isHost ? '/manager/dashboard' : '/student/dashboard', { replace: true });
     }
   }, [user, profile, profileLoading, navigate]);
