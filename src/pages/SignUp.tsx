@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -144,7 +144,13 @@ export function SignUp() {
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
-  const { showToast } = useAppContext();
+  const { user, profileLoading, showToast } = useAppContext();
+
+  useEffect(() => {
+    if (user && !profileLoading) {
+      navigate('/student/dashboard', { replace: true });
+    }
+  }, [user, profileLoading, navigate]);
 
   const [searchParams] = useSearchParams();
   const rawRole = searchParams.get('role') || 'student';

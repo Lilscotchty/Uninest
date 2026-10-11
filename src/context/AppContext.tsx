@@ -86,7 +86,39 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         .select('*')
         .eq('id', userId)
         .single();
-      if (!error && data) setProfile(data as UserProfile);
+      if (!error && data) {
+        setProfile(data as UserProfile);
+      } else {
+        // If profile doesn't exist yet (e.g. freshly signed up with Google OAuth)
+        const pendingRole = (localStorage.getItem('signupRole') as UserRole) || 'student';
+        const pendingOwnerType = localStorage.getItem('signupOwnerType') || null;
+        const newProfile: Partial<UserProfile> = {
+          id: userId,
+          role: pendingRole,
+          owner_type: pendingOwnerType as any,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        };
+        const { data: inserted, error: insertError } = await supabase
+          .from('profiles')
+          .insert(newProfile)
+          .select()
+          .single();
+
+        if (!insertError && inserted) {
+          setProfile(inserted as UserProfile);
+        } else {
+          setProfile({
+            id: userId,
+            role: pendingRole,
+            owner_type: pendingOwnerType as any,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          } as UserProfile);
+        }
+        localStorage.removeItem('signupRole');
+        localStorage.removeItem('signupOwnerType');
+      }
     } catch (err) {
       console.warn("Failed to fetch profile", err);
     }
@@ -94,16 +126,81 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   useEffect(() => {
-    const isAuthRedirect = window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.hash.includes('error=');
+    const hasAuthCode = window.location.search.includes('code=');
+    const hasAuthToken = window.location.hash.includes('access_token=');
+    const hasAuthError = window.location.search.includes('error=') || window.location.hash.includes('error=');
+    const isAuthRedirect = hasAuthCode || hasAuthToken || hasAuthError;
+
+    if (hasAuthError) {
+      const params = new URLSearchParams(window.location.search);
+      const desc = params.get('error_description') || 'Authentication failed';
+      console.error('Auth error in URL:', desc);
+      setUser(null);
+      setProfile(null);
+      setProfileLoading(false);
+      return;
+    }
+
     if (isAuthRedirect) {
-      // Don't set profileLoading to false yet, let onAuthStateChange handle it after exchange
       setProfileLoading(true);
     }
-    
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+
+    const initAuth = async () => {
+      // If code is in URL, explicitly exchange it
+      if (hasAuthCode) {
+        const code = new URLSearchParams(window.location.search).get('code');
+        if (code) {
+          try {
+            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+            if (!error && data?.session?.user) {
+              setUser(data.session.user);
+              await fetchProfile(data.session.user.id);
+              return;
+            }
+          } catch (e) {
+            console.warn("Explicit code exchange attempt:", e);
+          }
+        }
+      }
+
+      // Check current session
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUser(session.user);
+          await fetchProfile(session.user.id);
+          const code = session.user.id.substring(0, 8).toUpperCase();
+          setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
+          setReferralCode(code);
+          setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
+          setEarnedCash(
+            Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
+            Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
+          );
+        } else {
+          // If this is an auth redirect with code, wait for onAuthStateChange to deliver the session
+          if (!isAuthRedirect) {
+            setUser(null);
+            setProfile(null);
+            setProfileLoading(false);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to get session", err);
+        if (!isAuthRedirect) {
+          setUser(null);
+          setProfile(null);
+          setProfileLoading(false);
+        }
+      }
+    };
+
+    initAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
-        fetchProfile(session.user.id);
+        setUser(session.user);
+        await fetchProfile(session.user.id);
         const code = session.user.id.substring(0, 8).toUpperCase();
         setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
         setReferralCode(code);
@@ -128,61 +225,38 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             if (Array.isArray(parsed)) codeRefs = parsed;
           }
         } catch(e) {}
-        
-        const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t?.name === value?.name)
-        );
-        setReferees(uniqueRefs);
-      }
-      else {
-        if (!isAuthRedirect) setProfileLoading(false);
-      }
-    }).catch(err => {
-      console.warn("Failed to get session", err);
-      setProfileLoading(false);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
-        const code = session.user.id.substring(0, 8).toUpperCase();
-        setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
-        setReferralCode(code);
-        setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
-        setEarnedCash(
-          Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
-          Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
-        );
-        let baselineRefs: any[] = [];
-        let codeRefs: any[] = [];
-        try {
-          const v1 = localStorage.getItem(`referees_${session.user.id}`);
-          if (v1 && v1 !== 'undefined') {
-            const parsed = JSON.parse(v1);
-            if (Array.isArray(parsed)) baselineRefs = parsed;
-          }
-        } catch(e) {}
-        try {
-          const v2 = localStorage.getItem(`referees_by_code_${code}`);
-          if (v2 && v2 !== 'undefined') {
-            const parsed = JSON.parse(v2);
-            if (Array.isArray(parsed)) codeRefs = parsed;
-          }
-        } catch(e) {}
 
         const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
            index === self.findIndex((t) => t?.name === value?.name)
         );
         setReferees(uniqueRefs);
-      }
-      else {
+      } else {
+        // If there's an auth code or token in the URL and this is INITIAL_SESSION, do NOT clear loading yet!
+        const urlHasCode = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
+        if (event === 'INITIAL_SESSION' && urlHasCode) {
+          return;
+        }
+        setUser(null);
         setProfile(null);
         setProfileLoading(false);
       }
     });
 
-    return () => subscription.unsubscribe();
+    // Safety timeout: if after 6 seconds still profileLoading with pending code, reset loading
+    const safetyTimeout = setTimeout(() => {
+      setProfileLoading((loading) => {
+        if (loading) {
+          setUser((u: any) => (u === undefined ? null : u));
+          return false;
+        }
+        return loading;
+      });
+    }, 6000);
+
+    return () => {
+      clearTimeout(safetyTimeout);
+      subscription.unsubscribe();
+    };
   }, []);
 
   // Sync earned credits/cash with local storage manually for mock

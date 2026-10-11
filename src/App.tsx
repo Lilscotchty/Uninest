@@ -37,6 +37,8 @@ import { Settings } from "./pages/Settings";
 import { Support } from "./pages/Support";
 import { CampusGuide } from "./pages/CampusGuide";
 
+import { AuthCallback } from "./components/AuthCallback";
+
 const AppContent: React.FC = () => {
   const { user, profile, profileLoading } = useAppContext();
   const location = useLocation();
@@ -68,11 +70,17 @@ const AppContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    // If OAuth code or hash tokens are currently present in URL, wait for auth exchange to finish
+    const isAuthInFlight =
+      location.search.includes('code=') ||
+      location.hash.includes('access_token=');
+    if (isAuthInFlight && !user) return;
+
     if (user === undefined || profileLoading) return; // Wait for auth check
 
-    const publicPaths = ["/", "/login", "/signup"];
+    const publicPaths = ["/", "/login", "/signup", "/auth/callback"];
 
-    // If not user and trying to access protected UI (everything EXCEPT landing/login/signup)
+    // If not user and trying to access protected UI (everything EXCEPT landing/login/signup/callback)
     if (user === null) {
       if (!publicPaths.includes(location.pathname)) {
         navigate("/login", { replace: true });
@@ -86,7 +94,7 @@ const AppContent: React.FC = () => {
         });
       }
     }
-  }, [user, profile, profileLoading, location.pathname, navigate]);
+  }, [user, profile, profileLoading, location.pathname, location.search, location.hash, navigate]);
 
   return (
     <div
@@ -100,6 +108,7 @@ const AppContent: React.FC = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<SignUp />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
 
         {/* General Routes */}
         <Route
