@@ -92,9 +92,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         // If profile doesn't exist yet (e.g. freshly signed up with Google OAuth)
         const pendingRole = (localStorage.getItem('signupRole') as UserRole) || 'student';
         const pendingOwnerType = localStorage.getItem('signupOwnerType') || null;
-        const newProfile: Partial<UserProfile> = {
+        const newProfile: any = {
           id: userId,
           role: pendingRole,
+          account_type: pendingRole,
           owner_type: pendingOwnerType as any,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
