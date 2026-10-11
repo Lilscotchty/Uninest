@@ -121,7 +121,9 @@ export interface UserProfile {
   avatar_url:  string | null;
   cover_url?:  string | null;
   role:        UserRole;
+  account_type?: string | null;
   owner_type:  'accommodation_owner' | 'property_owner' | null;
+  onboarding_completed?: boolean;
   university:  string | null;
   student_id:  string | null;
   phone:       string | null;

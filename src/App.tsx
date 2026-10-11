@@ -86,10 +86,15 @@ const AppContent: React.FC = () => {
         navigate("/login", { replace: true });
       }
     } else if (user) {
-      // If user is logged in, restrict access to landing/login/signup
+      // If user is logged in, restrict access to landing/login/signup and route to correct dashboard
       if (publicPaths.includes(location.pathname)) {
-        // Fallback for new role system + legacy
-        navigate("/student/dashboard", {
+        const isHost =
+          profile?.role === "manager" ||
+          profile?.role === "accommodation_owner" ||
+          profile?.role === "property_owner" ||
+          user?.user_metadata?.account_type === "manager";
+
+        navigate(isHost ? "/manager/dashboard" : "/student/dashboard", {
           replace: true,
         });
       }
@@ -276,7 +281,17 @@ const AppContent: React.FC = () => {
                 <div className="w-8 h-8 border-4 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
               </div>
             ) : user ? (
-              <Navigate to="/student/dashboard" replace />
+              <Navigate
+                to={
+                  profile?.role === "manager" ||
+                  profile?.role === "accommodation_owner" ||
+                  profile?.role === "property_owner" ||
+                  user?.user_metadata?.account_type === "manager"
+                    ? "/manager/dashboard"
+                    : "/student/dashboard"
+                }
+                replace
+              />
             ) : (
               <Navigate to="/login" replace />
             )

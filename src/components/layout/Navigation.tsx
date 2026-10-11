@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map, Plus } from "lucide-react";
+import { Home, Compass, Heart, User, Bell, MessageSquare, Settings, HelpCircle, Map, Plus, Hotel } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 import "../../pages/MobileHome.css";
 
@@ -9,7 +9,7 @@ function cn(...classes: (string | undefined | null | false)[]) {
 }
 
 export function Navigation() {
-  const { user, profile, isSidebarOpen, toggleSidebar } = useAppContext();
+  const { user, profile, isSidebarOpen, toggleSidebar, openRoleModal } = useAppContext();
   const navigate = useNavigate();
 
   const CustomHomeIcon = ({ isActive, className }: { isActive: boolean, className?: string }) => (
@@ -150,6 +150,28 @@ export function Navigation() {
             </NavLink>
           ))}
 
+          {/* Dedicated Manager Section */}
+          {isManager && (
+            <NavLink
+              onClick={toggleSidebar}
+              to="/manager/dashboard"
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-sm font-semibold",
+                  isActive
+                    ? "bg-amber-500/15 text-amber-500 border border-amber-500/30"
+                    : "text-amber-500 hover:bg-amber-500/10",
+                )
+              }
+            >
+              <Hotel className="w-5 h-5 flex-shrink-0" />
+              <span>Manager Dashboard</span>
+              <span className="ml-auto text-[10px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded font-bold">
+                Hostel
+              </span>
+            </NavLink>
+          )}
+
           <div className="px-3 pt-6 pb-2 text-xs font-bold text-text-muted uppercase tracking-wider">
             Shortcuts
           </div>
@@ -174,6 +196,24 @@ export function Navigation() {
               {item.label}
             </NavLink>
           ))}
+
+          {/* Switch to Hostel Owner Mode for students */}
+          {!isManager && (
+            <button
+              type="button"
+              onClick={() => {
+                toggleSidebar();
+                openRoleModal();
+              }}
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl transition-colors text-sm font-medium text-amber-500 hover:bg-amber-500/10 text-left cursor-pointer mt-1"
+            >
+              <Hotel className="w-5 h-5 flex-shrink-0 opacity-80" />
+              <span>Hostel Owner Portal</span>
+              <span className="ml-auto text-[10px] bg-amber-500/20 px-1.5 py-0.5 rounded font-bold">
+                Switch
+              </span>
+            </button>
+          )}
         </div>
         
         <div className="border-t border-border-subtle pt-4 px-1 mt-4">

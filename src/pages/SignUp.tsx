@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Eye, EyeOff, User, Lock, ArrowLeft, Gift } from "lucide-react";
+import { Mail, Eye, EyeOff, User, Lock, ArrowLeft, Gift, GraduationCap, Hotel } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { supabase, getAuthRedirectUrl } from "../lib/supabase";
@@ -144,18 +144,20 @@ export function SignUp() {
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
-  const { user, profileLoading, showToast } = useAppContext();
-
-  useEffect(() => {
-    if (user && !profileLoading) {
-      navigate('/student/dashboard', { replace: true });
-    }
-  }, [user, profileLoading, navigate]);
+  const { user, profile, profileLoading, showToast } = useAppContext();
 
   const [searchParams] = useSearchParams();
   const rawRole = searchParams.get('role') || 'student';
-  const role = rawRole === 'manager' ? 'manager' : 'student';
+  const initialRole = rawRole === 'manager' ? 'manager' : 'student';
+  const [selectedSignupRole, setSelectedSignupRole] = useState<'student' | 'manager'>(initialRole);
   const referralCodeFromUrl = searchParams.get('ref') || '';
+
+  useEffect(() => {
+    if (user && !profileLoading) {
+      const isHost = profile?.role === 'manager' || profile?.role === 'accommodation_owner' || profile?.role === 'property_owner';
+      navigate(isHost ? '/manager/dashboard' : '/student/dashboard', { replace: true });
+    }
+  }, [user, profile, profileLoading, navigate]);
 
   // Sign-in form
   const signInForm = useForm<SignInData>({
@@ -197,16 +199,20 @@ export function SignUp() {
   const onSignUp = async (data: SignUpData) => {
     setLoading(true);
     try {
+      const isHost = selectedSignupRole === 'manager';
+      const redirectDashboard = isHost ? '/manager/dashboard' : '/student/dashboard';
+
       const { error, data: authData } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
-          emailRedirectTo: getAuthRedirectUrl('/student/dashboard'),
+          emailRedirectTo: getAuthRedirectUrl(redirectDashboard),
           data: {
             first_name: data.fullName.split(" ")[0] || "",
             last_name: data.fullName.split(" ").slice(1).join(" ") || "",
             full_name: data.fullName,
-            account_type: role,
+            account_type: selectedSignupRole,
+            role: selectedSignupRole,
             referred_by: data.referralCode || null,
           }
         }
@@ -223,6 +229,11 @@ export function SignUp() {
         if (data.referralCode && authData.user) {
            localStorage.setItem(`credits_${authData.user.id}`, '10');
         }
+
+        // Store role in localStorage
+        if (authData.user) {
+          localStorage.setItem(`skycobe_onboarding_${authData.user.id}`, 'done');
+        }
         
         // Send welcome email
         fetch('/api/send-email', {
@@ -231,12 +242,11 @@ export function SignUp() {
           body: JSON.stringify({
             to: data.email,
             subject: 'Welcome to SKYCOBE!',
-            html: `<p>Hi <strong>${data.fullName}</strong>,</p><p>Welcome to SKYCOBE! We're thrilled to have you as a ${role} on our platform.</p><p>Let's find or list your next perfect space.</p>`
+            html: `<p>Hi <strong>${data.fullName}</strong>,</p><p>Welcome to SKYCOBE! We're thrilled to have you as a ${selectedSignupRole} on our platform.</p><p>Let's find or list your next perfect space.</p>`
           })
         }).catch(err => console.error("Email API Error:", err));
 
-        // Navigation handled reactively by App.tsx router
-        navigate('/student/dashboard', { replace: true });
+        navigate(redirectDashboard, { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");
@@ -248,8 +258,8 @@ export function SignUp() {
 
   const handleGoogleAuth = async () => {
     try {
-      if (role) {
-        localStorage.setItem('signupRole', role);
+      if (selectedSignupRole) {
+        localStorage.setItem('signupRole', selectedSignupRole);
       }
       
       const { error } = await supabase.auth.signInWithOAuth({
@@ -380,7 +390,47 @@ export function SignUp() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-5 tracking-wide">Sign up with</p>
+              {/* Role Selection Toggle */}
+              <div className="mb-5 text-left">
+                <span className="text-[11px] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider block mb-2">
+                  Select Account Type
+                </span>
+                <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)]">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSignupRole('student')}
+                    className={`py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer ${
+                      selectedSignupRole === 'student'
+                        ? 'bg-[var(--color-button)] text-white shadow-sm'
+                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/5'
+                    }`}
+                  >
+                    <GraduationCap size={16} />
+                    <span>Student</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSignupRole('manager')}
+                    className={`py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer ${
+                      selectedSignupRole === 'manager'
+                        ? 'bg-[var(--color-button)] text-white shadow-sm'
+                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/5'
+                    }`}
+                  >
+                    <Hotel size={16} />
+                    <span>Hostel Owner</span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-[var(--color-text-secondary)] mt-1.5 px-1">
+                  {selectedSignupRole === 'student'
+                    ? '🎓 Browse verified hostels and find campus rooms.'
+                    : '🏨 List rooms, set semester prices, and manage bookings.'}
+                </p>
+              </div>
+
+              <p className="text-center text-[var(--color-text-secondary)] text-sm mb-4 tracking-wide">
+                Sign up as <span className="font-semibold text-[var(--color-accent)]">{selectedSignupRole === 'student' ? 'Student' : 'Hostel Owner'}</span> with
+              </p>
 
               {/* Google primary */}
               <button

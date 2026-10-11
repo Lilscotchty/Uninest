@@ -109,7 +109,7 @@ export function AuthForm({ type }: AuthFormProps) {
       } else {
         toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!");
         showToast(isLogin ? "Logged in successfully!" : "Account created successfully!");
-        navigate('/student/dashboard', { replace: true });
+        navigate(role === 'manager' ? '/manager/dashboard' : '/student/dashboard', { replace: true });
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred.");

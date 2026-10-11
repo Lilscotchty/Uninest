@@ -4,7 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import { useTheme, type ThemeMode } from '../context/ThemeContext';
 import { PageHeader } from '../components/layout/PageHeader';
 import { OpportunitiesSection } from '../components/opportunities/OpportunitiesSection';
-import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings, Camera, Image } from 'lucide-react';
+import { User, CreditCard, Bell, Shield, HelpCircle, FileText, PenLine, LogOut, ChevronRight, Moon, Sun, Monitor, Maximize, Minimize, ScanLine, Settings, Camera, Image, Building, Hotel } from 'lucide-react';
 import { PhotoModal } from '../components/profile/PhotoModal';
 
 function ThemeRow() {
@@ -42,7 +42,7 @@ function ThemeRow() {
 }
 
 export const Profile: React.FC = () => {
-  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user, profile, refreshProfile } = useAppContext();
+  const { showToast, setCurrentView, isFullscreen, toggleFullscreen, user, profile, refreshProfile, openRoleModal } = useAppContext();
   const navigate = useNavigate();
 
   const [photoModalState, setPhotoModalState] = useState<{
@@ -202,6 +202,27 @@ export const Profile: React.FC = () => {
                 <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Account</span>
               </div>
               <div className="flex flex-col">
+                {/* Account Type & Role Switcher */}
+                <button 
+                  onClick={() => openRoleModal()} 
+                  className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group"
+                >
+                  <div className="w-9 h-9 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                    <Hotel size={18} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="block text-[0.95rem] font-semibold text-text-primary leading-tight">
+                      Account Type & Role
+                    </span>
+                    <span className="text-xs text-text-muted mt-0.5 block truncate">
+                      {isManager ? 'Hostel / Property Manager' : 'Student'} · Click to switch role
+                    </span>
+                  </div>
+                  <span className="text-xs bg-[var(--color-accent)]/15 text-[var(--color-accent)] px-2.5 py-1 rounded-full font-bold shrink-0">
+                    Switch
+                  </span>
+                </button>
+
                 <button onClick={() => navigate('/referrals')} className="flex items-center gap-3 w-full p-4 border-b border-border-subtle text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
                   <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                     <User size={18} />
@@ -252,21 +273,46 @@ export const Profile: React.FC = () => {
               </div>
             </div>
 
-            {/* Management Group */}
-            {isManager && (
-            <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle overflow-hidden h-fit">
-              <div className="px-5 py-3.5 border-b border-border-subtle bg-app-bg/30">
-                <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
+            {/* Management Group for Managers or Host Invitation for Students */}
+            {isManager ? (
+              <div className="bg-card-bg rounded-[20px] shadow-sm border border-border-subtle overflow-hidden h-fit">
+                <div className="px-5 py-3.5 border-b border-border-subtle bg-app-bg/30">
+                  <span className="text-[0.7rem] font-bold text-text-muted uppercase tracking-wider">Management</span>
+                </div>
+                <div className="flex flex-col">
+                  <button onClick={() => navigate("/manager/dashboard")} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
+                    <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                      <FileText size={18} />
+                    </div>
+                    <div className="flex-1">
+                      <span className="block text-[0.95rem] font-semibold text-text-primary">Property Manager Dashboard</span>
+                      <span className="text-xs text-text-muted">Manage hostels, rooms, GPS location, and bookings</span>
+                    </div>
+                    <ChevronRight size={16} className="text-text-muted" />
+                  </button>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <button onClick={() => navigate("/manager/dashboard")} className="flex items-center gap-3 w-full p-4 text-left bg-card-bg transition-colors hover:bg-app-bg cursor-pointer active:bg-[var(--color-surface-2)] group">
-                  <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    <FileText size={18} />
+            ) : (
+              <div className="bg-gradient-to-br from-amber-500/10 via-card-bg to-card-bg rounded-[20px] shadow-sm border border-amber-500/30 overflow-hidden h-fit p-5">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center shrink-0 border border-amber-500/20">
+                    <Hotel size={20} />
                   </div>
-                  <span className="flex-1 text-[0.95rem] font-semibold text-text-primary">Property Manager Dashboard</span>
-                </button>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-[0.95rem] font-bold text-text-primary">Are you a Hostel Owner?</h3>
+                    <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                      List student hostels, manage rooms, configure semester pricing, and take bookings.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => openRoleModal()}
+                      className="mt-3.5 px-3.5 py-1.5 rounded-xl bg-[var(--color-button)] text-white text-xs font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all cursor-pointer"
+                    >
+                      Switch to Hostel Manager Mode
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
             )}
 
             {/* Support Group */}

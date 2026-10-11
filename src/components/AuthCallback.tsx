@@ -6,13 +6,24 @@ import { toast } from "sonner";
 
 export const AuthCallback: React.FC = () => {
   const navigate = useNavigate();
-  const { user, profileLoading } = useAppContext();
+  const { user, profile, profileLoading } = useAppContext();
   const [statusMessage, setStatusMessage] = useState("Completing sign in...");
+
+  const getTargetDashboard = () => {
+    const signupRole = typeof window !== 'undefined' ? localStorage.getItem('signupRole') : null;
+    const isHost =
+      profile?.role === 'manager' ||
+      profile?.role === 'accommodation_owner' ||
+      profile?.role === 'property_owner' ||
+      signupRole === 'manager';
+
+    return isHost ? '/manager/dashboard' : '/student/dashboard';
+  };
 
   useEffect(() => {
     // If user is already resolved and loaded in context, proceed to dashboard
     if (user && !profileLoading) {
-      navigate("/student/dashboard", { replace: true });
+      navigate(getTargetDashboard(), { replace: true });
       return;
     }
 
@@ -38,7 +49,7 @@ export const AuthCallback: React.FC = () => {
           const { data, error } = await supabase.auth.exchangeCodeForSession(code);
           if (!error && data?.session) {
             if (isMounted) {
-              navigate("/student/dashboard", { replace: true });
+              navigate(getTargetDashboard(), { replace: true });
             }
             return;
           }
@@ -51,7 +62,7 @@ export const AuthCallback: React.FC = () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         if (session && isMounted) {
-          navigate("/student/dashboard", { replace: true });
+          navigate(getTargetDashboard(), { replace: true });
           return;
         }
       } catch (err) {
@@ -63,7 +74,7 @@ export const AuthCallback: React.FC = () => {
         if (!isMounted) return;
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
-          navigate("/student/dashboard", { replace: true });
+          navigate(getTargetDashboard(), { replace: true });
         } else {
           toast.error("Could not verify your session. Please sign in again.");
           navigate("/login", { replace: true });

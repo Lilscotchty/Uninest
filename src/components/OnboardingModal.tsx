@@ -1,65 +1,147 @@
 // src/components/OnboardingModal.tsx
+// Seamless role onboarding & switcher modal separating Students from Hostel Owners / Managers
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Check, GraduationCap, Building, Hotel, Home } from 'lucide-react';
+import { ArrowRight, Check, GraduationCap, Building, Hotel, Home, X, Sparkles, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAppContext } from '../context/AppContext';
 import {
-  USER_ROLES, ROLE_META,
+  USER_ROLES,
   type UserRole,
 } from '../types/roles';
 
-// Ensure ROLE_META is not dependent on emojis here
-const roleIcons: Record<UserRole, React.ReactNode> = {
-  manager: <Check size={20} />,
-  student: <GraduationCap size={20} />,
-  general_renter: <Home size={20} />,
-  accommodation_owner: <Hotel size={20} />,
-  property_owner: <Building size={20} />
-};
+interface RoleOption {
+  role: UserRole;
+  title: string;
+  badge?: string;
+  description: string;
+  icon: React.ReactNode;
+  iconBg: string;
+  iconColor: string;
+}
+
+const ROLES_DISPLAY: RoleOption[] = [
+  {
+    role: 'student',
+    title: 'Student',
+    badge: 'Campus Life',
+    description: 'Looking for verified student hostels, campus rooms, and roommates near my university.',
+    icon: <GraduationCap size={22} />,
+    iconBg: 'bg-emerald-500/10 border-emerald-500/20',
+    iconColor: 'text-emerald-500',
+  },
+  {
+    role: 'accommodation_owner',
+    title: 'Hostel Owner / Manager',
+    badge: 'Hostel Portal',
+    description: 'I own or manage a student hostel, hall, or guesthouse. List rooms, set pricing, and accept bookings.',
+    icon: <Hotel size={22} />,
+    iconBg: 'bg-amber-500/10 border-amber-500/20',
+    iconColor: 'text-amber-500',
+  },
+  {
+    role: 'property_owner',
+    title: 'Property Owner / Landlord',
+    badge: 'Properties',
+    description: 'I rent out private residential apartments, single homes, or short-let spaces.',
+    icon: <Building size={22} />,
+    iconBg: 'bg-blue-500/10 border-blue-500/20',
+    iconColor: 'text-blue-500',
+  },
+  {
+    role: 'general_renter',
+    title: 'General Renter',
+    badge: 'Renting',
+    description: 'Browsing residential apartments and houses across Ghana for personal or family stay.',
+    icon: <Home size={22} />,
+    iconBg: 'bg-purple-500/10 border-purple-500/20',
+    iconColor: 'text-purple-500',
+  },
+];
 
 export function OnboardingModal() {
   const navigate = useNavigate();
-  const { user, profile, updateRole, profileLoading } = useAppContext();
+  const { user, profile, updateRole, profileLoading, isRoleModalOpen, setIsRoleModalOpen } = useAppContext();
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
   const [saving, setSaving] = useState(false);
   const [show, setShow] = useState(false);
 
+  // Check whether onboarding should appear
   useEffect(() => {
     if (profileLoading) return;
 
-    if (user && profile && profile.role === 'general_renter') {
-      const seen = localStorage.getItem(`skycobe_onboarding_${user.id}`);
-      if (!seen) {
-        setShow(true);
+    if (!user) {
+      setShow(false);
+      return;
+    }
+
+    // Explicit manual open from Profile / Settings
+    if (isRoleModalOpen) {
+      setShow(true);
+      if (profile?.role) {
+        setSelectedRole(profile.role);
+      }
+      return;
+    }
+
+    // Automatic onboarding check for newly registered users
+    const seen = localStorage.getItem(`skycobe_onboarding_${user.id}`);
+    const alreadyDone = seen === 'done' || profile?.onboarding_completed;
+
+    if (!alreadyDone) {
+      setShow(true);
+      if (profile?.role) {
+        setSelectedRole(profile.role);
       }
     } else {
       setShow(false);
     }
-  }, [user, profile, profileLoading]);
+  }, [user, profile, profileLoading, isRoleModalOpen]);
 
   if (!show) return null;
 
-  const isOwnerRole = selectedRole === 'accommodation_owner' ||
-                      selectedRole === 'property_owner';
+  const isOwnerRole = (role: UserRole | null) => 
+    role === 'accommodation_owner' || role === 'property_owner' || role === 'manager';
 
   const handleRoleSelect = (role: UserRole) => {
     setSelectedRole(role);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setIsRoleModalOpen(false);
   };
 
   const handleContinue = async () => {
     if (!selectedRole || !user) return;
     setSaving(true);
     try {
-      await updateRole(
-        selectedRole,
-        isOwnerRole ? selectedRole : undefined
-      );
+      const ownerType = isOwnerRole(selectedRole)
+        ? (selectedRole === 'manager' ? 'accommodation_owner' : selectedRole)
+        : undefined;
+
+      await updateRole(selectedRole, ownerType);
+
       localStorage.setItem(`skycobe_onboarding_${user.id}`, 'done');
-      toast.success('Welcome to SKYCOBE!');
+
+      const isHost = isOwnerRole(selectedRole);
+
+      toast.success(
+        isHost
+          ? 'Welcome, Manager! Navigating to your property management dashboard.'
+          : 'Welcome to SKYCOBE! Enjoy exploring your student accommodations.'
+      );
+
       setShow(false);
+      setIsRoleModalOpen(false);
+
+      if (isHost) {
+        navigate('/manager/dashboard', { replace: true });
+      } else {
+        navigate('/student/dashboard', { replace: true });
+      }
     } catch (err: any) {
       toast.error('Failed to save your role. Please try again.');
       console.error(err);
@@ -68,86 +150,149 @@ export function OnboardingModal() {
     }
   };
 
+  const isManualOpen = Boolean(isRoleModalOpen);
+  const currentRole = profile?.role || 'student';
+
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0f1a]/80 backdrop-blur-md px-4 py-8 overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 backdrop-blur-md px-4 py-6 overflow-y-auto">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="w-full max-w-md bg-[var(--color-card-bg)] rounded-[24px] border border-[var(--color-border)] shadow-float p-6 sm:p-8 m-auto relative"
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="w-full max-w-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] rounded-[28px] border border-[var(--color-border)] shadow-2xl p-6 sm:p-8 m-auto relative max-h-[92vh] flex flex-col overflow-hidden"
       >
-        {/* Header */}
-        <div className="mb-8 text-center pt-2">
-          <h1 className="text-[1.35rem] sm:text-2xl font-bold text-[var(--color-heading)] tracking-tight">
+        {/* Close Button - available if user already onboarded or opened manually */}
+        {(isManualOpen || localStorage.getItem(`skycobe_onboarding_${user?.id}`) === 'done') && (
+          <button
+            type="button"
+            onClick={handleClose}
+            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] transition-colors z-20 cursor-pointer"
+            aria-label="Close modal"
+          >
+            <X size={16} />
+          </button>
+        )}
+
+        {/* Modal Header */}
+        <div className="text-center pt-2 pb-4 shrink-0">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-xs font-semibold uppercase tracking-wider mb-3 border border-[var(--color-accent)]/20">
+            <Sparkles size={13} />
+            <span>Account Personalization</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-heading)]">
             How will you use SKYCOBE?
-          </h1>
-          <p className="text-[0.85rem] text-text-muted mt-2">
-            Select your account type to personalize your experience.
+          </h2>
+          <p className="text-[0.88rem] text-[var(--color-text-secondary)] mt-1.5 max-w-sm mx-auto">
+            Choose whether you are looking for hostels as a student or managing properties as a hostel owner.
           </p>
         </div>
 
-        {/* Role cards */}
-        <div className="space-y-3 mb-8">
-          {USER_ROLES.map((role) => {
-            const meta = ROLE_META[role];
-            const selected = selectedRole === role;
+        {/* Role Cards List */}
+        <div className="space-y-3 overflow-y-auto pr-1 py-1 flex-1 custom-scrollbar">
+          {ROLES_DISPLAY.map((opt) => {
+            const isSelected = selectedRole === opt.role;
+            const isCurrent = currentRole === opt.role;
+
             return (
               <motion.button
-                key={role}
+                key={opt.role}
                 type="button"
-                onClick={() => handleRoleSelect(role)}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full flex items-center gap-4 p-4 rounded-[18px] text-left transition-all duration-200 border-2 ${
-                  selected
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent)]/5 shadow-[0_4px_12px_rgba(192,132,60,0.06)]'
-                    : 'border-[var(--color-border)] bg-transparent hover:border-[var(--color-border-hover)] hover:bg-slate-50/5'
+                onClick={() => handleRoleSelect(opt.role)}
+                whileTap={{ scale: 0.985 }}
+                className={`w-full flex items-start gap-4 p-4 rounded-2xl text-left transition-all duration-200 border-2 cursor-pointer ${
+                  isSelected
+                    ? 'border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-[0_4px_16px_rgba(192,132,60,0.12)]'
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)]/60 hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface)]'
                 }`}
               >
-                <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center flex-shrink-0 transition-colors ${
-                  selected ? 'bg-[var(--color-button)]/10 text-[var(--color-accent)]' : 'bg-slate-100/5 text-text-muted border border-[var(--color-border)]'
-                }`}>
-                  {roleIcons[role]}
+                {/* Role Icon */}
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 border transition-all mt-0.5 ${opt.iconBg} ${opt.iconColor}`}>
+                  {opt.icon}
                 </div>
+
+                {/* Role Details */}
                 <div className="flex-1 min-w-0">
-                  <p className={`text-[0.95rem] font-bold leading-tight mb-0.5 ${
-                    selected ? 'text-[var(--color-heading)]' : 'text-text-primary'
-                  }`}>
-                    {meta.label}
-                  </p>
-                  <p className={`text-[0.75rem] truncate font-medium ${selected ? 'text-[var(--color-accent)]/80' : 'text-text-muted'}`}>
-                    {meta.description}
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[1rem] font-bold text-[var(--color-heading)] leading-snug">
+                      {opt.title}
+                    </span>
+                    {opt.badge && (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)]">
+                        {opt.badge}
+                      </span>
+                    )}
+                    {isCurrent && isManualOpen && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-500">
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[0.82rem] font-normal leading-relaxed text-[var(--color-text-secondary)]">
+                    {opt.description}
                   </p>
                 </div>
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
-                  selected ? 'bg-[var(--color-button)] scale-100' : 'border-2 border-[var(--color-border)] scale-90 opacity-40'
+
+                {/* Radio selection check */}
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all mt-1 ${
+                  isSelected 
+                    ? 'bg-[var(--color-accent)] text-white scale-100 shadow-sm' 
+                    : 'border-2 border-[var(--color-border)] opacity-40 scale-90'
                 }`}>
-                  {selected && <Check size={14} className="text-white" strokeWidth={3} />}
+                  {isSelected && <Check size={14} strokeWidth={3} />}
                 </div>
               </motion.button>
             );
           })}
         </div>
 
-        {/* Continue button */}
-        <button
-          type="button"
-          onClick={handleContinue}
-          disabled={!selectedRole || saving}
-          className={`w-full h-[54px] rounded-xl font-bold text-[0.95rem] tracking-wide text-white flex items-center justify-center gap-2 transition-all duration-200 ${
-            !selectedRole || saving 
-              ? 'opacity-50 cursor-not-allowed bg-slate-700 border border-slate-600' 
-              : 'bg-[var(--color-button)] hover:opacity-90 active:scale-[0.98] shadow-[0_4px_20px_rgba(192,132,60,0.25)]'
-          }`}
-        >
-          {saving ? (
-            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          ) : (
-            <>
-              Continue
-              <ArrowRight size={18} strokeWidth={2.5} />
-            </>
+        {/* Footer Actions */}
+        <div className="pt-5 mt-2 border-t border-[var(--color-border)] shrink-0 space-y-2.5">
+          <button
+            type="button"
+            onClick={handleContinue}
+            disabled={!selectedRole || saving}
+            className={`w-full h-[52px] rounded-xl font-bold text-[0.95rem] tracking-wide text-white flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
+              !selectedRole || saving 
+                ? 'opacity-50 cursor-not-allowed bg-slate-700 border border-slate-600' 
+                : 'bg-[var(--color-button)] hover:opacity-95 active:scale-[0.98] shadow-md'
+            }`}
+          >
+            {saving ? (
+              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>
+                {selectedRole === 'accommodation_owner' || selectedRole === 'property_owner' || selectedRole === 'manager'
+                  ? 'Continue to Manager Dashboard'
+                  : 'Continue to Student Experience'}
+                <ArrowRight size={18} strokeWidth={2.5} />
+              </>
+            )}
+          </button>
+
+          {/* Quick Skip for initial onboarding */}
+          {!isManualOpen && (
+            <button
+              type="button"
+              onClick={async () => {
+                if (!user) return;
+                setSaving(true);
+                try {
+                  await updateRole('student');
+                  localStorage.setItem(`skycobe_onboarding_${user.id}`, 'done');
+                  setShow(false);
+                  navigate('/student/dashboard', { replace: true });
+                } finally {
+                  setSaving(false);
+                }
+              }}
+              disabled={saving}
+              className="w-full text-center text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] py-1 font-medium transition-colors"
+            >
+              Skip for now (Continue as Student)
+            </button>
           )}
-        </button>
+        </div>
       </motion.div>
     </div>
   );

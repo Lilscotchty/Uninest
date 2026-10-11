@@ -39,6 +39,9 @@ interface AppContextType extends AppState, ViewState {
   profileLoading: boolean;
   updateRole: (role: UserRole, ownerType?: string) => Promise<void>;
   refreshProfile: () => Promise<void>;
+  isRoleModalOpen: boolean;
+  setIsRoleModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openRoleModal: () => void;
   isOwner: boolean;
   isStudent: boolean;
   isAccommodationOwner: boolean;
@@ -63,6 +66,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [user, setUser] = useState<any | null | undefined>(undefined);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
+
+  const openRoleModal = () => setIsRoleModalOpen(true);
 
   // Payment & Referral states
   const [hasPaidOpportunityHub, setHasPaidOpportunityHubState] = useState(false);
@@ -290,17 +296,37 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const updateRole = async (role: UserRole, ownerType?: string) => {
     if (!user) return;
-    const update: Partial<UserProfile> = {
+    const update: any = {
       role,
-      owner_type: ownerType as UserProfile['owner_type'] ?? null,
+      account_type: role,
+      owner_type: ownerType ?? null,
       updated_at: new Date().toISOString(),
     };
-    const { error } = await supabase
-      .from('profiles')
-      .update(update)
-      .eq('id', user.id);
-    if (error) throw error;
-    setProfile(prev => prev ? { ...prev, ...update } as UserProfile : null);
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update(update)
+        .eq('id', user.id);
+      if (error) {
+        console.warn("Notice: profile update fallback", error.message);
+      }
+    } catch (e) {
+      console.warn("Profiles update caught:", e);
+    }
+
+    try {
+      await supabase.auth.updateUser({
+        data: {
+          role,
+          account_type: role,
+          onboarding_completed: true,
+        }
+      });
+    } catch (e) {
+      console.warn("auth updateUser caught:", e);
+    }
+
+    setProfile(prev => prev ? { ...prev, ...update, onboarding_completed: true } as UserProfile : null);
   };
 
   const refreshProfile = async () => {
@@ -448,6 +474,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         profileLoading,
         updateRole,
         refreshProfile,
+        isRoleModalOpen,
+        setIsRoleModalOpen,
+        openRoleModal,
         isOwner: isOwnerUser,
         isStudent: isStudentUser,
         isAccommodationOwner,
