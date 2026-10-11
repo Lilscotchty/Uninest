@@ -255,7 +255,7 @@ export function SignUp() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: getAuthRedirectUrl('/student/dashboard')
+          redirectTo: getAuthRedirectUrl('/auth/callback')
         }
       });
       if (error) {

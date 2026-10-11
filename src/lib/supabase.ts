@@ -13,28 +13,40 @@ const supabaseKey =
   import.meta.env.SUPABASE_ANON_KEY ||
   '';
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+  },
+});
 
 // Canonical application URL configured for the site
 export const CANONICAL_SITE_URL = 'https://uninest-lyart.vercel.app';
 
 /**
  * Returns the exact redirect URL to use for Supabase auth flows (OAuth and email confirmation).
- * Strict priority:
- * 1. If running on localhost in local dev, allow localhost.
- * 2. In any deployed environment (Vercel, preview, production), strictly use https://uninest-lyart.vercel.app.
+ * Defaults to '/auth/callback' for smooth code exchange before navigating to the dashboard.
+ * Preserves the originating host so PKCE code_verifier in localStorage matches the domain.
  */
-export const getAuthRedirectUrl = (path: string = '/student/dashboard'): string => {
+export const getAuthRedirectUrl = (path: string = '/auth/callback'): string => {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
 
-  // Keep localhost only during local development testing
-  if (
-    typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-  ) {
+  if (typeof window !== 'undefined') {
+    // If testing on localhost or local dev
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return `${window.location.origin}${cleanPath}`;
+    }
+
+    // If on the canonical Vercel site
+    if (window.location.hostname.includes('uninest-lyart.vercel.app')) {
+      return `${CANONICAL_SITE_URL}${cleanPath}`;
+    }
+
+    // For any other preview or custom origin, keep origin to prevent PKCE code_verifier loss
     return `${window.location.origin}${cleanPath}`;
   }
 
-  // Canonical production URL as explicitly requested
   return `${CANONICAL_SITE_URL}${cleanPath}`;
 };

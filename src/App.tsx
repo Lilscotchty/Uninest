@@ -96,6 +96,23 @@ const AppContent: React.FC = () => {
     }
   }, [user, profile, profileLoading, location.pathname, location.search, location.hash, navigate]);
 
+  const publicPaths = ["/", "/login", "/signup", "/auth/callback"];
+  const isAuthInFlight =
+    location.search.includes('code=') ||
+    location.hash.includes('access_token=');
+
+  // Prevent flashing protected dashboard or accepting premature button clicks before auth exchange completes
+  if ((profileLoading || isAuthInFlight) && !publicPaths.includes(location.pathname) && !user) {
+    return (
+      <div className="w-full flex-1 flex flex-col items-center justify-center min-h-[100dvh] bg-[var(--color-bg)] text-[var(--color-text-primary)]">
+        <div className="w-10 h-10 border-4 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin mb-4" />
+        <p className="text-[var(--color-text-secondary)] text-sm font-medium">
+          Verifying your session...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] flex flex-col font-sans`}

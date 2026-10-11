@@ -125,7 +125,40 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setProfileLoading(false);
   };
 
+  const syncUserData = (userObj: any) => {
+    const code = userObj.id.substring(0, 8).toUpperCase();
+    setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${userObj.id}`) === 'true');
+    setReferralCode(code);
+    setEarnedCredits(Number(localStorage.getItem(`credits_${userObj.id}`) || '0'));
+    setEarnedCash(
+      Number(localStorage.getItem(`cash_${userObj.id}`) || '0') +
+      Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
+    );
+    let baselineRefs: any[] = [];
+    let codeRefs: any[] = [];
+    try {
+      const v1 = localStorage.getItem(`referees_${userObj.id}`);
+      if (v1 && v1 !== 'undefined') {
+        const parsed = JSON.parse(v1);
+        if (Array.isArray(parsed)) baselineRefs = parsed;
+      }
+    } catch(e) {}
+    try {
+      const v2 = localStorage.getItem(`referees_by_code_${code}`);
+      if (v2 && v2 !== 'undefined') {
+        const parsed = JSON.parse(v2);
+        if (Array.isArray(parsed)) codeRefs = parsed;
+      }
+    } catch(e) {}
+
+    const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
+       index === self.findIndex((t) => t?.name === value?.name)
+    );
+    setReferees(uniqueRefs);
+  };
+
   useEffect(() => {
+    let isMounted = true;
     const hasAuthCode = window.location.search.includes('code=');
     const hasAuthToken = window.location.hash.includes('access_token=');
     const hasAuthError = window.location.search.includes('error=') || window.location.hash.includes('error=');
@@ -145,118 +178,101 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setProfileLoading(true);
     }
 
+    const handleUserSession = async (userObj: any) => {
+      if (!isMounted) return;
+      setUser(userObj);
+      await fetchProfile(userObj.id);
+      if (!isMounted) return;
+      syncUserData(userObj);
+
+      // Clean authentication query/hash from the browser URL now that the session is safely established
+      if (typeof window !== 'undefined') {
+        const hasCodeOrToken = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
+        if (hasCodeOrToken && window.history.replaceState) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+    };
+
+    // 1. Listen for Supabase auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!isMounted) return;
+
+      if (session?.user) {
+        await handleUserSession(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        setUser(null);
+        setProfile(null);
+        setProfileLoading(false);
+      } else if (event === 'INITIAL_SESSION') {
+        // If there's an auth code or token in the URL, wait for code exchange to complete
+        const urlHasCode = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
+        if (!urlHasCode) {
+          setUser(null);
+          setProfile(null);
+          setProfileLoading(false);
+        }
+      }
+    });
+
+    // 2. Check current session / complete exchange
     const initAuth = async () => {
-      // If code is in URL, explicitly exchange it
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          await handleUserSession(session.user);
+          return;
+        }
+      } catch (err) {
+        console.warn("Failed to get session", err);
+      }
+
+      // If code in URL and detectSessionInUrl hasn't completed, attempt exchange
       if (hasAuthCode) {
         const code = new URLSearchParams(window.location.search).get('code');
         if (code) {
           try {
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
             if (!error && data?.session?.user) {
-              if (window.history.replaceState) {
-                window.history.replaceState({}, document.title, window.location.pathname);
-              }
-              setUser(data.session.user);
-              await fetchProfile(data.session.user.id);
+              await handleUserSession(data.session.user);
               return;
             }
           } catch (e) {
-            console.warn("Explicit code exchange attempt:", e);
+            // Might have already been exchanged by Supabase listener; check session again
+            try {
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session?.user) {
+                await handleUserSession(session.user);
+                return;
+              }
+            } catch (ignore) {}
           }
         }
       }
 
-      // Check current session
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          setUser(session.user);
-          await fetchProfile(session.user.id);
-          const code = session.user.id.substring(0, 8).toUpperCase();
-          setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
-          setReferralCode(code);
-          setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
-          setEarnedCash(
-            Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
-            Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
-          );
-        } else {
-          // If this is an auth redirect with code, wait for onAuthStateChange to deliver the session
-          if (!isAuthRedirect) {
-            setUser(null);
-            setProfile(null);
-            setProfileLoading(false);
-          }
-        }
-      } catch (err) {
-        console.warn("Failed to get session", err);
-        if (!isAuthRedirect) {
-          setUser(null);
-          setProfile(null);
-          setProfileLoading(false);
-        }
+      if (!isAuthRedirect && isMounted) {
+        setUser(null);
+        setProfile(null);
+        setProfileLoading(false);
       }
     };
 
     initAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        setUser(session.user);
-        await fetchProfile(session.user.id);
-        const code = session.user.id.substring(0, 8).toUpperCase();
-        setHasPaidOpportunityHubState(localStorage.getItem(`paid_opp_hub_${session.user.id}`) === 'true');
-        setReferralCode(code);
-        setEarnedCredits(Number(localStorage.getItem(`credits_${session.user.id}`) || '0'));
-        setEarnedCash(
-          Number(localStorage.getItem(`cash_${session.user.id}`) || '0') +
-          Number(localStorage.getItem(`cash_by_code_${code}`) || '0')
-        );
-        let baselineRefs: any[] = [];
-        let codeRefs: any[] = [];
-        try {
-          const v1 = localStorage.getItem(`referees_${session.user.id}`);
-          if (v1 && v1 !== 'undefined') {
-            const parsed = JSON.parse(v1);
-            if (Array.isArray(parsed)) baselineRefs = parsed;
-          }
-        } catch(e) {}
-        try {
-          const v2 = localStorage.getItem(`referees_by_code_${code}`);
-          if (v2 && v2 !== 'undefined') {
-            const parsed = JSON.parse(v2);
-            if (Array.isArray(parsed)) codeRefs = parsed;
-          }
-        } catch(e) {}
-
-        const uniqueRefs = [...baselineRefs, ...codeRefs].filter((value, index, self) =>
-           index === self.findIndex((t) => t?.name === value?.name)
-        );
-        setReferees(uniqueRefs);
-      } else {
-        // If there's an auth code or token in the URL and this is INITIAL_SESSION, do NOT clear loading yet!
-        const urlHasCode = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
-        if (event === 'INITIAL_SESSION' && urlHasCode) {
-          return;
-        }
-        setUser(null);
-        setProfile(null);
-        setProfileLoading(false);
-      }
-    });
-
-    // Safety timeout: if after 6 seconds still profileLoading with pending code, reset loading
+    // Safety timeout: if after 5 seconds still profileLoading with pending code, reset loading safely
     const safetyTimeout = setTimeout(() => {
+      if (!isMounted) return;
       setProfileLoading((loading) => {
         if (loading) {
-          setUser((u: any) => (u === undefined ? null : u));
+          setUser((u: any) => (u !== undefined ? u : null));
           return false;
         }
         return loading;
       });
-    }, 6000);
+    }, 5000);
 
     return () => {
+      isMounted = false;
       clearTimeout(safetyTimeout);
       subscription.unsubscribe();
     };
